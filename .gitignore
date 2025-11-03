@@ -1,0 +1,35 @@
+# python related files
+*.py[cod]
+*.pyo
+*.pyd
+*.pyd
+*.pdb
+*.pyc
+__pycache__/
+
+# virtual environment
+.venv/
+env/
+venv/
+
+# Django related files
+*.log
+env.py
+db.sqlite3
+
+# Static files
+staticfiles/
+
+# OS
+.DS_Store
+Thumbs.db
+
+core.Microsoft*
+core.python*
+
+# IDEs
+.vscode/
+.idea/
+
+# GitHub
+.github/
