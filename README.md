@@ -2,7 +2,9 @@
 
 A fictional e-commerce platform for a speculative video game company, Dark Sky Games, selling digital products and physical merchandise on a dedicated store for their game - Eclipse Protocol. 
 
-## Wireframes:
+# Wireframes:
+
+## Product Pages
 
 ### Landing Page:
 
@@ -44,6 +46,8 @@ A fictional e-commerce platform for a speculative video game company, Dark Sky G
 
 ![Eclipse Protocol E-Commerce Merchandise Detail Page](docs/images/wireframes/merchandise-detail-page.png)
 
+## Account & Authentication
+
 ### Sign In Page:
 
 ![Eclipse Protocol E-Commerce Sign In Page](docs/images/wireframes/sign-in-page.png)
@@ -60,9 +64,19 @@ A fictional e-commerce platform for a speculative video game company, Dark Sky G
 
 ![Eclipse Protocol E-Commerce Wishlist Page](docs/images/wireframes/wishlist-page.png)
 
+## Shopping & Checkout
+
 ### Cart Page:
 
 ![Eclipse Protocol E-Commerce Cart Page](docs/images/wireframes/cart-page.png)
+
+**Note on Checkout Flow:**
+The checkout process designs will use conditional logic based on cart contents:
+- **Digital-only purchases** follow a streamlined 2-step process (Review Order → Payment)
+- **Physical merchandise purchases** include an additional Shipping Details step (Billing & Shipping → Review Order → Payment)
+- **MVP design** focuses on digital sales, with physical merchandise checkout flow to be expanded in future iterations.
+
+These designs ensure customers purchasing digital products (game keys, DLC, credits) experience a faster checkout, while physical merchandise orders collect necessary shipping information.
 
 ### Payment/Billing MVP Page:
 
@@ -71,6 +85,8 @@ A fictional e-commerce platform for a speculative video game company, Dark Sky G
 ### Billing and Shipping Details Page:
 
 ![Eclipse Protocol E-Commerce Billing and Shipping Details Page](docs/images/wireframes/billing-shipping-details.png)
+
+**Note:** The following wireframes show the variations in the billing and shipping addresses expanded forms for different scenarios:
 
 ![Billing and Shipping Multi Laptop Option Views](docs/images/wireframes/billing-shipping-multi-laptop-option-views.png)
 
@@ -92,6 +108,8 @@ A fictional e-commerce platform for a speculative video game company, Dark Sky G
 
 ![Eclipse Protocol E-Commerce Order Confirmation of Purchase Page](docs/images/wireframes/order-confirmation-page.png)
 
+## Support & Information Pages
+
 ### Contact/Support Page:
 
 ![Eclipse Protocol E-Commerce Contact/Support Page](docs/images/wireframes/contact-support-page.png)
@@ -108,15 +126,145 @@ A fictional e-commerce platform for a speculative video game company, Dark Sky G
 
 ![Eclipse Protocol E-Commerce Error 404 Page](docs/images/wireframes/error-page.png)
 
-## ERD Diagram:
+## Colour Palette:
 
-![Eclipse Protocol E-Commerce ERD](docs/images/diagrams/eclipse-protocol-erd.png)
+![Eclipse Protocol E-Commerce Colour Palette](docs/images/design/eclipse-protocol-colour-pallette.png)
 
-## Themes and Epics:
+#### Contrast & Accessibility:
 
-(table with user story and fibonacci points)
+## Project management & Planning:
+
+This project was planned and managed using agile methodology, utilising GitHub projects and Miro whiteboards.  
+
+### Theme 1: Digital Storefront
+#### Epic 1.1: Browse & Discover Digital Products
+|Story No. |User Story |Story Points |Priority |
+|-------------------|------------------------|----|--------------|
+| 1.1.1	 | As a customer, I want to browse all available digital products (base game, DLC, credits) so I can see what's available for my platform. |	5 |	Must Have |
+| 1.1.2	 | As a customer, I want to filter digital items by platform (Steam, Xbox, Nintendo, PlayStation) so I only see compatible content. |	3 |	Should Have |
+| 1.1.3	 | As a customer, I want to sort or filter by relevance or price so I can easily find what I want. |	3 |	Should Have |
+
+#### Epic 1.2: Product Details
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 1.2.1	 | As a customer, I want to view detailed product pages with descriptions, editions, prices, and platform options so I can make informed decisions. |	5 |	Must Have |
+| 1.2.2	 | As a customer, I want to see information on delivery method (redeemable key or automatic activation) before purchase. |	5 |	Must Have |
+
+#### Epic 1.3: Product Management (Admin)
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 1.3.1	 | As a site admin, I want to create, edit, and delete product listings so I can manage the catalogue easily. |	8 |	Must Have |
+
+### Theme 2: Digital Checkout & Delivery
+#### Epic 2.1: Purchase & Payment
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 2.1.1	 | As a customer, I want to add digital items to my basket and securely purchase them so I can access them in my account. |	8 |	Must Have |
+| 2.1.2	 | As a customer, I want to view an order summary and confirm before paying. |	3 |	Must Have |
+
+#### Epic 2.2: Delivery & Key Management
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 2.2.1	 | As a customer, I want my digital key or credits to be automatically applied to my account and emailed after purchase. |	8 |	Must Have |
+
+#### Epic 2.3: Order History
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 2.3.1	 | As a customer, I want to view my order history with product names, dates, and total amounts so I can track past purchases. |	5 |	Must Have |
+
+#### Epic 2.4: License Management (Admin)
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 2.4.1	 | As a site admin, I want to manage license key generation and mark keys as redeemed so availability stays accurate. |	5 |	Could Have |
+
+### Theme 3: Merchandise Store
+#### Epic 3.1: Browse & Purchase Merchandise
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 3.1.1	 | As a customer, I want to browse official merchandise (t-shirts, hoodies, mugs) so I can support the brand I enjoy. |	3 |	Could Have |
+
+#### Epic 3.2: Checkout & Delivery
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 3.2.1	 | As a customer, I want to add items to my basket, enter my shipping details, and select delivery options so I can receive my order. |	8 |	Could Have |
+| 3.2.2	 | As a customer, I want to choose between standard and express shipping to control delivery time and cost. |	3 |	Could Have |
+
+#### Epic 3.3: Admin Fulfilment
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 3.3.1	 | As a site admin, I want to update stock levels and mark orders as shipped so customers stay informed. |	5 |	Could Have |
+
+### Theme 4: Accounts & Authentication
+#### Epic 4.1: Player Accounts
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 4.1.1	 | As a customer, I want to register and log in with my email so I can access purchases and manage my account. |	5 |	Must Have |
+| 4.1.2	 | As a customer, I want to save my billing and shipping addresses for faster future checkouts. |	3 |	Should Have |
+
+#### Epic 4.2: Admin User Management
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 4.2.1	 | As a site admin, I want to view registered users and manage roles so I can maintain store security. |	5 |	Must Have |
+
+### Theme 5: Checkout & Payment
+#### Epic 5.1: Secure Payments
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 5.1.1	 | As a customer, I want to securely pay for items using Stripe so my payment details are protected. |	8 |	Must Have |
+| 5.1.2	 | As a customer, I want to review my order summary and total cost before finalising payment so I can confirm my purchase. |	3 |	Must Have |
+
+#### Epic 5.2: Admin Order Oversight
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 5.2.1	 | As a site admin, I want to see all orders and their payment statuses so I can troubleshoot and manage sales. |	5 |	Must Have |
+
+### Theme 6: Subscriptions
+#### Epic 6.1: Player Subscription Management
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 6.1.1	 | As a customer, I want to subscribe to Eclipse+ for monthly credits, DLC access, and perks so I can get ongoing benefits. |	8 |	Should Have |
+| 6.1.2	 | As a customer, I want to manage or cancel my subscription from my account dashboard so I remain in control. |	5 |	Should Have |
+
+#### Epic 6.2: Admin Subscription Oversight
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 6.2.1	 | As a site admin, I want to view current subscribers and renewal statuses so I can manage billing effectively. |	5 |	Should Have |
+
+### Theme 7: Admin Analytics
+#### Epic 7.1: Sales & Performance Insights
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 7.1.1	 | As the business owner, I want to see total revenue and best-selling products so I can track performance. |	5 |	Won't Have |
+| 7.1.2	 | As the business owner, I want to view sales data by platform (Steam, Xbox, PlayStation) so I can adjust marketing strategies. |	5 |	Won't Have |
+
+### Theme 8: Reviews & Community
+#### Epic 8.1: Product Reviews
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 8.1.1	 | As a customer, I want to leave a rating and review on products I've purchased so I can share my opinion. |	5 |	Could Have |
+| 8.1.2	 | As a customer, I want to read reviews from other players before purchasing. |	3 |	Could Have |
+
+#### Epic 8.2: Admin Review Moderation
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 8.2.1	 | As a site admin, I want to moderate or remove inappropriate reviews. |	3 |	Could Have |
+
+### Theme 9: Newsletter & Marketing
+#### Epic 9.1: Newsletter Subscriptions
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 9.1.1	 | As a customer, I want to subscribe to a newsletter for exclusive offers and updates. |	5 |	Should Have |
+
+#### Epic 9.2: Admin Newsletter Management
+| Story No. |	User Story |	Story Points |    Priority |
+|-----------|-------------|---------------|--------------|
+| 9.2.1	 | As a site admin, I want to manage active subscribers so I can send targeted promotions. |	5 |	Should Have |
+
 
 ## Effort Risk Fibonacci Matrix:
 
-![Eclipse Protocol E-Commerce Effort Risk Fibonacci Matrix](docs/images/diagrams/effort-risk-fibonacci-matrix.png)
+![Eclipse Protocol E-Commerce Effort Risk Fibonacci Matrix](docs/images/diagrams/effort-risk-matrix.png)
 
+## ERD Diagram:
+
+![Eclipse Protocol E-Commerce ERD](docs/images/diagrams/eclipse-protocol-erd.png)
