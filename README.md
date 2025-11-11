@@ -136,6 +136,39 @@ These designs ensure customers purchasing digital products (game keys, DLC, cred
 
 This project was planned and managed using agile methodology, utilising GitHub projects and Miro whiteboards.  
 
+### Agile Approach & Story Points
+
+User stories are estimated using **Fibonacci sequence story points** (1, 2, 3, 5, 8, 13) to reflect the relative effort, complexity, and uncertainty of each task. Story points consider:
+- Development time
+- Technical complexity
+- Dependencies on other features
+- Testing requirements
+
+**Total Project Scope:** 31 user stories across 9 themes and 15 epics, totaling **145 story points**.
+
+**MVP Scope:** Focus on **Must Have** features to deliver a functional e-commerce platform:
+- **16 Must Have stories = 85 points**
+- Core digital storefront functionality
+- Secure checkout and payment processing
+- User authentication and account management
+- Admin product and order management
+
+**MoSCoW Prioritization Breakdown:**
+- **Must Have:** 16 stories (85 points) - MVP core functionality
+- **Should Have:** 9 stories (44 points) - Phase 2 enhancements
+- **Could Have:** 8 stories (31 points) - Phase 3 value-adding features
+- **Won't Have:** 2 stories (10 points) - Future consideration
+
+### Scalability & Future Iterations
+
+The epic-based structure allows for flexible expansion as the business evolves. After MVP delivery, subsequent sprints can address Should Have and Could Have features based on:
+- **Customer feedback** - Prioritize features users request most
+- **Business metrics** - Add functionality that drives conversions
+- **Technical capacity** - Balance new features with technical debt
+- **Market changes** - Adapt to emerging e-commerce trends
+
+## User Stories by Theme and Epic:
+
 ### Theme 1: Digital Storefront
 #### Epic 1.1: Browse & Discover Digital Products
 |Story No. |User Story |Story Points |Priority |
@@ -217,6 +250,7 @@ This project was planned and managed using agile methodology, utilising GitHub p
 | Story No. |	User Story |	Story Points |    Priority |
 |-----------|-------------|---------------|--------------|
 | 5.2.1	 | As a site admin, I want to see all orders and their payment statuses so I can troubleshoot and manage sales. |	5 |	Must Have |
+| 5.2.2	 | As a site admin, I want to process refunds for orders directly from the admin panel so I can resolve customer issues efficiently. |	5 |	Should Have |
 
 ### Theme 6: Subscriptions
 #### Epic 6.1: Player Subscription Management
@@ -268,3 +302,99 @@ This project was planned and managed using agile methodology, utilising GitHub p
 ## ERD Diagram:
 
 ![Eclipse Protocol E-Commerce ERD](docs/images/diagrams/eclipse-protocol-erd.png)
+
+## Site Map:
+
+```
+Home Page
+│
+├── Products
+│   ├── All Products
+│   ├── Search Results
+│   ├── Digital Products
+│   │   ├── Base Game
+│   │   │   └── Edition Details
+│   │   ├── DLC
+│   │   └── Game Currency
+│   └── Merchandise
+│       └── Merchandise Detail
+│
+├── Eclipse+ Subscription (Public view, purchase requires login)
+│    └── Subscription Payment Page
+│      └── Subscription Confirmation
+│
+├── Shopping Cart (Public - view only)
+│
+├── Authentication
+│   ├── Login
+│   └── Sign-up
+│       │
+│       └── (After login) →
+│           │
+│           ├── Account Dashboard
+│           │   ├── Profile Details
+│           │   ├── Order History
+│           │   ├── Saved Addresses
+│           │   ├── Manage Subscription
+│           │   └── Account Settings
+│           │
+│           ├── Wishlist (Login Required)
+│           │
+│           └── Checkout (Login Required)
+│               ├── Billing Details
+│               ├── Shipping Method (if physical items)
+│               ├── Review Order
+│               ├── Payment Method
+│               └── Order Confirmation
+│
+├── Support/Help Center (Public)
+│   ├── Contact/Support Form
+│   └── Submission Confirmation
+│   
+│
+├── Information Pages (Public)
+│   └── Single page with accordion/expandable sections:
+│       ├── About Us
+│       ├── FAQs
+│       ├── Terms & Conditions
+│       ├── Privacy Policy
+│       ├── Returns & Refunds
+│       └── Shipping Information
+│
+├── Django Admin Panel (Staff Only)
+│   ├── User Management
+│   ├── Refund Management
+│   ├── Product Management
+│   ├── Order Management
+│   ├── Review Moderation
+│   ├── Newsletter Subscribers
+│   └── License Key Management*
+│`
+└── Footer
+    ├── Social Media Links
+    ├── About Us (quick link)
+    ├── Newsletter Signup
+    ├── FAQs (quick link)
+    ├── Terms & Conditions (quick link)
+    ├── Privacy Policy (quick link)
+    ├── My Account (quick link)
+    └── Contact Us
+
+
+```
+**Authentication Notes:**
+- Product browsing is public to encourage discovery
+- Cart viewing is public, but checkout requires login
+- Digital content purchases require logged-in account (must match game platform credentials for in-game currency/credit/dlc delivery)
+- Wishlist access requires login - guests redirected to sign-in page with return URL
+- Account dashboard and order history are only accessible to logged-in users
+
+## Site Map Diagram:
+
+![Eclipse Protocol E-Commerce Site Map](docs/images/diagrams/eclipse-protocol-site-map.png)
+
+## User Flow Diagrams:
+
+### Digital Product Purchase Flow:
+
+![Eclipse Protocol E-Commerce Digital Product Purchase Flow](docs/images/diagrams/digital-product-purchase-flow.png) 
