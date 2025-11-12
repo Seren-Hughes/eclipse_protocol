@@ -398,3 +398,11 @@ Home Page
 ### Digital Product Purchase Flow:
 
 ![Eclipse Protocol E-Commerce Digital Product Purchase Flow](docs/images/diagrams/digital-product-purchase-flow.png) 
+
+### Registration & Login Flow:
+
+![Eclipse Protocol E-Commerce Registration and Login Flow](docs/images/diagrams/registration-login-flow.png)
+
+### Admin Product Management Flow:
+
+![Eclipse Protocol E-Commerce Admin Product Management Flow](docs/images/diagrams/admin-product-management-flow.png)
