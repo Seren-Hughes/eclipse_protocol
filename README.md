@@ -406,3 +406,87 @@ Home Page
 ### Admin Product Management Flow:
 
 ![Eclipse Protocol E-Commerce Admin Product Management Flow](docs/images/diagrams/admin-product-management-flow.png)
+
+
+## Products & Catalogue Structure
+
+The store sells both digital and physical products related to Eclipse Protocol. For the MVP, the priority will be on the digital side - in-game currency and the base game license system.
+
+### Digital Products (MVP Focus)
+
+#### 1. In-Game Currency Packs
+
+Cross-platform credits that apply to the player's account when purchased.
+
+| Credits | Price |
+|---------|-------|
+| 100 | £1.99 |
+| 500 | £7.99 |
+| 1,200 | £14.99 |
+| 2,500 | £24.99 |
+| 5,000 | £39.99 |
+| 10,000 | £69.99 |
+
+For this portfolio project, this is simulated - the credits are "delivered" instantly and recorded in the user's account (no real API integration required).
+
+#### 2. Base Game (License Keys)
+
+Sold in platform-specific editions, each with its own license key.
+
+| Edition | Price | Platforms |
+|---------|-------|-----------|
+| Standard | £49.99 | PC (Steam), Xbox, Nintendo |
+| Premium | £69.99 | PC (Steam), Xbox, Nintendo |
+| Ultimate | £89.99 | PC (Steam), Xbox, Nintendo |
+
+**PlayStation:** Links externally to the official PlayStation Store for realism.
+
+**MVP Approach:** Only the Standard Edition will be included for MVP - each platform version is stored as a separate product (unique SKU and license key).
+
+**License Delivery:** The license key is shown in the user dashboard and emailed after checkout.
+
+#### 3. DLC Packs (Could Have)
+
+Optional future add-ons such as weapon skins, spacecraft customisation, and story expansions.
+
+### Physical Merchandise (Could Have)
+
+If there's time after the MVP is complete:
+- Branded apparel (t-shirts, hoodies)
+- Collectibles (mugs, posters)
+- Limited edition items
+
+### Eclipse+ Subscription (Should Have)
+
+**Monthly: £9.99** | **Annual: £99.99** (save 17%)
+
+**Subscriber Perks:**
+- 1,000 monthly credits
+- Exclusive DLC
+- Early access to new content
+- 10% store discount
+
+**Implementation:** Stripe recurring billing planned for Phase 2, not part of MVP scope as it requires more complex backend integration for recurring Stripe payments.
+
+---
+
+### MVP Product Scope
+
+| Included in MVP | Reason |
+|----------------|--------|
+| 6 × Credit Packs | Simple to implement, instant digital delivery |
+| 3 × Standard Edition Platforms (PC, Xbox, Nintendo) | Demonstrates license-key purchase and platform variation |
+| License-Key Generation + Email Delivery | Required to show purchase confirmation and digital fulfilment |
+
+**Total MVP Products: ~9 SKUs** (6 credit packs + 3 platform editions)
+
+The MVP includes a total of 9 distinct digital products (6 currency packs and 3 platform editions of the base game). This demonstrates the full range of product catalogue, filtering, checkout, and digital delivery features.
+
+---
+
+### Later Phases
+
+| Phase | Additions |
+|-------|-----------|
+| Phase 2 (Should Have) | Premium & Ultimate Editions, Eclipse+ Subscriptions, Refund system |
+| Phase 3 (Could Have) | Physical merch, DLC packs |
