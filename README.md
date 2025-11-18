@@ -388,6 +388,13 @@ Each row connects a user to a product, with a unique pair per user/product combi
 Represents a completed or in-progress order.
 Stores an order_number, reference to the user, a snapshot of billing/shipping details (name, address, email), pricing fields (order_total, delivery_cost, grand_total), Stripe PaymentIntent ID, and a consolidated status (e.g. pending, paid, refunded).
 
+_**Note on Address Snapshots:**_ At checkout, a snapshot of the chosen address is copied onto the orders table so that order history remains accurate even if the user later updates their profile. Orders also keep nullable pointers to the user’s saved addresses for convenience in the UI. If a user edits or deletes a saved address later, the order snapshot remains unchanged. If a saved address is deleted, the order’s address pointer is set to NULL; the snapshot fields still display correctly.
+
+Why:
+- Prevents historical drift (old orders “changing” when a user updates addresses)
+- Keeps invoices and email receipts consistent over time
+- Still allows quick navigation from an order to the user’s current saved address when it exists
+
 `order_items`
 Stores individual line items within an order.
 Each item is linked to an order and a product and records the product name, optional SKU, quantity, unit price at the time of purchase, and line total.
@@ -541,7 +548,7 @@ Cross-platform credits that apply to the player's account when purchased.
 | 5,000 | £39.99 |
 | 10,000 | £69.99 |
 
-For this portfolio project, this is simulated - the credits are "delivered" instantly and recorded in the user's account (no API integration implemented).
+For this portfolio project, this is simulated - the credits are "delivered" instantly and visible in order history. (Balance managed in‑game - no API integration implemented).
 
 #### 2. Base Game (License Keys)
 
@@ -553,7 +560,7 @@ Sold in platform-specific editions, each with its own license key.
 | Premium | £69.99 | PC (Steam), Xbox, Nintendo |
 | Ultimate | £89.99 | PC (Steam), Xbox, Nintendo |
 
-**PlayStation:** Links externally to the official PlayStation Store for realism.
+**PlayStation:** _Links externally to the official PlayStation Store for realism as PlayStation does not support third-party license key sales._
 
 **MVP Approach:** Only the Standard Edition will be included for MVP - each platform version is stored as a separate product (unique SKU and license key).
 
