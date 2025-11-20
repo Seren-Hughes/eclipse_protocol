@@ -1,3 +1,5 @@
+![Eclipse Protocol E-Commerce Banner](docs/images/design/eclipse-protocol-banner.jpg)
+
 # Eclipse Protocol E-Commerce 
 
 A fictional e-commerce platform for a speculative video game company, Dark Sky Games, selling digital products and physical merchandise on a dedicated store for their game - Eclipse Protocol. 
