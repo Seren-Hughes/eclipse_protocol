@@ -569,7 +569,8 @@ Sold in platform-specific editions, each with its own license key.
 **Base Game Licence Keys** Implementation Details:
 When a player purchases a game edition, the system generates a unique licence key using either a UUID/ULID pattern.
 The key is stored in the license_keys table, linked to the specific order item and user, and is displayed in the user’s account as well as included in the confirmation email.
-For this project, keys are generated on demand rather than managed as a pre-generated inventory pool, which keeps the implementation simple while still simulating a realistic digital delivery flow.
+
+_**Note:** For this project, keys are generated on demand rather than managed as a pre-generated inventory pool, which keeps the implementation simple while still simulating a realistic digital delivery flow._
 
 #### 3. DLC Packs (Could Have)
 
