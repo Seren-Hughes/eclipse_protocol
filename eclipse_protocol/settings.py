@@ -40,12 +40,6 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-# Stripe 
-STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "")
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
-STRIPE_WH_SECRET = os.environ.get("STRIPE_WH_SECRET", "")
-STRIPE_CURRENCY = "gbp"
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -175,3 +169,14 @@ if not AWS_STORAGE_BUCKET_NAME:
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Stripe 
+STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
+STRIPE_WH_SECRET = os.environ.get("STRIPE_WH_SECRET", "")
+STRIPE_CURRENCY = "gbp"
+
+# Add Stripe keys to context for templates
+if 'checkout' in INSTALLED_APPS:
+    STRIPE_PUBLIC_KEY_CONTEXT = STRIPE_PUBLIC_KEY

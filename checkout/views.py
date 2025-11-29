@@ -1,23 +1,26 @@
+import stripe
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.urls import reverse
+from django.http import HttpResponse
 from cart.context_processors import cart_contents
 from .forms import OrderForm
 from .models import Order, OrderItem
 
-# Create your views here.
+# Configure Stripe API key from Django settings
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 def checkout(request):
     """
-    Display checkout form and handle order creation.
+    Display checkout form and create Stripe PaymentIntent.
     
-    Temporary basic form without Stripe integration for development testing.
-    
-    Includes temporary test cart creation for development testing.
+    Creates a Stripe PaymentIntent before showing the form,
+    allowing secure client-side payment processing.
     """
-
+    
     # TEMPORARY: Create test cart if empty (for development testing)
-    # This will be removed once proper "Add to Cart" functionality is implemented
     if not request.session.get('cart'):
         from catalog.models import Product
         product = Product.objects.first()
@@ -29,15 +32,16 @@ def checkout(request):
                 }
             }
 
-    # Get cart contents
+    # Get cart contents using context processor
     cart = cart_contents(request)
     
     # Redirect if cart is empty
     if not cart['cart_items']:
         messages.error(request, "Your cart is empty.")
-        return redirect('catalog:product_list') 
-    
+        return redirect('catalog:product_list')
+
     if request.method == 'POST':
+        # Process completed payment and create order
         form = OrderForm(request.POST)
         if form.is_valid():
             order = form.save(commit=False)
@@ -48,18 +52,40 @@ def checkout(request):
             # Link to user if authenticated
             if request.user.is_authenticated:
                 order.user = request.user
-            
+                
+            # Store Stripe PaymentIntent ID for tracking
+            pid = request.POST.get('client_secret').split('_secret')[0]
+            order.stripe_pid = pid
             order.save()
             
-            # Create order items from cart
+            # Create order items with snapshoted product data
             _create_order_items(order, cart['cart_items'])
             
-            # Clear cart after successful order creation
+            # Clear cart after successful order processing
             request.session['cart'] = {}
             
-            messages.success(request, f'Order {order.order_number} created successfully!')
             return redirect('checkout:checkout_success', order_number=order.order_number)
+        else:
+            messages.error(request, 'There was an error with your form. Please double check your information.')
     else:
+        # GET request: create Stripe PaymentIntent and show form
+        total = cart['grand_total']
+        stripe_total = round(total * 100)  # Convert pounds to pence for Stripe
+        
+        try:
+            # Create Stripe PaymentIntent with cart metadata
+            intent = stripe.PaymentIntent.create(
+                amount=stripe_total,
+                currency=settings.STRIPE_CURRENCY,
+                metadata={
+                    'cart': str(request.session.get('cart', {})),
+                    'username': request.user.username if request.user.is_authenticated else 'guest',
+                },
+            )
+        except stripe.error.StripeError as e:
+            messages.error(request, f'Stripe error: {e}')
+            return redirect('catalog:product_list')
+        
         # Pre-fill form with user data if authenticated
         initial_data = {}
         if request.user.is_authenticated:
@@ -68,10 +94,12 @@ def checkout(request):
                 'email': request.user.email,
             }
         form = OrderForm(initial=initial_data)
-    
+
     context = {
         'form': form,
         'cart': cart,
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+        'client_secret': intent.client_secret,
     }
     
     return render(request, 'checkout/checkout.html', context)
@@ -79,7 +107,7 @@ def checkout(request):
 
 def checkout_success(request, order_number):
     """
-    Display order confirmation page.
+    Display order confirmation page after successful payment.
     """
     order = get_object_or_404(Order, order_number=order_number)
     
@@ -87,6 +115,10 @@ def checkout_success(request, order_number):
     if order.user and order.user != request.user:
         messages.error(request, "You don't have permission to view this order.")
         return redirect('catalog:product_list')
+    
+    # display success confirmation message
+    messages.success(request, f'Order processed successfully! Order number: {order.order_number}. '
+                             f'A confirmation email will be sent to {order.email}.')
     
     context = {
         'order': order,
@@ -101,24 +133,29 @@ def _create_order_items(order, cart_items):
     
     Snapshots current product/variant information to preserve
     order history even if products change later.
+
+    Args:
+        order: Order instance to associate items with
+        cart_items: List of cart item dictionaries from cart context processor
     """
     for cart_item in cart_items:
         product = cart_item['product']
         variant = cart_item.get('variant')
         
-        # Determine variant details for display
+        # Build variant description for order history
         variant_details = ""
         if variant:
             variant_details = f"{variant.get_platform_display()} {variant.get_edition_display()}"
         
+        # Create order item with snapshotted data
         OrderItem.objects.create(
             order=order,
             product=product,
             variant=variant,
-            product_name=product.name,
-            product_sku=product.sku,
-            variant_details=variant_details,
+            product_name=product.name,          # Snapshot current name
+            product_sku=product.sku,            # Snapshot current SKU
+            variant_details=variant_details,    # Snapshot variant info
             quantity=cart_item['quantity'],
-            unit_price=cart_item['price'],
-            # total_price calculated automatically in model save()
+            unit_price=cart_item['price'],      # Snapshot current price
+            # total_price calculated automatically in model save() method
         )

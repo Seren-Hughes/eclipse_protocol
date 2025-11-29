@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
     <title>Checkout - Eclipse Protocol</title>
@@ -9,8 +10,12 @@
         <div class="row">
             <div class="col-md-8">
                 <h2>Checkout</h2>
-                <form method="post">
+                
+                <!-- Payment Form -->
+                <form action="{% url 'checkout:checkout' %}" method="POST" id="payment-form">
                     {% csrf_token %}
+                    
+                    <!-- Billing Information -->
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5>Billing Information</h5>
@@ -55,12 +60,39 @@
                         </div>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        Place Order (£{{ cart.grand_total }})
-                    </button>
+                    <!-- Payment Information -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5>Payment Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="card-element">Credit or Debit Card</label>
+                                <div id="card-element" class="form-control" style="height: 40px; padding: 10px;">
+                                    <!-- Stripe Elements will create form elements here -->
+                                </div>
+                                <!-- Used to show Element errors -->
+                                <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-lg" id="submit-button">
+                            <span id="button-text">Complete Order (£{{ cart.grand_total }})</span>
+                            <span id="loading" class="d-none">
+                                <i class="fa fa-spinner fa-spin"></i> Processing...
+                            </span>
+                        </button>
+                    </div>
+                    
+                    <!-- Hidden input for client secret -->
+                    <input type="hidden" value="{{ client_secret }}" name="client_secret">
                 </form>
             </div>
             
+            <!-- Order Summary -->
             <div class="col-md-4">
                 <h5>Order Summary</h5>
                 <div class="card">
@@ -80,5 +112,13 @@
             </div>
         </div>
     </div>
+    
+    <!-- Stripe JavaScript -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripePublicKey = '{{ stripe_public_key|escapejs }}';
+        var clientSecret = '{{ client_secret|escapejs }}';
+    </script>
+    <script src="{% static 'js/stripe-elements.js' %}"></script>
 </body>
 </html>

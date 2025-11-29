@@ -18,7 +18,8 @@ class Order(models.Model):
     
     # Order identification
     order_number = models.CharField(max_length=32, unique=True, editable=False)
-    
+    stripe_pid = models.CharField(max_length=254, null=True, blank=True) # Stripe PaymentIntent ID for tracking
+
     # Relationships (nullable for data integrity)
     user = models.ForeignKey(
         User, 
