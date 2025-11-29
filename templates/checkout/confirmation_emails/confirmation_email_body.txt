@@ -1,0 +1,47 @@
+Hello {{ order.full_name }},
+
+Thank you for your Eclipse Protocol purchase! Your payment has been processed successfully.
+
+Order Details:
+Order Number: {{ order.order_number }}
+Order Date: {{ order.created_at|date:"F d, Y" }}
+Total: £{{ order.total_amount }}
+
+Items Purchased:
+{% for item in order.items.all %}
+- {{ item.product_name }}{% if item.variant_details %} ({{ item.variant_details }}){% endif %} x{{ item.quantity }} - £{{ item.total_price }}
+{% if item.product.product_type == 'currency' %}
+  → Credits automatically applied to your game account
+{% elif item.product.product_type == 'base_game' %}
+  → License key available in your account dashboard
+{% endif %}
+{% endfor %}
+
+{% if has_base_games %}
+License Keys:
+Your license keys are now available in your account dashboard and can be redeemed on your respective gaming platform.
+{% endif %}
+
+{% if has_currency %}
+In-Game Credits:
+Your credits have been automatically applied to your Eclipse Protocol account. 
+Log into the game to see your updated balance.
+{% endif %}
+
+Account Access:
+Log into your Eclipse Protocol account to view your purchase history and license keys.
+
+Billing Address:
+{{ order.full_name }}
+{{ order.street_address_1 }}
+{% if order.street_address_2 %}{{ order.street_address_2 }}{% endif %}
+{{ order.city }}, {{ order.postcode }}
+{{ order.country }}
+
+Important: Use the same email address ({{ order.email }}) when logging into Eclipse Protocol game to access your purchased content.
+
+If you have any questions, please contact us at {{ contact_email }}.
+
+The Eclipse Protocol Team
+
+The Dark Sky Games
