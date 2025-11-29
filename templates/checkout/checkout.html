@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout - Eclipse Protocol</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Checkout</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5>Billing Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {{ form.full_name.label_tag }}
+                                    {{ form.full_name }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    {{ form.email.label_tag }}
+                                    {{ form.email }}
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.phone_number.label_tag }}
+                                {{ form.phone_number }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.street_address_1.label_tag }}
+                                {{ form.street_address_1 }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.street_address_2.label_tag }}
+                                {{ form.street_address_2 }}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    {{ form.city.label_tag }}
+                                    {{ form.city }}
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    {{ form.postcode.label_tag }}
+                                    {{ form.postcode }}
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    {{ form.country.label_tag }}
+                                    {{ form.country }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        Place Order (£{{ cart.grand_total }})
+                    </button>
+                </form>
+            </div>
+            
+            <div class="col-md-4">
+                <h5>Order Summary</h5>
+                <div class="card">
+                    <div class="card-body">
+                        {% for item in cart.cart_items %}
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>{{ item.display_name }} x{{ item.quantity }}</span>
+                            <span>£{{ item.line_total }}</span>
+                        </div>
+                        {% endfor %}
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <strong>Total: £{{ cart.grand_total }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

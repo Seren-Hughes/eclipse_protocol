@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Confirmation - Eclipse Protocol</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="text-center">
+            <h2 class="text-success">Order Confirmed!</h2>
+            <p class="lead">Thank you for your order.</p>
+            <p>Order Number: <strong>{{ order.order_number }}</strong></p>
+            <p>Total: <strong>£{{ order.total_amount }}</strong></p>
+            
+            <div class="mt-4">
+                <h5>Order Items:</h5>
+                {% for item in order.items.all %}
+                <div class="border-bottom py-2">
+                    {{ item.product_name }}
+                    {% if item.variant_details %}
+                        - {{ item.variant_details }}
+                    {% endif %}
+                    x{{ item.quantity }} - £{{ item.total_price }}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="mt-4">
+                <p class="text-muted">Payment integration coming in next phase!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
