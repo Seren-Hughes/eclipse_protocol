@@ -270,7 +270,8 @@ class DigitalVariant(models.Model):
         """
         base_desc = self.product.description
         if self.description:
-            return f"{base_desc}\n\n**{self.get_edition_display()} Edition Includes:**\n{self.description}"
+            edition_name = self.get_edition_display().replace(' Edition', '')  
+            return f"{base_desc}\n\n**{edition_name} Edition Includes:**\n{self.description}"
         return base_desc
     
     @property
