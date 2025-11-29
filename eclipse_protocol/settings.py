@@ -32,6 +32,14 @@ DEBUG = os.environ.get("DEBUG") == "True"
 raw_hosts = os.environ.get("ALLOWED_HOSTS", "")
 ALLOWED_HOSTS = [h.strip() for h in raw_hosts.split(",") if h.strip()]
 
+# CSRF for Heroku
+CSRF_TRUSTED_ORIGINS = [
+    "https://eclipse-protocol-15d26c9e2a55.herokuapp.com",
+]
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 # Stripe 
 STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
@@ -126,7 +134,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
