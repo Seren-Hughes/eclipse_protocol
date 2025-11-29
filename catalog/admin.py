@@ -374,6 +374,10 @@ class CurrencyProductAdmin(admin.ModelAdmin):
     list_display = ('product', 'credit_amount', 'display_price', 'image_preview', 'is_active', 'featured')
     search_fields = ('product__name',)
 
+     # Prevent creating products from Currency product panel - use main Product admin instead
+    def has_add_permission(self, request):
+        return False
+
     def get_queryset(self, request):
         """Optimize queries with product relationship"""
         return super().get_queryset(request).select_related('product')
