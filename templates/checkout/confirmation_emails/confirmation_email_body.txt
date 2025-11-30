@@ -7,29 +7,60 @@ Order Number: {{ order.order_number }}
 Order Date: {{ order.created_at|date:"F d, Y" }}
 Total: £{{ order.total_amount }}
 
-Items Purchased:
+{% comment %}Show license keys for base games{% endcomment %}
 {% for item in order.items.all %}
-- {{ item.product_name }}{% if item.variant_details %} ({{ item.variant_details }}){% endif %} x{{ item.quantity }} - £{{ item.total_price }}
-{% if item.product.product_type == 'currency' %}
-  → Credits automatically applied to your game account
-{% elif item.product.product_type == 'base_game' %}
-  → License key available in your account dashboard
+{% if item.product.product_type == 'base_game' %}
+{% for license_key in item.license_keys.all %}
+
+=== {{ item.product_name }} Activation Key ===
+
+Platform: {{ license_key.platform }}
+Your {{ license_key.platform }} activation key:
+
+{{ license_key.key_code }}
+
+You can redeem this key through your {{ license_key.platform }} launcher following the usual steps.
+
+{% if license_key.platform == 'PC' or license_key.platform == 'STEAM' %}
+Steam Redemption:
+1. Open Steam client
+2. Click "Games" → "Activate a Product on Steam"
+3. Enter your key: {{ license_key.key_code }}
+{% elif license_key.platform == 'XBOX' %}
+Xbox Redemption:
+1. Go to microsoft.com/redeem
+2. Sign in to your Microsoft account
+3. Enter your key: {{ license_key.key_code }}
+{% elif license_key.platform == 'NINTENDO' or license_key.platform == 'NSW' or license_key.platform == 'SWITCH' %}
+Nintendo Switch Redemption:
+1. Access Nintendo eShop on your Switch
+2. Select "Enter Code"
+3. Enter your key: {{ license_key.key_code }}
+{% endif %}
+
+{% endfor %}
 {% endif %}
 {% endfor %}
 
-{% if has_base_games %}
-License Keys:
-Your license keys are now available in your account dashboard and can be redeemed on your respective gaming platform.
-{% endif %}
+{% comment %}Show currency purchases{% endcomment %}
+{% for item in order.items.all %}
+{% if item.product.product_type == 'currency' %}
 
-{% if has_currency %}
-In-Game Credits:
-Your credits have been automatically applied to your Eclipse Protocol account. 
+=== In-Game Credits ===
+{{ item.product_name }} x{{ item.quantity }}
+Credits have been automatically applied to your Eclipse Protocol account.
 Log into the game to see your updated balance.
+
 {% endif %}
+{% endfor %}
+
+Items Purchased:
+{% for item in order.items.all %}
+- {{ item.product_name }}{% if item.variant_details %} ({{ item.variant_details }}){% endif %} x{{ item.quantity }} - £{{ item.total_price }}
+{% endfor %}
 
 Account Access:
-Log into your Eclipse Protocol account to view your purchase history and license keys.
+Your license keys are also saved in your account dashboard:
 
 Billing Address:
 {{ order.full_name }}
@@ -38,10 +69,12 @@ Billing Address:
 {{ order.city }}, {{ order.postcode }}
 {{ order.country }}
 
-Important: Use the same email address ({{ order.email }}) when logging into Eclipse Protocol game to access your purchased content.
+Important: Use the same email address ({{ order.email }}) when logging into Eclipse Protocol to access your content.
 
-If you have any questions, please contact us at {{ contact_email }}.
+If you need any help, just reply to this email.
+
+Note: This is a portfolio simulation.
+These are not official Xbox/Steam/Nintendo store codes.
+
 
 The Eclipse Protocol Team
-
-The Dark Sky Games

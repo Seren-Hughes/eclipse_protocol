@@ -74,6 +74,7 @@ def cart_contents(request):
                 'price': price,
                 'line_total': line_total,
                 'display_name': display_name,
+                'platform': item_data.get('platform', 'PC'),  # Capture platform from cart
             })
             
         except (Product.DoesNotExist, DigitalVariant.DoesNotExist):

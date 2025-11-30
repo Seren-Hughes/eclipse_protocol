@@ -31,15 +31,13 @@ def checkout(request):
     
     # DEVELOPMENT ONLY: Auto-populate cart with base game for testing
     # TODO: Remove when implementing proper cart/product browsing
+    # In checkout view, for testing different platforms:
     if not request.session.get('cart'):
         from catalog.models import Product
         base_game = Product.objects.filter(product_type=Product.BASE_GAME).first()
         if base_game:
             request.session['cart'] = {
-                'item_1': {
-                    'product_id': base_game.id,
-                    'quantity': 1
-                }
+                'item_1': {'product_id': base_game.id, 'quantity': 1, 'platform': 'NINTENDO'},  # Test different platforms
             }
 
     # Get cart contents via context processor
@@ -155,12 +153,20 @@ def _create_order_items(order, cart_items):
         if variant:
             variant_details = f"{variant.get_platform_display()} {variant.get_edition_display()}"
         
+        # Capture platform from cart for license key generation
+        platform = cart_item.get('platform', 'PC')  # Get platform from cart or default to PC
+        
+        # Modify product name to include platform for license key generation
+        product_name = product.name
+        if platform and platform != 'PC':
+            product_name = f"{product.name} ({platform})"
+        
         # Create order item with snapshotted data
         OrderItem.objects.create(
             order=order,
             product=product,                    # FK reference
             variant=variant,                    # FK reference  
-            product_name=product.name,          # Snapshotted data
+            product_name=product_name,          # Snapshotted data
             product_sku=product.sku,            # Snapshotted data
             variant_details=variant_details,    # Snapshotted data
             quantity=cart_item['quantity'],

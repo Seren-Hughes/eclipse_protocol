@@ -38,7 +38,7 @@ class StripeWH_Handler:
                 context)
 
             send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [order.email], fail_silently=False)
-            
+        
         except Exception as e:
             print(f"ERROR: Failed to send confirmation email: {e}")
 
@@ -109,13 +109,25 @@ class StripeWH_Handler:
             print(f"ERROR: Currency processing failed: {e}")
 
     def _generate_license_key(self, order, item):
-        """Generate unique license key for base game products."""
+        """Generate platform-specific license key for base game products."""
         try:
-            platform = 'PC'  # Default platform (could be determined from variant)
+            # Determine platform from product name or default to PC
+            platform = 'PC'  # Default
+            
+            # Check if product name contains platform hints
+            product_name = item.product_name.upper()
+            if 'NINTENDO' in product_name or 'SWITCH' in product_name:
+                platform = 'NINTENDO'
+            elif 'XBOX' in product_name:
+                platform = 'XBOX'
+            elif 'STEAM' in product_name or 'PC' in product_name:
+                platform = 'PC'
+            
+            # Generate platform-specific key
             key_code = self._generate_key_code(item.product, platform)
             
             # Create license key record
-            LicenseKey.objects.create(
+            license_key = LicenseKey.objects.create(
                 user=order.user,
                 order_item=item,
                 product=item.product,
@@ -124,30 +136,56 @@ class StripeWH_Handler:
                 platform=platform,
                 status='active'
             )
-            
+        
+            return license_key
+        
         except Exception as e:
-            print(f"ERROR: License key generation failed: {e}")
+            return None
 
     def _generate_key_code(self, product, platform):
         """
-        Generate unique license key in format: PREFIX-XXXX-XXXX-XXXX-XXXX
+        Generate platform-specific license keys
         
-        Prefix varies by platform (EP=PC, EPX=Xbox, EPS=PlayStation, EPN=Nintendo)
-        Ensures uniqueness across all existing license keys.
+        PC (Steam-style): XXXXX-XXXXX-XXXXX-XXXXX (20 chars, 4 blocks of 5)
+        Xbox: XXXXX-XXXXX-XXXXX-XXXXX-XXXXX (25 chars, 5 blocks of 5) 
+        Nintendo Switch: AAAA-BBBB-CCCC-DDDD (16 chars, 4 blocks of 4)
         """
         import random
         import string
         
-        # Platform-specific prefixes
-        prefixes = {
-            'PC': 'EP', 'XBOX': 'EPX', 'PS5': 'EPS', 'NSW': 'EPN'
-        }
-        prefix = prefixes.get(platform, 'EP')
+        def generate_pc_key():
+            """Generate Steam-style key: XXXXX-XXXXX-XXXXX-XXXXX"""
+            groups = [''.join(random.choices(string.ascii_uppercase + string.digits, k=5)) for _ in range(4)]
+            return '-'.join(groups)
         
-        # Generate unique key with collision checking
-        while True:
+        def generate_xbox_key():
+            """Generate Xbox-style key: XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"""
+            groups = [''.join(random.choices(string.ascii_uppercase + string.digits, k=5)) for _ in range(5)]
+            return '-'.join(groups)
+        
+        def generate_switch_key():
+            """Generate Nintendo Switch-style key: AAAA-BBBB-CCCC-DDDD"""
             groups = [''.join(random.choices(string.ascii_uppercase + string.digits, k=4)) for _ in range(4)]
-            key_code = f"{prefix}-{'-'.join(groups)}"
-            
+            return '-'.join(groups)
+        
+        
+        # Platform-specific key generation
+        key_generators = {
+            'PC': generate_pc_key,
+            'STEAM': generate_pc_key,
+            'XBOX': generate_xbox_key,
+            'NSW': generate_switch_key,
+            'NINTENDO': generate_switch_key,
+            'SWITCH': generate_switch_key,
+        }
+        
+        # Generate key with collision checking
+        generator = key_generators.get(platform.upper(), generate_pc_key)
+        
+        while True:
+            key_code = generator()
+
+            # Ensure uniqueness across all platforms
             if not LicenseKey.objects.filter(key_code=key_code).exists():
                 return key_code
+

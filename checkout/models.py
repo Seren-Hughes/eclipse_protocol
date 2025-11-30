@@ -208,7 +208,7 @@ class LicenseKey(models.Model):
     
     # Key ownership and origin
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='license_keys')
-    order_item = models.OneToOneField(OrderItem, on_delete=models.CASCADE, related_name='license_key')
+    order_item = models.ForeignKey(OrderItem, on_delete=models.CASCADE, related_name='license_keys')
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
     variant = models.ForeignKey(DigitalVariant, on_delete=models.PROTECT, null=True, blank=True)
     
