@@ -1,14 +1,40 @@
-
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <!-- Hero Section -->
-     {% load static %}
-        <div class="p-0">
-            <section class="hero-img">
+    <!-- hero section -->
+    {% load static %}
+    <div class="p-0">
+        <section class="hero-img position-relative">
             <img src="{% static 'images/eclipse-protocol-home-banner.jpg' %}"
-            alt="Banner description"
-            class="img-fluid w-100 d-block">
-            </section>
-        </div>
+                 alt="Banner description"
+                 class="img-fluid w-100 d-block">
+            <!-- overlay title, tagline, cta buy now button, wishlist heart -->
+            <div class="hero-overlay">
+                <div class="container-fluid">
+                    <div class="hero-row">
+                        <div class="hero-text">
+                            <h1 class="hero-title">Eclipse Protocol</h1>
+                            <p class="hero-tagline">Survival begins at the edge of space.</p>
+                        </div>
+                        <div class="hero-actions d-inline-flex align-items-center gap-3">
+                            <a href="{% url 'catalog:product_list' %}"
+                               class="btn btn-primary btn-buy-now">Buy Now</a>
+                            <button type="button"
+                                    class="btn btn-icon wishlist-toggle"
+                                    data-wishlist-toggle
+                                    data-product-id="{{ main_game.id|default:'' }}"
+                                    aria-label="Add to wishlist"
+                                    aria-pressed="false"
+                                    title="Add to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{% static 'js/wishlist.js' %}"></script>
 {% endblock %}
