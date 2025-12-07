@@ -1,0 +1,10 @@
+/* Global Styles */
+/* Global resets, body styles, typography, basic elements */
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
+}

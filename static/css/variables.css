@@ -1,0 +1,51 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Oswald:wght@200..700&display=swap');
+
+/* CSS variables */
+:root {
+  /* Primary Colours */
+  --color-background: #0b0c0e; /* near black */
+  --color-text: #FFFFFF; /* white for text */
+
+  /* Accent Colour */
+  --color-accent: #539FD2; /* light blue */
+
+  /* Background Greys for product cards & UI elements */
+  --color-background-grey-dark: #202122; /* charcoal */
+  --color-background-grey-medium: #45464a; /* dark grey */
+  --color-background-grey-light: #a3aab5; /* light grey */
+
+  /* Fonts * see below for creating variable font styles(italic)/weights etc. */
+  --font-primary: 'Arimo', Arial, sans-serif;
+  --font-secondary: 'Oswald', Verdana, sans-serif;
+
+  /* Common spacings */
+
+  /* Common border-radiuses */
+
+  /* Common shadows */
+
+}
+/*
+**** Arimo: CSS class for a variable style ***
+// <weight>: Use a value from 400 to 700
+// <uniquifier>: Use a unique and descriptive class name
+
+.arimo-<uniquifier> {
+  font-family: "Arimo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+**** Oswald: CSS class for a variable style ***
+// <weight>: Use a value from 200 to 700
+// <uniquifier>: Use a unique and descriptive class name
+
+.oswald-<uniquifier> {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+*/
