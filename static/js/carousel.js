@@ -25,6 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
      * Updates carousel position and button states
      */
     function updateCarousel() {
+        // disable carousel transform on mobile - cards stack vertically instead
+        const isMobile = window.innerWidth <= 767;
+        if (isMobile) {
+            carousel.style.transform = 'none';
+            return;
+        }
         // Calculate offset based on item width + gap
         const itemWidth = items[0]?.offsetWidth || 0;
         const gap = 24; // 1.5rem gap (from CSS)

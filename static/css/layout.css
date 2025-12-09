@@ -295,7 +295,7 @@
   overflow: hidden;
   padding: 0;
   margin: 0;
-  background-color: var(--color-background-grey-medium);
+  background-color: var(--color-background);
 }
 
 .pack-image {
@@ -496,8 +496,8 @@
   }
 }
 
-/* Mobile (up to 767px) */
-@media (max-width: 767px) {
+/* ------- Mobile (up to 768px) --------- */
+@media (max-width: 768px) {
   /* smaller mobile navbar brand */
   .navbar-custom .navbar-brand {
     font-size: 0.9rem;
@@ -536,7 +536,7 @@
     padding: 0.2rem 0.4rem;
   }
 
-  /* Hero image adjustments for mobile */
+  /* Hero image adjustments */
   .hero-img {
     height: 40vh;
     min-height: 250px;
@@ -558,20 +558,44 @@
     font-size: 1.35rem;
   }
 
-  /* Show 1 currency pack per view */
-  .currency-pack-item {
-    flex: 0 0 100%;
-  }
   .currency-carousel {
-    gap: 1rem;
+    display: block;      
+    gap: 0;              
+    transform: none !important; /* Remove sliding transform */
+  }
+  .currency-pack-item {
+    width: 100%;         
+    margin-left: 0px;     
+    margin-right: 0px;
+    margin-bottom: 1rem; 
+  }
+  .carousel-controls {
+    display: none !important; /* Hide carousel buttons */
   }
 
   .currency-pack-card {
-    height: 240px;
+    height: 120px; 
+    flex-direction: row; 
+    align-items: stretch;
   }
   
+  .pack-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
   .card-content {
-    padding: 0.6rem 0.75rem;
+    flex: 1 1 62%;          
+    padding: 0.75rem 1rem;
+    border-top: none;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    background: var(--color-background);
   }
   
   .pack-name {
@@ -591,11 +615,108 @@
   }
 }
 
-/* Small mobile (up to 576px) */
+/* -- large mobile/tablet devices -- */
+@media (min-width: 576px) and (max-width: 768px) {
+  .bestsellers-section .container {
+    max-width: none !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .bestsellers-section .d-flex.justify-content-between > div:first-child {
+    padding-left: 1rem;
+  }
+  
+  .currency-carousel {
+    display: block; /* Stack items vertically */
+    gap: 0;              
+    transform: none !important; /* Remove sliding transform */
+  }
+  
+  .currency-pack-item {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 1rem; 
+  }
+  
+  .carousel-controls {
+    display: none !important; /* override bootstrap - hide carousel buttons */
+  }
+
+  .currency-pack-card {
+    height: 120px; /* Shorter card for row layout */
+    flex-direction: row; /* Image left, info right */
+    align-items: stretch;
+  }
+  
+  .currency-icon {
+    flex: 0 0 38%;          
+  }
+  
+  .pack-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .card-content {
+    flex: 1 1 62%;          
+    padding: 0.75rem 1rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    background: var(--color-background);
+  }
+  
+  .pack-name {
+    font-size: 0.85rem;
+  }
+  
+  .credit-amount {
+    font-size: 0.95rem;
+  }
+  
+  .pack-price .price {
+    font-size: 1.05rem;
+  }
+  
+  .currency-fallback-icon {
+    font-size: 3.5rem;
+  }
+}
+
+/* ====== Small mobile (up to 576px) ====== */
 @media (max-width: 576px) {
   .hero-img {
     height: 30vh;
     min-height: 200px;
+  }
+
+  /* -- bestsellers -- */
+  .pack-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .card-content {
+    flex: 3 2;          
+    padding: 0.75rem 1rem;
+    border-top: none;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    background: var(--color-background);
   }
 }
 
