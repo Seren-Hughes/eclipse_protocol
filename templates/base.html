@@ -6,10 +6,18 @@
         <title>Eclipse Protocol Store</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- favicons -->
-        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
-        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
-        <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}"> 
+        <link rel="apple-touch-icon"
+              sizes="180x180"
+              href="{% static 'favicon/apple-touch-icon.png' %}">
+        <link rel="icon"
+              type="image/png"
+              sizes="32x32"
+              href="{% static 'favicon/favicon-32x32.png' %}">
+        <link rel="icon"
+              type="image/png"
+              sizes="16x16"
+              href="{% static 'favicon/favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
         <!-- Bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
               rel="stylesheet">
@@ -178,12 +186,59 @@
             </div>
         </header>
         <main class="flex-grow-1">
-            {% block content %}
-            <!-- Page content goes here -->
-            {% endblock %}
+            {% block content %}<!-- Page content goes here -->{% endblock %}
         </main>
         <footer class="mt-auto">
-            <div class="container-fluid text-center py-3">&copy; {{ year|default:2025 }} Dark Sky Games &middot</div>
+            <div class="container pt-4 mb-1">
+                <!-- Brand -->
+                <div class="d-flex flex-column align-items-start">
+                    <div class="footer-brand">
+                        <i class="fa-solid fa-user-astronaut"></i>
+                        <div class="footer-wordmark lh-1 text-light">
+                            <span class="fw-bold">ECLIPSE</span>
+                            <span class="fw-bold">PROTOCOL</span>
+                        </div>
+                    </div>
+                    <p class="small mt-3">
+                        <i class="fa-solid fa-moon"></i> Dark Sky Games
+                    </p>
+                </div>
+                <!-- Social icons -->
+                <div class="d-flex footer-social justify-content-center gap-3 mb-5">
+                    <a href="https://www.facebook.com"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="text-light fs-4"
+                       aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="text-light fs-4"
+                       aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://discord.com"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="text-light fs-4"
+                       aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+                    <a href="https://www.youtube.com"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="text-light fs-4"
+                       aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+                <!-- Links row -->
+                <div class="footer-links d-flex flex-wrap justify-content-center gap-3 mb-5">
+                    <a href="/pages/about/" class="footer-link">About Us</a>
+                    <a href="/pages/news/" class="footer-link">News</a>
+                    <a href="/pages/faqs/" class="footer-link">FAQs</a>
+                    <a href="/pages/privacy-policy/" class="footer-link">Privacy Policy</a>
+                    <a href="/pages/contact/" class="footer-link">Contact</a>
+                    <a href="/pages/terms-and-conditions/" class="footer-link">Terms &amp; Conditions</a>
+                    <a href="/accounts/login/" class="footer-link">Login</a>
+                </div>
+                <!-- Copyright -->
+                <div class="text-center small">&copy; {{ year|default:2025 }} Dark Sky Games</div>
+            </div>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         {% block extra_js %}{% endblock %}
