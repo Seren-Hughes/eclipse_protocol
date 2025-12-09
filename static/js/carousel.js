@@ -10,16 +10,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Get all currency pack items
     const items = carousel.querySelectorAll('.currency-pack-item');
-    
-    // Determine items per view based on viewport width
-    const itemsPerView = window.innerWidth >= 992 ? 4 : window.innerWidth >= 768 ? 2 : 1;
     const totalItems = items.length;
-    
-    // Calculate maximum scroll index (prevent showing empty space)
-    const maxIndex = Math.max(0, totalItems - itemsPerView);
     
     // Track current scroll position
     let currentIndex = 0;
+    
+    /**
+     * Get current items per view based on viewport width
+     */
+    function getItemsPerView() {
+        return window.innerWidth >= 992 ? 4 : window.innerWidth >= 768 ? 2 : 1;
+    }
+    
+    /**
+     * Get maximum scroll index based on current viewport
+     */
+    function getMaxIndex() {
+        const itemsPerView = getItemsPerView();
+        return Math.max(0, totalItems - itemsPerView);
+    }
     
     /**
      * Updates carousel position and button states
@@ -31,6 +40,15 @@ document.addEventListener('DOMContentLoaded', function() {
             carousel.style.transform = 'none';
             return;
         }
+        
+        // Get current max index
+        const maxIndex = getMaxIndex();
+        
+        // Ensure currentIndex doesn't exceed new maxIndex after resize
+        if (currentIndex > maxIndex) {
+            currentIndex = maxIndex;
+        }
+        
         // Calculate offset based on item width + gap
         const itemWidth = items[0]?.offsetWidth || 0;
         const gap = 24; // 1.5rem gap (from CSS)
@@ -58,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * Navigate to next card
      */
     nextBtn.addEventListener('click', () => {
+        const maxIndex = getMaxIndex();
         if (currentIndex < maxIndex) {
             currentIndex++;
             updateCarousel();
@@ -71,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * Reset carousel on window resize to prevent layout issues
      */
     window.addEventListener('resize', () => {
-        currentIndex = 0;
+        // Don't reset currentIndex to 0, just recalculate limits
         updateCarousel();
     });
 });
