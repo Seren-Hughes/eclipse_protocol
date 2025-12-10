@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <!-- on desktop - left side currency image and info -->
+        <div class="col-md-6 mb-4 d-none d-md-block">
+            <div class="product-image-section">
+                <div class="product-image">
+                    {% if page_info.image %}
+                        <img src="{{ page_info.image.url }}" alt="{{ page_info.name }}" class="img-fluid">
+                    {% else %}
+                        <div class="fallback-image">
+                            <i class="fa-solid fa-coins"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="product-info mt-4">
+                    <h1 class="product-title">{{ page_info.name }}</h1>
+                    <p class="product-subtitle">Eclipse Protocol in-game currency</p>
+                    
+                    <div class="product-requirements mt-4">
+                        <h6>Base game required</h6>
+                        <p class="small">
+                            You must be signed into your Eclipse Protocol account for credits to be applied.
+                        </p>
+                        <p class="small">
+                            Credits can be used to purchase within the game.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- on mobile- one column with image at top -->
+        <div class="d-md-none mobile-product-image-section">
+            <div class="mobile-product-image">
+                {% if page_info.image %}
+                    <img src="{{ page_info.image.url }}" alt="{{ page_info.name }}" class="img-fluid">
+                {% else %}
+                    <div class="fallback-image">
+                        <i class="fa-solid fa-coins"></i>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- right side (desktop) / below image (mobile) credit pack options -->
+        <div class="col-md-6">
+            <div class="credit-pack-selection">
+                <div class="selection-header">
+                    <h2 class="selection-title">Eclipse Protocol Credits</h2>
+                    <p class="selection-subtitle">Select a product</p>
+                </div>
+                
+                <div class="credit-options">
+                    {% for product in currency_products %}
+                    <div class="credit-option" 
+                         data-product-id="{{ product.id }}" 
+                         data-product-slug="{{ product.slug }}"
+                         data-credits="{{ product.currency.credit_amount }}" 
+                         data-price="{{ product.price }}"
+                         data-image-url="{% if product.image %}{{ product.image.url }}{% endif %}"
+                         data-product-name="{{ product.name }}">
+                        <div class="credit-option-content">
+                            <div class="credit-info">
+                                <h5 class="credit-amount">{{ product.currency.credit_amount|floatformat:0 }} CREDITS</h5>
+                                <p class="credit-price">£{{ product.price }}</p>
+                            </div>
+                            <button type="button" 
+                                    class="btn btn-icon wishlist-toggle" 
+                                    data-wishlist-toggle
+                                    data-product-id="{{ product.id }}"
+                                    aria-label="Add to wishlist"
+                                    title="Add to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    <button class="btn btn-primary btn-buy-now w-100 mt-4" id="buyNowBtn" disabled>
+                        BUY NOW
+                    </button>
+                </div>
+            </div>
+            
+            <!-- mobile - product info below selection -->
+            <div class="d-md-none mobile-product-info mt-4">
+                <h1 class="product-title">{{ page_info.name }}</h1>
+                <p class="product-subtitle">Eclipse Protocol in-game currency</p>
+                
+                <div class="product-requirements mt-4">
+                    <h6>Base game required</h6>
+                    <p class="small">
+                        You must be signed into your Eclipse Protocol account for credits to be applied.
+                    </p>
+                    <p class="small">
+                        Credits can be used to purchase within the game.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'js/currency-selection.js' %}"></script>
+{% endblock %}

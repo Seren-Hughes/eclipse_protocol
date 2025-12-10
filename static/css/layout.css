@@ -424,6 +424,153 @@ footer .fa-brands:hover {
   color: var(--color-accent);
 }
 
+/* ======================================= */
+/* ======== CURRENCY DETAIL PAGE ======== */
+/* ======================================= */
+
+.product-image-section {
+  text-align: left;
+  position: sticky;
+  top: calc(var(--navbar-height) + 16px);
+  align-self: flex-start; 
+}
+
+.product-image {
+  width: 100%;
+  max-width: 600px;
+  height: 350px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background-grey-dark);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.fallback-image {
+  font-size: 4rem;
+  color: var(--color-accent);
+}
+
+.product-title {
+  color: var(--color-text);
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.product-subtitle, .selection-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.product-requirements h6 {
+  color: var(--color-text);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.credit-pack-selection {
+  background-color: var(--color-background-grey-dark);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.selection-title {
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.credit-options {
+  margin-top: 1.5rem;
+}
+
+.credit-option {
+  background-color: var(--color-background);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  padding: 1rem 1.25rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.credit-option:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 15px rgba(83, 159, 210, 0.3);
+}
+
+.credit-option.selected {
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 15px rgba(83, 159, 210, 0.4);
+  background-color: rgba(83, 159, 210, 0.1);
+}
+
+.credit-option:last-child {
+  margin-bottom: 0;
+}
+
+.credit-option-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.credit-info {
+  flex: 1;
+}
+
+.credit-amount {
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.credit-price {
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.credit-option .wishlist-toggle {
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.credit-option .wishlist-toggle:hover,
+.credit-option .wishlist-toggle.active {
+  color: var(--color-accent);
+}
+
+.credit-option .wishlist-toggle .fa-heart {
+  font-size: 1.2rem;
+}
+
+.mobile-product-image { 
+  margin-bottom: 0.5rem;
+  background-color: var(--color-background-grey-dark);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 
 /* =================================== */
 /* ========== MEDIA QUERIES ========== */
@@ -852,4 +999,18 @@ footer .fa-brands:hover {
 /* Ensure navbar has proper z-index stacking */
 .navbar-custom {
   z-index: 1030;
+}
+
+:root { 
+  --navbar-height: 140px; /* rough height of navbar for sticky positioning */
+}
+
+body { 
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100vh; 
+} 
+
+.site-main { 
+  flex: 1 0 auto; 
 }

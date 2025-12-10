@@ -5,4 +5,6 @@ app_name = 'catalog'
 
 urlpatterns = [
     path('', views.product_list, name='product_list'),
+    path('currency/', views.currency_detail, name='currency_detail'),
+    path('currency/<slug:product_slug>/', views.currency_detail, name='currency_detail_with_selection'),
 ]
