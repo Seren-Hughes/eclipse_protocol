@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container py-4">
+        <div class="row">
+            <!-- desktop: left side image and info -->
+            <div class="col-md-6 mb-4 d-none d-md-block">
+                <div class="product-image-section">
+                    <div class="product-image">
+                        {% if selected_variant.effective_image %}
+                            <img src="{{ selected_variant.effective_image.url }}"
+                                 alt="{{ base_product.name }}"
+                                 class="img-fluid">
+                        {% else %}
+                            <div class="fallback-image">
+                                <i class="fa-solid fa-gamepad"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="product-info mt-4">
+                        <h1 class="product-title">{{ base_product.name }}</h1>
+                        <p class="product-subtitle">
+                            <span class="platform-badge">{{ selected_variant.get_platform_display }}</span>
+                            <span class="edition-badge">{{ selected_variant.get_edition_display }}</span>
+                        </p>
+                        <div class="product-description mt-4">
+                            <h6>standard edition includes</h6>
+                            <div class="description-text">{{ selected_variant.full_description|linebreaks }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- mobile: sticky image at top -->
+            <div class="d-md-none mobile-product-image-section">
+                <div class="mobile-product-image">
+                    {% if selected_variant.effective_image %}
+                        <img src="{{ selected_variant.effective_image.url }}"
+                             alt="{{ base_product.name }}"
+                             class="img-fluid">
+                    {% else %}
+                        <div class="fallback-image">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- right side (desktop) / below image (mobile): platform and edition selection -->
+            <div class="col-md-6">
+                <div class="edition-selection-panel">
+                    <!-- product title and edition dropdown -->
+                    <div class="selection-header">
+                        <h2 class="product-title-main">{{ base_product.name }}</h2>
+                        <div class="edition-dropdown-wrapper">
+                            <select id="editionSelect" class="edition-dropdown">
+                                {% for edition_choice in editions %}
+                                    <option value="{{ edition_choice }}"
+                                            {% if selected_variant.edition == edition_choice %}selected{% endif %}>
+                                        {{ edition_choice|title }} Edition
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <!-- price -->
+                    <div class="price-display">
+                        <span class="price-amount">£{{ selected_variant.effective_price }}</span>
+                    </div>
+                    <!-- platform selection -->
+                    <div class="platform-selection">
+                        <label class="selection-label">select platform *</label>
+                        <div class="platform-buttons">
+                            {% for platform_choice in platforms %}
+                                <button type="button"
+                                        class="platform-btn {% if selected_variant.platform == platform_choice %}active{% endif %}"
+                                        data-platform="{{ platform_choice }}"
+                                        data-platform-display="{% if platform_choice == 'pc' %}PC{% elif platform_choice == 'xbox' %}Xbox{% elif platform_choice == 'nintendo' %}Nintendo{% endif %}">
+                                    {% if platform_choice == 'pc' %}
+                                        <i class="fa-brands fa-windows me-2"></i>PC
+                                    {% elif platform_choice == 'xbox' %}
+                                        <i class="fa-brands fa-xbox me-2"></i>XBOX
+                                    {% elif platform_choice == 'nintendo' %}
+                                        <img src="{% static 'images/nintendo-switch-icon.png' %}"
+                                             alt="Nintendo Switch"
+                                             class="platform-icon me-2">
+                                        NINTENDO
+                                    {% endif %}
+                                </button>
+                            {% endfor %}
+                            <!-- playstation as button that opens modal -->
+                            <button type="button"
+                                    class="platform-btn platform-btn-external"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#playstationModal">
+                                <i class="fa-brands fa-playstation me-2"></i>
+                                PLAYSTATION <i class="fa-solid fa-arrow-up-right-from-square ms-2 mb-3"
+                                style="font-size: 0.50rem"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- action buttons -->
+                    <div class="action-buttons mt-4">
+                        <button id="addToCartBtn"
+                                class="btn btn-primary btn-add-to-cart w-100 mb-3"
+                                disabled>add to cart</button>
+                        <button type="button"
+                                class="btn btn-outline-secondary btn-wishlist w-100"
+                                data-wishlist-toggle
+                                data-product-id="{{ base_product.id }}"
+                                aria-label="add to wishlist">
+                            <i class="fa-regular fa-heart me-2"></i>
+                            add to wishlist
+                        </button>
+                    </div>
+                    <!-- hidden data for js -->
+                    <div id="variantData" style="display: none;">
+                        {% for variant in variants %}
+                            <div data-variant-id="{{ variant.id }}"
+                                 data-platform="{{ variant.platform }}"
+                                 data-edition="{{ variant.edition }}"
+                                 data-price="{{ variant.effective_price }}"
+                                 data-sku="{{ variant.sku }}"
+                                 data-image-url="{% if variant.effective_image %}{{ variant.effective_image.url }}{% endif %}"
+                                 data-platform-display="{{ variant.get_platform_display }}"
+                                 data-edition-display="{{ variant.get_edition_display }}"
+                                 data-description="{{ variant.full_description }}"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- mobile: product info below selection -->
+                <div class="d-md-none mobile-product-info mt-4">
+                    <h3 class="product-subtitle-mobile">
+                        <span class="platform-badge">{{ selected_variant.get_platform_display }}</span>
+                        <span class="edition-badge">{{ selected_variant.get_edition_display }}</span>
+                    </h3>
+                    <div class="product-description mt-3">
+                        <h6>standard edition includes</h6>
+                        <div class="description-text">{{ selected_variant.full_description|linebreaks }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- playstation store confirmation modal -->
+        <div class="modal fade"
+             id="playstationModal"
+             tabindex="-1"
+             aria-labelledby="playstationModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title" id="playstationModalLabel">
+                            <i class="fa-brands fa-playstation me-2"></i>
+                            playstation store
+                        </h5>
+                        <button type="button"
+                                class="btn-close btn-close-white"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Get Eclipse Protocol for PlayStation now!</p>
+                        <p>You will be redirected to the PlayStation Store to complete your purchase.</p>
+                    </div>
+                    <div class="modal-footer border-top-0 justify-content-center gap-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a id="playstationConfirmBtn"
+                           href="{{ playstation_store_url }}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="btn btn-primary">Buy now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{% static 'js/edition-selection.js' %}"></script>
+    <script src="{% static 'js/wishlist.js' %}"></script>
+{% endblock %}

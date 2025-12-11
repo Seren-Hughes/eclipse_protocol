@@ -571,6 +571,238 @@ footer .fa-brands:hover {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* =================================== */
+/* ======== EDITION DETAIL PAGE ====== */
+/* =================================== */
+
+/* edition selection panel */
+.edition-selection-panel {
+  background-color: var(--color-background-grey-dark);
+  border-radius: 8px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.product-title-main {
+  color: var(--color-text);
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.edition-dropdown-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.edition-dropdown {
+  width: 100%;
+  background-color: var(--color-background);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: var(--color-text);
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.edition-dropdown:hover,
+.edition-dropdown:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.price-display {
+  margin-bottom: 1.5rem;
+}
+
+.price-amount {
+  color: var(--color-text);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.platform-selection {
+  margin-bottom: 1.5rem;
+}
+
+.selection-label {
+  display: block;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.platform-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.platform-btn {
+  background-color: var(--color-background);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: var(--color-text);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.platform-btn:hover {
+  border-color: var(--color-accent);
+  background-color: rgba(83, 159, 210, 0.1);
+}
+
+.platform-btn.active {
+  border-color: var(--color-accent);
+  background-color: rgba(83, 159, 210, 0.15);
+  color: var(--color-accent);
+}
+
+.platform-btn-external {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.platform-btn-external:hover {
+  text-decoration: none;
+}
+
+.btn-add-to-cart {
+  background-color: var(--color-accent);
+  border: none;
+  color: #fff;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-add-to-cart:hover:not(:disabled) {
+  background-color: #6ba3cc;
+}
+
+.btn-add-to-cart:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-wishlist {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-text);
+  padding: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-wishlist:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: rgba(83, 159, 210, 0.1);
+}
+
+.platform-badge,
+.edition-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-right: 0.5rem;
+}
+
+.platform-badge {
+  background-color: rgba(83, 159, 210, 0.2);
+  color: var(--color-accent);
+}
+
+.edition-badge {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
+}
+
+.platform-icon {
+  height: 1.1rem;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* playstation modal styling */
+.modal-content {
+  background-color: var(--color-background-grey-dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.modal-header {
+  background-color: var(--color-background-grey-dark);
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.modal-header .modal-title {
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.modal-body {
+  color: var(--color-text);
+  font-size: 0.95rem;
+  justify-content: center;
+}
+
+.modal-footer {
+  background-color: var(--color-background-grey-dark);
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  gap: 1rem;
+}
+
+.modal-footer .btn-secondary {
+  background-color: var(--color-background);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--color-text);
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.modal-footer .btn-primary {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.modal-footer .btn-primary:hover {
+  background-color: #6ba3cc;
+  border-color: #6ba3cc;
+}
+
+/* ensure close button is visible */
+.btn-close-white {
+  filter: brightness(0) invert(1);
+}
+
 
 /* =================================== */
 /* ========== MEDIA QUERIES ========== */
@@ -696,6 +928,10 @@ footer .fa-brands:hover {
   /* Show 2 currency packs per view */
   .currency-pack-item {
     flex: 0 0 calc((100% - 1.5rem) / 2);  /* 2 cards with 1 gap of 1.5rem */
+  }
+  /* 1 column platform buttons */
+  .platform-buttons {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -833,6 +1069,45 @@ footer .fa-brands:hover {
 
   .footer-social {
     margin-top: 1rem;
+  }
+
+  /* edition detail page adjustments */
+  .edition-selection-panel {
+    padding: 1.5rem;
+  }
+  
+  .product-title-main {
+    font-size: 1.5rem;
+  }
+  
+  .price-amount {
+    font-size: 1.75rem;
+  }
+  
+  .platform-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .edition-selection-panel {
+    padding: 1.5rem;
+  }
+  
+  .product-title-main {
+    font-size: 1.5rem;
+  }
+  
+  .price-amount {
+    font-size: 1.75rem;
+  }
+  
+  .platform-btn {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  .platform-btn i,
+  .platform-icon {
+    font-size: 1.2rem;
   }
 }
 
