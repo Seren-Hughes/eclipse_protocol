@@ -1,0 +1,600 @@
+/* ======================================= */
+/* ========== BESTSELLERS SECTION ======== */
+/* ======================================= */
+
+.bestsellers-section {
+  padding-top: 2rem;  
+}
+
+.section-title {
+  font-family: var(--font-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* Carousel wrapper */
+.currency-carousel-wrapper {
+  overflow: hidden;           
+  position: relative;
+  padding: 2rem 0 4rem;  
+  max-width: 1320px;          
+  margin: 0 auto;            
+}
+
+.currency-carousel {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+/* Show 4 cards on desktop */
+.currency-pack-item {
+  flex: 0 0 calc((100% - 4.5rem) / 4);  
+  min-width: 0;
+}
+
+/* Card link wrapper */
+.currency-pack-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.currency-pack-card-link:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Currency pack cards */
+.currency-pack-card {
+  background-color: var(--color-background-grey-dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  height: 400px;            
+  display: flex;
+  flex-direction: column;
+}
+
+.currency-pack-card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-4px);
+  box-shadow: 0 5px 30px rgba(83, 159, 210, 0.4);
+  z-index: 10;              
+}
+
+/* Image section - top 2/3 of card */
+.currency-icon {
+  flex: 2; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  background-color: var(--color-background);
+}
+
+.pack-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.currency-fallback-icon {
+  font-size: 4rem;
+  color: var(--color-accent);
+}
+
+/* Info section - bottom of card */
+.card-content {
+  flex: 0.7;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-background);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: start;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pack-name {
+  color: var(--color-text);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 0.1rem 0;
+  line-height: 1.8;
+  text-transform: uppercase;
+}
+
+.pack-price .price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* ======================================= */
+/* ======== CURRENCY DETAIL PAGE ======== */
+/* ======================================= */
+
+.product-image-section {
+  text-align: left;
+  position: sticky;
+  top: calc(var(--navbar-height) + 16px);
+  align-self: flex-start; 
+}
+
+.product-image {
+  width: 100%;
+  max-width: 600px;
+  height: 350px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background-grey-dark);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.fallback-image {
+  font-size: 4rem;
+  color: var(--color-accent);
+}
+
+.product-title {
+  color: var(--color-text);
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.product-subtitle, .selection-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.product-requirements h6 {
+  color: var(--color-text);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.credit-pack-selection {
+  background-color: var(--color-background-grey-dark);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.selection-title {
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.credit-options {
+  margin-top: 1.5rem;
+}
+
+.credit-option {
+  background-color: var(--color-background);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  padding: 1rem 1.25rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.credit-option:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 15px rgba(83, 159, 210, 0.3);
+}
+
+.credit-option.selected {
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 15px rgba(83, 159, 210, 0.4);
+  background-color: rgba(83, 159, 210, 0.1);
+}
+
+.credit-option:last-child {
+  margin-bottom: 0;
+}
+
+.credit-option-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.credit-info {
+  flex: 1;
+}
+
+.credit-amount {
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.credit-price {
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.mobile-product-image { 
+  margin-bottom: 0.5rem;
+  background-color: var(--color-background-grey-dark);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =================================== */
+/* ======== EDITION DETAIL PAGE ====== */
+/* =================================== */
+
+/* Edition selection panel */
+.edition-selection-panel {
+  background-color: var(--color-background-grey-dark);
+  border-radius: 8px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.product-title-main {
+  color: var(--color-text);
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.edition-dropdown-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.edition-dropdown {
+  width: 100%;
+  background-color: var(--color-background);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: var(--color-text);
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.edition-dropdown:hover,
+.edition-dropdown:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.price-display {
+  margin-bottom: 1.5rem;
+}
+
+.price-amount {
+  color: var(--color-text);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.platform-selection {
+  margin-bottom: 1.5rem;
+}
+
+.selection-label {
+  display: block;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.platform-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.platform-btn {
+  background-color: var(--color-background);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: var(--color-text);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.platform-btn:hover {
+  border-color: var(--color-accent);
+  background-color: rgba(83, 159, 210, 0.1);
+}
+
+.platform-btn.active {
+  border-color: var(--color-accent);
+  background-color: rgba(83, 159, 210, 0.15);
+  color: var(--color-accent);
+}
+
+.platform-btn-external {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.platform-btn-external:hover {
+  text-decoration: none;
+}
+
+.platform-badge,
+.edition-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-right: 0.5rem;
+}
+
+.platform-badge {
+  background-color: rgba(83, 159, 210, 0.2);
+  color: var(--color-accent);
+}
+
+.edition-badge {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
+}
+
+.platform-icon {
+  height: 1.1rem;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* =================================== */
+/* ========== MEDIA QUERIES ========== */
+/* =================================== */
+
+/* Tablet landscape (768px - 992px) */
+@media (min-width: 768px) and (max-width: 992px) {
+  /* Show 2 currency packs per view */
+  .currency-pack-item {
+    flex: 0 0 calc((100% - 1.5rem) / 2);
+  }
+  
+  /* 1 column platform buttons */
+  .platform-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile/tablet (up to 768px) */
+@media (max-width: 768px) {
+  .currency-carousel {
+    display: block;      
+    gap: 0;              
+    transform: none !important;
+  }
+  
+  .currency-pack-item {
+    width: 100%;         
+    margin-left: 0px;     
+    margin-right: 0px;
+    margin-bottom: 1rem; 
+  }
+
+  .currency-pack-card {
+    height: 120px; 
+    flex-direction: row; 
+    align-items: stretch;
+  }
+  
+  .pack-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .card-content {
+    flex: 1 1 62%;          
+    padding: 0.75rem 1rem;
+    border-top: none;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    background: var(--color-background);
+  }
+  
+  .pack-name {
+    font-size: 0.85rem;
+  }
+  
+  .credit-amount {
+    font-size: 0.95rem;
+  }
+  
+  .pack-price .price {
+    font-size: 1.05rem;
+  }
+  
+  .currency-fallback-icon {
+    font-size: 3.5rem;
+  }
+
+  .currency-carousel-wrapper {
+    padding: 1.5rem 0 1.4rem;  
+  }
+
+  /* Edition detail page adjustments */
+  .edition-selection-panel {
+    padding: 1.5rem;
+  }
+  
+  .product-title-main {
+    font-size: 1.5rem;
+  }
+  
+  .price-amount {
+    font-size: 1.75rem;
+  }
+  
+  .platform-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .platform-btn {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  .platform-btn i,
+  .platform-icon {
+    font-size: 1.2rem;
+  }
+}
+
+/* Large mobile/tablet devices (576px - 768px) */
+@media (min-width: 576px) and (max-width: 768px) {
+  .bestsellers-section .container {
+    max-width: none !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .bestsellers-section .d-flex.justify-content-between > div:first-child {
+    padding-left: 1rem;
+  }
+  
+  .currency-carousel {
+    display: block;
+    gap: 0;              
+    transform: none !important;
+  }
+  
+  .currency-pack-item {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 1rem; 
+  }
+
+  .currency-pack-card {
+    height: 120px;
+    flex-direction: row;
+    align-items: stretch;
+  }
+  
+  .currency-icon {
+    flex: 0 0 38%;          
+  }
+  
+  .pack-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .card-content {
+    flex: 1 1 62%;          
+    padding: 0.75rem 1rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    background: var(--color-background);
+  }
+  
+  .pack-name {
+    font-size: 0.85rem;
+  }
+  
+  .credit-amount {
+    font-size: 0.95rem;
+  }
+  
+  .pack-price .price {
+    font-size: 1.05rem;
+  }
+  
+  .currency-fallback-icon {
+    font-size: 3.5rem;
+  }
+}
+
+/* Small mobile (up to 576px) */
+@media (max-width: 576px) {
+  .pack-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .card-content {
+    flex: 3 2;          
+    padding: 0.75rem 1rem;
+    border-top: none;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    background: var(--color-background);
+  }
+}

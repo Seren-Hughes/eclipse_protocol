@@ -1,2 +1,217 @@
-/* Components styles */
-/* Buttons, cards, forms, modals */
+/* ======================================= */
+/* ============== BUTTONS ================ */
+/* ======================================= */
+
+/* Primary buy button (transparent with white text) */
+.btn-buy-now.btn-primary {
+	background-color: transparent !important;
+	color: #ffffff !important;
+	border: 2px solid #ffffff;
+	padding: 0.55rem 2rem;
+	font-size: 1.05rem;
+	font-weight: 700;
+	border-radius: 0.5rem;
+}
+
+.btn-buy-now.btn-primary:hover {
+	background-color: var(--color-accent) !important; 
+	border-color: var(--color-accent);
+	color: #fff !important;
+}
+
+/* Add to cart button */
+.btn-add-to-cart {
+	background-color: var(--color-accent);
+	border: none;
+	color: #fff;
+	padding: 1rem;
+	font-size: 1rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	border-radius: 8px;
+	transition: background-color 0.2s ease;
+}
+
+.btn-add-to-cart:hover:not(:disabled) {
+	background-color: #6ba3cc;
+}
+
+.btn-add-to-cart:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* Wishlist button */
+.btn-wishlist {
+	border: 2px solid rgba(255, 255, 255, 0.3);
+	color: var(--color-text);
+	padding: 0.75rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	border-radius: 8px;
+	transition: all 0.2s ease;
+}
+
+.btn-wishlist:hover {
+	border-color: var(--color-accent);
+	color: var(--color-accent);
+	background-color: rgba(83, 159, 210, 0.1);
+}
+
+/* Wishlist toggle icon button */
+.btn-icon.wishlist-toggle {
+	padding: 0;
+	border: none;
+	background: none;
+	color: #ffffff;
+}
+
+.btn-icon.wishlist-toggle .fa-heart {
+	font-size: 1.5rem;
+	line-height: 1;
+}
+
+.btn-icon.wishlist-toggle.active {
+	color: var(--color-accent);
+}
+
+/* Wishlist toggle in credit options */
+.credit-option .wishlist-toggle {
+	color: rgba(255, 255, 255, 0.7);
+	padding: 0.5rem;
+	transition: color 0.2s ease;
+}
+
+.credit-option .wishlist-toggle:hover,
+.credit-option .wishlist-toggle.active {
+	color: var(--color-accent);
+}
+
+.credit-option .wishlist-toggle .fa-heart {
+	font-size: 1.2rem;
+}
+
+/* ======================================= */
+/* =========== CAROUSEL CONTROLS ========= */
+/* ======================================= */
+
+.carousel-controls {
+	gap: 0.5rem;
+}
+
+.carousel-btn {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	background: transparent;
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.carousel-btn:hover:not(:disabled) {
+	border-color: var(--color-accent);
+	color: var(--color-accent);
+	background: transparent;  
+}
+
+.carousel-btn:disabled {
+	opacity: 0.3;
+	cursor: auto;
+}
+
+/* Hide carousel controls on mobile */
+@media (max-width: 768px) {
+	.carousel-controls {
+		display: none !important;
+	}
+}
+
+/* ======================================= */
+/* ============== MODALS ================= */
+/* ======================================= */
+
+/* playStation modal styling */
+.modal-content {
+	background-color: var(--color-background-grey-dark);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 8px;
+}
+
+.modal-header {
+	background-color: var(--color-background-grey-dark);
+	border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.modal-header .modal-title {
+	color: var(--color-text);
+	font-size: 1.1rem;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.modal-body {
+	color: var(--color-text);
+	font-size: 0.95rem;
+	justify-content: center;
+}
+
+.modal-footer {
+	background-color: var(--color-background-grey-dark);
+	border-color: rgba(255, 255, 255, 0.1) !important;
+	gap: 1rem;
+}
+
+.modal-footer .btn-secondary {
+	background-color: var(--color-background);
+	border-color: rgba(255, 255, 255, 0.2);
+	color: var(--color-text);
+}
+
+.modal-footer .btn-secondary:hover {
+	background-color: rgba(255, 255, 255, 0.1);
+	border-color: rgba(255, 255, 255, 0.3);
+}
+
+.modal-footer .btn-primary {
+	background-color: var(--color-accent);
+	border-color: var(--color-accent);
+}
+
+.modal-footer .btn-primary:hover {
+	background-color: #6ba3cc;
+	border-color: #6ba3cc;
+}
+
+/* Ensure close button is visible */
+.btn-close-white {
+	filter: brightness(0) invert(1);
+}
+
+/* ======================================= */
+/* ========== MOBILE ADJUSTMENTS ========= */
+/* ======================================= */
+
+@media (max-width: 768px) {
+	.btn-buy-now.btn-primary {
+		padding: 0.6rem 1.1rem;
+		font-size: 1rem;
+	}
+  
+	.btn-icon.wishlist-toggle .fa-heart {
+		font-size: 1.35rem;
+	}
+}
+
+@media (max-width: 576px) {
+	.btn-buy-now.btn-primary {
+		padding: 0.2rem 1rem;
+		font-size: 1rem;
+		background-color: rgba(0, 0, 0, 0.581) !important;
+	}
+}
