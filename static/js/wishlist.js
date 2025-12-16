@@ -1,9 +1,13 @@
 // wishlist heart toggle functionality
 document.addEventListener('DOMContentLoaded', function () {
-    const wishlistToggle = document.querySelector('[data-wishlist-toggle]');
+    // Get ALL wishlist toggle buttons (multiple on currency page)
+    const wishlistToggles = document.querySelectorAll('[data-wishlist-toggle]');
 
-    if (wishlistToggle) {
-        wishlistToggle.addEventListener('click', function (e) {
+    // Load initial wishlist state for all buttons
+    loadWishlistState();
+
+    wishlistToggles.forEach(function(toggle) {
+        toggle.addEventListener('click', function (e) {  
             e.preventDefault();
 
             const productId = this.dataset.productId;
@@ -41,8 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         icon.classList.remove('fa-solid');
                         icon.classList.add('fa-regular');
                         this.setAttribute('aria-pressed', 'false');
-                        this.setAttribute('title', 'Add standard base-game to wishlist');
-                        this.setAttribute('aria-label', 'Add standard base-game to wishlist');
+                        this.setAttribute('title', 'Add to wishlist');
+                        this.setAttribute('aria-label', 'Add to wishlist');
                     }
                     
                     console.log(data.message);
@@ -55,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Revert any UI changes on error
             });
         });
-    }
+    });
 
     // Handle remove buttons on wishlist page
     const removeButtons = document.querySelectorAll('.btn-remove-wishlist');
@@ -95,6 +99,47 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// Load initial wishlist state for all buttons when page loads
+function loadWishlistState() {
+    const wishlistToggles = document.querySelectorAll('[data-wishlist-toggle]');
+    
+    wishlistToggles.forEach(function(toggle) {
+        const productId = toggle.dataset.productId;
+        
+        if (!productId) return;
+        
+        // Check if this product is in the user's wishlist
+        fetch(`/accounts/wishlist/check/${productId}/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const icon = toggle.querySelector('i.fa-heart');
+                
+                if (data.in_wishlist) {
+                    // Product is in wishlist - show solid heart
+                    toggle.classList.add('active');
+                    icon.classList.remove('fa-regular');
+                    icon.classList.add('fa-solid');
+                    toggle.setAttribute('aria-pressed', 'true');
+                    toggle.setAttribute('title', 'Remove from wishlist');
+                    toggle.setAttribute('aria-label', 'Remove from wishlist');
+                } else {
+                    // Product not in wishlist - show regular heart
+                    toggle.classList.remove('active');
+                    icon.classList.remove('fa-solid');
+                    icon.classList.add('fa-regular');
+                    toggle.setAttribute('aria-pressed', 'false');
+                    toggle.setAttribute('title', 'Add to wishlist');
+                    toggle.setAttribute('aria-label', 'Add to wishlist');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error checking wishlist state:', error);
+        });
+    });
+}
 
 // Helper function to get CSRF token from cookies
 function getCookie(name) {

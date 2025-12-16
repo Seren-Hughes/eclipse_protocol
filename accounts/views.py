@@ -79,6 +79,17 @@ def toggle_wishlist(request, product_id):
         'message': 'Added to wishlist' if in_wishlist else 'Removed from wishlist'
     })
 
+@login_required
+def check_wishlist(request, product_id):
+    """Check if a product is in user's wishlist via AJAX."""
+    product = get_object_or_404(Product, id=product_id)
+    in_wishlist = Wishlist.objects.filter(user=request.user, product=product).exists()
+    
+    return JsonResponse({
+        'success': True,
+        'in_wishlist': in_wishlist
+    })
+
 def signup(request):
     """Handle user registration with smart redirects."""
     # Get the next parameter for redirect after signup
