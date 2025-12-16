@@ -398,6 +398,117 @@
   vertical-align: middle;
 }
 
+/* ======================================= */
+/* ============ WISHLIST CARDS =========== */
+/* ======================================= */
+
+/* Wishlist card container */
+.wishlist-card {
+    background-color: var(--color-background-grey-dark) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+
+}
+
+.wishlist-card:hover {
+    border-color: var(--color-accent) !important; 
+    box-shadow: 0 5px 30px rgba(83, 159, 210, 0.4);
+    transform: translateY(-2px);
+}
+
+.wishlist-card .card-body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    padding: 1.5rem;
+}
+
+.wishlist-card .card-title {
+    color: var(--color-text);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.wishlist-card .wishlist-credits {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.wishlist-card .wishlist-price {
+    color: var(--color-text);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.wishlist-card .card-footer {
+    background-color: var(--color-background-grey-dark) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 1rem 1.5rem;
+}
+
+.wishlist-card .btn-link {
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+/* remove from wishlist red hover*/
+.wishlist-card .btn-link:hover {
+    color: rgb(187, 45, 59);
+    text-decoration: none;
+}
+
+/* Wishlist image styling */
+.wishlist-image {
+    background-color: var(--color-background);
+    border-radius: 8px;
+    width: 100%;
+}
+
+.wishlist-image img {
+    border-radius: 6px;
+}
+
+.wishlist-image .fa-coins {
+    color: var(--color-accent);
+    opacity: 0.8;
+}
+
+/* Wishlist page title */
+.wishlist-title {
+    color: var(--color-text);
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+/* Empty wishlist alert */
+.alert-info {
+    background-color: rgba(83, 159, 210, 0.1);
+    border-color: rgba(83, 159, 210, 0.3);
+    color: var(--color-text);
+    border-radius: 8px;
+}
+
+/* Fadeout animation for removing cards */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+
 /* =================================== */
 /* ========== MEDIA QUERIES ========== */
 /* =================================== */

@@ -26,10 +26,10 @@
                     <div class="wishlist-price mb-2">£{{ item.product.price }}</div>
                 </div>
                 <div class="card-footer bg-transparent border-0 d-flex flex-column gap-2">
-                    <button class="btn btn-primary w-100 btn-add-to-basket" data-product-id="{{ item.product.id }}">
+                    <button class="btn-buy-now btn-primary btn btn-primary w-100 btn-add-to-basket" data-product-id="{{ item.product.id }}">
                         <i class="fa fa-shopping-basket me-2"></i>Add to basket
                     </button>
-                    <button class="btn btn-link text-danger w-100 btn-remove-wishlist" data-wishlist-id="{{ item.id }}">
+                    <button class="btn btn-link w-100 btn-remove-wishlist" data-product-id="{{ item.product.id }}">
                         <i class="fa fa-trash me-2"></i>Remove from wishlist
                     </button>
                 </div>
