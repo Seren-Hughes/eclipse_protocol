@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from core import views
+from accounts import views as account_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +25,6 @@ urlpatterns = [
     path('checkout/', include('checkout.urls')),
     path('products/', include('catalog.urls')),
     path('currency/', include('catalog.urls')),
-    
+    path('accounts/', include('accounts.urls')),
+    path('wishlist/', account_views.wishlist, name='wishlist'),
 ]

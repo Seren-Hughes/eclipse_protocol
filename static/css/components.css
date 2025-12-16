@@ -194,6 +194,89 @@
 }
 
 /* ======================================= */
+/* ============== FORMS ================== */
+/* ======================================= */
+
+/* Auth form container */
+.auth-form .card {
+    background-color: var(--color-background-grey-dark);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+}
+
+.auth-form .card-body {
+    background-color: var(--color-background-grey-dark);
+}
+
+/* Auth form titles */
+.auth-form .card-title {
+    color: var(--color-text);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.auth-form h5 {
+    color: var(--color-text);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Form inputs */
+.auth-form .form-control {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: var(--color-text);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+}
+
+.auth-form .form-control:focus {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 0.2rem rgba(83, 159, 210, 0.25);
+    color: var(--color-text);
+}
+
+.auth-form .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Form helper text */
+.auth-form .text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-size: 0.85rem;
+}
+
+/* Form submit buttons */
+.auth-form .btn-light {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.auth-form .btn-light:hover {
+    background-color: #6ba3cc;
+    border-color: #6ba3cc;
+    color: #ffffff;
+}
+
+/* Form links */
+.auth-form a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.auth-form a:hover {
+    color: #6ba3cc;
+}
+
+/* ======================================= */
 /* ========== MOBILE ADJUSTMENTS ========= */
 /* ======================================= */
 

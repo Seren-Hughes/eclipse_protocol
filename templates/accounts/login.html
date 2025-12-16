@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="auth-form">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <h4 class="card-title">ECLIPSE<br>PROTOCOL</h4>
+                        <h5 class="mt-3">SIGN IN</h5>
+                    </div>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            {{ form.username }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.password }}
+                        </div>
+                        
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+                        
+                        <button type="submit" class="btn btn-light w-100 mb-3">Sign In</button>
+                        
+                        <div class="text-center">
+                            <a href="{% url 'accounts:signup' %}" class="text-decoration-underline">Create account</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

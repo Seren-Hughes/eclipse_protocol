@@ -191,3 +191,17 @@ STRIPE_CURRENCY = "gbp"
 # Add Stripe keys to context for templates
 if 'checkout' in INSTALLED_APPS:
     STRIPE_PUBLIC_KEY_CONTEXT = STRIPE_PUBLIC_KEY
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailOrUsernameBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# Use email as the username field
+AUTH_USER_MODEL = 'auth.User'
+
+# Login/logout redirect URLs
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login/'
