@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.urls import reverse
-from catalog.models import Wishlist, Product
+from catalog.models import Wishlist, Product, DigitalVariant
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 
 # Create your views here.
@@ -48,7 +48,11 @@ def user_login(request):
 @login_required
 def wishlist(request):
     """Render the user's wishlist page."""
-    items = Wishlist.objects.select_related('product', 'product__currency').filter(user=request.user)
+    items = Wishlist.objects.select_related(
+        'product', 
+        'product__currency', 
+        'variant'
+    ).filter(user=request.user)
     context = {
         'wishlist_items': items,
         'item_count': items.count(),
@@ -58,32 +62,74 @@ def wishlist(request):
 @login_required
 @require_POST
 def toggle_wishlist(request, product_id):
-    """Toggle a product in/out of user's wishlist via AJAX."""
+    """Toggle a product/variant in/out of user's wishlist via AJAX."""
     product = get_object_or_404(Product, id=product_id)
-    wishlist_item, created = Wishlist.objects.get_or_create(
-        user=request.user,
-        product=product
-    )
     
-    if not created:
-        # remove from wishlist
+    # Check if a variant ID was provided
+    variant_id = request.POST.get('variant_id')
+    variant = None
+    if variant_id:
+        try:
+            variant = DigitalVariant.objects.get(id=variant_id, product=product)
+        except DigitalVariant.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'message': 'Invalid variant specified'
+            })
+    
+    # Check if this combination already exists
+    wishlist_item = Wishlist.objects.filter(
+        user=request.user,
+        product=product,
+        variant=variant
+    ).first()
+    
+    if wishlist_item:
+        # Remove from wishlist
         wishlist_item.delete()
         in_wishlist = False
+        message = f'Removed {product.name}'
+        if variant:
+            message += f' ({variant.get_platform_display()} - {variant.get_edition_display()})'
+        message += ' from wishlist'
     else:
-        # add to wishlist
+        # Add to wishlist
+        Wishlist.objects.create(
+            user=request.user,
+            product=product,
+            variant=variant
+        )
         in_wishlist = True
+        message = f'Added {product.name}'
+        if variant:
+            message += f' ({variant.get_platform_display()} - {variant.get_edition_display()})'
+        message += ' to wishlist'
     
     return JsonResponse({
         'success': True,
         'in_wishlist': in_wishlist,
-        'message': 'Added to wishlist' if in_wishlist else 'Removed from wishlist'
+        'message': message
     })
 
 @login_required
 def check_wishlist(request, product_id):
-    """Check if a product is in user's wishlist via AJAX."""
+    """Check if a product/variant is in user's wishlist via AJAX."""
     product = get_object_or_404(Product, id=product_id)
-    in_wishlist = Wishlist.objects.filter(user=request.user, product=product).exists()
+    
+    # Check if a variant ID was provided
+    variant_id = request.GET.get('variant_id')
+    variant = None
+    if variant_id:
+        try:
+            variant = DigitalVariant.objects.get(id=variant_id, product=product)
+        except DigitalVariant.DoesNotExist:
+            variant = None
+    
+    in_wishlist = Wishlist.objects.filter(
+        user=request.user,
+        product=product,
+        variant=variant
+    ).exists()
     
     return JsonResponse({
         'success': True,

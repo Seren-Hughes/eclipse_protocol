@@ -11,25 +11,39 @@
         {% for item in wishlist_items %}
         <div class="col">
             <div class="wishlist-card card h-100 d-flex flex-column">
-                <div class="card-body d-flex flex-column align-items-start">
-                    <div class="wishlist-image mb-3 w-100 d-flex justify-content-center align-items-center" style="min-height:100px;">
-                        {% if item.product.image %}
-                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-fluid" style="max-height:80px;">
-                        {% else %}
-                            <i class="fa-solid fa-coins fa-3x text-accent"></i>
-                        {% endif %}
-                    </div>
-                    <h5 class="card-title mb-1">{{ item.product.name }}</h5>
-                    {% if item.product.currency %}
-                        <div class="wishlist-credits mb-1">{{ item.product.currency.credit_amount }} credits</div>
+                <div class="wishlist-image w-100 d-flex justify-content-center align-items-center">
+                    {% if item.variant and item.variant.effective_image %}
+                        <img src="{{ item.variant.effective_image.url }}" alt="{{ item.product.name }}" class="img-fluid">
+                    {% elif item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-fluid">
+                    {% else %}
+                        <i class="fa-solid fa-coins fa-3x text-accent"></i>
                     {% endif %}
-                    <div class="wishlist-price mb-2">£{{ item.product.price }}</div>
+                </div>
+                <div class="card-body d-flex flex-column align-items-start">
+                    <h5 class="card-title mb-1">{{ item.product.name }}</h5>
+                    {% if item.variant %}
+                        <div class="wishlist-variant mb-1">
+                            <span class="platform-badge mb-2">{{ item.variant.get_platform_display }}</span>
+                            <span class="edition-badge">{{ item.variant.get_edition_display }}</span>
+                        </div>
+                        <div class="wishlist-price mb-2">£{{ item.variant.effective_price }}</div>
+                    {% elif item.product.currency %}
+                        <div class="wishlist-credits mb-1">{{ item.product.currency.credit_amount }} credits</div>
+                        <div class="wishlist-price mb-2">£{{ item.product.price }}</div>
+                    {% else %}
+                        <div class="wishlist-price mb-2">£{{ item.product.price }}</div>
+                    {% endif %}
                 </div>
                 <div class="card-footer bg-transparent border-0 d-flex flex-column gap-2">
-                    <button class="btn-buy-now btn-primary btn btn-primary w-100 btn-add-to-basket" data-product-id="{{ item.product.id }}">
+                    <button class="btn-buy-now btn-primary btn btn-primary w-100 btn-add-to-basket" 
+                            data-product-id="{{ item.product.id }}"
+                            {% if item.variant %}data-variant-id="{{ item.variant.id }}"{% endif %}>
                         <i class="fa fa-shopping-basket me-2"></i>Add to basket
                     </button>
-                    <button class="btn btn-link w-100 btn-remove-wishlist" data-product-id="{{ item.product.id }}">
+                    <button class="btn btn-link w-100 btn-remove-wishlist" 
+                            data-product-id="{{ item.product.id }}"
+                            {% if item.variant %}data-variant-id="{{ item.variant.id }}"{% endif %}>
                         <i class="fa fa-trash me-2"></i>Remove from wishlist
                     </button>
                 </div>

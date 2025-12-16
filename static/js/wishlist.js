@@ -1,6 +1,6 @@
 // wishlist heart toggle functionality
 document.addEventListener('DOMContentLoaded', function () {
-    // Get ALL wishlist toggle buttons (multiple on currency page)
+    // Get ALL wishlist toggle buttons
     const wishlistToggles = document.querySelectorAll('[data-wishlist-toggle]');
 
     // Load initial wishlist state for all buttons
@@ -11,21 +11,27 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
 
             const productId = this.dataset.productId;
+            const variantId = this.dataset.variantId || getCurrentVariantId(); // For edition pages
             const icon = this.querySelector('i.fa-heart');
-            const isActive = this.classList.contains('active');
 
             if (!productId) {
                 console.error('No product ID found for wishlist toggle');
                 return;
             }
 
+            // Prepare form data
+            const formData = new FormData();
+            if (variantId) {
+                formData.append('variant_id', variantId);
+            }
+
             // Make API call to toggle wishlist
             fetch(`/accounts/wishlist/toggle/${productId}/`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
+                body: formData
             })
             .then(response => response.json())
             .then(data => {
@@ -51,12 +57,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     
                     console.log(data.message);
                 } else {
-                    console.error('Failed to toggle wishlist');
+                    console.error('Failed to toggle wishlist:', data.message);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Revert any UI changes on error
             });
         });
     });
@@ -68,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             
             const productId = this.dataset.productId;
+            const variantId = this.dataset.variantId;
             const wishlistCard = this.closest('.col');
             
             if (!productId) {
@@ -75,12 +81,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
+            // Prepare form data
+            const formData = new FormData();
+            if (variantId) {
+                formData.append('variant_id', variantId);
+            }
+
             fetch(`/accounts/wishlist/toggle/${productId}/`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
+                body: formData
             })
             .then(response => response.json())
             .then(data => {
@@ -98,7 +110,44 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     });
+
+    // Listen for platform/edition changes on edition detail pages
+    const platformBtns = document.querySelectorAll('.platform-btn');
+    const editionSelect = document.getElementById('editionSelect');
+
+    if (platformBtns.length > 0 || editionSelect) {
+        // When platform or edition changes, update wishlist button state
+        platformBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                setTimeout(loadWishlistState, 100); // Small delay to let variant data update
+            });
+        });
+
+        if (editionSelect) {
+            editionSelect.addEventListener('change', function() {
+                setTimeout(loadWishlistState, 100);
+            });
+        }
+    }
 });
+
+// Get current variant ID from the edition detail page
+function getCurrentVariantId() {
+    const selectedPlatform = document.querySelector('.platform-btn.active')?.dataset.platform;
+    const selectedEdition = document.getElementById('editionSelect')?.value;
+    
+    if (!selectedPlatform || !selectedEdition) return null;
+    
+    // Find the variant that matches current selection
+    const variantData = document.querySelectorAll('#variantData [data-variant-id]');
+    for (let variant of variantData) {
+        if (variant.dataset.platform === selectedPlatform && 
+            variant.dataset.edition === selectedEdition) {
+            return variant.dataset.variantId;
+        }
+    }
+    return null;
+}
 
 // Load initial wishlist state for all buttons when page loads
 function loadWishlistState() {
@@ -106,11 +155,18 @@ function loadWishlistState() {
     
     wishlistToggles.forEach(function(toggle) {
         const productId = toggle.dataset.productId;
+        const variantId = toggle.dataset.variantId || getCurrentVariantId();
         
         if (!productId) return;
         
-        // Check if this product is in the user's wishlist
-        fetch(`/accounts/wishlist/check/${productId}/`)
+        // Build query string
+        let url = `/accounts/wishlist/check/${productId}/`;
+        if (variantId) {
+            url += `?variant_id=${variantId}`;
+        }
+        
+        // Check if this product/variant is in the user's wishlist
+        fetch(url)
         .then(response => response.json())
         .then(data => {
             if (data.success) {

@@ -329,16 +329,25 @@ class Wishlist(models.Model):
         on_delete=models.CASCADE,
         help_text="Product added to wishlist"
     )
+    variant = models.ForeignKey(
+        'DigitalVariant',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        help_text="Specific variant (platform/edition) if applicable"
+    )
     added_at = models.DateTimeField(
         auto_now_add=True,
         help_text="When product was added to wishlist"
     )
     
     class Meta:
-        unique_together = ['user', 'product']  # Prevent duplicate wishlist entries
+        unique_together = ['user', 'product', 'variant']  # Prevent duplicate entries
         ordering = ['-added_at']  # Show most recent first
     
     def __str__(self):
+        if self.variant:
+            return f"{self.user.username} - {self.product.name} ({self.variant.get_platform_display()} - {self.variant.get_edition_display()})"
         return f"{self.user.username} - {self.product.name}"
     
 
