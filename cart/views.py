@@ -9,7 +9,12 @@ from decimal import Decimal
 from .context_processors import cart_contents
 
 def cart_view(request):
-    """Display the shopping cart."""
+    """
+    Display the shopping cart page.
+    
+    For authenticated users: Displays database cart items.
+    For anonymous users: Displays session cart items via context processor.
+    """
     if request.user.is_authenticated:
         # Get or create cart for authenticated user
         cart, created = Cart.objects.get_or_create(user=request.user)
@@ -35,7 +40,22 @@ def cart_view(request):
 
 @require_POST
 def add_to_cart(request, product_id):
-    """Add a product to the cart."""
+    """
+    Add a product to the cart via AJAX.
+    
+    Supports both authenticated users (database cart) and anonymous users (session cart).
+    Handles digital products with duplicate prevention and currency products with quantity increment.
+    
+    Args:
+        product_id (int): ID of the product to add
+        
+    POST data:
+        variant_id (optional): ID of the product variant
+        quantity (optional): Quantity to add (defaults to 1)
+        
+    Returns:
+        JsonResponse: Success/failure status with message and updated cart total
+    """
     product = get_object_or_404(Product, id=product_id)
     variant_id = request.POST.get('variant_id')
     quantity = int(request.POST.get('quantity', 1))
@@ -48,9 +68,8 @@ def add_to_cart(request, product_id):
         # Handle database cart for authenticated users
         cart, created = Cart.objects.get_or_create(user=request.user)
         
-        # Check if this is a digital product (BASE_GAME or DIGITAL)
+        # Prevent duplicate digital products
         if product.product_type in ['BASE_GAME', 'DIGITAL']:
-            # Check if this exact product/variant combo already exists
             existing_item = CartItem.objects.filter(
                 cart=cart,
                 product=product,
@@ -81,7 +100,7 @@ def add_to_cart(request, product_id):
                 cart_item.quantity += quantity
                 cart_item.save()
             else:
-                # For digital products, this shouldn't happen due to check above
+                # Digital products should not reach here due to check above
                 item_name = product.name
                 if variant:
                     item_name += f" ({variant.get_platform_display()} - {variant.get_edition_display()})"
@@ -102,7 +121,7 @@ def add_to_cart(request, product_id):
         else:
             cart_key = str(product_id)
         
-        # Check if this is a digital product (BASE_GAME or DIGITAL)
+        # Prevent duplicate digital products
         if product.product_type in ['BASE_GAME', 'DIGITAL']:
             if cart_key in session_cart:
                 item_name = product.name
@@ -160,7 +179,22 @@ def add_to_cart(request, product_id):
 
 @require_POST
 def update_cart_item(request, item_id):
-    """Update quantity of a cart item."""
+    """
+    Update the quantity of a cart item via AJAX.
+    
+    Supports both authenticated users (database cart) and anonymous users (session cart).
+    If quantity is 0, removes the item entirely.
+    
+    Args:
+        item_id (str): For authenticated users: database CartItem ID
+                      For anonymous users: session cart key (e.g., "22" or "22_15")
+                      
+    POST data:
+        quantity (int): New quantity for the item
+        
+    Returns:
+        JsonResponse: Success status with updated cart totals
+    """
     quantity = int(request.POST.get('quantity', 1))
     
     if request.user.is_authenticated:
@@ -193,12 +227,11 @@ def update_cart_item(request, item_id):
             
             # Recalculate totals
             cart_total = sum(item_data.get('quantity', 1) for item_data in session_cart.values())
-            # For session cart, we'd need to recalculate price - this is handled by context processor
             
             return JsonResponse({
                 'success': True,
                 'cart_total': cart_total,
-                'cart_price': 0  # Will be updated by page refresh
+                'cart_price': 0  # Price calculation handled by context processor
             })
         
         return JsonResponse({
@@ -208,7 +241,18 @@ def update_cart_item(request, item_id):
 
 @require_POST
 def remove_from_cart(request, item_id):
-    """Remove an item from the cart."""
+    """
+    Remove an item from the cart via AJAX.
+    
+    Supports both authenticated users (database cart) and anonymous users (session cart).
+    
+    Args:
+        item_id (str): For authenticated users: database CartItem ID
+                      For anonymous users: session cart key (e.g., "22" or "22_15")
+                      
+    Returns:
+        JsonResponse: Success status with updated cart totals
+    """
     if request.user.is_authenticated:
         # Handle database cart
         cart_item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
@@ -225,8 +269,11 @@ def remove_from_cart(request, item_id):
         # Handle session cart
         session_cart = request.session.get('cart', {})
         
-        if item_id in session_cart:
-            del session_cart[item_id]
+        # Convert item_id to string to ensure consistent key comparison
+        item_key = str(item_id)
+        
+        if item_key in session_cart:
+            del session_cart[item_key]
             request.session['cart'] = session_cart
             request.session.modified = True
             
@@ -236,7 +283,7 @@ def remove_from_cart(request, item_id):
                 'success': True,
                 'message': 'Item removed from cart',
                 'cart_total': cart_total,
-                'cart_price': 0  # Will be updated by page refresh
+                'cart_price': 0  # Price calculation handled by context processor
             })
         
         return JsonResponse({

@@ -1,11 +1,20 @@
+/**
+ * Cart functionality handles add-to-cart, remove, update,
+ * and wishlist integration
+ * Supports both authenticated and anonymous users
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize cart functionality
     initializeCartPage();
     initializeCartButtons();
 });
 
+/**
+ * Initialize cart page functionality (remove buttons, etc.)
+ */
 function initializeCartPage() {
-    // remove buttons
+    // Remove item buttons
     const removeButtons = document.querySelectorAll('.btn-remove-item');
     
     removeButtons.forEach(btn => {
@@ -16,6 +25,9 @@ function initializeCartPage() {
     });
 }
 
+/**
+ * Initialize add-to-cart buttons across the site
+ */
 function initializeCartButtons() {
     // Handle add to cart buttons (edition detail page and wishlist)
     const addToCartButtons = document.querySelectorAll('.btn-add-to-cart, .btn-add-to-basket');
@@ -39,7 +51,7 @@ function initializeCartButtons() {
             // Only redirect to cart if it's specifically the BUY NOW button on currency page
             const isBuyNow = this.id === 'buyNowBtn' || (this.classList.contains('btn-buy-now') && window.location.pathname.includes('/currency/'));
             
-            // Check if this is from wishlist page
+            // Check if this is from wishlist page (for auto-removal after add)
             const isFromWishlist = window.location.pathname.includes('/wishlist/');
             
             addToCart(productId, variantId, this, isBuyNow, isFromWishlist);
@@ -65,6 +77,14 @@ function initializeCartButtons() {
     });
 }
 
+/**
+ * Add a product to the cart via AJAX
+ * @param {string} productId - Product ID
+ * @param {string|null} variantId - Variant ID (optional)
+ * @param {HTMLElement|null} buttonElement - Button element for UI feedback
+ * @param {boolean} redirectToCart - Whether to redirect to cart after success
+ * @param {boolean} isFromWishlist - Whether this is from wishlist page
+ */
 function addToCart(productId, variantId = null, buttonElement = null, redirectToCart = false, isFromWishlist = false) {
     // Prepare form data
     const formData = new FormData();
@@ -95,7 +115,7 @@ function addToCart(productId, variantId = null, buttonElement = null, redirectTo
                 // For "buy now" buttons on currency page - redirect to cart
                 window.location.href = '/cart/';
             } else {
-                // For all other buttons (wishlist, edition detail) - show success feedback only
+                // For all other buttons - show success feedback only
                 if (buttonElement) {
                     buttonElement.innerHTML = '<i class="fa fa-check me-2"></i>Added!';
                     buttonElement.classList.remove('btn-primary');
@@ -132,6 +152,12 @@ function addToCart(productId, variantId = null, buttonElement = null, redirectTo
     });
 }
 
+/**
+ * Remove an item from wishlist after successfully adding to cart
+ * @param {string} productId - Product ID
+ * @param {string|null} variantId - Variant ID (optional)
+ * @param {HTMLElement} buttonElement - Button element for finding the card to remove
+ */
 function removeFromWishlistAfterAddToCart(productId, variantId, buttonElement) {
     // Prepare form data for wishlist removal
     const formData = new FormData();
@@ -184,6 +210,13 @@ function removeFromWishlistAfterAddToCart(productId, variantId, buttonElement) {
     });
 }
 
+/**
+ * Handle add-to-cart error states with UI feedback
+ * @param {HTMLElement|null} buttonElement - Button element for UI feedback
+ * @param {string} originalText - Original button text to restore
+ * @param {string} message - Error message to display
+ * @param {string} toastType - Type of toast notification ('error', 'warning', etc.)
+ */
 function handleAddToCartError(buttonElement, originalText, message, toastType = 'error') {
     if (buttonElement) {
         const isWarning = toastType === 'warning';
@@ -206,8 +239,11 @@ function handleAddToCartError(buttonElement, originalText, message, toastType = 
     showToast(message || 'Failed to add to cart', toastType);
 }
 
+/**
+ * Get the currently selected variant ID on edition detail pages
+ * @returns {string|null} Selected variant ID or null if none selected
+ */
 function getCurrentVariantId() {
-    // Get current variant selection on edition detail page
     const selectedPlatform = document.querySelector('.platform-btn.active')?.dataset.platform;
     const selectedEdition = document.getElementById('editionSelect')?.value;
     
@@ -224,8 +260,12 @@ function getCurrentVariantId() {
     return null;
 }
 
+/**
+ * Get the selected credit pack ID on currency detail pages
+ * @returns {string|null} Selected credit pack ID or null if none selected
+ */
 function getSelectedCreditPackId() {
-    // Get selected credit pack on currency detail page ONLY
+    // Only works on currency pages
     if (!window.location.pathname.includes('/currency/')) {
         return null;
     }
@@ -234,8 +274,11 @@ function getSelectedCreditPackId() {
     return selectedOption ? selectedOption.dataset.productId : null;
 }
 
+/**
+ * Update the cart badge in the navigation bar
+ * @param {number} itemCount - Number of items in cart
+ */
 function updateCartBadge(itemCount) {
-    // Update cart badge in navbar if it exists
     const cartBadge = document.querySelector('.cart-badge');
     if (cartBadge) {
         cartBadge.textContent = itemCount;
@@ -243,6 +286,11 @@ function updateCartBadge(itemCount) {
     }
 }
 
+/**
+ * Update cart item quantity via AJAX
+ * @param {string} itemId - Item ID (database ID for auth users, session key for anonymous)
+ * @param {number} quantity - New quantity
+ */
 function updateCartItem(itemId, quantity) {
     const formData = new FormData();
     formData.append('quantity', quantity);
@@ -273,6 +321,10 @@ function updateCartItem(itemId, quantity) {
     });
 }
 
+/**
+ * Remove an item from the cart via AJAX
+ * @param {string} itemId - Item ID (database ID for auth users, session key for anonymous)
+ */
 function removeCartItem(itemId) {
     fetch(`/cart/remove/${itemId}/`, {
         method: 'POST',
@@ -286,17 +338,25 @@ function removeCartItem(itemId) {
             document.querySelector(`[data-item-id="${itemId}"]`).remove();
             updateCartSummary(data.cart_total, data.cart_price);
             
-            // Check if cart is empty
+            // Reload page if cart is empty to show empty state
             if (data.cart_total === 0) {
                 location.reload();
             }
+        } else {
+            showToast(data.message || 'Failed to remove item', 'error');
         }
     })
     .catch(error => {
         console.error('Error removing item:', error);
+        showToast('Error removing item', 'error');
     });
 }
 
+/**
+ * Update cart summary display with new totals
+ * @param {number} itemCount - Total number of items
+ * @param {number} totalPrice - Total price amount
+ */
 function updateCartSummary(itemCount, totalPrice) {
     // Update cart title
     const cartTitle = document.querySelector('.cart-title');
@@ -305,7 +365,7 @@ function updateCartSummary(itemCount, totalPrice) {
         cartTitle.textContent = `Your shopping basket (${itemCount} ${itemText})`;
     }
     
-    // Update summary
+    // Update summary prices
     const summaryLine = document.querySelector('.summary-line span:last-child');
     const totalPriceElement = document.querySelector('.total-price');
     
@@ -313,7 +373,11 @@ function updateCartSummary(itemCount, totalPrice) {
     if (totalPriceElement) totalPriceElement.textContent = `£${totalPrice.toFixed(2)}`;
 }
 
-// Helper function to show toast notifications
+/**
+ * Show a toast notification using Bootstrap toasts
+ * @param {string} message - Message to display
+ * @param {string} type - Toast type ('success', 'error', 'warning', 'info', etc.)
+ */
 function showToast(message, type = 'info') {
     // Check if Bootstrap toasts are available
     if (typeof bootstrap !== 'undefined' && bootstrap.Toast) {
@@ -362,10 +426,16 @@ function showToast(message, type = 'info') {
             toastElement.remove();
         });
     } else {
+        // Fallback for environments without Bootstrap
         console.log(`${type.toUpperCase()}: ${message}`);
     }
 }
 
+/**
+ * Get Django CSRF token from cookies
+ * @param {string} name - Cookie name
+ * @returns {string|null} Cookie value or null if not found
+ */
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -381,6 +451,6 @@ function getCookie(name) {
     return cookieValue;
 }
 
-// Make addToCart function globally available for other scripts
+// Make functions globally available for other scripts
 window.addToCart = addToCart;
 window.showToast = showToast;
