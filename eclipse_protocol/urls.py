@@ -27,4 +27,5 @@ urlpatterns = [
     path('currency/', include('catalog.urls')),
     path('accounts/', include('accounts.urls')),
     path('wishlist/', account_views.wishlist, name='wishlist'),
+    path('cart/', include('cart.urls')),
 ]

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container py-4">
+        <h2 class="cart-title mb-4">Your shopping basket ({{ total_items }} item{{ total_items|pluralize }})</h2>
+        <div class="row">
+            <div class="col-lg-8">
+                {% if cart_items %}
+                    {% for item in cart_items %}
+                        <div class="cart-item" data-item-id="{% if item.id %}{{ item.id }}{% else %}{{ item.item_id }}{% endif %}">
+                            <div class="row align-items-center">
+                                <!-- Product Image -->
+                                <div class="col-md-3 col-4">
+                                    <div class="cart-item-image">
+                                        {% if item.variant and item.variant.effective_image %}
+                                            <img src="{{ item.variant.effective_image.url }}"
+                                                 alt="{{ item.product.name }}"
+                                                 class="img-fluid">
+                                        {% elif item.product.image %}
+                                            <img src="{{ item.product.image.url }}"
+                                                 alt="{{ item.product.name }}"
+                                                 class="img-fluid">
+                                        {% else %}
+                                            <div class="cart-fallback-icon">
+                                                <i class="fa-solid fa-coins fa-2x text-accent"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <!-- Product Info -->
+                                <div class="col-md-5 col-8">
+                                    <div class="cart-item-info">
+                                        <h5 class="cart-item-name">{{ item.product.name }}</h5>
+                                        {% if item.variant %}
+                                            <div class="cart-item-variant">
+                                                <span class="platform-badge">{{ item.variant.get_platform_display }}</span>
+                                                <span class="edition-badge">{{ item.variant.get_edition_display }}</span>
+                                            </div>
+                                        {% elif item.product.currency %}
+                                            <div class="cart-item-credits">
+                                                <span class="credit-badge">{{ item.product.currency.credit_amount }} credits</span>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <!-- Price and Remove -->
+                                <div class="col-md-4 col-8 text-end">
+                                    <div class="cart-item-price">£{{ item.line_total }}</div>
+                                    <button type="button" class="btn-remove-item" data-item-id="{% if item.id %}{{ item.id }}{% else %}{{ item.item_id }}{% endif %}">
+                                        <i class="fa fa-trash me-1"></i>Remove
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">
+                        Your shopping basket is empty.
+                        <a href="{% url 'home' %}" class="alert-link">Continue shopping</a>
+                    </div>
+                {% endif %}
+            </div>
+            <!-- Cart Summary -->
+            {% if cart_items %}
+                <div class="col-lg-4">
+                    <div class="cart-summary">
+                        <h3 class="summary-title">Summary</h3>
+                        <div class="summary-line">
+                            <span>Subtotal ({{ total_items }} item{{ total_items|pluralize }})</span>
+                            <span class="summary-price">£{{ total_price }}</span>
+                        </div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span class="total-price">£{{ grand_total }}</span>
+                        </div>
+                        <a href="{% url 'checkout:checkout' %}"
+                           class="btn btn-primary btn-checkout w-100 mb-3">Checkout</a>
+                        <a href="{% url 'home' %}" class="btn btn-link continue-shopping w-100">Continue Shopping</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}
