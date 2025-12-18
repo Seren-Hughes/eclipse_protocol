@@ -225,13 +225,15 @@ def update_cart_item(request, item_id):
             request.session['cart'] = session_cart
             request.session.modified = True
             
-            # Recalculate totals
+            # Recalculate totals using context processor
             cart_total = sum(item_data.get('quantity', 1) for item_data in session_cart.values())
+            cart_context_data = cart_contents(request)
+            cart_price = cart_context_data['total']
             
             return JsonResponse({
                 'success': True,
                 'cart_total': cart_total,
-                'cart_price': 0  # Price calculation handled by context processor
+                'cart_price': float(cart_price)
             })
         
         return JsonResponse({
@@ -277,13 +279,16 @@ def remove_from_cart(request, item_id):
             request.session['cart'] = session_cart
             request.session.modified = True
             
+            # Recalculate totals using context processor
             cart_total = sum(item_data.get('quantity', 1) for item_data in session_cart.values())
+            cart_context_data = cart_contents(request)
+            cart_price = cart_context_data['total']
             
             return JsonResponse({
                 'success': True,
                 'message': 'Item removed from cart',
                 'cart_total': cart_total,
-                'cart_price': 0  # Price calculation handled by context processor
+                'cart_price': float(cart_price)
             })
         
         return JsonResponse({

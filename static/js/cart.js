@@ -365,12 +365,22 @@ function updateCartSummary(itemCount, totalPrice) {
         cartTitle.textContent = `Your shopping basket (${itemCount} ${itemText})`;
     }
     
+    // Update subtotal line in summary section
+    const summaryLine = document.querySelector('.summary-line span:first-child');
+    if (summaryLine) {
+        const itemText = itemCount === 1 ? 'item' : 'items';
+        summaryLine.textContent = `Subtotal (${itemCount} ${itemText})`;
+    }
+    
     // Update summary prices
-    const summaryLine = document.querySelector('.summary-line span:last-child');
+    const summaryPrice = document.querySelector('.summary-price');
     const totalPriceElement = document.querySelector('.total-price');
     
-    if (summaryLine) summaryLine.textContent = `£${totalPrice.toFixed(2)}`;
+    if (summaryPrice) summaryPrice.textContent = `£${totalPrice.toFixed(2)}`;
     if (totalPriceElement) totalPriceElement.textContent = `£${totalPrice.toFixed(2)}`;
+    
+    // Update cart badge in header
+    updateCartBadge(itemCount);
 }
 
 /**
