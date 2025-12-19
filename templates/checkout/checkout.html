@@ -28,9 +28,11 @@
                 <div class="checkout-section">
                     <div class="section-header">
                         <h2 class="section-title">BILLING ADDRESS</h2>
-                        <button type="button" class="btn-edit">
-                            <i class="fa fa-pencil me-1"></i>EDIT
-                        </button>
+                        {% if using_saved_address %}
+                            <button type="button" class="btn-edit">
+                                <i class="fa fa-pencil me-1"></i>EDIT
+                            </button>
+                        {% endif %}
                     </div>
                     
                     <form action="{% url 'checkout:checkout' %}" method="POST" id="payment-form">
@@ -78,10 +80,24 @@
                                 {{ form.phone_number }}
                             </div>
                             
-                            <!-- Add new address button -->
-                            <button type="button" class="btn-add-address">
-                                <i class="fa fa-plus-circle me-2"></i>Add new address
-                            </button>
+                            <!-- Save address checkbox -->
+                            {% if not has_saved_address %}
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="save_address" id="save_address">
+                                        <label class="form-check-label" for="save_address">
+                                            Save this billing address for faster checkout next time
+                                        </label>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            
+                            <!-- Add new address button (only show if user has saved addresses) -->
+                            {% if has_saved_address %}
+                                <button type="button" class="btn-add-address">
+                                    <i class="fa fa-plus-circle me-2"></i>Add new address
+                                </button>
+                            {% endif %}
                         </div>
 
                         <!-- Continue Button -->
@@ -89,9 +105,8 @@
                             <button type="submit" class="btn-continue" id="submit-button">
                                 <span id="button-text">Continue to Review</span>
                             </button>
-                        </div>
-                        
-                        </form>
+                        </div> 
+                    </form>
                 </div>
             </div>
             

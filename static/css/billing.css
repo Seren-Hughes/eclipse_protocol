@@ -143,6 +143,40 @@
     color: var(--color-accent);
 }
 
+/* Form Check Styling */
+.form-check {
+    padding-left: 1.5rem;
+}
+
+.form-check-input {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0;
+    margin-left: -1.5rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.form-check-input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 0.2rem rgba(83, 159, 210, 0.25);
+}
+
+.form-check-label {
+    color: var(--color-text);
+    font-size: 0.9rem;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
 /* Continue Button */
 .checkout-actions {
     text-align: center;

@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.http import HttpResponse
 from cart.context_processors import cart_contents
 from cart.models import Cart
+from accounts.models import Address
 from .forms import OrderForm
 from .models import Order, OrderItem
 
@@ -82,6 +83,10 @@ def checkout(request):
         messages.error(request, "Your cart is empty.")
         return redirect('home')
 
+    # Get user's saved billing addresses
+    saved_addresses = Address.objects.filter(user=request.user, address_type=Address.BILLING)
+    default_address = saved_addresses.first()  # Use most recent as default
+    
     if request.method == 'POST':
         # Process completed payment and create order
         form = OrderForm(request.POST)
@@ -96,6 +101,20 @@ def checkout(request):
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
             order.save()
+            
+            # Save address if user selects it
+            save_address = request.POST.get('save_address')
+            if save_address and not saved_addresses.exists():
+                Address.objects.create(
+                    user=request.user,
+                    address_type=Address.BILLING,
+                    full_name=form.cleaned_data['full_name'],
+                    address_line_1=form.cleaned_data['street_address_1'],
+                    address_line_2=form.cleaned_data['street_address_2'] or '',
+                    city=form.cleaned_data['city'],
+                    postcode=form.cleaned_data['postcode'],
+                    country=form.cleaned_data['country'],
+                )
             
             # Create order items with snapshotted product data
             _create_order_items(order, cart['cart_items'])
@@ -132,11 +151,22 @@ def checkout(request):
             messages.error(request, f'Stripe error: {e}')
             return redirect('home')
         
-        # Pre-fill form with authenticated user data
-        initial_data = {
-            'full_name': request.user.get_full_name() or f"{request.user.first_name} {request.user.last_name}".strip(),
-            'email': request.user.email,
-        }
+        # Pre-fill form with user data - use saved address if available
+        if default_address:
+            initial_data = {
+                'full_name': default_address.full_name,
+                'email': request.user.email,
+                'street_address_1': default_address.address_line_1,
+                'street_address_2': default_address.address_line_2,
+                'city': default_address.city,
+                'postcode': default_address.postcode,
+                'country': default_address.country,
+            }
+        else:
+            initial_data = {
+                'full_name': request.user.get_full_name() or f"{request.user.first_name} {request.user.last_name}".strip(),
+                'email': request.user.email,
+            }
         form = OrderForm(initial=initial_data)
 
     context = {
@@ -144,6 +174,9 @@ def checkout(request):
         'cart': cart,
         'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
         'client_secret': intent.client_secret,
+        'has_saved_address': saved_addresses.exists(),
+        'saved_addresses': saved_addresses,
+        'using_saved_address': bool(default_address),
     }
     
     return render(request, 'checkout/checkout.html', context)
