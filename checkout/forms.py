@@ -21,12 +21,12 @@ class OrderForm(forms.ModelForm):
         widgets = {
             'full_name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Full Name',
+                'placeholder': '* Full Name',
                 'required': True
             }),
             'email': forms.EmailInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Email Address',
+                'placeholder': '* Email Address',
                 'required': True
             }),
             'phone_number': forms.TextInput(attrs={
@@ -35,26 +35,26 @@ class OrderForm(forms.ModelForm):
             }),
             'street_address_1': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Street Address',
+                'placeholder': '* Street Address',
                 'required': True
             }),
             'street_address_2': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Address line 2" (Optional)'
+                'placeholder': 'Address line 2 (Optional)'
             }),
             'city': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'City',
+                'placeholder': '* City',
                 'required': True
             }),
             'postcode': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Postal Code',
+                'placeholder': '* Postal Code',
                 'required': True
             }),
             'country': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Country',
+                'placeholder': '* Country',
                 'value': 'United Kingdom',
                 'required': True
             })

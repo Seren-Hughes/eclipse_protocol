@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import HttpResponse
 from cart.context_processors import cart_contents
+from cart.models import Cart
 from .forms import OrderForm
 from .models import Order, OrderItem
 
@@ -29,24 +30,57 @@ def checkout(request):
     5. Redirect to confirmation page
     """
     
-    # DEVELOPMENT ONLY: Auto-populate cart with base game for testing
-    # TODO: Remove when implementing proper cart/product browsing
-    # In checkout view, for testing different platforms:
-    if not request.session.get('cart'):
-        from catalog.models import Product
-        base_game = Product.objects.filter(product_type=Product.BASE_GAME).first()
-        if base_game:
-            request.session['cart'] = {
-                'item_1': {'product_id': base_game.id, 'quantity': 1, 'platform': 'NINTENDO'},  # Test different platforms
+    # Get cart contents - handle both authenticated (database) and session carts
+    if request.user.is_authenticated:
+        try:
+            db_cart = Cart.objects.get(user=request.user)
+            cart_items = list(db_cart.items.select_related('product', 'variant', 'product__currency').all())
+            
+            # Convert database cart items to the format expected by templates
+            formatted_cart_items = []
+            total = 0
+            product_count = 0
+            
+            for db_item in cart_items:
+                item_data = {
+                    'item_id': str(db_item.id),
+                    'product': db_item.product,
+                    'variant': db_item.variant,
+                    'quantity': db_item.quantity,
+                    'price': db_item.effective_price,
+                    'line_total': db_item.line_total,
+                    'display_name': db_item.product.name,
+                }
+                
+                # Add variant info to display name if present
+                if db_item.variant:
+                    item_data['display_name'] += f" - {db_item.variant.get_platform_display()} {db_item.variant.get_edition_display()}"
+                
+                formatted_cart_items.append(item_data)
+                total += db_item.line_total
+                product_count += db_item.quantity
+            
+            # Create cart context similar to session cart
+            cart = {
+                'cart_items': formatted_cart_items,
+                'total': total,
+                'product_count': product_count,
+                'delivery': 0,
+                'grand_total': total,
+                'shipping_required': False,
             }
-
-    # Get cart contents via context processor
-    cart = cart_contents(request)
+            
+        except Cart.DoesNotExist:
+            # No database cart exists, fall back to session cart
+            cart = cart_contents(request)
+    else:
+        # For anonymous users, use session cart
+        cart = cart_contents(request)
     
     # Redirect if cart is empty
     if not cart['cart_items']:
         messages.error(request, "Your cart is empty.")
-        return redirect('catalog:product_list')
+        return redirect('home')
 
     if request.method == 'POST':
         # Process completed payment and create order
@@ -67,7 +101,14 @@ def checkout(request):
             _create_order_items(order, cart['cart_items'])
             
             # Clear cart after successful order creation
-            request.session['cart'] = {}
+            if request.user.is_authenticated:
+                try:
+                    db_cart = Cart.objects.get(user=request.user)
+                    db_cart.items.all().delete()
+                except Cart.DoesNotExist:
+                    pass
+            else:
+                request.session['cart'] = {}
             
             return redirect('checkout:checkout_success', order_number=order.order_number)
         else:
@@ -83,13 +124,13 @@ def checkout(request):
                 amount=stripe_total,
                 currency=settings.STRIPE_CURRENCY,
                 metadata={
-                    'cart': str(request.session.get('cart', {})),
+                    'cart': str(cart),
                     'username': request.user.username,
                 },
             )
         except stripe.error.StripeError as e:
             messages.error(request, f'Stripe error: {e}')
-            return redirect('catalog:product_list')
+            return redirect('home')
         
         # Pre-fill form with authenticated user data
         initial_data = {
@@ -121,7 +162,7 @@ def checkout_success(request, order_number):
     # Security: Ensure user can only view their own orders
     if order.user != request.user:
         messages.error(request, "You don't have permission to view this order.")
-        return redirect('catalog:product_list')
+        return redirect('home')
     
     # Process digital fulfillment (license keys, credits, email confirmation)
     # NOTE: In production, this would be triggered by Stripe webhooks
@@ -154,7 +195,7 @@ def _create_order_items(order, cart_items):
             variant_details = f"{variant.get_platform_display()} {variant.get_edition_display()}"
         
         # Capture platform from cart for license key generation
-        platform = cart_item.get('platform', 'PC')  # Get platform from cart or default to PC
+        platform = cart_item.get('platform', 'PC')
         
         # Modify product name to include platform for license key generation
         product_name = product.name
@@ -164,11 +205,11 @@ def _create_order_items(order, cart_items):
         # Create order item with snapshotted data
         OrderItem.objects.create(
             order=order,
-            product=product,                    # FK reference
-            variant=variant,                    # FK reference  
-            product_name=product_name,          # Snapshotted data
-            product_sku=product.sku,            # Snapshotted data
-            variant_details=variant_details,    # Snapshotted data
+            product=product,
+            variant=variant,
+            product_name=product_name,
+            product_sku=product.sku,
+            variant_details=variant_details,
             quantity=cart_item['quantity'],
-            unit_price=cart_item['price'],      # Snapshotted price
+            unit_price=cart_item['price'],
         )
