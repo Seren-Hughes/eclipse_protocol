@@ -111,17 +111,21 @@ class StripeWH_Handler:
     def _generate_license_key(self, order, item):
         """Generate platform-specific license key for base game products."""
         try:
-            # Determine platform from product name or default to PC
-            platform = 'PC'  # Default
+            # Use the platform from the variant if available, otherwise default to PC
+            platform = 'PC'  # Default fallback
             
-            # Check if product name contains platform hints
-            product_name = item.product_name.upper()
-            if 'NINTENDO' in product_name or 'SWITCH' in product_name:
-                platform = 'NINTENDO'
-            elif 'XBOX' in product_name:
-                platform = 'XBOX'
-            elif 'STEAM' in product_name or 'PC' in product_name:
-                platform = 'PC'
+            if item.variant:
+                # Use the actual platform from the variant
+                platform = item.variant.platform.upper()
+            else:
+                # Fallback: Check if product name contains platform hints
+                product_name = item.product_name.upper()
+                if 'NINTENDO' in product_name or 'SWITCH' in product_name:
+                    platform = 'NINTENDO'
+                elif 'XBOX' in product_name:
+                    platform = 'XBOX'
+                elif 'STEAM' in product_name or 'PC' in product_name:
+                    platform = 'PC'
             
             # Generate platform-specific key
             key_code = self._generate_key_code(item.product, platform)
