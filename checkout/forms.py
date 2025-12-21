@@ -1,4 +1,6 @@
 from django import forms
+from django_countries.fields import CountryField
+from django_countries.widgets import CountrySelectWidget
 from .models import Order
 
 
@@ -9,6 +11,14 @@ class OrderForm(forms.ModelForm):
     Collects customer details and billing information.
     User field is handled separately in the view logic.
     """
+    
+    # Override country field to use country dropdown
+    country = CountryField().formfield(
+        widget=CountrySelectWidget(attrs={
+            'class': 'form-control',
+            'required': True
+        })
+    )
     
     class Meta:
         model = Order
@@ -51,12 +61,6 @@ class OrderForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': '* Postal Code',
                 'required': True
-            }),
-            'country': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': '* Country',
-                'value': 'United Kingdom',
-                'required': True
             })
         }
         
@@ -77,6 +81,10 @@ class OrderForm(forms.ModelForm):
         and set autofocus on first field
         """
         super().__init__(*args, **kwargs)
+        
+        # Set UK as default country
+        if not self.instance.pk:
+            self.fields['country'].initial = 'GB'
         
         # Set autofocus on first field
         self.fields['full_name'].widget.attrs['autofocus'] = True
