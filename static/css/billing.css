@@ -143,6 +143,54 @@
     color: var(--color-accent);
 }
 
+/* Country Dropdown Styling */
+.billing-form select.form-control {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: var(--color-text);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+    appearance: auto; /* Force browser default dropdown arrow */
+    -webkit-appearance: auto;
+    -moz-appearance: auto;
+}
+
+.billing-form select.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 0.2rem rgba(83, 159, 210, 0.25);
+    color: var(--color-text);
+}
+
+.billing-form select.form-control option {
+    background-color: var(--color-background-grey-dark);
+    color: var(--color-text);
+    padding: 0.5rem;
+}
+
+/* Hide flag icons */
+.country-select-flag,
+.flag-icon,
+img[src*="flag"] {
+    display: none !important;
+}
+
+/* Ensure consistent styling for all form controls */
+.billing-form .form-control,
+.billing-form select.form-control {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: var(--color-text);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+    height: auto;
+    min-height: 48px; /* Ensure consistent height */
+}
+
 /* Form Check Styling */
 .form-check {
     padding-left: 1.5rem;
@@ -379,6 +427,408 @@
     color: var(--color-text);
 }
 
+/* Page Titles */
+.page-title {
+    color: var(--color-text);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+/* Review Page Styles */
+.review-section {
+    margin-bottom: 2rem;
+}
+
+.review-section-title {
+    color: var(--color-text);
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.address-display {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 1rem;
+}
+
+.address-display p {
+    margin: 0.25rem 0;
+    color: var(--color-text);
+    font-size: 0.9rem;
+}
+
+.address-name {
+    font-weight: 600;
+}
+
+.address-email {
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+.review-basket {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 1rem;
+}
+
+.basket-icon-large {
+    font-size: 2rem;
+    color: var(--color-accent);
+}
+
+.basket-summary-text {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.order-summary-review {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 1rem;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    color: var(--color-text);
+    font-size: 0.9rem;
+}
+
+.summary-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 0.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.total-amount {
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+/* Payment Page Styles */
+.payment-section {
+    margin-bottom: 2rem;
+}
+
+.payment-form .form-label {
+    color: var(--color-text);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.payment-form .form-control {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: var(--color-text);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+}
+
+.payment-form .form-control:focus {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 0.2rem rgba(83, 159, 210, 0.25);
+    color: var(--color-text);
+}
+
+.payment-input {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    min-height: 48px;
+    transition: border-color 0.2s ease;
+}
+
+.payment-input:focus-within {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 0.2rem rgba(83, 159, 210, 0.25);
+}
+
+.payment-error {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.payment-button-container {
+    text-align: center;
+}
+
+.btn-pay {
+    background-color: var(--color-accent);
+    border: none;
+    border-radius: 6px;
+    color: #ffffff;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    min-width: 250px;
+    display: block;
+    margin: 0 auto;
+}
+
+.btn-pay:hover:not(:disabled) {
+    background-color: #6ba3cc;
+}
+
+.btn-pay:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.payment-notice {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+/* Back Link */
+.back-link {
+    text-align: left;
+}
+
+.btn-back {
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.btn-back:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+/* Sidebar Basket Display */
+.sidebar-basket-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--color-background);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-item-count {
+    color: var(--color-text);
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+/* Order Confirmation Styles */
+.success-icon {
+    animation: scaleIn 0.5s ease-in-out;
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.order-confirmation-box {
+    background: var(--color-background-grey-dark);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.confirmation-section-title {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.billing-info p {
+    margin-bottom: 0.25rem;
+    color: var(--color-text);
+}
+
+.billing-info .email {
+    color: var(--color-accent);
+    font-weight: 500;
+}
+
+.order-summary-confirmation {
+    text-align: left;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-name {
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.item-variant {
+    color: var(--color-background-grey-light);
+    font-size: 0.9rem;
+}
+
+.item-quantity {
+    color: var(--color-background-grey-light);
+    font-size: 0.9rem;
+}
+
+.item-price {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.order-total {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--color-accent);
+    text-align: right;
+    font-size: 1.2rem;
+    color: var(--color-accent);
+}
+
+.order-number-section {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.order-number {
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+.digital-content-info {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 2rem;
+}
+
+.digital-content-info h4 {
+    color: var(--color-accent);
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.digital-items {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.digital-item-card {
+    background: var(--color-background-grey-dark);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.digital-item-card h5 {
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.digital-type {
+    color: var(--color-accent);
+    font-weight: 500;
+    margin: 0.5rem 0;
+}
+
+.digital-type i {
+    color: var(--color-accent);
+}
+
+.confirmation-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.support-section {
+    margin-top: 3rem;
+}
+
+.support-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.support-box h5 {
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.support-box p {
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+}
+
+.support-link {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.support-link:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+}
+
 /*===================================*/
 /* ========== Media Queries ======== */
 /*===================================*/
@@ -441,6 +891,39 @@
     .platform-badge, .edition-badge, .credit-badge {
         font-size: 0.65rem;
         padding: 0.05rem 0.3rem;
+    }
+
+    .page-title {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    .review-basket,
+    .sidebar-basket-display {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .basket-icon-large {
+        margin-bottom: 0.5rem;
+    }
+
+    .order-confirmation-box {
+        padding: 1.5rem;
+    }
+    
+    .digital-content-info {
+        padding: 1.5rem;
+    }
+    
+    .confirmation-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .confirmation-actions .btn {
+        width: 100%;
+        max-width: 300px;
     }
 }
 
