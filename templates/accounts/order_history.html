@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Account - Eclipse Protocol{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="page-title">
+                <i class="fa-solid fa-user me-3"></i>My Account
+            </h1>
+        </div>
+    </div>
+
+    <!-- Account Navigation -->
+    <div class="account-nav-wrapper">
+        <div class="account-nav">
+            <a href="{% url 'accounts:dashboard' %}" class="nav-link active">
+                <i class="fa-solid fa-receipt me-2"></i>Order History
+            </a>
+            <a href="{% url 'accounts:saved_addresses' %}" class="nav-link">
+                <i class="fa-solid fa-location-dot me-2"></i>Billing Address
+            </a>
+            <a href="{% url 'accounts:wishlist' %}" class="nav-link">
+                <i class="fa-solid fa-heart me-2"></i>Wishlist
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            {% if orders %}
+                <div class="account-section">
+                    <div class="section-header">
+                        <h3 class="section-title">
+                            Your Orders & License Keys
+                        </h3>
+                    </div>
+                    
+                    <div class="orders-list accordion" id="ordersAccordion">
+                        {% for order in orders %}
+                            <div class="order-item">
+                                <!-- Compact Order Summary -->
+                                <div class="order-summary">
+                                    <div class="order-summary-main">
+                                        <div class="order-summary-row">
+                                            <span class="order-label">Reference:</span>
+                                            <span class="order-value order-ref">{{ order.order_number }}</span>
+                                        </div>
+                                        <div class="order-summary-row">
+                                            <span class="order-label">Order Date:</span>
+                                            <span class="order-value">{{ order.order_date|date:"d/m/Y" }}</span>
+                                        </div>
+                                        <div class="order-summary-row">
+                                            <span class="order-label">Status:</span>
+                                            <span class="order-value">
+                                                <span class=" status-{{ order.delivery_status }}">
+                                                    {{ order.get_delivery_status_display }}
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="order-summary-total">
+                                        <div class="order-total-amount">£{{ order.total_amount }}</div>
+                                        <button class="btn btn-sm btn-outline-light accordion-toggle"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#order-{{ order.order_number }}"
+                                                aria-expanded="false"
+                                                aria-controls="order-{{ order.order_number }}">
+                                            <i class="fa-solid fa-chevron-down me-2"></i>
+                                            <span class="toggle-label">View Details</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Collapsible Order Details -->
+                                <div id="order-{{ order.order_number }}" class="collapse order-details" data-bs-parent="#ordersAccordion">
+                                    <div class="order-details-content">
+                                        <!-- Order Items -->
+                                        <div class="details-section">
+                                            <h6 class="details-section-title"><i class="fa-solid fa-shopping-bag me-2"></i>Items</h6>
+                                            <div class="order-items">
+                                                {% for item in order.items.all %}
+                                                    <div class="item-row">
+                                                        <div class="item-info">
+                                                            <span class="item-name">{{ item.product_name }}</span>
+                                                            {% if item.variant_details %}
+                                                                <span class="item-variant"> - {{ item.variant_details }}</span>
+                                                            {% endif %}
+                                                            <span class="item-quantity"> x{{ item.quantity }}</span>
+                                                        </div>
+                                                        <div class="item-price">£{{ item.total_price }}</div>
+                                                    </div>
+                                                    
+                                                    <!-- Show license keys for this item -->
+                                                    {% if item.license_keys.all %}
+                                                        <div class="license-keys-section">
+                                                            <div class="license-keys-header">
+                                                                <i class="fa-solid fa-key me-2"></i>License Key{% if item.license_keys.count > 1 %}s{% endif %}
+                                                            </div>
+                                                            {% for key in item.license_keys.all %}
+                                                                <div class="license-key-item">
+                                                                    <div class="key-platform-badge">{{ key.get_platform_display }}</div>
+                                                                    {% if key.variant %}
+                                                                    <div class="key-edition-badge">{{ key.variant.get_edition_display }}</div>
+                                                                    {% endif %}
+                                                                    <div class="key-code-field">
+                                                                        <input type="text" 
+                                                                               class="key-code form-control" 
+                                                                               value="{{ key.key_code }}" 
+                                                                               readonly 
+                                                                               id="key-{{ key.id }}">
+                                                                        <button class="btn btn-secondary btn-copy" 
+                                                                                onclick="copyKey('{{ key.key_code }}', this)"
+                                                                                aria-label="Copy license key">
+                                                                            <i class="fa-solid fa-copy"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        <!-- Billing Address -->
+                                        <div class="details-section">
+                                            <h6 class="details-section-title"><i class="fa-solid fa-location-dot me-2"></i>Billing Address</h6>
+                                            <div class="billing-address-content">
+                                                <div class="address-name">{{ order.full_name }}</div>
+                                                <div class="address-lines">
+                                                    <div>{{ order.street_address_1 }}</div>
+                                                    {% if order.street_address_2 %}
+                                                        <div>{{ order.street_address_2 }}</div>
+                                                    {% endif %}
+                                                    <div>{{ order.city }}</div>
+                                                    <div>{{ order.postcode }}</div>
+                                                    <div>{{ order.country }}</div>
+                                                </div>
+                                                {% if order.phone_number %}
+                                                    <div class="address-phone mt-2">
+                                                        <i class="fa-solid fa-phone me-2"></i>{{ order.phone_number }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Pagination -->
+                    {% if page_obj.has_other_pages %}
+                        <div class="pagination-container">
+                            <nav aria-label="Order pagination">
+                                <ul class="pagination justify-content-center">
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=1">&laquo; First</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                                        </li>
+                                    {% endif %}
+
+                                    <li class="page-item active">
+                                        <span class="page-link">
+                                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                                        </span>
+                                    </li>
+
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="account-section">
+                    <div class="empty-state text-center">
+                        <h3>No Orders Yet</h3>
+                        <p>You haven't placed any orders yet. Start shopping to see your order history here.</p>
+                        <a href="{% url 'home' %}" class="btn btn-add-to-cart">
+                            <i class="fa-solid fa-shopping-cart me-2"></i>Start Shopping
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/utilities.js' %}"></script>
+{% endblock %}
