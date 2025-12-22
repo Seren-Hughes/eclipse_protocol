@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Product
+from django.db.models import Q
 
 # Create your views here.
 
@@ -120,5 +121,35 @@ def edition_detail(request, product_slug, platform=None, edition=None):
         'playstation_store_url': playstation_store_url,
     }
     
-    return render(request, 'catalog/edition_detail.html', context) 
+    return render(request, 'catalog/edition_detail.html', context)
+
+def search_results(request):
+    """
+    Search products by name and description.
+    Returns both base games and currency products that match the query.
+    """
+    query = request.GET.get('q', '').strip()
     
+    context = {
+        'query': query,
+        'products': [],
+        'total_count': 0,
+    }
+    
+    if query:
+        # Search in product names and descriptions
+        search_filter = (
+            Q(name__icontains=query) |
+            Q(description__icontains=query)
+        )
+        
+        # Get all matching active products
+        products = Product.objects.filter(
+            search_filter,
+            is_active=True
+        ).select_related('currency').prefetch_related('digital_variants')
+        
+        context['products'] = products
+        context['total_count'] = products.count()
+    
+    return render(request, 'catalog/search_results.html', context)

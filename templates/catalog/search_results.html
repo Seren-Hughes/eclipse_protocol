@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+            {% if query %}
+                <h1 class="h2 mb-4">Search Results for "{{ query }}"</h1>
+                
+                {% if products %}
+                    <p class="text-muted mb-4">Found {{ total_count }} result{{ total_count|pluralize }}</p>
+                    
+                    <div class="row">
+                        {% for product in products %}
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="card h-100">
+                                    {% if product.image %}
+                                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                                    {% else %}
+                                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                            <i class="fa-solid fa-3x text-muted"></i>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">{{ product.name }}</h5>
+                                        <p class="card-text flex-grow-1">{{ product.description|truncatewords:20 }}</p>
+                                        
+                                        <div class="mt-auto">
+                                            {% if product.product_type == 'currency' %}
+                                                <!-- Currency Product -->
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <span class="h5 mb-0">£{{ product.price }}</span>
+                                                    <small class="text-muted">{{ product.currency.credit_amount|floatformat:0 }} Credits</small>
+                                                </div>
+                                                <a href="{% url 'catalog:currency_detail_with_selection' product.slug %}" class="btn btn-primary w-100">
+                                                    View Details
+                                                </a>
+                                                
+                                            {% elif product.product_type == 'base_game' %}
+                                                <!-- Base Game -->
+                                                {% with first_variant=product.digital_variants.first %}
+                                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                                        <span class="h5 mb-0">
+                                                            {% if first_variant.price_override %}
+                                                                From £{{ first_variant.price_override }}
+                                                            {% else %}
+                                                                From £{{ product.price }}
+                                                            {% endif %}
+                                                        </span>
+                                                    </div>
+                                                    {% if first_variant %}
+                                                        <a href="{% url 'catalog:edition_detail_variant' product.slug first_variant.platform first_variant.edition %}" class="btn btn-primary w-100">
+                                                            Choose Platform
+                                                        </a>
+                                                    {% else %}
+                                                        <a href="{% url 'catalog:edition_detail' product.slug %}" class="btn btn-primary w-100">
+                                                            View Details
+                                                        </a>
+                                                    {% endif %}
+                                                {% endwith %}
+                                                
+                                            {% else %}
+                                                <!-- Digital Product -->
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <span class="h5 mb-0">£{{ product.price }}</span>
+                                                </div>
+                                                <a href="{{ product.get_absolute_url }}" class="btn btn-primary w-100">
+                                                    View Details
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fa-solid fa-magnifying-glass fa-3x  mb-3"></i>
+                        <h3>No results found</h3>
+                        <p>Try searching with different keywords.</p>
+                    </div>
+                {% endif %}
+            {% else %}
+                <!-- if no search query entered -->
+                <div class="text-center py-5">
+                    <i class="fa-solid fa-search fa-3x  mb-3"></i>
+                    <h3>Search Products</h3>
+                    <p>Enter a search term to find games and credit packs.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
