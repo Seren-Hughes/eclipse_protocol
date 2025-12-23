@@ -717,6 +717,48 @@
     text-decoration: none;
 }
 
+
+/* ======================================= */
+/* ========== SEARCH RESULTS ============= */
+/* ======================================= */
+
+/* Search results specific styling */
+.search-results .currency-pack-card {
+    height: 380px;
+    max-width: 100%;
+    cursor: pointer;
+    transition: transform 0.2s ease, 
+    box-shadow 0.25s ease, 
+    border-color 0.2s ease;
+}
+
+.search-results .currency-pack-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-4px);
+    box-shadow: 0 5px 30px rgba(83, 159, 210, 0.4);
+}
+
+.search-results .card-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+/* Make card clickable by wrapping in link styling */
+.search-results .currency-pack-card {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Empty state icon for search results */
+.search-empty-state-icon {
+    font-size: 4rem;
+    color: var(--color-accent);
+    opacity: 0.6;
+}
+
+
 /* =================================== */
 /* ========== MEDIA QUERIES ========== */
 /* =================================== */
@@ -821,6 +863,18 @@
   .platform-icon {
     font-size: 1.2rem;
   }
+
+  .search-results .currency-pack-card {
+        height: 320px;
+    }
+    
+    .search-results .pack-name {
+        font-size: 1.1rem;
+    }
+    
+    .search-results .card-text {
+        font-size: 0.85rem;
+    }
 }
 
 /* Large mobile/tablet devices (576px - 768px) */
@@ -916,4 +970,10 @@
     text-align: left;
     background: var(--color-background);
   }
+
+  .btn-buy-now.btn-primary {
+        padding: 0.2rem 1rem;
+        font-size: 1rem;
+        background-color: rgba(0, 0, 0, 0.581) !important;
+    }
 }
