@@ -92,6 +92,18 @@
 	font-size: 1.2rem;
 }
 
+.btn.btn-primary.address-buttons {
+	background-color: var(--color-accent) !important;
+	border: none;
+	color: #fff;
+	border-radius: 8px;
+	transition: background-color 0.2s ease;	
+}
+
+.btn.btn-primary.address-buttons:hover {
+	background-color: #6ba3cc !important;
+}
+
 /* ======================================= */
 /* =========== CAROUSEL CONTROLS ========= */
 /* ======================================= */

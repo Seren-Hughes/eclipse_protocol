@@ -37,7 +37,7 @@
                     <h3 class="section-title">
                         Your Saved Addresses ({{ address_count }})
                     </h3>
-                    <a href="{% url 'accounts:add_address' %}" class="btn btn-primary">
+                    <a href="{% url 'accounts:add_address' %}" class="btn btn-primary address-buttons">
                         <i class="fa fa-plus me-2"></i>Add New Address
                     </a>
                 </div>
@@ -53,9 +53,9 @@
                                         </span>
                                     </div>
                                     <div class="address-actions">
-                                        <div class="dropdown">
+                                        <div >
                                             <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                <i class="fa fa-ellipsis-v"></i>
+                                                
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
@@ -86,7 +86,7 @@
                                 </div>
                                 
                                 <div class="address-footer">
-                                    <small class="text-muted">
+                                    <small>
                                         Added {{ address.created_at|date:"M d, Y" }}
                                     </small>
                                 </div>
@@ -98,7 +98,7 @@
                         <i class="fa-solid fa-location-dot"></i>
                         <h3>No Saved Addresses</h3>
                         <p>Add billing addresses to speed up your checkout process.</p>
-                        <a href="{% url 'accounts:add_address' %}" class="btn btn-primary">
+                        <a href="{% url 'accounts:add_address' %}" class="btn btn-primary address-buttons">
                             <i class="fa-solid fa-plus me-2"></i>Add Your First Address
                         </a>
                     </div>
