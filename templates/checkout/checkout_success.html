@@ -44,11 +44,10 @@
                                     {% for item in order.items.all %}
                                         <div class="order-item">
                                             <div class="item-details">
-                                                <span class="item-name ms-4">{{ item.product_name }}</span>
+                                                <span class="item-name ms-4">{{ item.product_name }} -  x{{ item.quantity }}</span>
                                                 {% if item.variant_details %}
-                                                    <span class="item-variant"> - {{ item.variant_details }}</span>
+                                                    <span class="item-variant ms-4">{{ item.variant_details }}</span>
                                                 {% endif %}
-                                                <span class="item-quantity"> x{{ item.quantity }}</span>
                                             </div>
                                             <span class="item-price m-4">£{{ item.total_price }}</span>
                                         </div>
