@@ -407,6 +407,16 @@ def process_payment(request):
         
         # Create order items
         _create_order_items(order, cart['cart_items'])
+
+        # Process digital fulfillment immediately after order creation
+        try:
+            from checkout.webhook_handler import StripeWH_Handler
+            handler = StripeWH_Handler(request)
+            handler._process_digital_fulfillment(order)
+            handler._send_confirmation_email(order)
+        except Exception as e:
+            print(f"ERROR in digital fulfillment: {e}")
+            # Continue even if fulfillment fails - can be processed later
         
         # Clear cart and session
         if request.user.is_authenticated:
@@ -436,37 +446,23 @@ def process_payment(request):
 def checkout_success(request, order_number):
     """
     Display order confirmation and process digital fulfillment.
+    Digital products are fulfilled immediately after payment.
     """
     try:
-        order = get_object_or_404(Order, order_number=order_number)
-        
-        # Ensure the order belongs to the logged-in user
-        if order.user != request.user:
-            messages.error(request, "You don't have permission to view this order.")
-            return redirect('home')
-        
-        # Process digital fulfillment (license keys, credits, email confirmation)
-        try:
-            from checkout.webhook_handler import StripeWH_Handler
-            handler = StripeWH_Handler(request)
-            handler._process_digital_fulfillment(order)
-            handler._send_confirmation_email(order)
-        except Exception as e:
-            print(f"ERROR in digital fulfillment: {e}")
-            # Don't fail the whole page if fulfillment has issues
-        
+        order = get_object_or_404(Order, order_number=order_number, user=request.user)
+
         messages.success(request, f'Order processed successfully! Order number: {order.order_number}. '
                                  f'A confirmation email will be sent to {order.email}.')
         
         context = {'order': order}
         return render(request, 'checkout/checkout_success.html', context)
-        
+    
     except Exception as e:
         print(f"ERROR in checkout_success: {e}")
-        import traceback
-        traceback.print_exc()
         messages.error(request, "There was an error loading your order confirmation.")
         return redirect('home')
+        
+        
 
 
 def _create_order_items(order, cart_items):
