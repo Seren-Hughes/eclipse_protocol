@@ -28,11 +28,7 @@
                 <div class="checkout-section">
                     <div class="section-header">
                         <h2 class="section-title">BILLING ADDRESS</h2>
-                        {% if using_saved_address %}
-                            <button type="button" class="btn-edit">
-                                <i class="fa fa-pencil me-1"></i>EDIT
-                            </button>
-                        {% endif %}
+                        
                     </div>
                     
                     <form action="{% url 'checkout:checkout' %}" method="POST" id="payment-form">
@@ -92,12 +88,7 @@
                                 </div>
                             {% endif %}
                             
-                            <!-- Add new address button (only show if user has saved addresses) -->
-                            {% if has_saved_address %}
-                                <button type="button" class="btn-add-address">
-                                    <i class="fa fa-plus-circle me-2"></i>Add new address
-                                </button>
-                            {% endif %}
+                            
                         </div>
 
                         <!-- Continue Button -->
