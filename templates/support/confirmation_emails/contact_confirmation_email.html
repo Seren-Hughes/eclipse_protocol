@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #1a1a1a; font-family: Arial, Helvetica, sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff;">
+        <tr>
+            <td align="center" style="padding: 20px 10px;">
+                <!-- Main Container (600px max with rounded corners effect) -->
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #2a2a2a; border: 1px solid #333333; max-width: 600px; border-radius: 8px; overflow: hidden;">
+                    
+                    <!-- Header with gradient -->
+                    <tr>
+                        <td align="center" style="background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); padding: 30px; border-bottom: 3px solid #539fd2;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center">
+                                        <p style="font-size: 14px; color: #ffffff; margin: 0 0 10px 0; font-weight: 600; letter-spacing: 1px;">ECLIPSE PROTOCOL</p>
+                                        <h1 style="margin: 0; color: #539fd2; font-size: 24px; font-weight: 700; letter-spacing: 1px;">✓ Message Received</h1>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 40px 30px; background-color: #2a2a2a;">
+                            <h2 style="color: #539fd2; font-size: 20px; margin: 0 0 20px 0;">Hello {{ name }},</h2>
+                            
+                            <p style="margin: 15px 0; color: #e0e0e0; line-height: 1.6;">Thank you for contacting Eclipse Protocol Support. We have received your message and our team will review it shortly.</p>
+                            
+                            <!-- Message Details Box with rgba background -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 25px 0;">
+                                <tr>
+                                    <td style="background-color: #2e353b; border-left: 4px solid #539fd2; padding: 20px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td style="padding: 5px 0;">
+                                                    <span style="color: #539fd2; font-weight: 600; display: inline-block; min-width: 100px;">Subject:</span>
+                                                    <span style="color: #ffffff;">{{ subject }}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px 0;">
+                                                    <span style="color: #539fd2; font-weight: 600; display: inline-block; min-width: 100px;">Category:</span>
+                                                    <span style="color: #ffffff;">{{ category_display }}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px 0;">
+                                                    <span style="color: #539fd2; font-weight: 600; display: inline-block; min-width: 100px;">Reference:</span>
+                                                    <span style="color: #ffffff;">#{{ reference_id }}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Info Box with rounded corners and border -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 25px 0;">
+                                <tr>
+                                    <td style="background-color: #2e353b; border: 1px solid #4a7ea0; border-radius: 8px; padding: 20px;">
+                                        <p style="margin: 8px 0; font-size: 14px; color: #e0e0e0; line-height: 1.6;">
+                                            <strong style="color: #ffffff;">📧 Response Time:</strong> Our support team typically responds within 24-48 hours during business hours.
+                                        </p>
+                                        <p style="margin: 8px 0; font-size: 14px; color: #e0e0e0; line-height: 1.6;">
+                                            <strong style="color: #ffffff;">🕐 Support Hours:</strong> Monday-Friday, 09:00-18:00 (UK time)
+                                        </p>
+                                        <p style="margin: 8px 0; font-size: 14px; color: #e0e0e0; line-height: 1.6;">
+                                            <strong style="color: #ffffff;">💬 Need immediate help?</strong> Join our Discord community for quick assistance from our team and other players.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            
+                            
+                            <p style="margin: 30px 0 0 0; color: #e0e0e0; line-height: 1.6;">Best regards,<br><strong style="color: #ffffff;">The Eclipse Protocol Support Team</strong></p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" style="background-color: #1a1a1a; padding: 30px; border-top: 1px solid #333333;">
+                            <p style="margin: 8px 0; color: #888888; font-size: 13px;">Eclipse Protocol | Dark Sky Games</p>
+                            <p style="margin: 8px 0; color: #888888; font-size: 13px;">
+                                <a href="{{ site_url }}/support/faqs/" style="color: #539fd2; text-decoration: none;">FAQs</a> | 
+                                <a href="{{ site_url }}/support/contact/" style="color: #539fd2; text-decoration: none;">Contact Support</a>
+                            </p>
+                            <p style="margin: 15px 0 8px 0; color: #888888; font-size: 12px;">
+                                This is an automated confirmation email. Please do not reply directly to this message.
+                            </p>
+                            <p style="margin: 8px 0; color: #888888; font-size: 12px;"><em>Disclaimer: This email is for portfolio purposes only.</em></p>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

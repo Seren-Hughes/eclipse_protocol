@@ -182,6 +182,11 @@ EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# Admin email notifications
+ADMINS = [
+    ('Support Team', EMAIL_HOST_USER),  # Will send admin notifications to this email
+]
+SERVER_EMAIL = EMAIL_HOST_USER
 
 # Stripe 
 STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "")

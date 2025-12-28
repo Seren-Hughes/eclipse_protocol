@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: Arial, Helvetica, sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff;">
+        <tr>
+            <td align="center" style="padding: 20px 0;">
+                <!-- Main Container -->
+                <table role="presentation" width="650" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; border: 1px solid #dddddd; border-radius: 8px; max-width: 650px;">
+                    
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #539fd2 0%, #4a8fc0 100%); padding: 25px; color: #ffffff;">
+                            <h1 style="margin: 0; font-size: 22px; font-weight: 700;">New Support Request</h1>
+                            <div style="display: inline-block; padding: 4px 12px; background-color: rgba(255, 255, 255, 0.2); border-radius: 12px; font-size: 12px; font-weight: 600; margin-top: 8px;">
+                                {{ category_display }}
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 30px;">
+                            <!-- Info Grid -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 20px 0;">
+                                <tr>
+                                    <td style="padding: 10px 15px 10px 0; font-weight: 600; color: #539fd2; width: 120px; vertical-align: top;">From:</td>
+                                    <td style="padding: 10px 0; color: #333333;">{{ name }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px 10px 0; font-weight: 600; color: #539fd2; width: 120px; vertical-align: top;">Email:</td>
+                                    <td style="padding: 10px 0; color: #333333;"><a href="mailto:{{ email }}" style="color: #539fd2; text-decoration: none;">{{ email }}</a></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px 10px 0; font-weight: 600; color: #539fd2; width: 120px; vertical-align: top;">Subject:</td>
+                                    <td style="padding: 10px 0; color: #333333;"><strong>{{ subject }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px 10px 0; font-weight: 600; color: #539fd2; width: 120px; vertical-align: top;">Category:</td>
+                                    <td style="padding: 10px 0; color: #333333;">{{ category_display }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px 10px 0; font-weight: 600; color: #539fd2; width: 120px; vertical-align: top;">Reference ID:</td>
+                                    <td style="padding: 10px 0; color: #333333;">#{{ reference_id }}</td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Message Box -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f9f9f9; border-left: 4px solid #539fd2; border-radius: 4px; margin: 25px 0;">
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <h3 style="margin-top: 0; color: #539fd2; font-size: 16px;">Message:</h3>
+                                        <div style="color: #333333; white-space: pre-wrap; word-wrap: break-word; line-height: 1.6;">{{ message }}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Action Button -->
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 20px auto;">
+                                <tr>
+                                    <td align="center" style="background-color: #539fd2; border-radius: 6px;">
+                                        <a href="{{ admin_url }}" style="display: inline-block; padding: 12px 24px; color: #ffffff; text-decoration: none; font-weight: 600;">View in Admin Panel</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <p style="color: #888888; font-size: 13px; margin-top: 15px; text-align: center;">Submitted: {{ timestamp }}</p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" style="background-color: #f5f5f5; padding: 20px 30px; border-top: 1px solid #dddddd;">
+                            <p style="margin: 8px 0; color: #666666; font-size: 13px;">Eclipse Protocol Support System</p>
+                            <p style="margin: 8px 0; color: #666666; font-size: 13px;">This message was sent from your website contact form.</p>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
