@@ -105,6 +105,16 @@
 }
 
 /* ======================================= */
+/* ============ Icons ========= ========== */    
+/* ======================================= */
+
+/* Font Awesome check-circle success icon colour */
+/* Used in checkout success and contact confirmation page */
+.fa-check-circle {
+  color: var(--color-accent) !important;
+}
+
+/* ======================================= */
 /* =========== CAROUSEL CONTROLS ========= */
 /* ======================================= */
 

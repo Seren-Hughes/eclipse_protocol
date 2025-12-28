@@ -11,11 +11,11 @@
                 <div class="checkout-section text-center">
                     <!-- Success Icon -->
                     <div class="success-icon mb-4">
-                        <i class="fa-solid fa-circle-check text-success" style="font-size: 4rem;"></i>
+                        <i class="fa-solid fa-check-circle fa-3x mb-3"></i>
                     </div>
                     
                     <!-- Success Message -->
-                    <h1 class="page-title mb-3">THANK YOU FOR YOUR PURCHASE!</h1>
+                    <h1 class="mb-3" id="order-confirmation">THANK YOU FOR YOUR PURCHASE!</h1>
                     <p class="lead mb-4">
                         Digital content and game currencies will be applied automatically to your Eclipse Protocol User ID. A confirmation of your purchase will also be sent to your email address.
                     </p>
@@ -107,8 +107,8 @@
                     <div class="support-section mt-5">
                         <div class="support-box">
                             <h5><i class="fa-solid fa-circle-question me-2"></i>NEED ASSISTANCE?</h5>
-                            <p>For help and product support you can contact us <a href="#" class="support-link">here</a>.</p>
-                            <p>Or check out our <a href="#" class="support-link">FAQs</a>.</p>
+                            <p>For help and product support you can contact us <a href="{% url 'support:contact' %}" class="support-link">here</a>.</p>
+                            <p>Or check out our <a href="{% url 'support:faqs' %}" class="support-link">FAQs</a>.</p>
                         </div>
                     </div>
                 </div>

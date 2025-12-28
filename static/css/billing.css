@@ -437,6 +437,15 @@ img[src*="flag"] {
     text-align: left;
 }
 
+#order-confirmation {
+    color: var(--color-text);
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+        text-align: center;
+}
+
 /* Review Page Styles */
 .review-section {
     margin-bottom: 2rem;
