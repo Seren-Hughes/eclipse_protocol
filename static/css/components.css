@@ -418,7 +418,7 @@
 }
 
 /* faq custom nintendo icon styling*/
-.platform-icon {
+.faq-platform-icon {
     width: 24px;
     height: 24px;
 	/* filter to match blue --color-accent variable - original icon is white*/
