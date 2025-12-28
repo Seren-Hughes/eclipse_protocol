@@ -289,6 +289,186 @@
 }
 
 /* ======================================= */
+/* ============= ACCORDIONS ============== */
+/* ======================================= */
+
+/* Dark accordion styling for FAQ page */
+.accordion {
+    --bs-accordion-color: var(--color-text);
+    --bs-accordion-bg: var(--color-background);
+    --bs-accordion-border-color: rgba(255, 255, 255, 0.2);
+    --bs-accordion-border-width: 1px;
+    --bs-accordion-border-radius: 0.5rem;
+    --bs-accordion-inner-border-radius: 0.375rem;
+    --bs-accordion-btn-padding-x: 1.25rem;
+    --bs-accordion-btn-padding-y: 1rem;
+    --bs-accordion-btn-color: var(--color-text);
+    --bs-accordion-btn-bg: var(--color-background);
+    --bs-accordion-btn-icon: none;
+	--bs-accordion-btn-active-icon: none;
+    --bs-accordion-body-padding-x: 1.25rem;
+    --bs-accordion-body-padding-y: 1rem;
+    --bs-accordion-active-color: var(--color-accent);
+    --bs-accordion-active-bg: rgba(83, 159, 210, 0.1);
+}
+
+/* Accordion items */
+.accordion-item {
+    background-color: var(--color-background);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem !important;
+    overflow: hidden;
+}
+
+.accordion-item:first-of-type {
+    border-top-left-radius: 0.5rem !important;
+    border-top-right-radius: 0.5rem !important;
+}
+
+.accordion-item:last-of-type {
+    border-bottom-left-radius: 0.5rem !important;
+    border-bottom-right-radius: 0.5rem !important;
+}
+
+/* Accordion headers */
+.accordion-header .accordion-button {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 1.25rem;
+    transition: all 0.2s ease;
+}
+
+.accordion-header .accordion-button:not(.collapsed) {
+    background-color: rgba(83, 159, 210, 0.1);
+    color: var(--color-accent);
+    box-shadow: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.accordion-header .accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(83, 159, 210, 0.25);
+    border-color: var(--color-accent);
+}
+
+.accordion-header .accordion-button::after {
+    filter: brightness(0) invert(1); /* Makes the icon white */
+    transition: transform 0.2s ease;
+}
+
+.accordion-header .accordion-button:not(.collapsed)::after {
+    filter: brightness(0) invert(1);
+    transform: rotate(180deg);
+}
+
+/* Accordion body */
+.accordion-body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem 1.25rem;
+}
+
+/* FAQ specific styling */
+.accordion-body h5 {
+    color: var(--color-accent);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.accordion-body h6 {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.accordion-body .alert-info {
+    background-color: rgba(83, 159, 210, 0.1);
+    border-color: rgba(83, 159, 210, 0.3);
+    color: var(--color-text);
+}
+
+.accordion-body .alert-warning {
+    background-color: rgba(255, 61, 7, 0.1);
+    border-color: rgba(255, 32, 7, 0.3);
+    color: var(--color-text);
+}
+
+/* Custom accordion button arrow using Font Awesome */
+.accordion-button::after {
+    content: "\f107"; /* Font Awesome chevron-down */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #ffffff;
+    transition: transform 0.2s ease;
+}
+
+/* rotate arrow  */
+.accordion-button:not(.collapsed)::after {
+    transform: rotate(180deg);
+}
+
+/* FAQ icons in headers (standard font awesome icons */
+.accordion-button i {
+    color: var(--color-accent);
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+/* faq custom nintendo icon styling*/
+.platform-icon {
+    width: 24px;
+    height: 24px;
+	/* filter to match blue --color-accent variable - original icon is white*/
+    filter: brightness(0) saturate(100%) invert(59%) sepia(85%) saturate(374%) hue-rotate(172deg) brightness(95%) contrast(89%);
+    vertical-align: middle;
+}
+
+.accordion-button:not(.collapsed) i {
+    opacity: 1;
+}
+
+/* Hover effects */
+.accordion-button:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-text);
+}
+
+.accordion-button:hover i {
+    opacity: 1;
+    color: var(--color-accent);
+}
+
+/* FAQ Button Styling */
+.accordion-body .btn-outline-primary {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background-color: transparent;
+    font-weight: 600;
+}
+
+.accordion-body .btn-outline-primary:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(83, 159, 210, 0.3);
+}
+
+.accordion-body .btn-outline-primary:focus {
+    box-shadow: 0 0 0 0.25rem rgba(83, 159, 210, 0.25);
+    border-color: var(--color-accent);
+}
+
+.accordion-body .btn-outline-primary:active {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+}
+
+/* ======================================= */
 /* ========== MOBILE ADJUSTMENTS ========= */
 /* ======================================= */
 

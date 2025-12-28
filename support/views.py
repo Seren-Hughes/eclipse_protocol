@@ -13,3 +13,6 @@ def contact(request):
 
 def terms_and_conditions(request):
     return render(request, 'support/terms_and_conditions.html')
+
+def faqs(request):
+    return render(request, 'support/faqs.html')
