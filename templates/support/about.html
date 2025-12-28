@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="about-hero-section">
+    <div class="about-hero-image">
+        <img src="{% static 'images/about-banner.jpg' %}" alt="Night sky over Eryri National Park">
+    </div>
+    <div class="about-hero-title">
+        <h1 class="mb-3">About Us</h1>
+        <h2><i class="fa-solid fa-moon"></i> Dark Sky Games</h2>
+    </div>
+</div>
+
+<div class="about-content-wrapper">
+    <div class="container">
+        <section class="about-content">
+            <p>
+                <strong>Dark Sky Games</strong> is an independent game studio based in Eryri (Snowdonia) National Park,
+                North Wales. We create thoughtful, atmospheric games inspired by place, story, and the natural world
+                around us.
+            </p>
+
+            <p>
+                Working beneath one of the world's recognised International Dark Sky Reserves has shaped who we are and
+                how we work. The vast night skies of Eryri influence our creative direction, our studio name, and our
+                commitment to telling stories that encourage curiosity, reflection, and a sense of wonder.
+            </p>
+
+            <p>
+                We believe games can be more than escapism. At Dark Sky Games, we aim to craft experiences that spark
+                imagination, and explore meaningful themes without losing sight of fun and immersion.
+            </p>
+
+            <p>
+                <strong>Eclipse Protocol</strong> is our debut science-fiction RPG, developed under these principles.
+                While set among the stars, it reflects our real-world inspirations - exploration, responsibility, and
+                the fragile beauty of the environments we inhabit.
+            </p>
+
+            <p>
+                As a small independent studio, we value creativity, sustainability, and building games with care. We're
+                proud to create from North Wales and to share our work with players around the world.
+            </p>
+
+            <p>
+                <i class="fa-solid fa-moon"></i><em> Dark Sky Games<br>
+                    Eryri National Park, North Wales</em>
+            </p>
+        </section>
+    </div>
+</div>
+
+{% endblock %}
+{% block extra_scripts %}
+<script src="{% static 'js/utilities.js' %}"></script>
+{% endblock %}

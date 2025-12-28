@@ -81,4 +81,72 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    
+    // About page scroll effects
+    // Select hero section elements for parallax and animation effects
+    const heroTitle = document.querySelector('.about-hero-title');
+    const heroSection = document.querySelector('.about-hero-section');
+    const heroImage = document.querySelector('.about-hero-image');
+
+    // Only run scroll effects if all hero elements are present
+    if (heroTitle && heroSection && heroImage) {
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const heroHeight = heroSection.offsetHeight;
+            const windowHeight = window.innerHeight;
+            
+            // --- Parallax Effect ---
+            // Move the hero image downward as the user scrolls, revealing more of the night sky
+            // parallaxSpeed controls how much slower the image moves compared to scroll
+            const parallaxSpeed = 0.3; // Lower = slower movement
+            const parallaxOffset = scrolled * parallaxSpeed;
+            heroImage.style.setProperty('--parallax-offset', `${parallaxOffset}px`);
+            
+            // --- Subtle Zoom Effect ---
+            // Gradually zoom the hero image as the user scrolls
+            // maxScroll defines the scroll range over which zoom occurs
+            const maxScroll = heroHeight * 2;
+            const zoomProgress = Math.min(scrolled / maxScroll, 1); // Clamp between 0 and 1
+            const startScale = 1.1; // Initial zoom
+            const endScale = 1.25; // Maximum zoom
+            const currentScale = startScale + (zoomProgress * (endScale - startScale));
+            heroImage.style.setProperty('--zoom-scale', currentScale);
+            
+            // Add the parallax class to enable CSS transitions
+            heroImage.classList.add('parallax');
+            
+            // --- Darken Image on Scroll ---
+            // Add a dark overlay to the image for better text readability as user scrolls
+            const darkenStart = heroHeight * 0.1; // When to start darkening
+            if (scrolled > darkenStart) {
+                heroImage.classList.add('darkened');
+            } else {
+                heroImage.classList.remove('darkened');
+            }
+            
+            // --- Fade Out Title ---
+            // Fade and move the hero title out as the user scrolls
+            // fadeStart and fadeEnd define the scroll range for the fade effect
+            const fadeStart = heroHeight * 0.1;
+            const fadeEnd = heroHeight * 0.1; // Immediate fade (can adjust for smoother effect)
+            
+            if (scrolled <= fadeStart) {
+                // Title fully visible
+                heroTitle.style.opacity = '1';
+                heroTitle.style.transform = 'translate(-50%, -50%)';
+            } else if (scrolled >= fadeEnd) {
+                // Title fully faded and moved up
+                heroTitle.style.opacity = '0';
+                heroTitle.style.transform = 'translate(-50%, -40%)';
+            } else {
+                // Title partially faded and moved
+                const fadeProgress = (scrolled - fadeStart) / (fadeEnd - fadeStart);
+                const opacity = 1 - fadeProgress;
+                const translateY = -50 - (fadeProgress * 10);
+                
+                heroTitle.style.opacity = opacity;
+                heroTitle.style.transform = `translate(-50%, ${translateY}%)`;
+            }
+        });
+    }
 });
