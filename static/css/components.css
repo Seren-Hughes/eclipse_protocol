@@ -289,6 +289,150 @@
 }
 
 /* ======================================= */
+/* ============ CONTACT FORM ============ */
+/* ======================================= */
+
+/* override bootstrap contact form styling */
+.contact-form .card {
+    background-color: var(--color-background) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+}
+
+.contact-form .card-body {
+    background-color: var(--color-background);
+}
+
+.contact-form h1 {
+    color: var(--color-accent);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.contact-form .form-label {
+    color: var(--color-text);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.contact-form .form-control {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: var(--color-text);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.contact-form .form-control:focus {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 0.2rem rgba(83, 159, 210, 0.25);
+    color: var(--color-text);
+    outline: none;
+}
+
+/* Contact form select wrapper */
+.contact-form .select-wrapper {
+    position: relative;
+}
+
+.contact-form .select-wrapper select.form-control {
+    appearance: none;
+    padding-right: 40px;
+}
+
+.contact-form .select-wrapper::after {
+    content: "\f107"; /* fa-chevron-down */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.contact-form .select-wrapper:focus-within::after {
+    color: var(--color-accent);
+}
+
+/* override dropdown options */
+.contact-form select.form-control option {
+    background-color: var(--color-background) !important;
+    color: var(--color-text) !important;
+    padding: 8px 12px;
+}
+
+.contact-form select.form-control option:hover,
+.contact-form select.form-control option:focus {
+    background-color: rgba(83, 159, 210, 0.2) !important;
+    color: var(--color-text) !important;
+}
+
+.contact-form select.form-control option:checked {
+    background-color: var(--color-accent) !important;
+    color: #fff !important;
+}
+
+.contact-form .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.contact-form textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .btn-submit {
+    background-color: transparent;
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.contact-form .btn-submit:hover {
+    background-color: var(--color-accent);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(83, 159, 210, 0.3);
+}
+
+.contact-form .support-info {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+}
+
+.contact-form .support-info p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.contact-form .support-info i {
+    color: var(--color-accent);
+    width: 16px;
+}
+
+.contact-form .support-info .footer-link {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.contact-form .support-info .footer-link:hover {
+    color: #6ba3cc;
+    text-decoration: underline;
+}
+
+/* ======================================= */
 /* ============= ACCORDIONS ============== */
 /* ======================================= */
 
