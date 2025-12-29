@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -342,7 +343,19 @@ class Wishlist(models.Model):
     )
     
     class Meta:
-        unique_together = ['user', 'product', 'variant']  # Prevent duplicate entries
+        constraints = [
+            # Ensure unique wishlist entries per user/product/variant combination
+            models.UniqueConstraint(
+                fields=['user', 'product', 'variant'],
+                name='uniq_wishlist_user_product_variant'
+            ),
+            # Ensure unique wishlist entries per user/product when variant is null
+            models.UniqueConstraint(
+                fields=['user', 'product'],
+                condition=Q(variant__isnull=True),
+                name='uniq_wishlist_user_product_null_variant'
+            ),
+        ]
         ordering = ['-added_at']  # Show most recent first
     
     def __str__(self):

@@ -1,9 +1,9 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.db import IntegrityError
 from decimal import Decimal
 from .models import Product, DigitalProduct, CurrencyProduct, DigitalVariant, Wishlist
-
 
 # =============================================================================
 # UNIT TESTS
@@ -241,10 +241,11 @@ class WishlistIntegrationTests(TestCase):
         Tests that database-level unique_together constraint works correctly.
         Involves model + database constraint validation.
         """
-        Wishlist.objects.create(user=self.user, product=self.product)
+        Wishlist.objects.create(user=self.user, product=self.product, variant=None)
         
-        with self.assertRaises(Exception):  # IntegrityError from database
-            Wishlist.objects.create(user=self.user, product=self.product)
+        with self.assertRaises(IntegrityError):  # IntegrityError from database
+            Wishlist.objects.create(user=self.user, product=self.product, variant=None)
+
 
 
 class DigitalVariantIntegrationTests(TestCase):

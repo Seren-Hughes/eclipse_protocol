@@ -137,34 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
         buyNowBtn.disabled = true;
         buyNowBtn.textContent = 'BUY NOW';
         selectedProductId = null;
-    }
-
-    // wishlist heart toggle functionality
-    const wishlistToggles = document.querySelectorAll('[data-wishlist-toggle]');
-    wishlistToggles.forEach(function(wishlistToggle) {
-        wishlistToggle.addEventListener('click', function (e) {
-            e.preventDefault();
-            const icon = this.querySelector('i.fa-heart');
-            const isActive = this.classList.contains('active');
-            const productId = this.dataset.productId;
-
-            // toggle active state and icon style
-            this.classList.toggle('active');
-            if (isActive) {
-                icon.classList.remove('fa-solid');
-                icon.classList.add('fa-regular');
-                this.setAttribute('aria-pressed', 'false');
-                this.setAttribute('title', 'Add to wishlist');
-                this.setAttribute('aria-label', 'Add to wishlist');
-            } else {
-                icon.classList.remove('fa-regular');
-                icon.classList.add('fa-solid');
-                this.setAttribute('aria-pressed', 'true');
-                this.setAttribute('title', 'Remove from wishlist');
-                this.setAttribute('aria-label', 'Remove from wishlist');
-            }
-
-            // TO DO:ajax call for wishlist toggle to go here
-        });
-    });
+    } 
 });
+// wishlist toggle handled by wishlist.js

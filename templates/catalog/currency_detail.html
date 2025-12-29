@@ -68,6 +68,7 @@
                                             class="btn btn-icon wishlist-toggle"
                                             data-wishlist-toggle
                                             data-product-id="{{ product.id }}"
+                                            data-auth="{{ user.is_authenticated|yesno:'true,false' }}"
                                             aria-label="Add to wishlist"
                                             title="Add to wishlist">
                                         <i class="fa-regular fa-heart"></i>

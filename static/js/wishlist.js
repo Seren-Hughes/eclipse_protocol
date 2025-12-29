@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {
     wishlistToggles.forEach(function(toggle) {
         toggle.addEventListener('click', function (e) {  
             e.preventDefault();
+            e.stopPropagation(); // Prevent event from bubbling up
+
+            // Require sign-in before toggling wishlist
+            if (this.dataset.auth !== 'true') {
+                alert('Please sign in to your account to add items to your wishlist');
+                return;
+            }
 
             const productId = this.dataset.productId;
             const variantId = this.dataset.variantId || getCurrentVariantId(); // For edition pages
@@ -33,7 +40,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 body: formData
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 401 || response.status === 403) {
+                        alert('Please sign in to your account to add items to your wishlist');
+                    }
+                    throw new Error('Wishlist toggle failed');
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     // Update UI based on server response
@@ -154,6 +169,18 @@ function loadWishlistState() {
     const wishlistToggles = document.querySelectorAll('[data-wishlist-toggle]');
     
     wishlistToggles.forEach(function(toggle) {
+        // If not authenticated, ensure icon shows as not active and skip fetch
+        if (toggle.dataset.auth !== 'true') {
+            const icon = toggle.querySelector('i.fa-heart');
+            toggle.classList.remove('active');
+            icon.classList.remove('fa-solid');
+            icon.classList.add('fa-regular');
+            toggle.setAttribute('aria-pressed', 'false');
+            toggle.setAttribute('title', 'Add to wishlist');
+            toggle.setAttribute('aria-label', 'Add to wishlist');
+            return;
+        }
+
         const productId = toggle.dataset.productId;
         const variantId = toggle.dataset.variantId || getCurrentVariantId();
         

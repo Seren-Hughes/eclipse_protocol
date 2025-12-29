@@ -107,6 +107,7 @@
                                 class="btn btn-outline-secondary btn-wishlist w-100"
                                 data-wishlist-toggle
                                 data-product-id="{{ base_product.id }}"
+                                data-auth="{{ user.is_authenticated|yesno:'true,false' }}"
                                 aria-label="add to wishlist">
                             <i class="fa-regular fa-heart me-2"></i>
                             add to wishlist
