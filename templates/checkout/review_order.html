@@ -7,7 +7,7 @@
 <div class="mb-2">
     <!-- Progress Steps -->
     <div class="checkout-progress mb-4">
-        <div class="progress-step">
+        <div class="progress-step active">
             <div class="step-circle">1</div>
             <span class="step-label">BILLING</span>
         </div>
@@ -47,11 +47,41 @@
                     <!-- Basket Section -->
                     <div class="review-section mt-4">
                         <h3 class="review-section-title">BASKET</h3>
-                        <div class="review-basket">
-                            <div class="basket-icon-large">
-                                <i class="fa-solid fa-layer-group"></i>
-                            </div>
-                            <span class="basket-summary-text">{{ cart.product_count }} Item{% if cart.product_count != 1 %}s{% endif %} (DIGITAL)</span>
+                        <div class="basket-items">
+                            {% for item in cart.cart_items %}
+                                <div class="basket-item">
+                                    <div class="item-image">
+                                        {% if item.variant and item.variant.effective_image %}
+                                            <img src="{{ item.variant.effective_image.url }}"
+                                                 alt="{{ item.product.name }}"
+                                                 class="img-fluid">
+                                        {% elif item.product.image %}
+                                            <img src="{{ item.product.image.url }}"
+                                                 alt="{{ item.product.name }}"
+                                                 class="img-fluid">
+                                        {% else %}
+                                            <div class="item-fallback-icon">
+                                                <i class="fa-solid fa-layer-group"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="item-details">
+                                        <div class="item-name">{{ item.product.name }}</div>
+                                        {% if item.variant %}
+                                            <div class="item-variant">
+                                                <span class="platform-badge">{{ item.variant.get_platform_display }}</span>
+                                                <span class="edition-badge">{{ item.variant.get_edition_display }}</span>
+                                            </div>
+                                        {% elif item.product.currency %}
+                                            <div class="item-credits">
+                                                <span class="credit-badge">{{ item.product.currency.credit_amount }} credits</span>
+                                            </div>
+                                        {% endif %}
+                                        <div class="item-quantity">Qty: {{ item.quantity }}</div>
+                                    </div>
+                                    <div class="item-price">£{{ item.line_total }}</div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
 
@@ -101,11 +131,41 @@
                         <a href="{% url 'cart:cart' %}" class="btn-edit-sidebar">EDIT</a>
                     </div>
                     
-                    <div class="sidebar-basket-display">
-                        <div class="basket-icon-large">
-                            <i class="fa-solid fa-layer-group"></i>
-                        </div>
-                        <span class="sidebar-item-count">{{ cart.product_count }} Item{% if cart.product_count != 1 %}s{% endif %} (DIGITAL)</span>
+                    <div class="basket-items">
+                        {% for item in cart.cart_items %}
+                            <div class="basket-item">
+                                <div class="item-image">
+                                    {% if item.variant and item.variant.effective_image %}
+                                        <img src="{{ item.variant.effective_image.url }}"
+                                             alt="{{ item.product.name }}"
+                                             class="img-fluid">
+                                    {% elif item.product.image %}
+                                        <img src="{{ item.product.image.url }}"
+                                             alt="{{ item.product.name }}"
+                                             class="img-fluid">
+                                    {% else %}
+                                        <div class="item-fallback-icon">
+                                            <i class="fa-solid fa-layer-group"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="item-details">
+                                    <div class="item-name">{{ item.product.name }}</div>
+                                    {% if item.variant %}
+                                        <div class="item-variant">
+                                            <span class="platform-badge">{{ item.variant.get_platform_display }}</span>
+                                            <span class="edition-badge">{{ item.variant.get_edition_display }}</span>
+                                        </div>
+                                    {% elif item.product.currency %}
+                                        <div class="item-credits">
+                                            <span class="credit-badge">{{ item.product.currency.credit_amount }} credits</span>
+                                        </div>
+                                    {% endif %}
+                                    <div class="item-quantity">Qty: {{ item.quantity }}</div>
+                                </div>
+                                <div class="item-price">£{{ item.line_total }}</div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
                 
