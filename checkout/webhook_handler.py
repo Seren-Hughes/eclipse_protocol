@@ -29,6 +29,7 @@ class StripeWH_Handler:
             context = {
                 'order': order,
                 'contact_email': settings.DEFAULT_FROM_EMAIL,
+                'site_url': getattr(settings, 'SITE_URL', '').rstrip('/'),
                 'has_base_games': order.items.filter(product__product_type='base_game').exists(),
                 'has_currency': order.items.filter(product__product_type='currency').exists(),
             }
