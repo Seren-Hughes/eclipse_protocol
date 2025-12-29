@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #1a1a1a; font-family: Arial, Helvetica, sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff;">
+        <tr>
+            <td align="center" style="padding: 20px 10px;">
+                <!-- Main Container -->
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #2a2a2a; border: 1px solid #333333; max-width: 600px; border-radius: 8px; overflow: hidden;">
+                    
+                    <!-- Header -->
+                    <tr>
+                        <td align="center" style="background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); padding: 30px; border-bottom: 3px solid #539fd2;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center">
+                                        <p style="font-size: 14px; color: #ffffff; margin: 0 0 10px 0; font-weight: 600; letter-spacing: 1px;">ECLIPSE PROTOCOL</p>
+                                        <h1 style="margin: 0; color: #539fd2; font-size: 24px; font-weight: 700; letter-spacing: 1px;">✓ Order Confirmed</h1>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 40px 30px; background-color: #2a2a2a;">
+                            <h2 style="color: #539fd2; font-size: 20px; margin: 0 0 20px 0;">Hello {{ order.full_name }},</h2>
+                            
+                            <p style="margin: 15px 0; color: #e0e0e0; line-height: 1.6;">Thank you for your Eclipse Protocol purchase! Your payment has been processed successfully.</p>
+                            
+                            <!-- Order Details Box -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 25px 0;">
+                                <tr>
+                                    <td style="background-color: #2e353b; border-left: 4px solid #539fd2; padding: 20px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td style="padding: 5px 0;">
+                                                    <span style="color: #539fd2; font-weight: 600; display: inline-block; min-width: 120px;">Order Number:</span>
+                                                    <span style="color: #ffffff;">{{ order.order_number }}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px 0;">
+                                                    <span style="color: #539fd2; font-weight: 600; display: inline-block; min-width: 120px;">Order Date:</span>
+                                                    <span style="color: #ffffff;">{{ order.created_at|date:"F d, Y" }}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px 0;">
+                                                    <span style="color: #539fd2; font-weight: 600; display: inline-block; min-width: 120px;">Total:</span>
+                                                    <span style="color: #ffffff; font-weight: 700; font-size: 18px;">£{{ order.total_amount }}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Order Items -->
+                            <h3 style="color: #539fd2; font-size: 18px; margin: 30px 0 15px 0;">Order Items</h3>
+                            
+                            {% for item in order.items.all %}
+                                <!-- Item -->
+                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 15px 0;">
+                                    <tr>
+                                        <td style="background-color: #1e1e1e; padding: 15px; border-radius: 6px;">
+                                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                <tr>
+                                                    <td>
+                                                        <p style="margin: 0; color: #ffffff; font-weight: 600; font-size: 15px;">{{ item.product_name }}</p>
+                                                        {% if item.variant_details %}
+                                                            <p style="margin: 5px 0 0 0; color: #aaaaaa; font-size: 13px;">{{ item.variant_details }}</p>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td align="right" style="white-space: nowrap;">
+                                                        <span style="color: #ffffff; font-size: 14px;">x{{ item.quantity }}</span>
+                                                        <span style="color: #539fd2; font-weight: 600; font-size: 15px; margin-left: 10px;">£{{ item.total_price }}</span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <!-- License Keys for this item -->
+                                {% if item.product.product_type == 'base_game' %}
+                                    {% for license_key in item.license_keys.all %}
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 10px 0 20px 0;">
+                                            <tr>
+                                                <td style="background: linear-gradient(135deg, #1f3a4d 0%, #2a4a5e 100%); border: 1px solid #4a7ea0; border-radius: 8px; padding: 20px;">
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td>
+                                                                <p style="margin: 0 0 5px 0; color: #539fd2; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">
+                                                                    <span style="background-color: #539fd2; color: #ffffff; padding: 2px 8px; border-radius: 4px; margin-right: 8px;">{{ license_key.platform }}</span>
+                                                                    {% if license_key.variant %}
+                                                                        <span style="background-color: #4a7ea0; color: #ffffff; padding: 2px 8px; border-radius: 4px;">{{ license_key.variant.get_edition_display }}</span>
+                                                                    {% endif %}
+                                                                </p>
+                                                                <p style="margin: 15px 0 5px 0; color: #ffffff; font-size: 13px; font-weight: 600;">Your Activation Key:</p>
+                                                                <p style="margin: 0; background-color: #1a1a1a; padding: 12px; border-radius: 6px; color: #539fd2; font-family: 'Courier New', monospace; font-size: 16px; font-weight: 700; letter-spacing: 1px;">
+                                                                    {{ license_key.key_code }}
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Redemption Instructions -->
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 0 0 25px 0;">
+                                            <tr>
+                                                <td style="background-color: #1e1e1e; padding: 15px; border-radius: 6px;">
+                                                    <p style="margin: 0 0 10px 0; color: #539fd2; font-weight: 600; font-size: 14px;">Redemption Instructions:</p>
+                                                    {% if license_key.platform == 'PC' or license_key.platform == 'STEAM' %}
+                                                        <p style="margin: 5px 0; color: #e0e0e0; font-size: 13px; line-height: 1.6;">
+                                                            1. Open Steam client<br>
+                                                            2. Click "Games" → "Activate a Product on Steam"<br>
+                                                            3. Enter your key: {{ license_key.key_code }}
+                                                        </p>
+                                                    {% elif license_key.platform == 'XBOX' %}
+                                                        <p style="margin: 5px 0; color: #e0e0e0; font-size: 13px; line-height: 1.6;">
+                                                            1. Open the Microsoft Store on your Xbox or PC<br>
+                                                            2. Select "Redeem" or "Use a code"<br>
+                                                            3. Sign in to your Microsoft account<br>
+                                                            4. Enter your key: {{ license_key.key_code }}
+                                                        </p>
+                                                    {% elif license_key.platform == 'NINTENDO' or license_key.platform == 'NSW' or license_key.platform == 'SWITCH' %}
+                                                        <p style="margin: 5px 0; color: #e0e0e0; font-size: 13px; line-height: 1.6;">
+                                                            1. Access Nintendo eShop on your Switch<br>
+                                                            2. Select "Enter Code"<br>
+                                                            3. Enter your key: {{ license_key.key_code }}
+                                                        </p>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    {% endfor %}
+                                {% elif item.product.product_type == 'currency' %}
+                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 10px 0 25px 0;">
+                                        <tr>
+                                            <td style="background-color: #1e1e1e; padding: 15px; border-radius: 6px;">
+                                                <p style="margin: 0; color: #539fd2; font-size: 14px;">
+                                                    <strong>✓ Credits Applied:</strong> <span style="color: #ffffff;">{{ item.product_name }} credits have been added to your Eclipse Protocol account.</span>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                {% endif %}
+                            {% endfor %}
+
+                            <!-- Support Info -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 30px 0 0 0;">
+                                <tr>
+                                    <td style="background-color: #2e353b; border: 1px solid #4a7ea0; border-radius: 8px; padding: 20px;">
+                                        <p style="margin: 0 0 10px 0; color: #539fd2; font-weight: 600; font-size: 15px;">Need Help?</p>
+                                        <p style="margin: 8px 0; font-size: 14px; color: #e0e0e0; line-height: 1.6;">
+                                            If you have any issues redeeming your keys or need assistance, please contact our support team at <a href="mailto:{{ contact_email }}" style="color: #539fd2; text-decoration: none;">{{ contact_email }}</a>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <p style="margin: 30px 0 0 0; color: #e0e0e0; line-height: 1.6;">Best regards,<br><strong style="color: #ffffff;">The Eclipse Protocol Team</strong></p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" style="background-color: #1a1a1a; padding: 30px; border-top: 1px solid #333333;">
+                            <p style="margin: 8px 0; color: #888888; font-size: 13px;">Eclipse Protocol | Dark Sky Games</p>
+                            <p style="margin: 8px 0; color: #888888; font-size: 13px;">
+                                Order #{{ order.order_number }}
+                            </p>
+                            <p style="margin: 15px 0 8px 0; color: #888888; font-size: 12px;">
+                                Questions? <a href="mailto:{{ contact_email }}" style="color: #539fd2; text-decoration: none;">Contact Support</a>
+                            </p>
+                            <p style="margin: 8px 0; color: #888888; font-size: 12px;"><em>Disclaimer: This email is for portfolio purposes only.</em></p>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

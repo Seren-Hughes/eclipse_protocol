@@ -22,6 +22,9 @@ class StripeWH_Handler:
     def _send_confirmation_email(self, order):
         """Send order confirmation email with product-specific messaging."""
         try:
+            from django.core.mail import EmailMultiAlternatives
+            from django.utils.html import strip_tags
+            
             # Build email context with product type flags
             context = {
                 'order': order,
@@ -30,14 +33,33 @@ class StripeWH_Handler:
                 'has_currency': order.items.filter(product__product_type='currency').exists(),
             }
             
+            # Plain text subject
             subject = render_to_string(
                 'checkout/confirmation_emails/confirmation_email_subject.txt',
-                context).strip()
-            body = render_to_string(
+                context
+            ).strip()
+            
+            # HTML body
+            html_body = render_to_string(
+                'checkout/confirmation_emails/confirmation_email_body.html',
+                context
+            )
+            
+            # Plain text fallback
+            plain_body = render_to_string(
                 'checkout/confirmation_emails/confirmation_email_body.txt',
-                context)
+                context
+            )
 
-            send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [order.email], fail_silently=False)
+            # Send multipart email
+            email = EmailMultiAlternatives(
+                subject=subject,
+                body=plain_body,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[order.email]
+            )
+            email.attach_alternative(html_body, "text/html")
+            email.send(fail_silently=False)
         
         except Exception as e:
             print(f"ERROR: Failed to send confirmation email: {e}")
