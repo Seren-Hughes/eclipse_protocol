@@ -9,7 +9,7 @@
 /**
  * Copy license key to clipboard with visual feedback
  * 
- * Uses modern Clipboard API when available in secure contexts (HTTPS).
+ * Uses Clipboard API when available in secure contexts (HTTPS).
  * Provides graceful fallback for non-secure contexts by selecting text
  * for manual copying. 
  * 
@@ -19,7 +19,7 @@
 function copyKey(keyCode, buttonElement) {
     // Check if Clipboard API is available (requires secure context)
     if (navigator.clipboard && window.isSecureContext) {
-        // Use modern Clipboard API for automatic copying
+        // Use Clipboard API for automatic copying
         navigator.clipboard.writeText(keyCode).then(function() {
             showCopySuccess(buttonElement);
         }).catch(function(err) {
