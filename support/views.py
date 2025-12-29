@@ -49,7 +49,7 @@ def contact(request):
             'reference_id': contact_message.id,
             'timestamp': contact_message.created_at.strftime('%Y-%m-%d %H:%M:%S'),
             'site_url': request.build_absolute_uri('/').rstrip('/'),
-            'admin_url': request.build_absolute_uri(f'/admin/support/contactmessage/{contact_message.id}/change/'),
+            'admin_url': f"{settings.SITE_URL}/admin/support/contactmessage/{contact_message.id}/change/",
         }
         
         print("=" * 50)

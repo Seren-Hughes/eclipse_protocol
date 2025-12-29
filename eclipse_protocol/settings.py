@@ -188,6 +188,8 @@ ADMINS = [
 ]
 SERVER_EMAIL = EMAIL_HOST_USER
 
+SITE_URL = "https://eclipse-protocol-15d26c9e2a55.herokuapp.com/"
+
 # Stripe 
 STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
