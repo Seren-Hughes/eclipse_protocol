@@ -32,7 +32,7 @@ def cart_view(request):
         'cart_items': cart_items,
         'total_price': total_price,
         'total_items': total_items,
-        'shipping_cost': Decimal('0.00'),  # conditional shipping to be added for physical products
+        'shipping_cost': Decimal('0.00'),  # conditional shipping to be added for physical products (future scope)
         'grand_total': total_price,
     }
     
@@ -69,7 +69,7 @@ def add_to_cart(request, product_id):
         cart, created = Cart.objects.get_or_create(user=request.user)
         
         # Prevent duplicate digital products
-        if product.product_type in ['BASE_GAME', 'DIGITAL']:
+        if product.product_type in [Product.BASE_GAME, Product.DIGITAL]:
             existing_item = CartItem.objects.filter(
                 cart=cart,
                 product=product,
@@ -96,7 +96,7 @@ def add_to_cart(request, product_id):
         
         if not item_created:
             # For currency products, increment quantity
-            if product.product_type == 'CURRENCY':
+            if product.product_type == Product.CURRENCY:
                 cart_item.quantity += quantity
                 cart_item.save()
             else:
@@ -122,7 +122,7 @@ def add_to_cart(request, product_id):
             cart_key = str(product_id)
         
         # Prevent duplicate digital products
-        if product.product_type in ['BASE_GAME', 'DIGITAL']:
+        if product.product_type in [Product.BASE_GAME, Product.DIGITAL]:
             if cart_key in session_cart:
                 item_name = product.name
                 if variant:
@@ -136,7 +136,7 @@ def add_to_cart(request, product_id):
         # Add or update item in session cart
         if cart_key in session_cart:
             # For currency products, increment quantity
-            if product.product_type == 'CURRENCY':
+            if product.product_type == Product.CURRENCY:
                 session_cart[cart_key]['quantity'] += quantity
             else:
                 # Digital products should not reach here due to check above

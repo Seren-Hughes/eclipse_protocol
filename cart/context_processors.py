@@ -1,5 +1,4 @@
 from decimal import Decimal
-from django.shortcuts import get_object_or_404
 from catalog.models import Product, DigitalVariant
 
 
@@ -46,13 +45,13 @@ def cart_contents(request):
             # Handle both simple products and variants
             if 'variant_id' in item_data:
                 # Base game with variant selection (PC Ultimate, Xbox Standard, etc.)
-                variant = get_object_or_404(DigitalVariant, id=item_data['variant_id'])
+                variant = DigitalVariant.objects.get(id=item_data['variant_id'])
                 product = variant.product
                 price = variant.effective_price
                 display_name = f"{product.name} - {variant.get_platform_display()} {variant.get_edition_display()}"
             else:
                 # Simple product (currency packs, DLC, expansions)
-                product = get_object_or_404(Product, id=item_data['product_id'])
+                product = Product.objects.get(id=item_data['product_id'])
                 variant = None
                 price = product.price
                 display_name = product.name
