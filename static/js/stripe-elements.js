@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Create and mount card element
-    var card = elements.create('card', {style: style});
+    var card = elements.create('card', {style: style, hidePostalCode: true});
     card.mount('#card-element');
 
     // Handle realtime validation errors from the card Element
