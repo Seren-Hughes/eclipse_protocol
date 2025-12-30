@@ -181,7 +181,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# customise email host user display name 
+DEFAULT_FROM_EMAIL = f"Eclipse Protocol <{EMAIL_HOST_USER}>"
 # Admin email notifications
 ADMINS = [
     ('Support Team', EMAIL_HOST_USER),  # Will send admin notifications to this email
