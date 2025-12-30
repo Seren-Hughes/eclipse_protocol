@@ -34,6 +34,18 @@ function copyKey(keyCode, buttonElement) {
 }
 
 /**
+ * add page reload functionality
+ */
+function initTryAgainButton() {
+    const tryAgainBtn = document.getElementById('try-again-btn');
+    if (tryAgainBtn) {
+        tryAgainBtn.addEventListener('click', function() {
+            window.location.reload();
+        });
+    }
+}
+
+/**
  * Display success feedback when license key is copied successfully
  * 
  * Changes button appearance with checkmark icon for 1 second,
@@ -132,7 +144,7 @@ function showCopyError(buttonElement) {
  * - About page scroll effects
  */
 document.addEventListener('DOMContentLoaded', function() {
-    
+    initTryAgainButton(); // call the function to init try again button
     /**
      * Order History Accordion Management
      * 
