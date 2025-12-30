@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% block title %}Your Shopping Basket - Eclipse Protocol Store{% endblock %}
+
 {% block content %}
     <div class="container py-4">
         <h2 class="cart-title mb-4">Your shopping basket ({{ total_items }} item{{ total_items|pluralize }})</h2>
