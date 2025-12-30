@@ -971,9 +971,9 @@
     background: var(--color-background);
   }
 
-  .btn-buy-now.btn-primary {
+  #main-button.btn-buy-now.btn-primary {
         padding: 0.2rem 1rem;
         font-size: 1rem;
-        background-color: rgba(0, 0, 0, 0.581) !important;
+        background-color: rgba(0, 0, 0, 0.581);
     }
 }
