@@ -20,9 +20,9 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Override Bootstrap's border-top on row 2 to make it thinner */
-.navbar-custom .navbar-row-2.border-top {
-  border-top: 0.5px solid rgba(255, 255, 255, 0.15) !important; /* Override Bootstrap's default */
+/* subtle grey divider between navbar rows */
+.navbar-custom .navbar-row-2 {
+  border-top: 0.5px solid rgba(255, 255, 255, 0.15); 
 }
 
 /* Brand: stacked wordmark + astronaut */
@@ -359,9 +359,9 @@
 /* =========== FOOTER ============ */
 /* =============================== */
 
-footer {
+footer{
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: var(--color-background) !important; /* Force solid background */
+    background-color: var(--color-background); 
     position: relative;
     /* ensure footer background is above any block content */
     z-index: 4; 
