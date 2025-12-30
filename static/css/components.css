@@ -319,7 +319,8 @@
 }
 
 .contact-form .card-body {
-    background-color: var(--color-background);
+    background-color: var(--color-background-grey-dark);
+    border-radius: 12px;
 }
 
 .contact-form h1 {
