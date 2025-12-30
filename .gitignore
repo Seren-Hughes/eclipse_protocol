@@ -20,6 +20,11 @@ db.sqlite3
 # Static files
 staticfiles/
 
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
 # OS
 .DS_Store
 Thumbs.db

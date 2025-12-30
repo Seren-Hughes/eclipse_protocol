@@ -1,0 +1,21 @@
+[run]
+source = cart,catalog,checkout,accounts,core,support
+omit =
+    */migrations/*
+    */tests/*
+    env.py
+    eclipse_protocol/settings.py
+    manage.py
+    */venv/*
+    */__pycache__/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    if __name__ == '__main__'
+    def __repr__
+    raise AssertionError
+    raise NotImplementedError
+
+[html]
+directory = htmlcov
