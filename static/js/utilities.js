@@ -145,6 +145,13 @@ function showCopyError(buttonElement) {
  */
 document.addEventListener('DOMContentLoaded', function() {
     initTryAgainButton(); // call the function to init try again button
+
+    // Initialise Bootstrap toasts
+    const toastEls = Array.from(document.querySelectorAll('.toast'));
+    if (!toastEls.length) return;
+    const toasts = toastEls.map(el => new bootstrap.Toast(el));
+    toasts.forEach(t => t.show());
+
     /**
      * Order History Accordion Management
      * 
