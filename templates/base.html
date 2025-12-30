@@ -40,7 +40,7 @@
             <div class="navbar-row-1">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center justify-content-between py-2">
-                        <a class="navbar-brand d-flex align-items-center" href="/">
+                        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
                             <i class="fa-solid fa-user-astronaut me-2"></i>
                             <div class="d-flex flex-column lh-1">
                                 <span>ECLIPSE</span>
@@ -61,14 +61,14 @@
                         <ul class="navbar-nav d-none d-md-flex flex-row ms-auto px-2">
                             {% if user.is_authenticated %}
                                 <li class="nav-item">
-                                    <a class="nav-link me-3" href="/accounts/"><i class="fa-regular fa-circle-user me-1"></i> Account</a>
+                                    <a class="nav-link me-3" href="{% url 'accounts:dashboard' %}"><i class="fa-regular fa-circle-user me-1"></i> Account</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/accounts/logout/">Logout</a>
+                                    <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/accounts/login/">Login</a>
+                                    <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
                                 </li>
                             {% endif %}
                         </ul>
@@ -84,10 +84,10 @@
                             <!-- Category navigation -->
                             <ul class="nav flex-row flex-wrap me-lg-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link px-2" href="/products/base-game/eclipse-protocol/">Buy Game</a>
+                                    <a class="nav-link px-2" href="{% url 'catalog:edition_detail' product_slug='eclipse-protocol' %}">Buy Game</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link px-2" href="/products/currency/">Buy Credits</a>
+                                    <a class="nav-link px-2" href="{% url 'catalog:currency_detail' %}">Buy Credits</a>
                                 </li>
                             </ul>
                             <!-- Right side: Search + Wishlist/Basket -->
@@ -113,10 +113,10 @@
                                 <!-- Wishlist and Basket links -->
                                 <ul class="nav flex-row flex-nowrap mb-2 mb-lg-0">
                                     <li class="nav-item">
-                                        <a class="nav-link px-2 me-2" href="/wishlist/"><i class="fa-regular fa-heart me-1"></i> Wishlist</a>
+                                        <a class="nav-link px-2 me-2" href="{% url 'wishlist' %}"><i class="fa-regular fa-heart me-1"></i> Wishlist</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link px-2" href="/cart/"><i class="fa fa-shopping-basket me-1"></i> Basket</a>
+                                        <a class="nav-link px-2" href="{% url 'cart:cart' %}"><i class="fa fa-shopping-basket me-1"></i> Basket</a>
                                     </li>
                                 </ul>
                             </div>
@@ -129,21 +129,21 @@
                             <div class="border-bottom pb-2 mb-2">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/products/base-game/eclipse-protocol/">Buy Game</a>
+                                        <a class="nav-link" href="{% url 'catalog:edition_detail' product_slug='eclipse-protocol' %}">Buy Game</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/products/currency/">Buy Credits</a>
+                                        <a class="nav-link" href="{% url 'catalog:currency_detail' %}">Buy Credits</a>
                                     </li>
                                     {% if user.is_authenticated %}
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/accounts/">Account</a>
+                                            <a class="nav-link" href="{% url 'accounts:dashboard' %}">Account</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/accounts/logout/">Logout</a>
+                                            <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
                                         </li>
                                     {% else %}
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/accounts/login/">Login</a>
+                                            <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
                                         </li>
                                     {% endif %}
                                 </ul>
@@ -170,8 +170,8 @@
                             </form>
                             <!-- Icon-only wishlist and basket -->
                             <div class="d-flex gap-2">
-                                <a class="nav-link px-3" href="/wishlist/" aria-label="Wishlist" title="Wishlist"><i class="fa-regular fa-heart" aria-hidden="true"></i><span class="visually-hidden">Wishlist</span></a>
-                                <a class="nav-link px-3" href="/cart/" aria-label="Basket" title="Basket"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span class="visually-hidden">Basket</span></a>
+                                <a class="nav-link px-3" href="{% url 'wishlist' %}" aria-label="Wishlist" title="Wishlist"><i class="fa-regular fa-heart" aria-hidden="true"></i><span class="visually-hidden">Wishlist</span></a>
+                                <a class="nav-link px-3" href="{% url 'cart:cart' %}" aria-label="Basket" title="Basket"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span class="visually-hidden">Basket</span></a>
                             </div>
                         </div>
                     </div>
@@ -249,12 +249,12 @@
                 </div>
                 <!-- Links row -->
                 <div class="footer-links d-flex flex-wrap justify-content-center gap-3 mb-5">
-                    <a href="/pages/about/" class="footer-link">About Us</a>
-                    <a href="/pages/faqs/" class="footer-link">FAQs</a>
-                    <a href="/pages/privacy-policy/" class="footer-link">Privacy Policy</a>
-                    <a href="/pages/contact/" class="footer-link">Contact</a>
-                    <a href="/pages/terms-and-conditions/" class="footer-link">Terms &amp; Conditions</a>
-                    <a href="/accounts/" class="footer-link">Account</a>
+                    <a href="{% url 'support:about' %}" class="footer-link">About Us</a>
+                    <a href="{% url 'support:faqs' %}" class="footer-link">FAQs</a>
+                    <a href="{% url 'support:privacy_policy' %}" class="footer-link">Privacy Policy</a>
+                    <a href="{% url 'support:contact' %}" class="footer-link">Contact</a>
+                    <a href="{% url 'support:terms_and_conditions' %}" class="footer-link">Terms &amp; Conditions</a>
+                    <a href="{% url 'accounts:dashboard' %}" class="footer-link">Account</a>
                 </div>
                 <!-- Copyright -->
                 <div class="text-center small">&copy; {{ year|default:2025 }} Dark Sky Games</div>
