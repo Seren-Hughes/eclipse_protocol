@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Product
 from django.db.models import Q
 
@@ -50,6 +51,7 @@ def currency_detail(request, product_slug=None):
     return render(request, 'catalog/currency_detail.html', context)
 
 
+@ensure_csrf_cookie
 def edition_detail(request, product_slug, platform=None, edition=None):
     """
     display base game edition selection page with platform and edition variants

@@ -101,14 +101,32 @@ function addToCart(productId, variantId = null, buttonElement = null, redirectTo
         buttonElement.disabled = true;
     }
 
+    // Get CSRF token from cookie or meta tag fallback
+    const csrfToken = getCookie('csrftoken') || document.querySelector('meta[name="csrf-token"]')?.content || '';
+
     fetch(`/cart/add/${productId}/`, {
         method: 'POST',
+        credentials: 'same-origin',
         headers: {
-            'X-CSRFToken': getCookie('csrftoken'),
+            'X-CSRFToken': csrfToken,
+            'Accept': 'application/json'
         },
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            if (response.status === 403) {
+                throw new Error('CSRF token missing or invalid. Please refresh the page and try again.');
+            }
+            if (response.status >= 500) {
+                throw new Error('Server error. Please try again later.');
+            }
+            return response.text().then(text => {
+                throw new Error(text || `Request failed with status ${response.status}`);
+            });
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             if (redirectToCart) {
@@ -148,7 +166,7 @@ function addToCart(productId, variantId = null, buttonElement = null, redirectTo
     })
     .catch(error => {
         console.error('Error adding to cart:', error);
-        handleAddToCartError(buttonElement, originalText, 'Network error - please try again', 'error');
+        handleAddToCartError(buttonElement, originalText, error.message || 'Network error - please try again', 'error');
     });
 }
 
@@ -165,15 +183,25 @@ function removeFromWishlistAfterAddToCart(productId, variantId, buttonElement) {
         formData.append('variant_id', variantId);
     }
 
+    // Get CSRF token from cookie or meta tag fallback
+    const csrfToken = getCookie('csrftoken') || document.querySelector('meta[name="csrf-token"]')?.content || '';
+
     // Call wishlist toggle API to remove the item
     fetch(`/accounts/wishlist/toggle/${productId}/`, {
         method: 'POST',
+        credentials: 'same-origin',
         headers: {
-            'X-CSRFToken': getCookie('csrftoken'),
+            'X-CSRFToken': csrfToken,
+            'Accept': 'application/json'
         },
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success && !data.in_wishlist) {
             // Find the wishlist card containing this button and remove it
@@ -295,14 +323,24 @@ function updateCartItem(itemId, quantity) {
     const formData = new FormData();
     formData.append('quantity', quantity);
     
+    // Get CSRF token from cookie or meta tag fallback
+    const csrfToken = getCookie('csrftoken') || document.querySelector('meta[name="csrf-token"]')?.content || '';
+    
     fetch(`/cart/update/${itemId}/`, {
         method: 'POST',
+        credentials: 'same-origin',
         headers: {
-            'X-CSRFToken': getCookie('csrftoken'),
+            'X-CSRFToken': csrfToken,
+            'Accept': 'application/json'
         },
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             if (quantity === 0) {
@@ -326,13 +364,23 @@ function updateCartItem(itemId, quantity) {
  * @param {string} itemId - Item ID (database ID for auth users, session key for anonymous)
  */
 function removeCartItem(itemId) {
+    // Get CSRF token from cookie or meta tag fallback
+    const csrfToken = getCookie('csrftoken') || document.querySelector('meta[name="csrf-token"]')?.content || '';
+    
     fetch(`/cart/remove/${itemId}/`, {
         method: 'POST',
+        credentials: 'same-origin',
         headers: {
-            'X-CSRFToken': getCookie('csrftoken'),
+            'X-CSRFToken': csrfToken,
+            'Accept': 'application/json'
         },
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             document.querySelector(`[data-item-id="${itemId}"]`).remove();
