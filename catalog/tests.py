@@ -425,3 +425,384 @@ class ProductTypeWorkflowTests(TestCase):
         # Step 3: Verify complete configuration
         self.assertEqual(dlc.digital.platform, DigitalProduct.PC)
         self.assertTrue(dlc.digital.requires_key)
+
+
+
+
+class CatalogViewTests(TestCase):
+    """Tests for catalog views and URL routing"""
+    
+    def setUp(self):
+        """Set up test data for view testing"""
+        self.client = Client()
+        
+        # Create base game with variants
+        self.base_game = Product.objects.create(
+            name="Eclipse Protocol",
+            slug="eclipse-protocol",
+            description="Sci-fi strategy game with immersive gameplay",
+            price=Decimal('29.99'),
+            product_type=Product.BASE_GAME,
+            is_active=True
+        )
+        
+        # Create variants for testing edition_detail view
+        self.pc_standard = DigitalVariant.objects.create(
+            product=self.base_game,
+            platform=DigitalProduct.PC,
+            edition=DigitalProduct.STANDARD,
+            is_active=True
+        )
+        
+        self.pc_ultimate = DigitalVariant.objects.create(
+            product=self.base_game,
+            platform=DigitalProduct.PC,
+            edition=DigitalProduct.ULTIMATE,
+            price_override=Decimal('59.99'),
+            description="Includes season pass and exclusive content",
+            is_active=True
+        )
+        
+        self.xbox_standard = DigitalVariant.objects.create(
+            product=self.base_game,
+            platform=DigitalProduct.XBOX,
+            edition=DigitalProduct.STANDARD,
+            is_active=True
+        )
+        
+        # Create currency products for testing currency_detail view
+        self.currency_100 = Product.objects.create(
+            name="100 Eclipse Credits",
+            slug="100-credits",
+            description="Small credit pack",
+            price=Decimal('4.99'),
+            product_type=Product.CURRENCY,
+            is_active=True
+        )
+        
+        self.currency_500 = Product.objects.create(
+            name="500 Eclipse Credits",
+            slug="500-credits",
+            description="Medium credit pack",
+            price=Decimal('19.99'),
+            product_type=Product.CURRENCY,
+            is_active=True
+        )
+        
+        # Create inactive product for testing filtering
+        self.inactive_product = Product.objects.create(
+            name="Discontinued Game",
+            slug="discontinued-game",
+            description="Old game",
+            price=Decimal('39.99'),
+            product_type=Product.BASE_GAME,
+            is_active=False
+        )
+    
+    
+    def test_currency_detail_view_default(self):
+        """Test currency_detail view without specific product selection"""
+        response = self.client.get(reverse('catalog:currency_detail'))
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'catalog/currency_detail.html')
+        
+        # Check context data
+        self.assertEqual(len(response.context['currency_products']), 2)
+        self.assertEqual(response.context['page_info']['name'], 'Eclipse Protocol Credits')
+        self.assertIsNone(response.context['selected_product'])
+        
+        # Verify products are ordered by price
+        products = list(response.context['currency_products'])
+        self.assertEqual(products[0], self.currency_100)  # Cheaper first
+        self.assertEqual(products[1], self.currency_500)
+    
+    def test_currency_detail_view_with_selection(self):
+        """Test currency_detail view with specific product selected"""
+        response = self.client.get(
+            reverse('catalog:currency_detail_with_selection', 
+                   kwargs={'product_slug': '500-credits'})
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['selected_product'], self.currency_500)
+        self.assertEqual(response.context['page_info']['name'], '500 Eclipse Credits')
+        self.assertEqual(response.context['page_info']['description'], 'Medium credit pack')
+    
+    def test_currency_detail_view_invalid_slug(self):
+        """Test currency_detail view with non-existent product slug"""
+        response = self.client.get(
+            reverse('catalog:currency_detail_with_selection',
+                   kwargs={'product_slug': 'non-existent'})
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        # Should fall back to default page info
+        self.assertEqual(response.context['page_info']['name'], 'Eclipse Protocol Credits')
+        self.assertIsNone(response.context['selected_product'])
+    
+    def test_edition_detail_view_default_variant(self):
+        """Test edition_detail view without specific platform/edition"""
+        response = self.client.get(
+            reverse('catalog:edition_detail', 
+                   kwargs={'product_slug': 'eclipse-protocol'})
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'catalog/edition_detail.html')
+        
+        # Check context data
+        self.assertEqual(response.context['base_product'], self.base_game)
+        self.assertEqual(response.context['selected_variant'], self.pc_standard)  # First variant
+        self.assertEqual(len(response.context['variants']), 3)  # All active variants
+        
+        # Check platform and edition organization
+        self.assertIn('pc', response.context['variants_by_platform'])
+        self.assertIn('xbox', response.context['variants_by_platform'])
+        self.assertEqual(len(response.context['platforms']), 2)
+        self.assertIn('standard', response.context['editions'])
+        self.assertIn('ultimate', response.context['editions'])
+    
+    def test_edition_detail_view_specific_variant(self):
+        """Test edition_detail view with specific platform/edition selection"""
+        response = self.client.get(
+            reverse('catalog:edition_detail_variant', 
+                   kwargs={
+                       'product_slug': 'eclipse-protocol',
+                       'platform': 'pc',
+                       'edition': 'ultimate'
+                   })
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['selected_variant'], self.pc_ultimate)
+        self.assertEqual(response.context['selected_variant'].effective_price, Decimal('59.99'))
+    
+    def test_edition_detail_view_invalid_variant(self):
+        """Test edition_detail view with invalid platform/edition combination"""
+        response = self.client.get(
+            reverse('catalog:edition_detail_variant', 
+                   kwargs={
+                       'product_slug': 'eclipse-protocol',
+                       'platform': 'playstation',  # Doesn't exist
+                       'edition': 'standard'
+                   })
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        # Should fall back to first available variant
+        self.assertEqual(response.context['selected_variant'], self.pc_standard)
+    
+    def test_edition_detail_view_nonexistent_product(self):
+        """Test edition_detail view with non-existent product returns 404"""
+        response = self.client.get(
+            reverse('catalog:edition_detail', 
+                   kwargs={'product_slug': 'non-existent-game'})
+        )
+        
+        self.assertEqual(response.status_code, 404)
+    
+    def test_edition_detail_view_inactive_product(self):
+        """Test edition_detail view with inactive product returns 404"""
+        response = self.client.get(
+            reverse('catalog:edition_detail', 
+                   kwargs={'product_slug': 'discontinued-game'})
+        )
+        
+        self.assertEqual(response.status_code, 404)
+    
+    def test_search_results_view_empty_query(self):
+        """Test search_results view with no search query"""
+        response = self.client.get(reverse('catalog:search_results'))
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'catalog/search_results.html')
+        self.assertEqual(response.context['query'], '')
+        self.assertEqual(len(response.context['products']), 0)
+        self.assertEqual(response.context['total_count'], 0)
+    
+    def test_search_results_view_with_query(self):
+        """Test search_results view with search query"""
+        response = self.client.get(
+            reverse('catalog:search_results') + '?q=Eclipse'
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query'], 'Eclipse')
+        self.assertEqual(response.context['total_count'], 3)  # base_game + 2 currency
+        
+        # Verify correct products returned
+        products = list(response.context['products'])
+        product_names = [p.name for p in products]
+        self.assertIn('Eclipse Protocol', product_names)
+        self.assertIn('100 Eclipse Credits', product_names)
+        self.assertIn('500 Eclipse Credits', product_names)
+    
+    def test_search_results_view_description_match(self):
+        """Test search_results view finds matches in description"""
+        response = self.client.get(
+            reverse('catalog:search_results') + '?q=strategy'
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['total_count'], 1)
+        self.assertEqual(list(response.context['products'])[0], self.base_game)
+    
+    def test_search_results_view_no_matches(self):
+        """Test search_results view with query that matches nothing"""
+        response = self.client.get(
+            reverse('catalog:search_results') + '?q=nonexistent'
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['total_count'], 0)
+        self.assertEqual(len(response.context['products']), 0)
+    
+    def test_search_results_view_case_insensitive(self):
+        """Test search_results view is case-insensitive"""
+        response = self.client.get(
+            reverse('catalog:search_results') + '?q=ECLIPSE'
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['total_count'], 3)
+    
+    def test_search_results_view_excludes_inactive(self):
+        """Test search_results view excludes inactive products"""
+        response = self.client.get(
+            reverse('catalog:search_results') + '?q=Discontinued'
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['total_count'], 0)
+
+
+class CatalogViewEdgeCaseTests(TestCase):
+    """Test edge cases and error conditions in catalog views"""
+    
+    def test_currency_detail_view_no_currency_products(self):
+        """Test currency_detail view when no currency products exist"""
+        response = self.client.get(reverse('catalog:currency_detail'))
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['currency_products']), 0)
+        self.assertEqual(response.context['page_info']['name'], 'Eclipse Protocol Credits')
+        self.assertIsNone(response.context['page_info']['image'])
+    
+    def test_edition_detail_view_no_variants(self):
+        """Test edition_detail view for base game with no variants"""
+        base_game = Product.objects.create(
+            name="No Variants Game",
+            slug="no-variants-game",
+            description="Game without variants",
+            price=Decimal('49.99'),
+            product_type=Product.BASE_GAME,
+            is_active=True
+        )
+        
+        response = self.client.get(
+            reverse('catalog:edition_detail', 
+                   kwargs={'product_slug': 'no-variants-game'})
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['base_product'], base_game)
+        self.assertIsNone(response.context['selected_variant'])
+        self.assertEqual(len(response.context['variants']), 0)
+    
+    def test_currency_detail_view_with_image(self):
+        """Test currency_detail view properly handles product images"""
+        # Create currency product with image
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from django.core.files.storage import default_storage
+        
+        # Mock image file
+        image_content = b'fake-image-content'
+        image_file = SimpleUploadedFile("test.jpg", image_content, content_type="image/jpeg")
+        
+        currency_with_image = Product.objects.create(
+            name="Premium Credits",
+            slug="premium-credits",
+            description="Premium credit pack",
+            price=Decimal('9.99'),
+            product_type=Product.CURRENCY,
+            is_active=True,
+            image=image_file
+        )
+        
+        response = self.client.get(reverse('catalog:currency_detail'))
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['page_info']['image'], currency_with_image.image)
+        
+        # Clean up
+        if currency_with_image.image and default_storage.exists(currency_with_image.image.name):
+            default_storage.delete(currency_with_image.image.name)
+    
+    def test_edition_detail_view_variant_sorting(self):
+        """Test that edition_detail view properly sorts platforms and editions"""
+        base_game = Product.objects.create(
+            name="Sort Test Game",
+            slug="sort-test-game",
+            description="Game for testing sorting",
+            price=Decimal('39.99'),
+            product_type=Product.BASE_GAME,
+            is_active=True
+        )
+        
+        # Create variants in random order
+        DigitalVariant.objects.create(
+            product=base_game,
+            platform=DigitalProduct.XBOX,
+            edition=DigitalProduct.ULTIMATE,
+            sort_order=3
+        )
+        
+        DigitalVariant.objects.create(
+            product=base_game,
+            platform=DigitalProduct.PC,
+            edition=DigitalProduct.PREMIUM,
+            sort_order=1
+        )
+        
+        DigitalVariant.objects.create(
+            product=base_game,
+            platform=DigitalProduct.PC,
+            edition=DigitalProduct.STANDARD,
+            sort_order=2
+        )
+        
+        response = self.client.get(
+            reverse('catalog:edition_detail', 
+                   kwargs={'product_slug': 'sort-test-game'})
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        
+        # Check that editions appear in the correct order
+        editions = response.context['editions']
+        self.assertEqual(editions, ['standard', 'premium', 'ultimate'])
+        
+        # Check that platforms appear in variant order
+        platforms = response.context['platforms']
+        self.assertEqual(platforms[0], 'pc')  # First variant platform
+    
+    def test_search_with_whitespace(self):
+        """Test search_results view handles whitespace correctly"""
+        Product.objects.create(
+            name="Test Product",
+            slug="test-product",
+            description="Test description",
+            price=Decimal('9.99'),
+            product_type=Product.DIGITAL,
+            is_active=True
+        )
+        
+        # Test with leading/trailing whitespace
+        response = self.client.get(
+            reverse('catalog:search_results') + '?q=  Test  '
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query'], 'Test')  # Stripped
+        self.assertEqual(response.context['total_count'], 1)

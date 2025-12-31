@@ -92,7 +92,8 @@ class Product(models.Model):
         return f"{self.name} ({self.get_product_type_display()})"
     
     def get_absolute_url(self):
-        return reverse('catalog:product_detail', kwargs={'slug': self.slug})
+        # fallback url 
+        return reverse('catalog:search_results')
 
 
 class DigitalProduct(models.Model):

@@ -3,12 +3,6 @@ from .models import Product
 from django.db.models import Q
 
 # Create your views here.
-
-def product_list(request):
-    """Simple product list view for development testing."""
-    products = Product.objects.filter(is_active=True)
-    return render(request, 'catalog/product_list.html', {'products': products})
-
 def currency_detail(request, product_slug=None):
     """Display currency selection page with all available credit packs"""
     # Get all active currency products
