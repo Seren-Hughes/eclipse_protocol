@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const platformButtons = document.querySelectorAll('.platform-btn');
     const editionSelect = document.getElementById('editionSelect');
     const addToCartBtn = document.getElementById('addToCartBtn');
+    const wishlistBtn = document.querySelector('.btn-wishlist');
     const priceDisplay = document.querySelector('.price-amount');
     
     // cache image containers
@@ -53,6 +54,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!variant) {
             addToCartBtn.disabled = true;
             addToCartBtn.textContent = 'add to cart';
+            // Also disable wishlist button when no valid variant
+            if (wishlistBtn) {
+                wishlistBtn.disabled = true;
+                wishlistBtn.classList.add('disabled');
+            }
             return;
         }
 
@@ -96,6 +102,12 @@ document.addEventListener('DOMContentLoaded', function() {
         addToCartBtn.dataset.variantId = variant.id;
         addToCartBtn.dataset.variantSku = variant.sku;
 
+        // enable wishlist button when valid variant exists
+        if (wishlistBtn) {
+            wishlistBtn.disabled = false;
+            wishlistBtn.classList.remove('disabled');
+        }
+
         // update url without reload - always use base product url
         const pathParts = window.location.pathname.split('/').filter(p => p);
         // remove 'base-game' and everything after it, keep just the product slug
@@ -118,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // add active to clicked button
             this.classList.add('active');
             
-            // update selected platform
+            // update selected platform (will be undefined for PlayStation button)
             selectedPlatform = this.dataset.platform;
             
             // find and display matching variant
@@ -161,13 +173,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // initialize: enable button if variant is selected
+    // initialise: enable buttons if valid variant is selected, disable if not
     if (selectedPlatform && selectedEdition) {
         const initialVariant = findVariant(selectedPlatform, selectedEdition);
         if (initialVariant) {
             addToCartBtn.disabled = false;
             addToCartBtn.dataset.variantId = initialVariant.id;
             addToCartBtn.dataset.variantSku = initialVariant.sku;
+            if (wishlistBtn) {
+                wishlistBtn.disabled = false;
+                wishlistBtn.classList.remove('disabled');
+            }
+        } else {
+            // No valid variant found, disable both buttons
+            addToCartBtn.disabled = true;
+            if (wishlistBtn) {
+                wishlistBtn.disabled = true;
+                wishlistBtn.classList.add('disabled');
+            }
+        }
+    } else {
+        // No platform or edition selected, disable both buttons
+        addToCartBtn.disabled = true;
+        if (wishlistBtn) {
+            wishlistBtn.disabled = true;
+            wishlistBtn.classList.add('disabled');
         }
     }
 });
