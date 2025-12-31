@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sales Dashboard - Eclipse Protocol Admin{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+    <div class="container">
+        <h1 class="mb-0">Eclipse Protocol Sales Dashboard</h1>
+        <p class="mb-0">Admin Only - Sales Analytics & Insights</p>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="{% url 'admin:index' %}" class="btn btn-outline-admin-primary me-2">
+                 Django Admin
+            </a>
+            <a href="{% url 'admin:checkout_order_changelist' %}" class="btn btn-outline-success">
+                 Manage Orders
+            </a>
+        </div>
+    </div>
+
+    <!-- Sales Metrics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card dashboard-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Orders</h5>
+                    <div class="metric-value">{{ total_orders }}</div>
+                    <small>All time (paid orders)</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card dashboard-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Revenue</h5>
+                    <div class="metric-value">£{{ total_revenue|floatformat:2 }}</div>
+                    <small>All time earnings</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card dashboard-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Avg Order Value</h5>
+                    <div class="metric-value">£{{ average_order_value|floatformat:2 }}</div>
+                    <small>Per paid order</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card dashboard-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Last 30 Days</h5>
+                    <div class="metric-value">{{ recent_orders_count }}</div>
+                    <small>£{{ recent_revenue|floatformat:2 }} revenue</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Orders Table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card admin-card">
+                <div class="card-header admin-card-header">
+                    <h5 class="mb-0">Latest Orders (Last 10)</h5>
+                </div>
+                <div class="card-body">
+                    {% if latest_orders %}
+                        <div class="table-responsive">
+                            <table class="table admin-table admin-table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Order #</th>
+                                        <th>Date</th>
+                                        <th>Customer</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in latest_orders %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'admin:checkout_order_change' order.id %}" class="admin-link">
+                                                {{ order.order_number }}
+                                            </a>
+                                        </td>
+                                        <td>{{ order.order_date|date:"M j, Y g:i A" }}</td>
+                                        <td>
+                                            {% if order.user %}
+                                                {{ order.user.username }}
+                                                {% if order.user.email %}
+                                                    <br><small>{{ order.user.email }}</small>
+                                                {% endif %}
+                                            {% else %}
+                                                <span class="text-muted">Guest</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="admin-amount">£{{ order.total_amount|floatformat:2 }}</td>
+                                        <td>
+                                            <span class="badge bg-success">{{ order.get_payment_status_display }}</span>
+                                            <br>
+                                            <small class="badge bg-secondary">{{ order.get_delivery_status_display }}</small>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <p>No paid orders yet.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <hr class="admin-footer-divider">
+            <p>
+                <small>Admin Dashboard - {{ user.username }} | 
+                <a href="{% url 'accounts:logout' %}" class="admin-link">Logout</a>
+                </small>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -21,6 +21,7 @@ from accounts import views as account_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('admin-dashboard/', views.admin_sales_dashboard, name='admin_sales_dashboard'),
     path('', views.home, name='home'),
     path('checkout/', include('checkout.urls')),
     path('products/', include('catalog.urls')),

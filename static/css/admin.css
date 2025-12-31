@@ -1,0 +1,140 @@
+/* Admin Dashboard Styles */
+/* Extends the site's base styling for admin-only sections */
+
+.admin-header {
+    background: #539fd2a5;
+    color: var(--color-text);
+    padding: var(--spacing-xl) 0;
+    margin-bottom: var(--spacing-lg);
+}
+
+.admin-header h1 {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+}
+
+.dashboard-card {
+    background-color: var(--color-background-grey-dark);
+    border: 1px solid var(--color-background-grey-medium);
+    border-left: 4px solid var(--color-accent);
+    border-radius: var(--border-radius-md);
+}
+
+.dashboard-card .card-body {
+    padding: var(--spacing-lg);
+}
+
+.dashboard-card .card-title {
+    color: var(--color-text);
+    font-family: var(--font-secondary);
+    font-weight: 500;
+    margin-bottom: var(--spacing-sm);
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--color-accent);
+    font-family: var(--font-secondary);
+}
+
+.admin-card {
+    background-color: var(--color-background-grey-dark);
+    border: 1px solid var(--color-background-grey-medium);
+    border-radius: var(--border-radius-md);
+}
+
+.admin-card .card-header {
+    background-color: var(--color-background-grey-medium);
+    border-bottom: 1px solid var(--color-background-grey-light);
+    color: var(--color-text);
+    font-family: var(--font-secondary);
+    font-weight: 500;
+}
+
+/* Table styling with proper specificity */
+.admin-card .admin-table {
+    color: var(--color-text);
+    background-color: var(--color-background-grey-dark);
+}
+
+.admin-card .admin-table th {
+    color: var(--color-text);
+    background-color: var(--color-background-grey-medium);
+    border-color: var(--color-background-grey-light);
+}
+
+.admin-card .admin-table td {
+    color: var(--color-text);
+    border-color: var(--color-background-grey-light);
+}
+
+.admin-card .admin-table-striped tbody tr:nth-of-type(odd) td {
+    background-color: #303233;
+    color: var(--color-text);
+}
+
+.admin-card .admin-table-striped tbody tr:nth-of-type(even) td {
+    background-color: var(--color-background-grey-dark);
+    color: var(--color-text);
+}
+
+/* Small text in tables */
+.admin-card .admin-table small {
+    color: var(--color-background-grey-light);
+}
+
+/* Badge styling with higher specificity */
+.admin-card .admin-table .badge.bg-secondary {
+    background-color: var(--color-accent) !important;
+    color: var(--color-background) !important;
+}
+
+.admin-card .admin-table .badge.bg-success {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Custom badge classes */
+.badge-admin-delivery {
+    background-color: var(--color-accent);
+    color: var(--color-background);
+}
+
+.badge-admin-payment {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Links */
+.admin-link {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.admin-link:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+}
+
+/* Amount styling */
+.admin-amount {
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+.admin-footer-divider {
+    border-color: var(--color-background-grey-medium);
+}
+
+/* Admin-specific button styles */
+.btn-outline-admin-primary {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.btn-outline-admin-primary:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-background);
+}
