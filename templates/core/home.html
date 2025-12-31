@@ -1,6 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Eclipse Protocol Store{% endblock %}
+
+{% block extra_head %}
+<!-- Preload hero banner image with responsive srcset -->
+<link rel="preload"
+      as="image"
+      href="{% static 'images/eclipse-protocol-home-banner-1920.webp' %}"
+      imagesrcset="{% static 'images/eclipse-protocol-home-banner-480.webp' %} 480w, 
+                   {% static 'images/eclipse-protocol-home-banner-768.webp' %} 768w,
+                   {% static 'images/eclipse-protocol-home-banner-1200.webp' %} 1200w,
+                   {% static 'images/eclipse-protocol-home-banner-1920.webp' %} 1920w"
+      imagesizes="100vw">
+{% endblock %}
+
 {% block content %}
     <!-- hero section -->
     {% load static %}
