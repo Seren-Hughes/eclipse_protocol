@@ -10,6 +10,7 @@ from catalog.models import Wishlist, Product, DigitalVariant
 from checkout.models import Order, LicenseKey
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, AddressForm
 from .models import Address
+from cart.utils import migrate_session_cart_to_user
 
 # Create your views here.
 
@@ -145,7 +146,13 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request, f'Welcome back, {user.username}!')
+                
+                # Migrate session cart to user cart
+                migration_result = migrate_session_cart_to_user(request, user)
+                if migration_result['migrated'] > 0:
+                    messages.success(request, f'Welcome back, {user.username}! {migration_result["migrated"]} items from your session have been added to your cart.')
+                else:
+                    messages.success(request, f'Welcome back, {user.username}!')
                 
                 # go to next parameter or home
                 redirect_url = next_url if next_url else 'home'
@@ -172,7 +179,14 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user, backend='accounts.backends.EmailOrUsernameBackend')
-            messages.success(request, f'Welcome to Eclipse Protocol, {user.username}!')
+            
+            # Migrate session cart to new user cart
+            migration_result = migrate_session_cart_to_user(request, user)
+            if migration_result['migrated'] > 0:
+                messages.success(request, f'Welcome to Eclipse Protocol, {user.username}! {migration_result["migrated"]} items have been added to your cart.')
+            else:
+                messages.success(request, f'Welcome to Eclipse Protocol, {user.username}!')
+            
             redirect_url = next_url if next_url else 'home'
             return redirect(redirect_url)
     else:
@@ -295,11 +309,15 @@ def signup(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Specify the backend explicitly when logging in after signup
             login(request, user, backend='accounts.backends.EmailOrUsernameBackend')
-            messages.success(request, f'Welcome to Eclipse Protocol, {user.username}!')
             
-            # redirect to next parameter or home
+            # Migrate session cart to new user cart
+            migration_result = migrate_session_cart_to_user(request, user)
+            if migration_result['migrated'] > 0:
+                messages.success(request, f'Welcome to Eclipse Protocol, {user.username}! {migration_result["migrated"]} items have been added to your cart.')
+            else:
+                messages.success(request, f'Welcome to Eclipse Protocol, {user.username}!')
+            
             redirect_url = next_url if next_url else 'home'
             return redirect(redirect_url)
     else:

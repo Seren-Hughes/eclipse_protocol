@@ -7,6 +7,7 @@ from .models import Cart, CartItem
 from catalog.models import Product, DigitalVariant
 from decimal import Decimal
 from .context_processors import cart_contents
+from django.db import transaction
 
 def cart_view(request):
     """
