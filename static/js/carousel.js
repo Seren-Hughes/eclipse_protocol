@@ -1,9 +1,9 @@
 // carousel functionality
 document.addEventListener('DOMContentLoaded', function() {
     // Get carousel elements
-    const carousel = document.querySelector('.currency-carousel');
-    const prevBtn = document.querySelector('.carousel-prev');
-    const nextBtn = document.querySelector('.carousel-next');
+    const carousel = document.getElementById('currency-carousel') || document.querySelector('.currency-carousel');
+    const prevBtn = document.querySelector('.carousel-btn.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-btn.carousel-next');
     
     // Exit if carousel elements not found
     if (!carousel || !prevBtn || !nextBtn) return;
@@ -31,6 +31,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
+     * Get gap size between items
+     */
+    function getGap() {
+        if (!items[0]) return 24;
+        const style = window.getComputedStyle(items[0]);
+        // Try common properties, fall back to 24px
+        const gapVal = style.marginRight || style.gap || style.columnGap;
+        const parsed = parseFloat(gapVal);
+        return Number.isFinite(parsed) ? parsed : 24;
+    }
+    
+    /**
      * Updates carousel position and button states
      */
     function updateCarousel() {
@@ -38,6 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const isMobile = window.innerWidth <= 767;
         if (isMobile) {
             carousel.style.transform = 'none';
+            prevBtn.disabled = true;
+            nextBtn.disabled = true;
             return;
         }
         
@@ -49,9 +63,17 @@ document.addEventListener('DOMContentLoaded', function() {
             currentIndex = maxIndex;
         }
         
+        // Handle case with no items
+        if (items.length === 0) {
+            carousel.style.transform = 'none';
+            prevBtn.disabled = true;
+            nextBtn.disabled = true;
+            return;
+        }
+        
         // Calculate offset based on item width + gap
-        const itemWidth = items[0]?.offsetWidth || 0;
-        const gap = 24; // 1.5rem gap (from CSS)
+        const itemWidth = items[0].offsetWidth || 0;
+        const gap = getGap();
         const offset = currentIndex * (itemWidth + gap);
         
         // Apply transform to slide carousel
@@ -89,8 +111,10 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * Reset carousel on window resize to prevent layout issues
      */
+    let resizeTimer;
     window.addEventListener('resize', () => {
-        // Don't reset currentIndex to 0, just recalculate limits
-        updateCarousel();
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(updateCarousel, 120);
     });
+    window.addEventListener('orientationchange', () => setTimeout(updateCarousel, 120));
 });
