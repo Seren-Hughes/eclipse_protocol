@@ -805,4 +805,260 @@ class CatalogViewEdgeCaseTests(TestCase):
         
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query'], 'Test')  # Stripped
+
+
+
+class ModelConstraintTests(TestCase):
+    """Tests for model validation and database constraints"""
+    
+    def test_product_sku_uniqueness(self):
+        """
+        INTEGRATION TEST: Product SKU uniqueness
+        
+        Tests that the SKU generated for each product is unique across all products.
+        """
+        product1 = Product.objects.create(
+            name="Game A",
+            slug="game-a",
+            description="First game",
+            price=Decimal('29.99'),
+            product_type=Product.BASE_GAME
+        )
+        
+        product2 = Product.objects.create(
+            name="Game B",
+            slug="game-b",
+            description="Second game",
+            price=Decimal('39.99'),
+            product_type=Product.BASE_GAME
+        )
+        
+        # Force SKU collision
+        product2.sku = product1.sku
+        with self.assertRaises(IntegrityError):
+            product2.save()
+    
+    def test_wishlist_with_variant(self):
+        """
+        INTEGRATION TEST: Wishlist item with variant
+        
+        Tests that a wishlist item can be created for a product variant,
+        and that the variant is correctly linked in the wishlist.
+        """
+        user = User.objects.create_user(
+            username='user1',
+            email='user1@example.com',
+            password='password123'
+        )
+        
+        product = Product.objects.create(
+            name="Game with Variant",
+            slug="game-with-variant",
+            description="Game that has variants",
+            price=Decimal('49.99'),
+            product_type=Product.BASE_GAME
+        )
+        
+        variant = DigitalVariant.objects.create(
+            product=product,
+            platform=DigitalProduct.PC,
+            edition=DigitalProduct.STANDARD
+        )
+        
+        # Wishlist entry for the variant
+        wishlist_item = Wishlist.objects.create(
+            user=user,
+            product=product,
+            variant=variant
+        )
+        
+        self.assertEqual(wishlist_item.user, user)
+        self.assertEqual(wishlist_item.product, product)
+        self.assertEqual(wishlist_item.variant, variant)
+        self.assertIsNotNone(wishlist_item.added_at)
+
+class SearchEdgeCaseTests(TestCase):
+    """Additional edge case tests for search functionality"""
+    
+    def setUp(self):
+        """Set up test data for search edge cases"""
+        self.client = Client()
+        # Create products for testing
+        Product.objects.create(
+            name="Special & Unique",
+            slug="special-unique",
+            description="Product with special characters in name",
+            price=Decimal('49.99'),
+            product_type=Product.BASE_GAME,
+            is_active=True
+        )
+        
+        Product.objects.create(
+            name="Regular Product",
+            slug="regular-product",
+            description="A regular product without specials",
+            price=Decimal('49.99'),
+            product_type=Product.BASE_GAME,
+            is_active=True
+        )
+    
+    def test_search_empty_string(self):
+        """Test search with empty string query"""
+        response = self.client.get(reverse('catalog:search_results') + '?q=')
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query'], '')
+        self.assertEqual(response.context['total_count'], 0)  # No products match empty query
+    
+    def test_search_special_characters(self):
+        """Test search with special characters in query"""
+        response = self.client.get(
+            reverse('catalog:search_results') + '?q=Special+%26+Unique'
+        )
+        
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['total_count'], 1)
+        self.assertEqual(list(response.context['products'])[0].name, "Special & Unique")
+
+class ExtensionModelTests(TestCase):
+    """Tests for product extension models edge cases"""
+    
+    def test_currency_product_zero_credits(self):
+        """
+        INTEGRATION TEST: Currency product with zero credits
+        
+        Tests that a CurrencyProduct can be created with zero credits,
+        and that the system handles this case correctly.
+        """
+        product = Product.objects.create(
+            name="Zero Credits",
+            slug="zero-credits",
+            description="Currency product with zero credits",
+            price=Decimal('0.00'),
+            product_type=Product.CURRENCY
+        )
+        
+        # Currency product should exist with zero credit amount
+        self.assertTrue(hasattr(product, 'currency'))
+        self.assertEqual(product.currency.credit_amount, 0)
+    
+    def test_digital_product_platform_display(self):
+        """
+        INTEGRATION TEST: Digital product platform display
+    
+        Tests that the platform for a DigitalProduct is correctly set and displayed,
+        especially after being saved with different casing.
+        """
+        product = Product.objects.create(
+            name="Digital Game",
+            slug="digital-game",
+            description="A game available digitally",
+            price=Decimal('49.99'),
+            product_type=Product.DIGITAL
+        )
+        
+        # Set platform with different casing
+        variant = DigitalVariant.objects.create(
+            product=product,
+            platform="pC",  # Mixed case
+            edition=DigitalProduct.STANDARD
+        )
+        
+        # Refresh from database
+        variant.refresh_from_db()
+        self.assertEqual(variant.platform, "pC")  # Platform stays as entered, no normalization
+    
+    def test_digital_product_display_with_platform_set(self):
+        """Test digital product display with platform set"""
+        digital = Product.objects.create(
+            name="PC Game",
+            slug="pc-game",
+            description="Windows game",
+            price=Decimal('49.99'),
+            product_type=Product.DIGITAL
+        )
+        
+        # Set platform to PC
+        digital.digital.platform = DigitalProduct.PC
+        digital.digital.save()
+        
+        # Platform should remain as 'pc'
+        self.assertEqual(digital.digital.platform, DigitalProduct.PC)  # 'pc'
+        
+        # Test string representation
+        expected_str = f"{digital.name} - PC (Steam/Epic) Standard"
+        self.assertEqual(str(digital.digital), expected_str)
+
+class ViewContextTests(TestCase):
+    """Tests for view context completeness and template data"""
+    
+    def setUp(self):
+        """Set up test data for view context tests"""
+        self.client = Client()
+        
+        # Create a base game product
+        self.base_game = Product.objects.create(
+            name="Base Game",
+            slug="base-game",
+            description="The essential base game",
+            price=Decimal('49.99'),
+            product_type=Product.BASE_GAME,
+            is_active=True
+        )
+        
+        # Create digital variant for the base game
+        self.variant = DigitalVariant.objects.create(
+            product=self.base_game,
+            platform=DigitalProduct.PC,
+            edition=DigitalProduct.STANDARD
+        )
+    
+    def test_edition_detail_context_completeness(self):
+        """Test that edition_detail view provides complete context"""
+        response = self.client.get(
+            reverse('catalog:edition_detail', 
+                   kwargs={'product_slug': 'base-game'})
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('base_product', response.context)
+        self.assertIn('selected_variant', response.context)
+        self.assertIn('variants', response.context)
+        self.assertIn('variants_by_platform', response.context)
+        self.assertIn('platforms', response.context)
+        self.assertIn('editions', response.context)
+    
+    def test_currency_detail_first_product_image_fallback(self):
+        """Test currency_detail view falls back to first product image if no specific image set"""
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        
+        # Create first currency product with an image (will be first by price)
+        image_file = SimpleUploadedFile("test.jpg", b"fake-content", content_type="image/jpeg")
+        currency_with_image = Product.objects.create(
+            name="100 Credits",
+            slug="100-credits-with-image",
+            description="Small credit pack with image",
+            price=Decimal('4.99'),
+            product_type=Product.CURRENCY,
+            is_active=True,
+            image=image_file
+        )
+        
+        # Create second currency product without image (higher price, so second)
+        currency_without_image = Product.objects.create(
+            name="500 Credits",
+            slug="500-credits-no-image",
+            description="Large credit pack without image",
+            price=Decimal('19.99'),
+            product_type=Product.CURRENCY,
+            is_active=True
+        )
+        
+        response = self.client.get(reverse('catalog:currency_detail'))
+        
+        self.assertEqual(response.status_code, 200)
+        # Should use the first currency product's image (ordered by price)
+        self.assertEqual(response.context['page_info']['image'], currency_with_image.image)
+
+
+
