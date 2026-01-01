@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}Eclipse Protocol Base Game{% endblock %}
-
 {% block content %}
     <div class="container py-4">
         <div class="row">
@@ -27,7 +25,7 @@
                             <span class="edition-badge">{{ selected_variant.get_edition_display }}</span>
                         </p>
                         <div class="product-description mt-4">
-                            <h6>standard edition includes</h6>
+                            <h2>standard edition includes</h2>
                             <div class="description-text">{{ selected_variant.full_description|linebreaks }}</div>
                         </div>
                     </div>
@@ -96,7 +94,7 @@
                                     data-bs-target="#playstationModal">
                                 <i class="fa-brands fa-playstation me-2"></i>
                                 PLAYSTATION <i class="fa-solid fa-arrow-up-right-from-square ms-2 mb-3"
-    style="font-size: 0.50rem"></i>
+                                    style="font-size: 0.50rem"></i>
                             </button>
                         </div>
                     </div>
@@ -138,7 +136,7 @@
                         <span class="edition-badge">{{ selected_variant.get_edition_display }}</span>
                     </h3>
                     <div class="product-description mt-3">
-                        <h6>standard edition includes</h6>
+                        <h4>standard edition includes</h4>
                         <div class="description-text">{{ selected_variant.full_description|linebreaks }}</div>
                     </div>
                 </div>
@@ -148,8 +146,8 @@
         <div class="modal fade"
              id="playstationModal"
              tabindex="-1"
-             aria-labelledby="playstationModalLabel"
-             aria-hidden="true">
+             aria-hidden="true"
+             role="dialog">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header border-bottom-0">
