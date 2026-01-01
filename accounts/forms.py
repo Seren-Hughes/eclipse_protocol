@@ -1,8 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from django_countries.fields import CountryField
-from django_countries.widgets import CountrySelectWidget
+from django_countries import countries
 from .models import Address
 
 class CustomUserCreationForm(UserCreationForm):
@@ -64,12 +63,14 @@ class AddressForm(forms.ModelForm):
     """
     
     # Override country field to use country dropdown
-    country = CountryField().formfield(
-        widget=CountrySelectWidget(attrs={
-            'class': 'form-control',
-            'required': True
-        })
-    )
+    country = forms.ChoiceField(
+    choices=[('', 'Select Country')] + list(countries),
+    widget=forms.Select(attrs={
+        'class': 'form-control',
+        'required': True
+    }),
+    required=True
+)
     
     class Meta:
         model = Address
