@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}Eclipse Protocol Currency Packs{% endblock %}
-
 {% block content %}
     <div class="container py-4">
         <div class="row">
@@ -24,7 +22,7 @@
                         <h1 class="product-title">{{ page_info.name }}</h1>
                         <p class="product-subtitle">Eclipse Protocol in-game currency</p>
                         <div class="product-requirements mt-4">
-                            <h6 class="mb-3">Base game required</h6>
+                            <h2 class="mb-3">Base game required</h2>
                             <p>Activation: credits automatically applied to your Eclipse Protocol game account.</p>
                             <p class="small">You must be signed into your Eclipse Protocol account for credits to be applied.</p>
                             <p class="small">Credits can be used to purchase within the game.</p>
@@ -64,7 +62,7 @@
                                  data-product-name="{{ product.name }}">
                                 <div class="credit-option-content">
                                     <div class="credit-info">
-                                        <h5 class="credit-amount">{{ product.currency.credit_amount|floatformat:0 }} CREDITS</h5>
+                                        <h3 class="credit-amount">{{ product.currency.credit_amount|floatformat:0 }} CREDITS</h3>
                                         <p class="credit-price">£{{ product.price }}</p>
                                     </div>
                                     <button type="button"
@@ -89,7 +87,7 @@
                     <h1 class="product-title">{{ page_info.name }}</h1>
                     <p class="product-subtitle">Eclipse Protocol in-game currency</p>
                     <div class="product-requirements mt-4">
-                        <h6>Base game required</h6>
+                        <h2>Base game required</h2>
                         <p class="small">You must be signed into your Eclipse Protocol account for credits to be applied.</p>
                         <p class="small">Credits can be used to purchase within the game.</p>
                     </div>
