@@ -3,21 +3,23 @@
 /* ======================================= */
 
 /* Primary buy button (transparent with white text) */
-#main-button.btn-buy-now.btn-primary {
-	background-color: transparent;
-	color: #ffffff;
-	border: 2px solid #ffffff;
-	padding: 0.55rem 2rem;
-	font-size: 1.05rem;
-	font-weight: 700;
-	border-radius: 0.5rem;
+/* attribute selector reference = https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/Attribute_selectors */
+[id^="main-button"].btn-buy-now.btn-primary {
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 0.55rem 2rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: 0.5rem;
 }
 
-#main-button.btn-buy-now.btn-primary:hover {
-	background-color: var(--color-accent); 
-	border-color: var(--color-accent);
-	color: #ffffff;
+[id^="main-button"].btn-buy-now.btn-primary:hover {
+    background-color: var(--color-accent); 
+    border-color: var(--color-accent);
+    color: #ffffff;
 }
+
 /* credit page buy now button - ID used by currency-selection.js */
 #buyNowBtn.btn-buy-now.btn-primary {
 	background-color: transparent;
