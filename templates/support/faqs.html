@@ -1,279 +1,397 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% block title %}FAQs - Eclipse Protocol{% endblock %}
 {% block content %}
-<div class="container py-4">
-    <h1 class="mb-4">Frequently Asked Questions</h1>
-    <p class="lead mb-5">Find answers to common questions about Eclipse Protocol, game editions, credits, platform availability, and more.</p>
-    
-    <div class="accordion" id="faqAccordion">
-        
-        <!-- Game Editions Section -->
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="editionsHeading">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#editionsCollapse" aria-expanded="false" aria-controls="editionsCollapse">
-                    <i class="fas fa-gamepad me-2"></i>
-                    Game Editions - What's the difference between Standard, Premium, and Ultimate?
-                </button>
-            </h2>
-            <div id="editionsCollapse" class="accordion-collapse collapse" aria-labelledby="editionsHeading" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <h5><strong>Standard Edition</strong></h5>
-                            <ul>
-                                <li>Base Eclipse Protocol game</li>
-                                <li>Full single-player campaign</li>
-                                <li>Multiplayer access</li>
-                                <li>Standard pilot customisation options</li>
-                                <li>Basic ship loadouts</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <h5><strong>Premium Edition</strong></h5>
-                            <ul>
-                                <li>Everything in Standard Edition</li>
-                                <li>Season Pass (4 major content drops)</li>
-                                <li>Exclusive "Vanguard" pilot suit</li>
-                                <li>Premium ship skin collection (5 designs)</li>
-                                <li>Early access (3 days before launch)</li>
-                                <li>500 bonus credits</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <h5><strong>Ultimate Edition</strong></h5>
-                            <ul>
-                                <li>Everything in Premium Edition</li>
-                                <li>Digital soundtrack composed by Seren Hughes</li>
-                                <li>Exclusive "Eclipse Commander" pilot rank</li>
-                                <li>Ultimate ship collection (10 premium designs)</li>
-                                <li>Legendary weapon skin pack</li>
-                                <li>1,500 bonus credits</li>
-                                <li>Digital artbook and concept gallery</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Credits Section -->
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="creditsHeading">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#creditsCollapse" aria-expanded="false" aria-controls="creditsCollapse">
-                    <i class="fas fa-coins me-2"></i>
-                    In-Game Credits - How do they work?
-                </button>
-            </h2>
-            <div id="creditsCollapse" class="accordion-collapse collapse" aria-labelledby="creditsHeading" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    <h5>What can I buy with credits?</h5>
-                    <ul>
-                        <li><strong>Energy Boosters:</strong> Temporary performance enhancements for your ship's systems</li>
-                        <li><strong>Pilot Customisation:</strong> Suits, helmets, and personal equipment</li>
-                        <li><strong>Ship Skins:</strong> Cosmetic designs to personalise your vessel</li>
-                        <li><strong>Weapon Skins:</strong> Unique visual themes for your arsenal</li>
-                        <li><strong>Emotes & Gestures:</strong> Express yourself in multiplayer</li>
-                        <li><strong>Ship Upgrades:</strong> Performance modifications and equipment</li>
-                    </ul>
-                    
-                    <h5 class="mt-4">How are credits applied?</h5>
-                    <p><strong>Important:</strong> You must be signed into your Eclipse Protocol account during purchase for credits to be applied. Credits are cross-platform, so they'll appear on any device where you're logged in with the same account.</p>
-                    
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle me-2"></i>
-                        <strong>Cross-Platform Support:</strong> Your credits work across PC (Steam/Epic), Xbox, Nintendo Switch, and PlayStation platforms when using the same account.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Platform Availability -->
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="platformHeading">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#platformCollapse" aria-expanded="false" aria-controls="platformCollapse">
-                    <i class="fas fa-desktop me-2"></i>
-                    Platform Availability - Where can I buy Eclipse Protocol?
-                </button>
-            </h2>
-            <div id="platformCollapse" class="accordion-collapse collapse" aria-labelledby="platformHeading" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <h5><i class="fas fa-desktop me-2"></i>PC</h5>
-                            <p>Available as digital licence keys for:</p>
-                            <ul>
-                                <li>Steam</li>
-                                <li>Epic Games Store</li>
-                            </ul>
-                            <p class="small"><em>Keys are delivered instantly via email after purchase.</em></p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h5><i class="fab fa-xbox me-2"></i>Xbox</h5>
-                            <p>Available as digital licence keys for Xbox Series X|S and Xbox One.</p>
-                            <p class="small"><em>Redeem through your Xbox account or Xbox app.</em></p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h5><img src="{% static 'images/nintendo-switch-icon.png' %}"
-                                             alt="Nintendo Switch"
-                                             class="faq-platform-icon me-2">Nintendo Switch</h5>
-                            <p>Available as digital licence keys for Nintendo Switch.</p>
-                            <p class="small"><em>Redeem through Nintendo eShop with your Nintendo account.</em></p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h5><i class="fab fa-playstation me-2"></i>PlayStation</h5>
-                            <p><strong>Purchase directly from PlayStation Store.</strong></p>
-                            <p class="small"><em>Due to PlayStation's digital distribution policies, we cannot sell PS5/PS4 keys directly.</em></p>
+    <div class="container py-4">
+        <h1 class="mb-4">Frequently Asked Questions</h1>
+        <p class="lead mb-5">
+            Find answers to common questions about Eclipse Protocol, game editions, credits, platform availability, and more.
+        </p>
+        <div class="accordion" id="faqAccordion">
+            <!-- Game Editions Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="editionsHeading">
+                    <button class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#editionsCollapse"
+                            aria-expanded="false"
+                            aria-controls="editionsCollapse">
+                        <i class="fas fa-gamepad me-2"></i>
+                        Game Editions - What's the difference between Standard, Premium, and Ultimate?
+                    </button>
+                </h2>
+                <div id="editionsCollapse"
+                     class="accordion-collapse collapse"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <h3>
+                                    <strong>Standard Edition</strong>
+                                </h3>
+                                <ul>
+                                    <li>Base Eclipse Protocol game</li>
+                                    <li>Full single-player campaign</li>
+                                    <li>Multiplayer access</li>
+                                    <li>Standard pilot customisation options</li>
+                                    <li>Basic ship loadouts</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <h3>
+                                    <strong>Premium Edition</strong>
+                                </h3>
+                                <ul>
+                                    <li>Everything in Standard Edition</li>
+                                    <li>Season Pass (4 major content drops)</li>
+                                    <li>Exclusive "Vanguard" pilot suit</li>
+                                    <li>Premium ship skin collection (5 designs)</li>
+                                    <li>Early access (3 days before launch)</li>
+                                    <li>500 bonus credits</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <h3>
+                                    <strong>Ultimate Edition</strong>
+                                </h3>
+                                <ul>
+                                    <li>Everything in Premium Edition</li>
+                                    <li>Digital soundtrack composed by Seren Hughes</li>
+                                    <li>Exclusive "Eclipse Commander" pilot rank</li>
+                                    <li>Ultimate ship collection (10 premium designs)</li>
+                                    <li>Legendary weapon skin pack</li>
+                                    <li>1,500 bonus credits</li>
+                                    <li>Digital artbook and concept gallery</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- System Requirements -->
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="systemHeading">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#systemCollapse" aria-expanded="false" aria-controls="systemCollapse">
-                    <i class="fas fa-cog me-2"></i>
-                    PC System Requirements
-                </button>
-            </h2>
-            <div id="systemCollapse" class="accordion-collapse collapse" aria-labelledby="systemHeading" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>Minimum Requirements</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>OS:</strong> Windows 10 64-bit</li>
-                                <li><strong>Processor:</strong> Intel i5-4590 / AMD FX 8350</li>
-                                <li><strong>Memory:</strong> 8 GB RAM</li>
-                                <li><strong>Graphics:</strong> NVIDIA GTX 1060 / AMD RX 580</li>
-                                <li><strong>DirectX:</strong> Version 12</li>
-                                <li><strong>Storage:</strong> 50 GB available space</li>
-                                <li><strong>Network:</strong> Broadband connection required</li>
-                            </ul>
+            <!-- Credits Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="creditsHeading">
+                    <button class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#creditsCollapse"
+                            aria-expanded="false"
+                            aria-controls="creditsCollapse">
+                        <i class="fas fa-coins me-2"></i>
+                        In-Game Credits - How do they work?
+                    </button>
+                </h2>
+                <div id="creditsCollapse"
+                     class="accordion-collapse collapse"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <h3>What can I buy with credits?</h3>
+                        <ul>
+                            <li>
+                                <strong>Energy Boosters:</strong> Temporary performance enhancements for your ship's systems
+                            </li>
+                            <li>
+                                <strong>Pilot Customisation:</strong> Suits, helmets, and personal equipment
+                            </li>
+                            <li>
+                                <strong>Ship Skins:</strong> Cosmetic designs to personalise your vessel
+                            </li>
+                            <li>
+                                <strong>Weapon Skins:</strong> Unique visual themes for your arsenal
+                            </li>
+                            <li>
+                                <strong>Emotes & Gestures:</strong> Express yourself in multiplayer
+                            </li>
+                            <li>
+                                <strong>Ship Upgrades:</strong> Performance modifications and equipment
+                            </li>
+                        </ul>
+                        <h3 class="mt-4">How are credits applied?</h3>
+                        <p>
+                            <strong>Important:</strong> You must be signed into your Eclipse Protocol account during purchase for credits to be applied. Credits are cross-platform, so they'll appear on any device where you're logged in with the same account.
+                        </p>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Cross-Platform Support:</strong> Your credits work across PC (Steam/Epic), Xbox, Nintendo Switch, and PlayStation platforms when using the same account.
                         </div>
-                        <div class="col-md-6">
-                            <h5>Recommended Requirements</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>OS:</strong> Windows 11 64-bit</li>
-                                <li><strong>Processor:</strong> Intel i7-8700K / AMD Ryzen 5 3600</li>
-                                <li><strong>Memory:</strong> 16 GB RAM</li>
-                                <li><strong>Graphics:</strong> NVIDIA RTX 3070 / AMD RX 6700 XT</li>
-                                <li><strong>DirectX:</strong> Version 12</li>
-                                <li><strong>Storage:</strong> 50 GB SSD space</li>
-                                <li><strong>Network:</strong> Broadband connection required</li>
-                            </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Platform Availability -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="platformHeading">
+                    <button class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#platformCollapse"
+                            aria-expanded="false"
+                            aria-controls="platformCollapse">
+                        <i class="fas fa-desktop me-2"></i>
+                        Platform Availability - Where can I buy Eclipse Protocol?
+                    </button>
+                </h2>
+                <div id="platformCollapse"
+                     class="accordion-collapse collapse"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h3>
+                                    <i class="fas fa-desktop me-2"></i>PC
+                                </h3>
+                                <p>Available as digital licence keys for:</p>
+                                <ul>
+                                    <li>Steam</li>
+                                    <li>Epic Games Store</li>
+                                </ul>
+                                <p class="small">
+                                    <em>Keys are delivered instantly via email after purchase.</em>
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h3>
+                                    <i class="fab fa-xbox me-2"></i>Xbox
+                                </h3>
+                                <p>Available as digital licence keys for Xbox Series X|S and Xbox One.</p>
+                                <p class="small">
+                                    <em>Redeem through your Xbox account or Xbox app.</em>
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h3>
+                                    <img src="{% static 'images/nintendo-switch-icon.png' %}"
+                                         alt="Nintendo Switch"
+                                         class="faq-platform-icon me-2">
+                                    Nintendo Switch
+                                </h3>
+                                <p>Available as digital licence keys for Nintendo Switch.</p>
+                                <p class="small">
+                                    <em>Redeem through Nintendo eShop with your Nintendo account.</em>
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h3>
+                                    <i class="fab fa-playstation me-2"></i>PlayStation
+                                </h3>
+                                <p>
+                                    <strong>Purchase directly from PlayStation Store.</strong>
+                                </p>
+                                <p class="small">
+                                    <em>Due to PlayStation's digital distribution policies, we cannot sell PS5/PS4 keys directly.</em>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Refund Policy -->
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="refundHeading">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#refundCollapse" aria-expanded="false" aria-controls="refundCollapse">
-                    <i class="fas fa-undo me-2"></i>
-                    Refund Policy
-                </button>
-            </h2>
-            <div id="refundCollapse" class="accordion-collapse collapse" aria-labelledby="refundHeading" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    <h5>Digital Game Purchases</h5>
-                    <p>We offer refunds within <strong>14 days</strong> of purchase, provided:</p>
-                    <ul>
-                        <li>You have played less than 2 hours of the game</li>
-                        <li>The licence key has not been redeemed</li>
-                        <li>You contact our support team with your order details</li>
-                    </ul>
-                    
-                    <h5 class="mt-4">In-Game Credits</h5>
-                    <p>Credits purchases can be refunded within <strong>7 days</strong> if:</p>
-                    <ul>
-                        <li>The credits have not been spent in-game</li>
-                        <li>You provide your purchase receipt</li>
-                    </ul>
-
-                    <div class="alert alert-warning">
-                        <i class="fas fa-exclamation-triangle me-2"></i>
-                        <strong>Note:</strong> Once a licence key is redeemed on any platform, it cannot be refunded. Please ensure compatibility before activation.
+            <!-- System Requirements -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="systemHeading">
+                    <button class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#systemCollapse"
+                            aria-expanded="false"
+                            aria-controls="systemCollapse">
+                        <i class="fas fa-cog me-2"></i>
+                        PC System Requirements
+                    </button>
+                </h2>
+                <div id="systemCollapse"
+                     class="accordion-collapse collapse"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3>Minimum Requirements</h3>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <strong>OS:</strong> Windows 10 64-bit
+                                    </li>
+                                    <li>
+                                        <strong>Processor:</strong> Intel i5-4590 / AMD FX 8350
+                                    </li>
+                                    <li>
+                                        <strong>Memory:</strong> 8 GB RAM
+                                    </li>
+                                    <li>
+                                        <strong>Graphics:</strong> NVIDIA GTX 1060 / AMD RX 580
+                                    </li>
+                                    <li>
+                                        <strong>DirectX:</strong> Version 12
+                                    </li>
+                                    <li>
+                                        <strong>Storage:</strong> 50 GB available space
+                                    </li>
+                                    <li>
+                                        <strong>Network:</strong> Broadband connection required
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h3>Recommended Requirements</h3>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <strong>OS:</strong> Windows 11 64-bit
+                                    </li>
+                                    <li>
+                                        <strong>Processor:</strong> Intel i7-8700K / AMD Ryzen 5 3600
+                                    </li>
+                                    <li>
+                                        <strong>Memory:</strong> 16 GB RAM
+                                    </li>
+                                    <li>
+                                        <strong>Graphics:</strong> NVIDIA RTX 3070 / AMD RX 6700 XT
+                                    </li>
+                                    <li>
+                                        <strong>DirectX:</strong> Version 12
+                                    </li>
+                                    <li>
+                                        <strong>Storage:</strong> 50 GB SSD space
+                                    </li>
+                                    <li>
+                                        <strong>Network:</strong> Broadband connection required
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Refund Policy -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="refundHeading">
+                    <button class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#refundCollapse"
+                            aria-expanded="false"
+                            aria-controls="refundCollapse">
+                        <i class="fas fa-undo me-2"></i>
+                        Refund Policy
+                    </button>
+                </h2>
+                <div id="refundCollapse"
+                     class="accordion-collapse collapse"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <h3>Digital Game Purchases</h3>
+                        <p>
+                            We offer refunds within <strong>14 days</strong> of purchase, provided:
+                        </p>
+                        <ul>
+                            <li>You have played less than 2 hours of the game</li>
+                            <li>The licence key has not been redeemed</li>
+                            <li>You contact our support team with your order details</li>
+                        </ul>
+                        <h3 class="mt-4">In-Game Credits</h3>
+                        <p>
+                            Credits purchases can be refunded within <strong>7 days</strong> if:
+                        </p>
+                        <ul>
+                            <li>The credits have not been spent in-game</li>
+                            <li>You provide your purchase receipt</li>
+                        </ul>
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Note:</strong> Once a licence key is redeemed on any platform, it cannot be refunded. Please ensure compatibility before activation.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Account & Cross-Platform -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="accountHeading">
+                    <button class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#accountCollapse"
+                            aria-expanded="false"
+                            aria-controls="accountCollapse">
+                        <i class="fas fa-user me-2"></i>
+                        Account & Cross-Platform Play
+                    </button>
+                </h2>
+                <div id="accountCollapse"
+                     class="accordion-collapse collapse"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <h3>Do I need an Eclipse Protocol account?</h3>
+                        <p>Yes, an Eclipse Protocol account is required for:</p>
+                        <ul>
+                            <li>Cross-platform progression and saves</li>
+                            <li>Multiplayer matchmaking</li>
+                            <li>Credits and in-game purchases</li>
+                            <li>Community features and leaderboards</li>
+                        </ul>
+                        <h3 class="mt-4">Cross-Platform Features</h3>
+                        <p>
+                            <strong>Supported across PC, Xbox, PlayStation, and Nintendo Switch:</strong>
+                        </p>
+                        <ul>
+                            <li>Multiplayer - play with friends regardless of platform</li>
+                            <li>Progression sync - your achievements and unlocks carry over</li>
+                            <li>Credits - purchase once, use anywhere</li>
+                            <li>Friends list - connect with players across all platforms</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Technical Support -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="supportHeading">
+                    <button class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#supportCollapse"
+                            aria-expanded="false"
+                            aria-controls="supportCollapse">
+                        <i class="fas fa-life-ring me-2"></i>
+                        Technical Support & Contact
+                    </button>
+                </h2>
+                <div id="supportCollapse"
+                     class="accordion-collapse collapse"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <h3>Need Help?</h3>
+                        <p>If you can't find the answer you're looking for, our support team is here to help:</p>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h4>
+                                    <i class="fas fa-envelope me-2"></i>Email Support
+                                </h4>
+                                <p>For detailed inquiries and technical issues:</p>
+                                <p>
+                                    <a href="{% url 'support:contact' %}"
+                                       class="btn btn-outline-primary btn-sm">Contact Support</a>
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h4>
+                                    <i class="fab fa-discord me-2"></i>Community Discord
+                                </h4>
+                                <p>Join our community for quick help and discussions:</p>
+                                <p>
+                                    <a href="https://discord.com"
+                                       class="btn btn-outline-primary btn-sm"
+                                       target="_blank">Join Discord</a>
+                                </p>
+                            </div>
+                        </div>
+                        <h4 class="mt-4">Response Times</h4>
+                        <ul class="small">
+                            <li>Email support: Within 24-48 hours</li>
+                            <li>Discord community: Real-time assistance from our moderators</li>
+                            <li>Critical issues: Priority response within 12 hours</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Account & Cross-Platform -->
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="accountHeading">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accountCollapse" aria-expanded="false" aria-controls="accountCollapse">
-                    <i class="fas fa-user me-2"></i>
-                    Account & Cross-Platform Play
-                </button>
-            </h2>
-            <div id="accountCollapse" class="accordion-collapse collapse" aria-labelledby="accountHeading" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    <h5>Do I need an Eclipse Protocol account?</h5>
-                    <p>Yes, an Eclipse Protocol account is required for:</p>
-                    <ul>
-                        <li>Cross-platform progression and saves</li>
-                        <li>Multiplayer matchmaking</li>
-                        <li>Credits and in-game purchases</li>
-                        <li>Community features and leaderboards</li>
-                    </ul>
-                    
-                    <h5 class="mt-4">Cross-Platform Features</h5>
-                    <p><strong>Supported across PC, Xbox, PlayStation, and Nintendo Switch:</strong></p>
-                    <ul>
-                        <li>Multiplayer - play with friends regardless of platform</li>
-                        <li>Progression sync - your achievements and unlocks carry over</li>
-                        <li>Credits - purchase once, use anywhere</li>
-                        <li>Friends list - connect with players across all platforms</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Technical Support -->
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="supportHeading">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#supportCollapse" aria-expanded="false" aria-controls="supportCollapse">
-                    <i class="fas fa-life-ring me-2"></i>
-                    Technical Support & Contact
-                </button>
-            </h2>
-            <div id="supportCollapse" class="accordion-collapse collapse" aria-labelledby="supportHeading" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    <h5>Need Help?</h5>
-                    <p>If you can't find the answer you're looking for, our support team is here to help:</p>
-                    
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <h6><i class="fas fa-envelope me-2"></i>Email Support</h6>
-                            <p>For detailed inquiries and technical issues:</p>
-                            <p><a href="{% url 'support:contact' %}" class="btn btn-outline-primary btn-sm">Contact Support</a></p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6><i class="fab fa-discord me-2"></i>Community Discord</h6>
-                            <p>Join our community for quick help and discussions:</p>
-                            <p><a href="https://discord.com" class="btn btn-outline-primary btn-sm" target="_blank">Join Discord</a></p>
-                        </div>
-                    </div>
-                    
-                    <h6 class="mt-4">Response Times</h6>
-                    <ul class="small">
-                        <li>Email support: Within 24-48 hours</li>
-                        <li>Discord community: Real-time assistance from our moderators</li>
-                        <li>Critical issues: Priority response within 12 hours</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
     </div>
-</div>
 {% endblock %}
-
 {% block extra_scripts %}
-<script src="{% static 'js/utilities.js' %}"></script>
+    <script src="{% static 'js/utilities.js' %}"></script>
 {% endblock %}
