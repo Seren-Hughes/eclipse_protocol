@@ -1,6 +1,5 @@
 from django import forms
-from django_countries.fields import CountryField
-from django_countries.widgets import CountrySelectWidget
+from django_countries import countries
 from .models import Order
 
 
@@ -13,12 +12,14 @@ class OrderForm(forms.ModelForm):
     """
     
     # Override country field to use country dropdown
-    country = CountryField().formfield(
-        widget=CountrySelectWidget(attrs={
-            'class': 'form-control',
-            'required': True
-        })
-    )
+    country = forms.ChoiceField(
+    choices=[('', 'Select Country')] + list(countries),
+    widget=forms.Select(attrs={
+        'class': 'form-control',
+        'required': True
+    }),
+    required=True
+)
     
     class Meta:
         model = Order
