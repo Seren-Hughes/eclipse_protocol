@@ -1,142 +1,140 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}Saved Addresses - Eclipse Protocol Store{% endblock %}
-
 {% block content %}
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="page-title">
-                <i class="fa-solid fa-location-dot me-3"></i>Billing Address
-            </h1>
-        </div>
-    </div>
-
-    <!-- Account Navigation -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="account-nav">
-                <a href="{% url 'accounts:dashboard' %}" class="nav-link">
-                    <i class="fa-solid fa-receipt me-2"></i>Order History
-                </a>
-                <a href="{% url 'accounts:saved_addresses' %}" class="nav-link active">
-                    <i class="fa-solid fa-location-dot me-2"></i>Billing Address
-                </a>
-                <a href="{% url 'accounts:wishlist' %}" class="nav-link">
-                    <i class="fa-solid fa-heart me-2"></i>Wishlist
-                </a>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="page-title">
+                    <i class="fa-solid fa-location-dot me-3"></i>Billing Address
+                </h1>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <div class="account-section">
-                <div class="section-header">
-                    <h3 class="section-title">
-                        Your Saved Addresses ({{ address_count }})
-                    </h3>
-                    <a href="{% url 'accounts:add_address' %}" class="btn btn-primary address-buttons" id="address-buttons">
-                        <i class="fa fa-plus me-2"></i>Add New Address
+        <!-- Account Navigation -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="account-nav">
+                    <a href="{% url 'accounts:dashboard' %}" class="nav-link">
+                        <i class="fa-solid fa-receipt me-2"></i>Order History
+                    </a>
+                    <a href="{% url 'accounts:saved_addresses' %}" class="nav-link active">
+                        <i class="fa-solid fa-location-dot me-2"></i>Billing Address
+                    </a>
+                    <a href="{% url 'accounts:wishlist' %}" class="nav-link">
+                        <i class="fa-solid fa-heart me-2"></i>Wishlist
                     </a>
                 </div>
-                
-                {% if addresses %}
-                    <div class="addresses-grid">
-                        {% for address in addresses %}
-                            <div class="address-card">
-                                <div class="address-header">
-                                    <div class="address-type">
-                                        <span class="type-badge type-{{ address.address_type }}">
-                                            {{ address.get_address_type_display }}
-                                        </span>
-                                    </div>
-                                    <div class="address-actions">
-                                        <div >
-                                            <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="dropdown-item" href="{% url 'accounts:edit_address' address.id %}">
-                                                        <i class="fa fa-edit me-2"></i>Edit
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <button class="dropdown-item text-danger delete-btn" data-address-id="{{ address.id }}" data-address-name="{{ address.full_name }}">
-                                                        <i class="fa fa-trash me-2"></i>Delete
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="address-content">
-                                    <div class="address-name">{{ address.full_name }}</div>
-                                    <div class="address-lines">
-                                        <div class="address-line">{{ address.address_line_1 }}</div>
-                                        {% if address.address_line_2 %}
-                                            <div class="address-line">{{ address.address_line_2 }}</div>
-                                        {% endif %}
-                                        <div class="address-line">{{ address.city }}</div>
-                                        <div class="address-line">{{ address.country }} {{ address.postcode }}</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="address-footer">
-                                    <small>
-                                        Added {{ address.created_at|date:"M d, Y" }}
-                                    </small>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    <div class="empty-state text-center">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <h3>No Saved Addresses</h3>
-                        <p>Add billing addresses to speed up your checkout process.</p>
-                        <a href="{% url 'accounts:add_address' %}" class="btn btn-primary address-buttons" id="address-buttons">
-                            <i class="fa-solid fa-plus me-2"></i>Add Your First Address
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="account-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Your Saved Addresses ({{ address_count }})</h2>
+                        <a href="{% url 'accounts:add_address' %}"
+                           class="btn btn-primary address-buttons"
+                           id="address-buttons">
+                            <i class="fa fa-plus me-2"></i>Add New Address
                         </a>
                     </div>
-                {% endif %}
+                    {% if addresses %}
+                        <div class="addresses-grid">
+                            {% for address in addresses %}
+                                <div class="address-card">
+                                    <div class="address-header">
+                                        <div class="address-type">
+                                            <span class="type-badge type-{{ address.address_type }}">{{ address.get_address_type_display }}</span>
+                                        </div>
+                                        <div class="address-actions">
+                                            <div>
+                                                <button class="btn btn-link dropdown-toggle"
+                                                        type="button"
+                                                        data-bs-toggle="dropdown"></button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                           href="{% url 'accounts:edit_address' address.id %}">
+                                                            <i class="fa fa-edit me-2"></i>Edit
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <button class="dropdown-item text-danger delete-btn"
+                                                                data-address-id="{{ address.id }}"
+                                                                data-address-name="{{ address.full_name }}">
+                                                            <i class="fa fa-trash me-2"></i>Delete
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="address-content">
+                                        <div class="address-name">{{ address.full_name }}</div>
+                                        <div class="address-lines">
+                                            <div class="address-line">{{ address.address_line_1 }}</div>
+                                            {% if address.address_line_2 %}<div class="address-line">{{ address.address_line_2 }}</div>{% endif %}
+                                            <div class="address-line">{{ address.city }}</div>
+                                            <div class="address-line">{{ address.country }} {{ address.postcode }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="address-footer">
+                                        <small>Added {{ address.created_at|date:"M d, Y" }}</small>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="empty-state text-center">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <h3>No Saved Addresses</h3>
+                            <p>Add billing addresses to speed up your checkout process.</p>
+                            <a href="{% url 'accounts:add_address' %}"
+                               class="btn btn-primary address-buttons"
+                               id="address-buttons">
+                                <i class="fa-solid fa-plus me-2"></i>Add Your First Address
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete the address for <strong id="addressName"></strong>?</p>
-                <p class="text-muted">This action cannot be undone.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
-                    <i class="fa fa-trash me-2"></i>Delete Address
-                </button>
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade"
+         id="deleteModal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="deleteModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="deleteModalLabel">Confirm Delete</h3>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Are you sure you want to delete the address for <strong id="addressName"></strong>?
+                    </p>
+                    <p class="text-muted">This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                        <i class="fa fa-trash me-2"></i>Delete Address
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-{% csrf_token %}
+    {% csrf_token %}
 {% endblock %}
-
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
 {% endblock %}
-
 {% block extra_scripts %}
-<script src="{% static 'js/utilities.js' %}"></script>
+    <script src="{% static 'js/utilities.js' %}"></script>
 {% endblock %}
