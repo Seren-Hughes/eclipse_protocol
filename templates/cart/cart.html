@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Your Shopping Basket - Eclipse Protocol Store{% endblock %}
-
 {% block content %}
     <div class="container py-4">
         <h2 class="cart-title mb-4">Your shopping basket ({{ total_items }} item{{ total_items|pluralize }})</h2>
@@ -9,7 +8,8 @@
             <div class="col-lg-8">
                 {% if cart_items %}
                     {% for item in cart_items %}
-                        <div class="cart-item" data-item-id="{% if item.id %}{{ item.id }}{% else %}{{ item.item_id }}{% endif %}">
+                        <div class="cart-item"
+                             data-item-id="{% if item.id %}{{ item.id }}{% else %}{{ item.item_id }}{% endif %}">
                             <div class="row align-items-center">
                                 <!-- Product Image -->
                                 <div class="col-md-3 col-4">
@@ -32,7 +32,7 @@
                                 <!-- Product Info -->
                                 <div class="col-md-5 col-8">
                                     <div class="cart-item-info">
-                                        <h5 class="cart-item-name">{{ item.product.name }}</h5>
+                                        <h3 class="cart-item-name">{{ item.product.name }}</h3>
                                         {% if item.variant %}
                                             <div class="cart-item-variant">
                                                 <span class="platform-badge">{{ item.variant.get_platform_display }}</span>
@@ -48,7 +48,9 @@
                                 <!-- Price and Remove -->
                                 <div class="col-md-4 col-8 text-end">
                                     <div class="cart-item-price">£{{ item.line_total }}</div>
-                                    <button type="button" class="btn-remove-item" data-item-id="{% if item.id %}{{ item.id }}{% else %}{{ item.item_id }}{% endif %}">
+                                    <button type="button"
+                                            class="btn-remove-item"
+                                            data-item-id="{% if item.id %}{{ item.id }}{% else %}{{ item.item_id }}{% endif %}">
                                         <i class="fa fa-trash me-1"></i>Remove
                                     </button>
                                 </div>
@@ -84,7 +86,6 @@
             {% endif %}
         </div>
     </div>
-</div>
 {% endblock %}
 {% block extra_scripts %}
     <script src="{% static 'js/cart.js' %}"></script>
