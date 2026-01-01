@@ -1,52 +1,128 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}Review Order - Eclipse Protocol{% endblock %}
-
 {% block content %}
-<div class="mb-2">
-    <!-- Progress Steps -->
-    <div class="checkout-progress mb-4">
-        <div class="progress-step active">
-            <div class="step-circle">1</div>
-            <span class="step-label">BILLING</span>
+    <div class="mb-2">
+        <!-- Progress Steps -->
+        <div class="checkout-progress mb-4">
+            <div class="progress-step active">
+                <div class="step-circle">1</div>
+                <span class="step-label">BILLING</span>
+            </div>
+            <div class="progress-step active">
+                <div class="step-circle">2</div>
+                <span class="step-label">REVIEW</span>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">3</div>
+                <span class="step-label">PAYMENT</span>
+            </div>
         </div>
-        <div class="progress-step active">
-            <div class="step-circle">2</div>
-            <span class="step-label">REVIEW</span>
-        </div>
-        <div class="progress-step">
-            <div class="step-circle">3</div>
-            <span class="step-label">PAYMENT</span>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <!-- Page Title -->
-                <div class="checkout-section">
-                    <h2 class="page-title">REVIEW YOUR ORDER</h2>
-                    
-                    <!-- Billing Address Section -->
-                    <div class="review-section">
-                        <h3 class="review-section-title">BILLING ADDRESS</h3>
-                        <div class="address-display">
-                            <p class="address-name">{{ billing_address.full_name }}</p>
-                            <p class="address-line">{{ billing_address.street_address_1 }}</p>
-                            {% if billing_address.street_address_2 %}
-                                <p class="address-line">{{ billing_address.street_address_2 }}</p>
-                            {% endif %}
-                            <p class="address-line">{{ billing_address.city }}</p>
-                            <p class="address-line">{{ billing_address.country }}</p>
-                            <p class="address-line">{{ billing_address.postcode }}</p>
-                            <p class="address-email">{{ billing_address.email }}</p>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Page Title -->
+                    <div class="checkout-section">
+                        <h2 class="page-title">REVIEW YOUR ORDER</h2>
+                        <!-- Billing Address Section -->
+                        <div class="review-section">
+                            <h3 class="review-section-title">BILLING ADDRESS</h3>
+                            <div class="address-display">
+                                <p class="address-name">{{ billing_address.full_name }}</p>
+                                <p class="address-line">{{ billing_address.street_address_1 }}</p>
+                                {% if billing_address.street_address_2 %}<p class="address-line">{{ billing_address.street_address_2 }}</p>{% endif %}
+                                <p class="address-line">{{ billing_address.city }}</p>
+                                <p class="address-line">{{ billing_address.country }}</p>
+                                <p class="address-line">{{ billing_address.postcode }}</p>
+                                <p class="address-email">{{ billing_address.email }}</p>
+                            </div>
+                        </div>
+                        <!-- Basket Section -->
+                        <div class="review-section mt-4">
+                            <h3 class="review-section-title">BASKET</h3>
+                            <div class="basket-items">
+                                {% for item in cart.cart_items %}
+                                    <div class="basket-item">
+                                        <div class="item-image">
+                                            {% if item.variant and item.variant.effective_image %}
+                                                <img src="{{ item.variant.effective_image.url }}"
+                                                     alt="{{ item.product.name }}"
+                                                     class="img-fluid">
+                                            {% elif item.product.image %}
+                                                <img src="{{ item.product.image.url }}"
+                                                     alt="{{ item.product.name }}"
+                                                     class="img-fluid">
+                                            {% else %}
+                                                <div class="item-fallback-icon">
+                                                    <i class="fa-solid fa-layer-group"></i>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="item-details">
+                                            <div class="item-name">{{ item.product.name }}</div>
+                                            {% if item.variant %}
+                                                <div class="item-variant">
+                                                    <span class="platform-badge">{{ item.variant.get_platform_display }}</span>
+                                                    <span class="edition-badge">{{ item.variant.get_edition_display }}</span>
+                                                </div>
+                                            {% elif item.product.currency %}
+                                                <div class="item-credits">
+                                                    <span class="credit-badge">{{ item.product.currency.credit_amount }} credits</span>
+                                                </div>
+                                            {% endif %}
+                                            <div class="item-quantity">Qty: {{ item.quantity }}</div>
+                                        </div>
+                                        <div class="item-price">£{{ item.line_total }}</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <!-- Order Summary -->
+                        <div class="review-section mt-4">
+                            <h3 class="review-section-title">ORDER SUMMARY</h3>
+                            <div class="order-summary-review">
+                                <div class="summary-row">
+                                    <span>Subtotal ({{ cart.product_count }} item
+                                        {% if cart.product_count != 1 %}s{% endif %}
+                                    )</span>
+                                    <span>£{{ cart.total }}</span>
+                                </div>
+                                {% if cart.delivery > 0 %}
+                                    <div class="summary-row">
+                                        <span>Shipping</span>
+                                        <span>£{{ cart.delivery }}</span>
+                                    </div>
+                                {% endif %}
+                                <div class="summary-total-row">
+                                    <span>Total</span>
+                                    <span class="total-amount">£{{ cart.grand_total }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Continue Button -->
+                        <div class="checkout-actions mt-4">
+                            <a href="{% url 'checkout:payment' %}"
+                               class="btn-continue"
+                               role="button">
+                                <span>Continue</span>
+                            </a>
+                        </div>
+                        <!-- Back to Billing -->
+                        <div class="back-link mt-3">
+                            <a href="{% url 'checkout:checkout' %}" class="btn-back">
+                                <i class="fa fa-chevron-left me-2"></i>Back to billing
+                            </a>
                         </div>
                     </div>
-
+                </div>
+                <!-- Right Column - Basket and Order Summary -->
+                <div class="col-lg-4">
                     <!-- Basket Section -->
-                    <div class="review-section mt-4">
-                        <h3 class="review-section-title">BASKET</h3>
+                    <div class="basket-container">
+                        <div class="section-header">
+                            <h3 class="sidebar-title">BASKET</h3>
+                            <a href="{% url 'cart:cart' %}" class="btn-edit-sidebar">EDIT</a>
+                        </div>
                         <div class="basket-items">
                             {% for item in cart.cart_items %}
                                 <div class="basket-item">
@@ -84,111 +160,28 @@
                             {% endfor %}
                         </div>
                     </div>
-
-                    <!-- Order Summary -->
-                    <div class="review-section mt-4">
-                        <h3 class="review-section-title">ORDER SUMMARY</h3>
-                        <div class="order-summary-review">
-                            <div class="summary-row">
-                                <span>Subtotal ({{ cart.product_count }} item{% if cart.product_count != 1 %}s{% endif %})</span>
-                                <span>£{{ cart.total }}</span>
-                            </div>
-                            {% if cart.delivery > 0 %}
-                                <div class="summary-row">
-                                    <span>Shipping</span>
-                                    <span>£{{ cart.delivery }}</span>
-                                </div>
-                            {% endif %}
-                            <div class="summary-total-row">
-                                <span>Total</span>
-                                <span class="total-amount">£{{ cart.grand_total }}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Continue Button -->
-                    <div class="checkout-actions mt-4">
-                        <a href="{% url 'checkout:payment' %}" class="btn-continue" role="button">
-                            <span>Continue</span>
-                        </a>
-                    </div>
-
-                    <!-- Back to Billing -->
-                    <div class="back-link mt-3">
-                        <a href="{% url 'checkout:checkout' %}" class="btn-back">
-                            <i class="fa fa-chevron-left me-2"></i>Back to billing
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Right Column - Basket and Order Summary -->
-            <div class="col-lg-4">
-                <!-- Basket Section -->
-                <div class="basket-container">
-                    <div class="section-header">
-                        <h3 class="sidebar-title">BASKET</h3>
-                        <a href="{% url 'cart:cart' %}" class="btn-edit-sidebar">EDIT</a>
-                    </div>
-                    
-                    <div class="basket-items">
-                        {% for item in cart.cart_items %}
-                            <div class="basket-item">
-                                <div class="item-image">
-                                    {% if item.variant and item.variant.effective_image %}
-                                        <img src="{{ item.variant.effective_image.url }}"
-                                             alt="{{ item.product.name }}"
-                                             class="img-fluid">
-                                    {% elif item.product.image %}
-                                        <img src="{{ item.product.image.url }}"
-                                             alt="{{ item.product.name }}"
-                                             class="img-fluid">
-                                    {% else %}
-                                        <div class="item-fallback-icon">
-                                            <i class="fa-solid fa-layer-group"></i>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="item-details">
-                                    <div class="item-name">{{ item.product.name }}</div>
-                                    {% if item.variant %}
-                                        <div class="item-variant">
-                                            <span class="platform-badge">{{ item.variant.get_platform_display }}</span>
-                                            <span class="edition-badge">{{ item.variant.get_edition_display }}</span>
-                                        </div>
-                                    {% elif item.product.currency %}
-                                        <div class="item-credits">
-                                            <span class="credit-badge">{{ item.product.currency.credit_amount }} credits</span>
-                                        </div>
-                                    {% endif %}
-                                    <div class="item-quantity">Qty: {{ item.quantity }}</div>
-                                </div>
-                                <div class="item-price">£{{ item.line_total }}</div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                
-                <!-- Order Summary Section -->
-                <div class="order-summary-container">
-                    <h4 class="sidebar-summary-title">ORDER SUMMARY</h4>
-                    <div class="sidebar-summary-row">
-                        <span>Subtotal ({{ cart.product_count }} item{% if cart.product_count != 1 %}s{% endif %})</span>
-                        <span>£{{ cart.total }}</span>
-                    </div>
-                    {% if cart.delivery > 0 %}
+                    <!-- Order Summary Section -->
+                    <div class="order-summary-container">
+                        <h4 class="sidebar-summary-title">ORDER SUMMARY</h4>
                         <div class="sidebar-summary-row">
-                            <span>Shipping</span>
-                            <span>£{{ cart.delivery }}</span>
+                            <span>Subtotal ({{ cart.product_count }} item
+                                {% if cart.product_count != 1 %}s{% endif %}
+                            )</span>
+                            <span>£{{ cart.total }}</span>
                         </div>
-                    {% endif %}
-                    <div class="sidebar-total">
-                        <span>Total</span>
-                        <span class="sidebar-total-amount">£{{ cart.grand_total }}</span>
+                        {% if cart.delivery > 0 %}
+                            <div class="sidebar-summary-row">
+                                <span>Shipping</span>
+                                <span>£{{ cart.delivery }}</span>
+                            </div>
+                        {% endif %}
+                        <div class="sidebar-total">
+                            <span>Total</span>
+                            <span class="sidebar-total-amount">£{{ cart.grand_total }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>  
-</div>
+    </div>
 {% endblock %}

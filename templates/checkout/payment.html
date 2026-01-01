@@ -1,156 +1,151 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}Payment - Eclipse Protocol{% endblock %}
-
 {% block content %}
-<div class="mb-2">
-    <!-- Progress Steps -->
-    <div class="checkout-progress mb-4">
-        <div class="progress-step active">
-            <div class="step-circle">1</div>
-            <span class="step-label">BILLING</span>
+    <div class="mb-2">
+        <!-- Progress Steps -->
+        <div class="checkout-progress mb-4">
+            <div class="progress-step active">
+                <div class="step-circle">1</div>
+                <span class="step-label">BILLING</span>
+            </div>
+            <div class="progress-step active">
+                <div class="step-circle">2</div>
+                <span class="step-label">REVIEW</span>
+            </div>
+            <div class="progress-step active">
+                <div class="step-circle">3</div>
+                <span class="step-label">PAYMENT</span>
+            </div>
         </div>
-        <div class="progress-step active">
-            <div class="step-circle">2</div>
-            <span class="step-label">REVIEW</span>
-        </div>
-        <div class="progress-step active">
-            <div class="step-circle">3</div>
-            <span class="step-label">PAYMENT</span>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <!-- Page Title -->
-                <div class="checkout-section">
-                    <h2 class="page-title">PAY AND CONFIRM</h2>
-                    
-                    <!-- Payment Form -->
-                    <form action="{% url 'checkout:process_payment' %}" method="POST" id="payment-form">
-                        {% csrf_token %}
-                        
-                        <!-- Payment Method -->
-                        <div class="payment-section">
-                            <div class="payment-form">
-                                <div class="mb-3">
-                                    <label for="card-name" class="form-label">Name on card *</label>
-                                    <input type="text" class="form-control" id="card-name" name="card_name" required>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="card-element" class="form-label">Card number *</label>
-                                    <div id="card-element" class="payment-input">
-                                    <!-- Stripe form elements are here -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Page Title -->
+                    <div class="checkout-section">
+                        <h2 class="page-title">PAY AND CONFIRM</h2>
+                        <!-- Payment Form -->
+                        <form action="{% url 'checkout:process_payment' %}"
+                              method="POST"
+                              id="payment-form">
+                            {% csrf_token %}
+                            <!-- Payment Method -->
+                            <div class="payment-section">
+                                <div class="payment-form">
+                                    <div class="mb-3">
+                                        <label for="card-name" class="form-label">Name on card *</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="card-name"
+                                               name="card_name"
+                                               required>
                                     </div>
-                                    <div id="card-errors" role="alert" class="payment-error"></div>
-                                </div>
-                                
-                                <div class="payment-button-container mt-4">
-                                    <button type="submit" class="btn-pay" id="submit-button">
-                                        <i class="fa fa-lock me-2"></i>
-                                        <span id="button-text">Pay with card</span>
-                                        <span id="loading" class="d-none">
-                                            <i class="fa fa-spinner fa-spin"></i> Processing...
-                                        </span>
-                                    </button>
-                                    <p class="payment-notice">Your card will be charged £{{ cart.grand_total }}</p>
+                                    <div class="mb-3">
+                                        <label class="form-label">Card number *</label>
+                                        <div id="card-element" class="payment-input">
+                                            <!-- Stripe form elements are here -->
+                                        </div>
+                                        <div id="card-errors" role="alert" class="payment-error"></div>
+                                    </div>
+                                    <div class="payment-button-container mt-4">
+                                        <button type="submit" class="btn-pay" id="submit-button">
+                                            <i class="fa fa-lock me-2"></i>
+                                            <span id="button-text">Pay with card</span>
+                                            <span id="loading" class="d-none">
+                                                <i class="fa fa-spinner fa-spin"></i> Processing...
+                                            </span>
+                                        </button>
+                                        <p class="payment-notice">Your card will be charged £{{ cart.grand_total }}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- hidden inputs for payment processing 
+                            <!-- hidden inputs for payment processing
                         client_secret: Stripe PaymentIntent ID - links Django order to Stripe payment
                         total_amount: Security validation - ensures charged amount matches displayed amount -->
-                        <input type="hidden" value="{{ client_secret }}" name="client_secret">
-                        <input type="hidden" value="{{ cart.grand_total }}" name="total_amount">
-                    </form>
-
-                    <!-- Back to Review -->
-                    <div class="back-link mt-3">
-                        <a href="{% url 'checkout:review' %}" class="btn-back">
-                            <i class="fa fa-chevron-left me-2"></i>Back to review
-                        </a>
+                            <input type="hidden" value="{{ client_secret }}" name="client_secret">
+                            <input type="hidden" value="{{ cart.grand_total }}" name="total_amount">
+                        </form>
+                        <!-- Back to Review -->
+                        <div class="back-link mt-3">
+                            <a href="{% url 'checkout:review' %}" class="btn-back">
+                                <i class="fa fa-chevron-left me-2"></i>Back to review
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Right Column - Order Summary -->
-            <div class="col-lg-4">
-                <!-- Order Summary Section -->
-                <div class="order-summary-container">
-                    <div class="section-header">
-                        <h3 class="sidebar-title">ORDER SUMMARY</h3>
-                        <a href="{% url 'cart:cart' %}" class="btn-edit-sidebar">EDIT</a>
-                    </div>
-                    
-                    <div class="basket-items">
-                        {% for item in cart.cart_items %}
-                            <div class="basket-item">
-                                <div class="item-image">
-                                    {% if item.variant and item.variant.effective_image %}
-                                        <img src="{{ item.variant.effective_image.url }}"
-                                             alt="{{ item.product.name }}"
-                                             class="img-fluid">
-                                    {% elif item.product.image %}
-                                        <img src="{{ item.product.image.url }}"
-                                             alt="{{ item.product.name }}"
-                                             class="img-fluid">
-                                    {% else %}
-                                        <div class="item-fallback-icon">
-                                            <i class="fa-solid fa-layer-group"></i>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="item-details">
-                                    <div class="item-name">{{ item.product.name }}</div>
-                                    {% if item.variant %}
-                                        <div class="item-variant">
-                                            <span class="platform-badge">{{ item.variant.get_platform_display }}</span>
-                                            <span class="edition-badge">{{ item.variant.get_edition_display }}</span>
-                                        </div>
-                                    {% elif item.product.currency %}
-                                        <div class="item-credits">
-                                            <span class="credit-badge">{{ item.product.currency.credit_amount }} credits</span>
-                                        </div>
-                                    {% endif %}
-                                    <div class="item-quantity">Qty: {{ item.quantity }}</div>
-                                </div>
-                                <div class="item-price">£{{ item.line_total }}</div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    
-                    <div class="sidebar-summary mt-3">
-                        <div class="sidebar-summary-row">
-                            <span>Subtotal ({{ cart.product_count }} item{% if cart.product_count != 1 %}s{% endif %})</span>
-                            <span>£{{ cart.total }}</span>
+                <!-- Right Column - Order Summary -->
+                <div class="col-lg-4">
+                    <!-- Order Summary Section -->
+                    <div class="order-summary-container">
+                        <div class="section-header">
+                            <h3 class="sidebar-title">ORDER SUMMARY</h3>
+                            <a href="{% url 'cart:cart' %}" class="btn-edit-sidebar">EDIT</a>
                         </div>
-                        {% if cart.delivery > 0 %}
+                        <div class="basket-items">
+                            {% for item in cart.cart_items %}
+                                <div class="basket-item">
+                                    <div class="item-image">
+                                        {% if item.variant and item.variant.effective_image %}
+                                            <img src="{{ item.variant.effective_image.url }}"
+                                                 alt="{{ item.product.name }}"
+                                                 class="img-fluid">
+                                        {% elif item.product.image %}
+                                            <img src="{{ item.product.image.url }}"
+                                                 alt="{{ item.product.name }}"
+                                                 class="img-fluid">
+                                        {% else %}
+                                            <div class="item-fallback-icon">
+                                                <i class="fa-solid fa-layer-group"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="item-details">
+                                        <div class="item-name">{{ item.product.name }}</div>
+                                        {% if item.variant %}
+                                            <div class="item-variant">
+                                                <span class="platform-badge">{{ item.variant.get_platform_display }}</span>
+                                                <span class="edition-badge">{{ item.variant.get_edition_display }}</span>
+                                            </div>
+                                        {% elif item.product.currency %}
+                                            <div class="item-credits">
+                                                <span class="credit-badge">{{ item.product.currency.credit_amount }} credits</span>
+                                            </div>
+                                        {% endif %}
+                                        <div class="item-quantity">Qty: {{ item.quantity }}</div>
+                                    </div>
+                                    <div class="item-price">£{{ item.line_total }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="sidebar-summary mt-3">
                             <div class="sidebar-summary-row">
-                                <span>Shipping</span>
-                                <span>£{{ cart.delivery }}</span>
+                                <span>Subtotal ({{ cart.product_count }} item
+                                    {% if cart.product_count != 1 %}s{% endif %}
+                                )</span>
+                                <span>£{{ cart.total }}</span>
                             </div>
-                        {% endif %}
-                        <div class="sidebar-total">
-                            <span>Total</span>
-                            <span class="sidebar-total-amount">£{{ cart.grand_total }}</span>
+                            {% if cart.delivery > 0 %}
+                                <div class="sidebar-summary-row">
+                                    <span>Shipping</span>
+                                    <span>£{{ cart.delivery }}</span>
+                                </div>
+                            {% endif %}
+                            <div class="sidebar-total">
+                                <span>Total</span>
+                                <span class="sidebar-total-amount">£{{ cart.grand_total }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>  
-</div>
+    </div>
 {% endblock %}
-
 {% block extra_scripts %}
-<script src="https://js.stripe.com/v3/"></script>
-<script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
     var stripePublicKey = '{{ stripe_public_key|escapejs }}';
     var clientSecret = '{{ client_secret|escapejs }}'; 
-</script>
-<script src="{% static 'js/stripe-elements.js' %}"></script>
+    </script>
+    <script src="{% static 'js/stripe-elements.js' %}"></script>
 {% endblock %}

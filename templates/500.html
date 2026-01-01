@@ -1,28 +1,21 @@
 {% extends 'base.html' %}
-
 {% block title %}Eclipse Protocol 500 Error{% endblock %}
-
 {% block content %}
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="text-center">
-                <h1 class="display-1 fw-bold mb-3">500</h1>
-                <h2 class="h3 mb-4">Server Error</h2>
-                <p class="lead mb-4">
-                    Something went wrong on our end. Please try again later.
-                </p>
-                
-                <div class="d-flex gap-3 justify-content-center">
-                    <a href="{% url 'home' %}" class="btn btn-primary address-buttons" id="address-buttons">
-                        Go Home
-                    </a>
-                    <button id="try-again-btn" class="btn btn-outline-light">
-                        Try Again
-                    </button>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="text-center">
+                    <h1 class="display-1 fw-bold mb-3">500</h1>
+                    <h2 class="h3 mb-4">Server Error</h2>
+                    <p class="lead mb-4">Something went wrong on our end. Please try again later.</p>
+                    <div class="d-flex gap-3 justify-content-center">
+                        <a href="{% url 'home' %}"
+                           class="btn btn-primary address-buttons"
+                           id="address-buttons">Go Home</a>
+                        <button id="try-again-btn" class="btn btn-outline-light">Try Again</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}

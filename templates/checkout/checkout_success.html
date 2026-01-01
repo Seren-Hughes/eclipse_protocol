@@ -1,119 +1,120 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}Order Confirmation - Eclipse Protocol{% endblock %}
-
 {% block content %}
-<div class="mb-2">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="checkout-section text-center">
-                    <!-- Success Icon -->
-                    <div class="success-icon mb-4">
-                        <i class="fa-solid fa-check-circle fa-3x mb-3" id="blue-success-icon"></i>
-                    </div>
-                    
-                    <!-- Success Message -->
-                    <h1 class="mb-3" id="order-confirmation">THANK YOU FOR YOUR PURCHASE!</h1>
-                    <p class="lead mb-4">
-                        Digital content and game currencies will be applied automatically to your Eclipse Protocol User ID. A confirmation of your purchase will also be sent to your email address.
-                    </p>
-                    
-                    <!-- Order Details -->
-                    <div class="order-confirmation-box">
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <h3 class="confirmation-section-title">BILLING</h3>
-                                <div class="billing-info">
-                                    <p><strong>{{ order.full_name }}</strong></p>
-                                    <p>{{ order.street_address_1 }}</p>
-                                    {% if order.street_address_2 %}
-                                        <p>{{ order.street_address_2 }}</p>
-                                    {% endif %}
-                                    <p>{{ order.city }}</p>
-                                    <p>{{ order.country }}</p>
-                                    <p>{{ order.postcode }}</p>
-                                    <p class="email">{{ order.email }}</p>
+    <div class="mb-2">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="checkout-section text-center">
+                        <!-- Success Icon -->
+                        <div class="success-icon mb-4">
+                            <i class="fa-solid fa-check-circle fa-3x mb-3" id="blue-success-icon"></i>
+                        </div>
+                        <!-- Success Message -->
+                        <h1 class="mb-3" id="order-confirmation">THANK YOU FOR YOUR PURCHASE!</h1>
+                        <p class="lead mb-4">
+                            Digital content and game currencies will be applied automatically to your Eclipse Protocol User ID. A confirmation of your purchase will also be sent to your email address.
+                        </p>
+                        <!-- Order Details -->
+                        <div class="order-confirmation-box">
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <h2 class="confirmation-section-title">BILLING</h2>
+                                    <div class="billing-info">
+                                        <p>
+                                            <strong>{{ order.full_name }}</strong>
+                                        </p>
+                                        <p>{{ order.street_address_1 }}</p>
+                                        {% if order.street_address_2 %}<p>{{ order.street_address_2 }}</p>{% endif %}
+                                        <p>{{ order.city }}</p>
+                                        <p>{{ order.country }}</p>
+                                        <p>{{ order.postcode }}</p>
+                                        <p class="email">{{ order.email }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h2 class="confirmation-section-title">ORDER SUMMARY</h2>
+                                    <div class="order-summary-confirmation">
+                                        {% for item in order.items.all %}
+                                            <div class="order-item">
+                                                <div class="item-details">
+                                                    <span class="item-name ms-4">{{ item.product_name }} -  x{{ item.quantity }}</span>
+                                                    {% if item.variant_details %}<span class="item-variant ms-4">{{ item.variant_details }}</span>{% endif %}
+                                                </div>
+                                                <span class="item-price m-4">£{{ item.total_price }}</span>
+                                            </div>
+                                        {% endfor %}
+                                        <div class="order-total">
+                                            <strong>Total: £{{ order.total_amount }}</strong>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            
-                            <div class="col-md-6">
-                                <h3 class="confirmation-section-title">ORDER SUMMARY</h3>
-                                <div class="order-summary-confirmation">
+                            <!-- Order Number -->
+                            <div class="order-number-section">
+                                <p class="order-number">
+                                    Order Number: <strong>{{ order.order_number }}</strong>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Digital Content Section -->
+                        {% if order.items.exists %}
+                            <div class="digital-content-info mt-5">
+                                <div class="digital-icon mb-3">
+                                    <i class="fa-solid fa-layer-group"
+                                       style="font-size: 2rem;
+                                              color: var(--color-accent)"></i>
+                                </div>
+                                <h2>DIGITAL CONTENT DELIVERED</h2>
+                                <p>Your digital products have been processed and are ready for use:</p>
+                                <div class="digital-items">
                                     {% for item in order.items.all %}
-                                        <div class="order-item">
-                                            <div class="item-details">
-                                                <span class="item-name ms-4">{{ item.product_name }} -  x{{ item.quantity }}</span>
-                                                {% if item.variant_details %}
-                                                    <span class="item-variant ms-4">{{ item.variant_details }}</span>
-                                                {% endif %}
-                                            </div>
-                                            <span class="item-price m-4">£{{ item.total_price }}</span>
+                                        <div class="digital-item-card">
+                                            <h3>{{ item.product_name }}</h3>
+                                            {% if item.product.product_type == 'base_game' %}
+                                                <p class="digital-type">
+                                                    <i class="fa-solid fa-key me-2"></i>License Key Generated
+                                                </p>
+                                                <small>Check your email for platform-specific redemption instructions
+                                                    <br>
+                                                (please check your spam/junk folder if you don't see it)</small>
+                                            {% elif item.product.product_type == 'currency' %}
+                                                <p class="digital-type">
+                                                    <i class="fa-solid fa-coins me-2"></i>Credits Applied to Account
+                                                </p>
+                                                <small>Credits are now available in your Eclipse Protocol account</small>
+                                            {% endif %}
                                         </div>
                                     {% endfor %}
-                                    
-                                    <div class="order-total">
-                                        <strong>Total: £{{ order.total_amount }}</strong>
-                                    </div>
                                 </div>
                             </div>
+                        {% endif %}
+                        <!-- Action Buttons -->
+                        <div class="confirmation-actions mt-5">
+                            <a href="{% url 'home' %}"
+                               class="btn btn-primary btn-buy-now btn-lg me-3"
+                               id="main-button">
+                                <i class="fa-solid fa-home me-2"></i>Return to Store
+                            </a>
                         </div>
-                        
-                        <!-- Order Number -->
-                        <div class="order-number-section">
-                            <p class="order-number">Order Number: <strong>{{ order.order_number }}</strong></p>
-                        </div>
-                    </div>
-                    
-                    <!-- Digital Content Section -->
-                    {% if order.items.exists %}
-                        <div class="digital-content-info mt-5">
-                            <div class="digital-icon mb-3">
-                                <i class="fa-solid fa-layer-group" style="font-size: 2rem; color: var(--color-accent);"></i>
+                        <!-- Support Section -->
+                        <div class="support-section mt-5">
+                            <div class="support-box">
+                                <h2>
+                                    <i class="fa-solid fa-circle-question me-2"></i>NEED ASSISTANCE?
+                                </h2>
+                                <p>
+                                    For help and product support you can contact us <a href="{% url 'support:contact' %}" class="support-link">here</a>.
+                                </p>
+                                <p>
+                                    Or check out our <a href="{% url 'support:faqs' %}" class="support-link">FAQs</a>.
+                                </p>
                             </div>
-                            <h4>DIGITAL CONTENT DELIVERED</h4>
-                            <p>Your digital products have been processed and are ready for use:</p>
-                            
-                            <div class="digital-items">
-                                {% for item in order.items.all %}
-                                    <div class="digital-item-card">
-                                        <h5>{{ item.product_name }}</h5>
-                                        {% if item.product.product_type == 'base_game' %}
-                                            <p class="digital-type">
-                                                <i class="fa-solid fa-key me-2"></i>License Key Generated
-                                            </p>
-                                            <small>Check your email for platform-specific redemption instructions</small>
-                                        {% elif item.product.product_type == 'currency' %}
-                                            <p class="digital-type">
-                                                <i class="fa-solid fa-coins me-2"></i>Credits Applied to Account
-                                            </p>
-                                            <small>Credits are now available in your Eclipse Protocol account</small>
-                                        {% endif %}
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    {% endif %}
-                    
-                    <!-- Action Buttons -->
-                    <div class="confirmation-actions mt-5">
-                        <a href="{% url 'home' %}" class="btn btn-primary btn-buy-now btn-lg me-3" id="main-button">
-                            <i class="fa-solid fa-home me-2"></i>Return to Store
-                        </a>
-                    </div>
-                    
-                    <!-- Support Section -->
-                    <div class="support-section mt-5">
-                        <div class="support-box">
-                            <h5><i class="fa-solid fa-circle-question me-2"></i>NEED ASSISTANCE?</h5>
-                            <p>For help and product support you can contact us <a href="{% url 'support:contact' %}" class="support-link">here</a>.</p>
-                            <p>Or check out our <a href="{% url 'support:faqs' %}" class="support-link">FAQs</a>.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
