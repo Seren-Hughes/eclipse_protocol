@@ -21,3 +21,12 @@ Contents
 
 ## 1. HTML Validation
 
+## HTML Validation
+
+All pages tested using [W3C Markup Validator](https://validator.w3.org/).
+
+| Page | URL | Status | Screenshot | Validation Link | Notes |
+|------|-----|--------|------------|----------------|-------|
+| [Home Store Front Page](https://eclipse-protocol-15d26c9e2a55.herokuapp.com/) | `/` | ✅ | ![home validation screenshot](docs/images/test-screenshots/home-html-validation.png) | [Home Result](https://validator.w3.org/nu/?doc=https%3A%2F%2Feclipse-protocol-15d26c9e2a55.herokuapp.com%2F) |  |
+
+|
