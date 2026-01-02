@@ -22,7 +22,7 @@
 
 /* subtle grey divider between navbar rows */
 .navbar-custom .navbar-row-2 {
-  border-top: 0.5px solid rgba(255, 255, 255, 0.15); 
+  border-top: 0.5px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Brand: stacked wordmark + astronaut */
@@ -32,7 +32,7 @@
 }
 
 .navbar-custom .navbar-brand .fa-user-astronaut {
-  font-size: 2rem; 
+  font-size: 2rem;
   line-height: 1;
   color: rgba(255, 255, 255, 0.353);
 }
@@ -175,7 +175,8 @@
   text-transform: uppercase;
   /* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/clamp */
   /* clamp generator = https://clamp.font-size.app/ */
-  font-size: clamp(1rem, 3vw + 1rem, 3rem); /* clamp alternative to media queries */
+  /* alternative to media queries */
+  font-size: clamp(1rem, 3vw + 1rem, 3rem);
   line-height: 1.1;
   margin: 0;
 }
@@ -188,40 +189,40 @@
 }
 
 .privacy-policy-content {
-    line-height: 1.6;
-    font-size: 0.95rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
 }
 
 .privacy-policy-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 .privacy-policy-content h2 {
-    font-size: 1.5rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    color: var(--color-accent, #fff);
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--color-accent, #ffffff);
 }
 
 .privacy-policy-content h3 {
-    font-size: 1.25rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .privacy-policy-content p {
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 
 .privacy-policy-content ul {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .privacy-policy-content li {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
 /* ======================================= */
@@ -231,7 +232,8 @@
 /* Main hero section for the about page. Contains the fixed background image and overlaid title. */
 .about-hero-section {
   position: relative;
-  height: 80vh; /* Height of hero section (reduced for faster content reveal) */
+  /* Height of hero section (reduced for faster content reveal) */
+  height: 80vh;
   overflow: hidden;
 }
 
@@ -254,13 +256,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.1) 30%,
-    rgba(0, 0, 0, 0.4) 70%,
-    rgba(0, 0, 0, 0.7) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.1) 30%,
+      rgba(0, 0, 0, 0.4) 70%,
+      rgba(0, 0, 0, 0.7) 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 1;
@@ -274,10 +274,13 @@
 /* Hero image: larger than viewport for parallax, starts with top hidden above viewport. */
 .about-hero-image img {
   width: 100%;
-  height: 120%; /* Larger than viewport for parallax effect */
+  /* Larger than viewport for parallax effect */
+  height: 120%;
   object-fit: cover;
-  object-position: center top; /* Focus on top portion of image */
-  transform: translateY(-25vh) scale(1.1); /* Start with top hidden above viewport */
+  object-position: center top;
+  /* Focus on top portion of image */
+  transform: translateY(-25vh) scale(1.1);
+  /* Start with top hidden above viewport */
   transition: transform 0.3s ease;
 }
 
@@ -300,7 +303,7 @@
 
 /* Main heading in hero section. */
 .about-hero-title h1 {
-  font-size: clamp(2rem, 5vw, 4rem); 
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 700;
   color: white;
   text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.9);
@@ -310,7 +313,7 @@
 
 /* Subheading in hero section. */
 .about-hero-title h2 {
-  font-size: clamp(1.1rem, 3vw, 3rem); 
+  font-size: clamp(1.1rem, 3vw, 3rem);
   font-weight: 700;
   color: white;
   text-shadow: 2px 2px 18px rgb(0, 0, 0);
@@ -320,32 +323,35 @@
 /* Fade out title on scroll (JS toggles this class). */
 .about-hero-title.fade-out {
   opacity: 0;
-  transform: translate(-50%, -40%); /* upward movement */
+  transform: translate(-50%, -40%);
+  /* upward movement */
 }
 
 /* Wrapper for about page content. Sits above the hero image. */
 .about-content-wrapper {
   position: relative;
   z-index: 3;
-  margin-top: 60vh; /* Controls when content starts (smaller = sooner) */
+  margin-top: 60vh;
+  /* Controls when content starts (smaller = sooner) */
   min-height: 100vh;
   padding: 2rem 0;
   border-radius: 1rem 1rem 0 0;
-    
+
 }
 
 /* Main about page content area. Opaque background for readability. */
 .about-content {
-  background-color: rgba(0, 0, 0, 0.705); /* Semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.705);
   padding: 2rem;
   border-radius: 0.5rem;
   /* Increase shadow for more contrast/legibility */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Hide h1 in content area (already shown in hero). */
-.about-content h1{
-  display: none; /* Hide titles after scroll */
+.about-content h1 {
+  display: none;
+  /* Hide titles after scroll */
 }
 
 /* Paragraph styling for about content. */
@@ -359,18 +365,18 @@
 /* =========== FOOTER ============ */
 /* =============================== */
 
-footer{
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: var(--color-background); 
-    position: relative;
-    /* ensure footer background is above any block content */
-    z-index: 4; 
+footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--color-background);
+  position: relative;
+  /* ensure footer background is above any block content */
+  z-index: 4;
 }
 
 /* Footer brand alignment */
 .footer-brand {
   display: flex;
-  align-items: flex-start; 
+  align-items: flex-start;
   gap: 0.5rem;
   --brand-font-size: 1rem;
   --brand-line-height: 1.1;
@@ -384,8 +390,8 @@ footer{
   font-size: var(--brand-font-size);
 }
 
-.footer-brand .fa-user-astronaut { 
-  font-size: calc(var(--brand-total-height) - 0.12rem); 
+.footer-brand .fa-user-astronaut {
+  font-size: 2.08rem;
 }
 
 /* Footer links */
@@ -418,15 +424,16 @@ footer .fa-brands:hover {
 
 /* Tablet landscape */
 @media (min-width: 768px) and (max-width: 992px) {
+
   /* smaller navbar brand on tablet */
   .navbar-custom .navbar-brand {
     font-size: 1rem;
   }
-  
+
   .navbar-custom .navbar-brand .fa-user-astronaut {
     font-size: 1.8rem;
   }
-  
+
   .navbar-custom .navbar-brand .d-flex.flex-column span {
     font-size: 0.85rem;
   }
@@ -441,19 +448,19 @@ footer .fa-brands:hover {
     gap: 0.25rem;
     justify-content: space-between;
   }
-  
+
   /* Ensure nav links are centered vertically */
   .navbar-custom .navbar-row-2 .nav {
     display: flex;
     align-items: center;
     margin-bottom: 0;
   }
-  
+
   .navbar-custom .navbar-row-2 .nav.flex-row.flex-wrap {
     margin-right: 0;
     flex-shrink: 0;
   }
-  
+
   .navbar-custom .navbar-row-2 .d-flex:last-child {
     margin-left: auto;
     gap: 0.25rem;
@@ -466,7 +473,7 @@ footer .fa-brands:hover {
     font-size: 0.8rem;
     padding: 0.25rem 0.5rem;
   }
-  
+
   /* Compact second row links */
   .navbar-custom .navbar-row-2 .nav .nav-link {
     padding: 0.4rem 0.4rem;
@@ -475,19 +482,19 @@ footer .fa-brands:hover {
     display: flex;
     align-items: center;
   }
-  
+
   /* Smaller search input */
   .navbar-custom .navbar-row-2 form {
     max-width: 120px;
     min-width: 120px;
   }
-  
+
   .navbar-custom .navbar-row-2 .form-control {
     font-size: 0.75rem;
     padding: 0.4rem 0.4rem;
     padding-right: 1.8rem;
   }
-  
+
   .navbar-custom .navbar-row-2 .form-control::placeholder {
     font-size: 0.75rem;
   }
@@ -497,17 +504,17 @@ footer .fa-brands:hover {
     font-size: 0.7rem;
     padding-right: 0.4rem;
   }
-  
+
   .navbar-custom .navbar-row-2 .btn .fa-search {
     font-size: 0.7rem;
   }
 
   /* Hide wishlist/basket text, show icons only */
-  .navbar-custom .navbar-row-2 .nav-link .fa-heart ~ *,
-  .navbar-custom .navbar-row-2 .nav-link .fa-shopping-basket ~ * {
+  .navbar-custom .navbar-row-2 .nav-link .fa-heart~*,
+  .navbar-custom .navbar-row-2 .nav-link .fa-shopping-basket~* {
     display: none;
   }
-  
+
   /* Icon links with consistent height */
   .navbar-custom .navbar-row-2 .nav-link {
     padding: 0.4rem 0.3rem;
@@ -515,19 +522,19 @@ footer .fa-brands:hover {
     display: flex;
     align-items: center;
   }
-  
+
   .navbar-custom .navbar-row-2 .nav-link .fa-heart,
   .navbar-custom .navbar-row-2 .nav-link .fa-shopping-basket {
     font-size: 0.8rem;
   }
-  
+
   /* Tighter vertical spacing */
   .navbar-custom .navbar-row-1 .py-2,
   .navbar-custom .navbar-row-2 .py-2 {
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
   }
-  
+
   .navbar-custom .navbar-row-2 .mb-lg-0 {
     margin-bottom: 0 !important;
   }
@@ -535,45 +542,46 @@ footer .fa-brands:hover {
 
 /* Mobile/tablet (up to 768px) */
 @media (max-width: 768px) {
+
   /* Smaller mobile navbar brand */
   .navbar-custom .navbar-brand {
     font-size: 0.9rem;
   }
-  
+
   .navbar-custom .navbar-brand .fa-user-astronaut {
     font-size: 1.5rem;
   }
-  
+
   .navbar-custom .navbar-brand .d-flex.flex-column span {
     font-size: 0.75rem;
   }
-  
+
   .navbar-custom .form-control {
     font-size: 1rem;
     padding: 0.55rem 0.7rem;
     padding-right: 2rem;
   }
-  
+
   .navbar-custom .form-control::placeholder {
     font-size: 1rem;
   }
-  
+
   /* Icon search button */
   .navbar-custom .btn {
     font-size: 0.8rem;
     padding-right: 0.5rem;
   }
-  
+
   .navbar-custom .btn .fa-search {
     font-size: 1rem;
   }
-  
+
   /* Icon-only wishlist and basket */
   .navbar-custom .nav-link .fa-heart,
   .navbar-custom .nav-link .fa-shopping-basket {
     font-size: 1.2rem;
   }
-  
+
   /* Toggler adjustments */
   .navbar-custom.navbar-dark .navbar-toggler {
     font-size: 0.9rem;
@@ -585,12 +593,12 @@ footer .fa-brands:hover {
     height: 40vh;
     min-height: 250px;
   }
-  
+
   .hero-text {
     top: 0.75rem;
     left: 0.75rem;
   }
-  
+
   .hero-actions {
     bottom: 1.5rem;
     right: 1.5rem;
@@ -603,53 +611,56 @@ footer .fa-brands:hover {
   .footer-social {
     margin-top: 1rem;
   }
+
   /* About page mobile adjustments */
   .about-hero-section {
-        height: 70vh;
-    }
-    
-    .about-hero-image img {
-        transform: translateY(-15vh) scale(1.1); /* Adjust starting position for smaller hero */
-    }
-    
-    .about-hero-image.parallax img {
-        transform: translateY(calc(-15vh + var(--parallax-offset, 0px))) scale(1.1);
-    }
-    
-    .about-hero-title h1 {
-        font-size: clamp(2rem, 10vw, 3.5rem);
-    }
-    
-    .about-content-wrapper {
-        margin-top: 70vh;
-        padding: 1.5rem 0;
-        border-radius: 0.75rem 0.75rem 0 0;
-    }
-    
-    .about-content {
-        padding: 1.5rem;
-        margin: 0 1rem;
-    }
+    height: 70vh;
+  }
+
+  .about-hero-image img {
+    /* Adjust starting position for smaller hero */
+    transform: translateY(-15vh) scale(1.1);
+  }
+
+  .about-hero-image.parallax img {
+    transform: translateY(calc(-15vh + var(--parallax-offset, 0px))) scale(1.1);
+  }
+
+  .about-hero-title h1 {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+  }
+
+  .about-content-wrapper {
+    margin-top: 70vh;
+    padding: 1.5rem 0;
+    border-radius: 0.75rem 0.75rem 0 0;
+  }
+
+  .about-content {
+    padding: 1.5rem;
+    margin: 0 1rem;
+  }
 }
 
 /* Small mobile (up to 576px) */
 @media (max-width: 576px) {
+
   /* Navbar search bar adjustments */
   .d-md-none .d-flex.align-items-center.justify-content-between {
     gap: 0.1rem;
   }
-  
+
   .d-md-none form.d-flex.position-relative.flex-grow-1.me-3 {
     flex: 1 1 0%;
     min-width: 0;
-    margin-right: 0 !important; 
+    margin-right: 0 !important;
   }
-  
+
   .d-md-none .d-flex.gap-2 {
     flex: 0 0 auto;
     min-width: 80px;
   }
-  
+
   .navbar-custom .d-md-none .nav-link {
     min-width: 44px;
     min-height: 44px;
@@ -658,12 +669,10 @@ footer .fa-brands:hover {
     align-items: center;
     justify-content: center;
   }
-  
+
   .navbar-custom .nav-link .fa-heart,
   .navbar-custom .nav-link .fa-shopping-basket {
     font-size: 1.2rem;
-    padding: -10px;
-    margin-right: -10px;
   }
 
   .hero-img {
@@ -681,16 +690,16 @@ footer .fa-brands:hover {
 /* ========== UTILITIES ========== */
 /* =============================== */
 
-:root { 
+:root {
   --navbar-height: 140px;
 }
 
-body { 
-  display: flex; 
-  flex-direction: column; 
-  min-height: 100vh; 
-} 
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-.site-main { 
-  flex: 1 0 auto; 
+.site-main {
+  flex: 1 0 auto;
 }
