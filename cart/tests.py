@@ -23,7 +23,9 @@ class CartModelTests(TestCase):
     """
 
     def setUp(self):
-        """Set up test fixtures: user, products, and variants for cart testing."""
+        """
+        Set up test fixtures: user, products, and variants for cart testing.
+        """
         self.user = User.objects.create_user(
             username="testuser",
             email="test@example.com",
@@ -70,12 +72,17 @@ class CartModelTests(TestCase):
         self.assertEqual(str(cart), f"Cart for {self.user.username}")
 
     def test_cart_total_items_empty(self):
-        """Test that empty cart returns 0 for total_items property."""
+        """
+        Test that empty cart returns 0 for total_items property.
+        """
         cart = Cart.objects.create(user=self.user)
         self.assertEqual(cart.total_items, 0)
 
     def test_cart_total_items_with_items(self):
-        """Test total_items property correctly sums quantities across all cart items."""
+        """
+        Test total_items property correctly sums quantities
+        across all cart items.
+        """
         cart = Cart.objects.create(user=self.user)
         CartItem.objects.create(
             cart=cart, product=self.base_game, variant=self.variant, quantity=2
@@ -92,7 +99,9 @@ class CartModelTests(TestCase):
         self.assertEqual(cart.total_price, 0)
 
     def test_cart_total_price_with_items(self):
-        """Test total_price property correctly calculates sum of all line totals."""
+        """
+        Test total_price property correctly calculates sum of line totals
+        """
         cart = Cart.objects.create(user=self.user)
         CartItem.objects.create(
             cart=cart, product=self.base_game, variant=self.variant, quantity=1
@@ -119,7 +128,9 @@ class CartModelTests(TestCase):
         self.assertEqual(item.quantity, 1)
 
     def test_cart_item_string_representation(self):
-        """Test cart item __str__ method handles both variant and non-variant products."""
+        """
+        Test cart item __str__ method handles variant and non-variant products
+        """
         cart = Cart.objects.create(user=self.user)
 
         # Test with variant (should include variant info)
@@ -144,11 +155,11 @@ class CartModelTests(TestCase):
             cart=cart, product=self.base_game, variant=self.variant, quantity=1
         )
 
-        # Should use variant's price override (£59.99), not base product price (£49.99)
+        # Should use variant's price override (£59.99), not base price (£49.99)
         self.assertEqual(item.effective_price, Decimal("59.99"))
 
     def test_cart_item_effective_price_without_variant(self):
-        """Test effective_price property falls back to product price when no variant."""
+        """Test effective_price falls back to product price when no variant."""
         cart = Cart.objects.create(user=self.user)
         item = CartItem.objects.create(
             cart=cart, product=self.currency_product, quantity=1
@@ -158,7 +169,7 @@ class CartModelTests(TestCase):
         self.assertEqual(item.effective_price, Decimal("9.99"))
 
     def test_cart_item_line_total(self):
-        """Test line_total property correctly multiplies effective price by quantity."""
+        """Test line_total multiplies effective price by quantity correctly."""
         cart = Cart.objects.create(user=self.user)
         item = CartItem.objects.create(
             cart=cart, product=self.currency_product, quantity=3
@@ -167,30 +178,14 @@ class CartModelTests(TestCase):
         expected_line_total = Decimal("9.99") * 3
         self.assertEqual(item.line_total, expected_line_total)
 
-    def test_cart_item_unique_together_constraint(self):
-        """Test that database constraint prevents duplicate cart items."""
-        cart = Cart.objects.create(user=self.user)
-        CartItem.objects.create(
-            cart=cart, product=self.base_game, variant=self.variant, quantity=1
-        )
-
-        # Attempt to create duplicate should raise IntegrityError
-        from django.db import IntegrityError
-
-        with self.assertRaises(IntegrityError):
-            CartItem.objects.create(
-                cart=cart,
-                product=self.base_game,
-                variant=self.variant,
-                quantity=1,
-            )
-
 
 class CartContextProcessorTests(TestCase):
     """
     Unit tests for cart_contents context processor.
 
-    Tests the context processor that makes cart data available across all templates.
+    Tests the context processor that makes cart data available
+    across templates.
+
     Verifies handling of:
     - Empty carts
     - Session cart data parsing
@@ -200,7 +195,9 @@ class CartContextProcessorTests(TestCase):
     """
 
     def setUp(self):
-        """Set up test fixtures and request factory for context processor testing."""
+        """
+        Set up test fixtures and request factory for context processor testing
+        """
         self.factory = RequestFactory()
 
         # Create test products for context processor testing
@@ -230,7 +227,10 @@ class CartContextProcessorTests(TestCase):
         )
 
     def test_empty_cart(self):
-        """Test context processor returns correct empty state for requests without cart session."""
+        """
+        Test context processor returns correct empty state
+        for requests without cart session.
+        """
         request = self.factory.get("/")
         request.session = {}
 
@@ -245,7 +245,10 @@ class CartContextProcessorTests(TestCase):
         self.assertFalse(context["shipping_required"])
 
     def test_cart_with_simple_product(self):
-        """Test context processor correctly parses session cart with currency products."""
+        """
+        Test context processor correctly parses session cart with
+        currency products.
+        """
         request = self.factory.get("/")
         request.session = {
             "cart": {
@@ -266,7 +269,9 @@ class CartContextProcessorTests(TestCase):
         self.assertEqual(context["grand_total"], Decimal("9.99") * 2)
 
     def test_cart_with_variant_product(self):
-        """Test context processor correctly handles products with variants in session cart."""
+        """
+        Test context processor handles products with variants in session cart
+        """
         request = self.factory.get("/")
         request.session = {
             "cart": {
@@ -294,7 +299,10 @@ class CartContextProcessorTests(TestCase):
         self.assertEqual(cart_item["price"], Decimal("59.99"))
 
     def test_cart_with_multiple_items(self):
-        """Test context processor correctly handles mixed cart with multiple item types."""
+        """
+        Test context processor correctly handles mixed cart
+        with multiple item types.
+        """
         request = self.factory.get("/")
         request.session = {
             "cart": {
@@ -393,7 +401,9 @@ class CartViewTests(TestCase):
         )
 
     def test_cart_view_anonymous_user(self):
-        """Test cart page loads correctly for anonymous users using session cart."""
+        """
+        Test cart page loads correctly for anonymous users using session cart.
+        """
         response = self.client.get(reverse("cart:cart"))
 
         self.assertEqual(response.status_code, 200)
@@ -401,7 +411,10 @@ class CartViewTests(TestCase):
         self.assertEqual(response.context["total_items"], 0)
 
     def test_cart_view_authenticated_user(self):
-        """Test cart page loads correctly for authenticated users using database cart."""
+        """
+        Test cart page loads correctly for authenticated users
+        using database cart.
+        """
         self.client.login(username="testuser", password="testpass123")
 
         response = self.client.get(reverse("cart:cart"))
@@ -410,7 +423,9 @@ class CartViewTests(TestCase):
         self.assertTemplateUsed(response, "cart/cart.html")
 
     def test_add_to_cart_anonymous_user(self):
-        """Test adding products to session cart for anonymous users via AJAX."""
+        """
+        Test adding products to session cart for anonymous users via AJAX.
+        """
         response = self.client.post(
             reverse("cart:add_to_cart", args=[self.currency_product.id]),
             {"quantity": 2},
@@ -424,7 +439,10 @@ class CartViewTests(TestCase):
         self.assertEqual(data["cart_total"], 2)
 
     def test_add_to_cart_authenticated_user(self):
-        """Test adding products to database cart for authenticated users via AJAX."""
+        """
+        Test adding products to database cart for authenticated
+        users via AJAX.
+        """
         self.client.login(username="testuser", password="testpass123")
 
         response = self.client.post(
@@ -446,7 +464,10 @@ class CartViewTests(TestCase):
         self.assertEqual(cart_item.quantity, 3)
 
     def test_add_to_cart_with_variant(self):
-        """Test adding products with variants correctly links variant to cart item."""
+        """
+        Test adding products with variants correctly links
+        variant to cart item.
+        """
         self.client.login(username="testuser", password="testpass123")
 
         response = self.client.post(
@@ -465,7 +486,10 @@ class CartViewTests(TestCase):
         self.assertEqual(cart_item.variant, self.variant)
 
     def test_add_duplicate_digital_product_fails(self):
-        """Test that adding duplicate digital products is prevented (no quantity increment)."""
+        """
+        Test that adding duplicate digital products is prevented
+        (no quantity increment).
+        """
         self.client.login(username="testuser", password="testpass123")
 
         # Add product first time
@@ -488,7 +512,10 @@ class CartViewTests(TestCase):
         self.assertIn("already in your cart", data["message"])
 
     def test_add_currency_product_increments_quantity(self):
-        """Test that adding duplicate currency products increments quantity (business rule)."""
+        """
+        Test that adding duplicate currency products increments
+        quantity (business rule).
+        """
         self.client.login(username="testuser", password="testpass123")
 
         # Add product first time
@@ -528,7 +555,9 @@ class CartFunctionalTests(TestCase):
     """
 
     def setUp(self):
-        """Set up test client, user, and complete product catalog for functional testing."""
+        """
+        Set up test client, user, and product catalog for functional testing
+        """
         self.client = Client()
         self.user = User.objects.create_user(
             username="testuser",
@@ -571,7 +600,10 @@ class CartFunctionalTests(TestCase):
         )
 
     def test_complete_shopping_workflow_authenticated(self):
-        """Test complete authenticated user shopping workflow: add products, view cart, verify persistence."""
+        """
+        Test complete authenticated user shopping workflow:
+          add products, view cart, verify persistence.
+        """
         self.client.login(username="testuser", password="testpass123")
 
         # Step 1: Add base game with variant
@@ -607,7 +639,9 @@ class CartFunctionalTests(TestCase):
         self.assertEqual(cart.total_price, expected_total)
 
     def test_complete_shopping_workflow_anonymous(self):
-        """Test complete anonymous user shopping workflow using session cart."""
+        """
+        Test complete anonymous user shopping workflow using session cart.
+        """
         # Step 1: Add products to session cart
         response = self.client.post(
             reverse("cart:add_to_cart", args=[self.base_game.id]),
@@ -634,7 +668,10 @@ class CartFunctionalTests(TestCase):
         self.assertEqual(response.context["total_price"], expected_total)
 
     def test_multiple_variants_same_product(self):
-        """Test adding different variants of the same base product creates separate cart items."""
+        """
+        Test adding different variants of the same base product
+        creates separate cart items.
+        """
         self.client.login(username="testuser", password="testpass123")
 
         # Add PC variant

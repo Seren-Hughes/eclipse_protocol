@@ -7,11 +7,11 @@ def cart_contents(request):
     """
     Make cart contents available across all templates.
 
-    This context processor follows Django's standard pattern for making
-    data available site-wide. Similar to how 'django.contrib.auth.context_processors.auth'
+    This context processor follows Django standard pattern for making
+    data available site-wide. Similar to how
+    'django.contrib.auth.context_processors.auth'
     makes {{ user }} available everywhere.
 
-    Documentation: https://docs.djangoproject.com/en/5.2/ref/templates/api/#writing-your-own-context-processors
 
     Usage in templates:
         {{ cart_items }}     - List of items in cart
@@ -45,13 +45,16 @@ def cart_contents(request):
         try:
             # Handle both simple products and variants
             if "variant_id" in item_data:
-                # Base game with variant selection (PC Ultimate, Xbox Standard, etc.)
+                # Base game with variant selection
+                # (PC Ultimate, Xbox Standard, etc.)
                 variant = DigitalVariant.objects.get(
                     id=item_data["variant_id"]
                 )
                 product = variant.product
                 price = variant.effective_price
-                display_name = f"{product.name} - {variant.get_platform_display()} {variant.get_edition_display()}"
+                platform = variant.get_platform_display()
+                edition = variant.get_edition_display()
+                display_name = f"{product.name} - {platform} {edition}"
             else:
                 # Simple product (currency packs, DLC, expansions)
                 product = Product.objects.get(id=item_data["product_id"])
@@ -89,8 +92,9 @@ def cart_contents(request):
             )
 
         except (Product.DoesNotExist, DigitalVariant.DoesNotExist):
-            # Handle case where product/variant was deleted after being added to cart
-            # Gracefully skip invalid items rather than crashing the entire site
+            # Handle case where product/variant was deleted after
+            # being added to cart
+            # Gracefully skip invalid items
             continue
 
     # Calculate delivery cost (placeholder for future physical products)

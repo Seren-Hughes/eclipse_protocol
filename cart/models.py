@@ -1,5 +1,3 @@
-from decimal import Decimal
-
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -86,7 +84,8 @@ class CartItem(models.Model):
 
         This handles the pricing hierarchy:
         1. Variant price override (if variant exists and has override)
-        2. Base product price (fallback for variants + only option for simple products)
+        2. Base product price:
+            fallback for variants + only option for simple products
         """
         if self.variant:
             return self.variant.effective_price

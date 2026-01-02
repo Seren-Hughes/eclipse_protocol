@@ -1,10 +1,7 @@
 from decimal import Decimal
 
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.db import transaction
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_POST
 
 from catalog.models import DigitalVariant, Product
@@ -39,9 +36,7 @@ def cart_view(request):
         "cart_items": cart_items,
         "total_price": total_price,
         "total_items": total_items,
-        "shipping_cost": Decimal(
-            "0.00"
-        ),  # conditional shipping to be added for physical products (future scope)
+        "shipping_cost": Decimal("0.00"),  # Future: conditional shipping
         "grand_total": total_price,
     }
 
@@ -53,8 +48,9 @@ def add_to_cart(request, product_id):
     """
     Add a product to the cart via AJAX.
 
-    Supports both authenticated users (database cart) and anonymous users (session cart).
-    Handles digital products with duplicate prevention and currency products with quantity increment.
+    Supports both authenticated users (database cart) and anonymous users
+    (session cart). Handles digital products with duplicate prevention and
+    currency products with quantity increment.
 
     Args:
         product_id (int): ID of the product to add
@@ -64,7 +60,8 @@ def add_to_cart(request, product_id):
         quantity (optional): Quantity to add (defaults to 1)
 
     Returns:
-        JsonResponse: Success/failure status with message and updated cart total
+        JsonResponse: Success/failure status with message
+        and updated cart total
     """
     product = get_object_or_404(Product, id=product_id)
     variant_id = request.POST.get("variant_id")
@@ -89,7 +86,9 @@ def add_to_cart(request, product_id):
             if existing_item:
                 item_name = product.name
                 if variant:
-                    item_name += f" ({variant.get_platform_display()} - {variant.get_edition_display()})"
+                    platform = variant.get_platform_display()
+                    edition = variant.get_edition_display()
+                    item_name += f" ({platform} - {edition})"
 
                 return JsonResponse(
                     {
@@ -115,7 +114,9 @@ def add_to_cart(request, product_id):
                 # Digital products should not reach here due to check above
                 item_name = product.name
                 if variant:
-                    item_name += f" ({variant.get_platform_display()} - {variant.get_edition_display()})"
+                    platform = variant.get_platform_display()
+                    edition = variant.get_edition_display()
+                    item_name += f" ({platform} - {edition})"
 
                 return JsonResponse(
                     {
@@ -140,7 +141,9 @@ def add_to_cart(request, product_id):
             if cart_key in session_cart:
                 item_name = product.name
                 if variant:
-                    item_name += f" ({variant.get_platform_display()} - {variant.get_edition_display()})"
+                    platform = variant.get_platform_display()
+                    edition = variant.get_edition_display()
+                    item_name += f" ({platform} - {edition})"
 
                 return JsonResponse(
                     {
@@ -158,7 +161,9 @@ def add_to_cart(request, product_id):
                 # Digital products should not reach here due to check above
                 item_name = product.name
                 if variant:
-                    item_name += f" ({variant.get_platform_display()} - {variant.get_edition_display()})"
+                    platform = variant.get_platform_display()
+                    edition = variant.get_edition_display()
+                    item_name += f" ({platform} - {edition})"
 
                 return JsonResponse(
                     {
@@ -189,7 +194,9 @@ def add_to_cart(request, product_id):
     # Prepare response message
     item_name = product.name
     if variant:
-        item_name += f" ({variant.get_platform_display()} - {variant.get_edition_display()})"
+        platform = variant.get_platform_display()
+        edition = variant.get_edition_display()
+        item_name += f" ({platform} - {edition})"
 
     return JsonResponse(
         {
@@ -205,12 +212,13 @@ def update_cart_item(request, item_id):
     """
     Update the quantity of a cart item via AJAX.
 
-    Supports both authenticated users (database cart) and anonymous users (session cart).
-    If quantity is 0, removes the item entirely.
+    Supports both authenticated users (database cart) and anonymous users
+    (session cart). If quantity is 0, removes the item entirely.
 
     Args:
         item_id (str): For authenticated users: database CartItem ID
-                      For anonymous users: session cart key (e.g., "22" or "22_15")
+                      For anonymous users: session cart key
+                      (e.g., "22" or "22_15")
 
     POST data:
         quantity (int): New quantity for the item
@@ -278,11 +286,13 @@ def remove_from_cart(request, item_id):
     """
     Remove an item from the cart via AJAX.
 
-    Supports both authenticated users (database cart) and anonymous users (session cart).
+    Supports both authenticated users (database cart) and anonymous users
+    (session cart).
 
     Args:
         item_id (str): For authenticated users: database CartItem ID
-                      For anonymous users: session cart key (e.g., "22" or "22_15")
+                      For anonymous users: session cart key
+                      (e.g., "22" or "22_15")
 
     Returns:
         JsonResponse: Success status with updated cart totals
