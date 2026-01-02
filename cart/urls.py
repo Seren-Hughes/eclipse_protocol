@@ -2,11 +2,11 @@ from django.urls import path
 
 from . import views
 
-app_name = 'cart'
+app_name = "cart"
 
 urlpatterns = [
-    path('', views.cart_view, name='cart'),
-    path('add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
-    path('update/<str:item_id>/', views.update_cart_item, name='update_item'),
-    path('remove/<str:item_id>/', views.remove_from_cart, name='remove_item'),
+    path("", views.cart_view, name="cart"),
+    path("add/<int:product_id>/", views.add_to_cart, name="add_to_cart"),
+    path("update/<str:item_id>/", views.update_cart_item, name="update_item"),
+    path("remove/<str:item_id>/", views.remove_from_cart, name="remove_item"),
 ]
