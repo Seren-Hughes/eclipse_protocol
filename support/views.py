@@ -1,7 +1,6 @@
 import traceback
 
 from django.conf import settings
-from django.contrib import messages
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
@@ -56,7 +55,10 @@ def contact(request):
                 "%Y-%m-%d %H:%M:%S"
             ),
             "site_url": request.build_absolute_uri("/").rstrip("/"),
-            "admin_url": f"{settings.SITE_URL.rstrip('/')}/admin/support/contactmessage/{contact_message.id}/change/",
+            "admin_url": (
+                f"{settings.SITE_URL.rstrip('/')}/admin/support/"
+                f"contactmessage/{contact_message.id}/change/"
+            ),
         }
 
         print("=" * 50)

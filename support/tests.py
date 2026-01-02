@@ -1,12 +1,10 @@
-from decimal import Decimal
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 from django.contrib.auth.models import User
 from django.core import mail
 from django.db import transaction
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
-from django.utils import timezone
 
 from .models import ContactMessage
 
@@ -37,7 +35,7 @@ class SupportModelTests(TestCase):
         self.assertIsNotNone(contact_message.updated_at)
 
         # Test string representation
-        expected_str = f"John Doe - Login Issues (New)"
+        expected_str = "John Doe - Login Issues (New)"
         self.assertEqual(str(contact_message), expected_str)
 
         # Test model fields
@@ -90,7 +88,9 @@ class SupportModelTests(TestCase):
             self.assertEqual(contact_message.status, status)
 
     def test_contact_message_ordering(self):
-        """Test ContactMessage objects are ordered by creation date (newest first)."""
+        """
+        Test ContactMessage objects are ordered by creation date (newest)
+        """
         # Create messages in specific order
         message1 = ContactMessage.objects.create(
             name="First User",
@@ -185,7 +185,9 @@ class SupportViewTests(TestCase):
         self.assertTemplateUsed(response, "support/contact.html")
 
     def test_contact_form_submission_creates_message(self):
-        """Test contact form submission creates ContactMessage and sends emails."""
+        """
+        Test contact form submission creates ContactMessage and sends emails.
+        """
         form_data = {
             "name": "Test User",
             "email": "test@example.com",
@@ -220,7 +222,8 @@ class SupportViewTests(TestCase):
 
         # Test admin notification email (check actual recipient)
         admin_email = mail.outbox[1]
-        # The admin email goes to EMAIL_HOST_USER when no ADMINS configured
+        # The admin email goes to EMAIL_HOST_USER when no ADMINS
+        # configured
         self.assertIn("testadmin@testserver.com", admin_email.to)
         self.assertIn("Test User", admin_email.body)
         self.assertIn("technical", admin_email.body.lower())
@@ -293,14 +296,13 @@ class SupportFormValidationTests(TestCase):
     def test_contact_form_missing_required_fields(self):
         """Test contact form handles missing required fields gracefully."""
         # The current view implementation doesn't validate properly
-        # This test documents the current behaviour - it will fail with database error
+        # This test documents the current behaviour - it will fail with
+        # database error
 
         # Use transaction.atomic to handle the IntegrityError properly
         try:
             with transaction.atomic():
-                response = self.client.post(
-                    reverse("support:contact"), data={}
-                )
+                self.client.post(reverse("support:contact"), data={})
             # If we get here, the view unexpectedly succeeded
             self.fail("Expected IntegrityError was not raised")
         except Exception as e:
@@ -466,7 +468,9 @@ class SupportEmailTests(TestCase):
         EMAIL_HOST_USER="fallback@testserver.com",
     )
     def test_admin_email_fallback_to_host_user(self):
-        """Test admin notification falls back to EMAIL_HOST_USER when no ADMINS."""
+        """
+        Test admin notification falls back to EMAIL_HOST_USER when no ADMINS
+        """
         form_data = {
             "name": "Test User",
             "email": "test@example.com",
@@ -637,7 +641,10 @@ class SupportIntegrationTests(TestCase):
             "email": "alice@example.com",
             "category": "account",
             "subject": "Cannot access purchased content",
-            "message": "I purchased the Ultimate Edition yesterday but cannot access the bonus content. My order number is EP12345678.",
+            "message": (
+                "I purchased the Ultimate Edition yesterday but cannot "
+                "access the bonus content. My order number is EP12345678."
+            ),
         }
 
         response = self.client.post(reverse("support:contact"), data=form_data)
