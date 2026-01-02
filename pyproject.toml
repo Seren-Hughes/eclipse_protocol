@@ -1,0 +1,29 @@
+[tool.black]
+line-length = 79
+target-version = ['py312']
+exclude = '''
+/(
+    \.eggs
+  | \.git          
+  | \.venv
+  | _build
+  | migrations
+  | __pycache__
+  | \.pytest_cache
+)/
+'''
+
+skip-string-normalization = false  # Use double quotes 
+preview = false
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 79
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+skip_glob = ["*/migrations/*", "*/__pycache__/*", ".venv/*"]
+known_django = "django"
+known_first_party = ["eclipse_protocol", "accounts", "cart", "catalog", "checkout", "core"]
+sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
