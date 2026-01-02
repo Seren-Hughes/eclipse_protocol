@@ -8,7 +8,7 @@
     background-color: #ffffff;
     justify-content: center;
     align-items: center;
-    gap: 14rem; 
+    gap: 14rem;
     padding: 0.6rem 0.6rem;
 }
 
@@ -17,7 +17,8 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    opacity: 0.4; /* Reduced opacity for inactive steps */
+    /* Reduced opacity for inactive steps */
+    opacity: 0.4;
     transition: opacity 0.3s ease;
     position: relative;
 }
@@ -27,17 +28,19 @@
 }
 
 .step-circle {
-    width: 40px; 
+    width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #f5f5f5; /* Light background for inactive */
+    /* Light background for inactive */
+    background-color: #f5f5f5;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700; 
-    font-size: 1.1rem; 
-    color: #666666; /* Gray text for inactive */
-    margin-bottom: 0.75rem; 
+    font-weight: 700;
+    font-size: 1.1rem;
+    /* Gray text for inactive */
+    color: #666666;
+    margin-bottom: 0.75rem;
     transition: all 0.3s ease;
     position: relative;
 }
@@ -152,7 +155,8 @@
     padding: 0.75rem 1rem;
     font-size: 0.95rem;
     transition: border-color 0.2s ease;
-    appearance: auto; /* Force browser default dropdown arrow */
+    /* Force browser default dropdown arrow */
+    appearance: auto;
     -webkit-appearance: auto;
     -moz-appearance: auto;
 }
@@ -188,7 +192,8 @@ img[src*="flag"] {
     font-size: 0.95rem;
     transition: border-color 0.2s ease;
     height: auto;
-    min-height: 48px; /* Ensure consistent height */
+    /* Ensure consistent height */
+    min-height: 48px;
 }
 
 /* Form Check Styling */
@@ -357,7 +362,8 @@ img[src*="flag"] {
     flex-wrap: wrap;
 }
 
-.platform-badge, .edition-badge {
+.platform-badge,
+.edition-badge {
     background-color: var(--color-accent);
     color: #ffffff;
     padding: 0.1rem 0.4rem;
@@ -439,11 +445,11 @@ img[src*="flag"] {
 
 #order-confirmation {
     color: var(--color-text);
-        font-size: 1.5rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        margin-bottom: 2rem;
-        text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
 /* Review Page Styles */
@@ -661,8 +667,15 @@ img[src*="flag"] {
 }
 
 @keyframes scaleIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .order-confirmation-box {
@@ -844,12 +857,13 @@ img[src*="flag"] {
 
 /* Mobile Responsiveness */
 @media (max-width: 992px) {
+
     .basket-container,
     .order-summary-container {
         position: static;
         margin-top: 1.5rem;
     }
-    
+
     .basket-container {
         margin-bottom: 1.5rem;
     }
@@ -859,23 +873,23 @@ img[src*="flag"] {
     .checkout-progress {
         gap: 1rem;
     }
-    
+
     .step-circle {
         width: 35px;
         height: 35px;
         font-size: 0.9rem;
     }
-    
+
     .step-label {
         font-size: 0.75rem;
     }
-    
+
     .checkout-section,
     .basket-container,
     .order-summary-container {
         padding: 1rem;
     }
-    
+
     .section-header {
         flex-direction: column;
         align-items: flex-start;
@@ -897,7 +911,9 @@ img[src*="flag"] {
         gap: 0.2rem;
     }
 
-    .platform-badge, .edition-badge, .credit-badge {
+    .platform-badge,
+    .edition-badge,
+    .credit-badge {
         font-size: 0.65rem;
         padding: 0.05rem 0.3rem;
     }
@@ -906,13 +922,13 @@ img[src*="flag"] {
         font-size: 1.2rem;
         text-align: center;
     }
-    
+
     .review-basket,
     .sidebar-basket-display {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .basket-icon-large {
         margin-bottom: 0.5rem;
     }
@@ -920,16 +936,16 @@ img[src*="flag"] {
     .order-confirmation-box {
         padding: 1.5rem;
     }
-    
+
     .digital-content-info {
         padding: 1.5rem;
     }
-    
+
     .confirmation-actions {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .confirmation-actions .btn {
         width: 100%;
         max-width: 300px;
