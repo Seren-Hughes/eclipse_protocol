@@ -57,3 +57,71 @@ All pages tested using [W3C Markup Validator](https://validator.w3.org/).
 ¹ **Login Page Language Warning:** W3C usually reports OK but occasionally flags the page as Norwegian due to automatic language detection. The page correctly uses `lang="en-GB"`, `LANGUAGE_CODE = 'en-gb'`, and `LocaleMiddleware` sends `Content-Language: en`. This intermittent issue matches a known validator [issue](https://github.com/validator/validator/issues/321). It mostly occurs on form pages with minimal text.
 
 ![login validation language warning screenshot](docs/images/test-screenshots/login-language-warning-html-validation.png)
+
+## 2. CSS Validation
+
+## CSS Validation
+
+All CSS files tested using [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/).
+
+Files tested:
+- `accounts.css`
+- `admin.css`
+- `base.css`
+- `billing.css`
+- `components.css`
+- `layout.css`
+- `products.css`
+- `variables.css`
+
+All CSS files passed validation. 
+
+![css validation screenshot](docs/images/test-screenshots/css-validation.png)
+
+## 3. JavaScript Validation
+
+## JavaScript Validation
+
+All JavaScript files tested using **ESLint** with configuration defined in `eslint.config.js`.
+
+### ESLint Configuration
+- Configuration file: [`eslint.config.js`](eslint.config.js)
+- Environment: Browser globals with ES2024+ support
+- Rules: Code quality, best practices, and consistent styling
+- Special handling for Django template variables (`stripePublicKey`, `clientSecret`)
+- Allows functions exposed globally for HTML event handlers
+
+### Validation Commands
+```bash
+
+# individual file testing
+eslint static/js/filename.js
+
+# all JavaScript files testing
+eslint static/js/
+
+# individual file formatting/fixing
+eslint static/js/filename.js --fix
+
+# all JavaScript files formatting/fixing
+eslint static/js/ --fix
+```
+
+### Results
+No errors found. Minor warnings for intentionally unused variables that serve specific purposes:
+- Functions exposed to global scope for HTML onclick handlers (`copyKey`, `addToCart`, `showToast`)
+- Parameters prefixed with underscore indicating intentional non-usage (`_keyCode`)
+- Functions that may be called by other scripts or event handlers (`updateCartItem`)
+
+| File | Status | ESLint Screenshot | 
+|------|--------|-------------------|
+| `carousel.js` | ✅ | ![carousel eslint screenshot](docs/images/test-screenshots/eslint-carousel.png) |  
+| `cart.js` | ✅ | ![cart eslint screenshot](docs/images/test-screenshots/eslint-cart.png) |  
+| `currency-selection.js` | ✅ | ![currency selection eslint screenshot](docs/images/test-screenshots/eslint-currency-selection.png) |  
+| `edition-selection.js` | ✅ | ![edition selection eslint screenshot](docs/images/test-screenshots/eslint-edition-selection.png) |  
+| `stripe-elements.js` | ✅ | ![stripe elements eslint screenshot](docs/images/test-screenshots/eslint-stripe-elements.png) |  
+| `utilities.js` | ✅ | ![utilities eslint screenshot](docs/images/test-screenshots/eslint-utilities.png) |  
+| `wishlist.js` | ✅ | ![wishlist eslint screenshot](docs/images/test-screenshots/eslint-wishlist.png) |  
+
+
+
