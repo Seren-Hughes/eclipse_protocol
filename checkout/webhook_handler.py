@@ -1,11 +1,14 @@
-from django.http import HttpResponse
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.conf import settings
-from .models import Order, OrderItem, LicenseKey
-from catalog.models import Product
-import time
 import json
+import time
+
+from django.conf import settings
+from django.core.mail import send_mail
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+
+from catalog.models import Product
+
+from .models import LicenseKey, Order, OrderItem
 
 
 class StripeWH_Handler:
@@ -24,7 +27,7 @@ class StripeWH_Handler:
         try:
             from django.core.mail import EmailMultiAlternatives
             from django.utils.html import strip_tags
-            
+
             # Build email context with product type flags
             context = {
                 'order': order,

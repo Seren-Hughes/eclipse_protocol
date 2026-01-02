@@ -1,13 +1,17 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.contrib import messages
-from .models import Cart, CartItem
-from catalog.models import Product, DigitalVariant
 from decimal import Decimal
-from .context_processors import cart_contents
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
+
+from catalog.models import DigitalVariant, Product
+
+from .context_processors import cart_contents
+from .models import Cart, CartItem
+
 
 def cart_view(request):
     """

@@ -1,12 +1,14 @@
-from django.test import TestCase, Client, RequestFactory
-from django.contrib.auth.models import User
-from django.urls import reverse
-from decimal import Decimal
 import json
+from decimal import Decimal
 
-from .models import Cart, CartItem
-from catalog.models import Product, DigitalVariant, CurrencyProduct
+from django.contrib.auth.models import User
+from django.test import Client, RequestFactory, TestCase
+from django.urls import reverse
+
+from catalog.models import CurrencyProduct, DigitalVariant, Product
+
 from .context_processors import cart_contents
+from .models import Cart, CartItem
 
 
 class CartModelTests(TestCase):

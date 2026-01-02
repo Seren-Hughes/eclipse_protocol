@@ -1,5 +1,6 @@
 from decimal import Decimal
-from catalog.models import Product, DigitalVariant
+
+from catalog.models import DigitalVariant, Product
 
 
 def cart_contents(request):

@@ -1,8 +1,10 @@
-from django.test import TestCase, Client
 from django.contrib.auth.models import User
+from django.test import Client, TestCase
 from django.urls import reverse
+
+from catalog.models import DigitalVariant, Product, Wishlist
 from checkout.models import Order, OrderItem
-from catalog.models import Product, DigitalVariant, Wishlist
+
 from .models import Address
 
 # run tests = `python manage.py test accounts`
@@ -335,9 +337,11 @@ class OrderDetailTestCase(TestCase):
 
     def test_order_detail_view(self):
         """Order detail returns 200 for owner (render is faked with a real HttpResponse)."""
-        from checkout.models import Order, OrderItem
-        from django.http import HttpResponse
         from unittest.mock import patch
+
+        from django.http import HttpResponse
+
+        from checkout.models import Order, OrderItem
 
         order = Order.objects.create(
             user=self.user,

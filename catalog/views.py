@@ -1,7 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.decorators.csrf import ensure_csrf_cookie
-from .models import Product
 from django.db.models import Q
+from django.shortcuts import get_object_or_404, render
+from django.views.decorators.csrf import ensure_csrf_cookie
+
+from .models import Product
+
 
 # Create your views here.
 def currency_detail(request, product_slug=None):

@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
+import traceback
+
+from django.conf import settings
 from django.contrib import messages
 from django.core.mail import EmailMultiAlternatives
-from django.conf import settings
+from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+
 from .models import ContactMessage
-import traceback
 
 # Create your views here.
 

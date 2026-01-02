@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from datetime import datetime, timedelta
+
 from django.contrib.admin.views.decorators import staff_member_required
-from django.db.models import Sum, Count, Avg
+from django.db.models import Avg, Count, Sum
+from django.shortcuts import render
+
 from catalog.models import Product
 from checkout.models import Order
-from datetime import datetime, timedelta
 
 
 # Create your views here.

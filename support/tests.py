@@ -1,12 +1,12 @@
 from decimal import Decimal
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 
-from django.test import TestCase, Client, override_settings
 from django.contrib.auth.models import User
-from django.urls import reverse
 from django.core import mail
-from django.utils import timezone
 from django.db import transaction
+from django.test import Client, TestCase, override_settings
+from django.urls import reverse
+from django.utils import timezone
 
 from .models import ContactMessage
 

@@ -1,8 +1,8 @@
-from django.contrib import admin
-from django.contrib import messages
-from django.db.models import Count
-from .models import Product, DigitalProduct, CurrencyProduct, DigitalVariant
 from django import forms
+from django.contrib import admin, messages
+from django.db.models import Count
+
+from .models import CurrencyProduct, DigitalProduct, DigitalVariant, Product
 
 # ===== INLINE ADMIN CLASSES =====
 

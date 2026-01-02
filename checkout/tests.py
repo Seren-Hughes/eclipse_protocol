@@ -1,19 +1,20 @@
 import json
 from decimal import Decimal
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 
-from django.test import TestCase, Client
 from django.contrib.auth.models import User
-from django.urls import reverse
-from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
+from django.test import Client, TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 
-from catalog.models import Product, DigitalVariant
-from cart.models import Cart, CartItem
 from accounts.models import Address
-from .models import Order, OrderItem, Payment, LicenseKey
+from cart.models import Cart, CartItem
+from catalog.models import DigitalVariant, Product
+
 from .forms import OrderForm
+from .models import LicenseKey, Order, OrderItem, Payment
 
 
 class CheckoutModelTests(TestCase):

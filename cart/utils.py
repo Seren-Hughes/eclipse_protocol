@@ -1,6 +1,8 @@
 from django.db import transaction
+
+from catalog.models import DigitalVariant, Product
+
 from .models import Cart, CartItem
-from catalog.models import Product, DigitalVariant
 
 
 def migrate_session_cart_to_user(request, user):

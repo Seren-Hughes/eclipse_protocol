@@ -1,16 +1,19 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.urls import reverse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from catalog.models import Wishlist, Product, DigitalVariant
-from checkout.models import Order, LicenseKey
-from .forms import CustomUserCreationForm, CustomAuthenticationForm, AddressForm
-from .models import Address
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from django.views.decorators.http import require_POST
+
 from cart.utils import migrate_session_cart_to_user
+from catalog.models import DigitalVariant, Product, Wishlist
+from checkout.models import LicenseKey, Order
+
+from .forms import (AddressForm, CustomAuthenticationForm,
+                    CustomUserCreationForm)
+from .models import Address
 
 # Create your views here.
 

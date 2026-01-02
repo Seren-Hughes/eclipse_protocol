@@ -1,8 +1,10 @@
-from django.db import models
-from django.contrib.auth.models import User
-from catalog.models import Product, DigitalVariant
-from decimal import Decimal
 import uuid
+from decimal import Decimal
+
+from django.contrib.auth.models import User
+from django.db import models
+
+from catalog.models import DigitalVariant, Product
 
 # Create your models here.
 

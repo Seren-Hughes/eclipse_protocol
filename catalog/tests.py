@@ -1,9 +1,12 @@
-from django.test import TestCase, Client
-from django.contrib.auth.models import User
-from django.urls import reverse
-from django.db import IntegrityError
 from decimal import Decimal
-from .models import Product, DigitalProduct, CurrencyProduct, DigitalVariant, Wishlist
+
+from django.contrib.auth.models import User
+from django.db import IntegrityError
+from django.test import Client, TestCase
+from django.urls import reverse
+
+from .models import (CurrencyProduct, DigitalProduct, DigitalVariant, Product,
+                     Wishlist)
 
 # =============================================================================
 # UNIT TESTS
@@ -713,9 +716,9 @@ class CatalogViewEdgeCaseTests(TestCase):
     def test_currency_detail_view_with_image(self):
         """Test currency_detail view properly handles product images"""
         # Create currency product with image
-        from django.core.files.uploadedfile import SimpleUploadedFile
         from django.core.files.storage import default_storage
-        
+        from django.core.files.uploadedfile import SimpleUploadedFile
+
         # Mock image file
         image_content = b'fake-image-content'
         image_file = SimpleUploadedFile("test.jpg", image_content, content_type="image/jpeg")
@@ -1031,7 +1034,7 @@ class ViewContextTests(TestCase):
     def test_currency_detail_first_product_image_fallback(self):
         """Test currency_detail view falls back to first product image if no specific image set"""
         from django.core.files.uploadedfile import SimpleUploadedFile
-        
+
         # Create first currency product with an image (will be first by price)
         image_file = SimpleUploadedFile("test.jpg", b"fake-content", content_type="image/jpeg")
         currency_with_image = Product.objects.create(
