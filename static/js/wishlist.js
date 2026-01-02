@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     loadWishlistState();
 
     wishlistToggles.forEach(function(toggle) {
-        toggle.addEventListener('click', function (e) {  
+        toggle.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation(); // Prevent event from bubbling up
 
@@ -36,48 +36,48 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch(`/accounts/wishlist/toggle/${productId}/`, {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),
+                    'X-CSRFToken': getCookie('csrftoken')
                 },
                 body: formData
             })
-            .then(response => {
-                if (!response.ok) {
-                    if (response.status === 401 || response.status === 403) {
-                        alert('Please sign in to your account to add items to your wishlist');
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 401 || response.status === 403) {
+                            alert('Please sign in to your account to add items to your wishlist');
+                        }
+                        throw new Error('Wishlist toggle failed');
                     }
-                    throw new Error('Wishlist toggle failed');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
                     // Update UI based on server response
-                    if (data.in_wishlist) {
+                        if (data.in_wishlist) {
                         // Added to wishlist - switch to solid heart
-                        this.classList.add('active');
-                        icon.classList.remove('fa-regular');
-                        icon.classList.add('fa-solid');
-                        this.setAttribute('aria-pressed', 'true');
-                        this.setAttribute('title', 'Remove from wishlist');
-                        this.setAttribute('aria-label', 'Remove from wishlist');
-                    } else {
+                            this.classList.add('active');
+                            icon.classList.remove('fa-regular');
+                            icon.classList.add('fa-solid');
+                            this.setAttribute('aria-pressed', 'true');
+                            this.setAttribute('title', 'Remove from wishlist');
+                            this.setAttribute('aria-label', 'Remove from wishlist');
+                        } else {
                         // Removed from wishlist - switch to regular heart
-                        this.classList.remove('active');
-                        icon.classList.remove('fa-solid');
-                        icon.classList.add('fa-regular');
-                        this.setAttribute('aria-pressed', 'false');
-                        this.setAttribute('title', 'Add to wishlist');
-                        this.setAttribute('aria-label', 'Add to wishlist');
+                            this.classList.remove('active');
+                            icon.classList.remove('fa-solid');
+                            icon.classList.add('fa-regular');
+                            this.setAttribute('aria-pressed', 'false');
+                            this.setAttribute('title', 'Add to wishlist');
+                            this.setAttribute('aria-label', 'Add to wishlist');
+                        }
+
+                        console.log(data.message);
+                    } else {
+                        console.error('Failed to toggle wishlist:', data.message);
                     }
-                    
-                    console.log(data.message);
-                } else {
-                    console.error('Failed to toggle wishlist:', data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
     });
 
@@ -86,11 +86,11 @@ document.addEventListener('DOMContentLoaded', function () {
     removeButtons.forEach(function(button) {
         button.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             const productId = this.dataset.productId;
             const variantId = this.dataset.variantId;
             const wishlistCard = this.closest('.col');
-            
+
             if (!productId) {
                 console.error('No product ID found for remove button');
                 return;
@@ -105,24 +105,24 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch(`/accounts/wishlist/toggle/${productId}/`, {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),
+                    'X-CSRFToken': getCookie('csrftoken')
                 },
                 body: formData
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success && !data.in_wishlist) {
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && !data.in_wishlist) {
                     // Remove the card from the page
-                    wishlistCard.style.animation = 'fadeOut 0.3s ease-out';
-                    setTimeout(() => {
-                        wishlistCard.remove();
-                        updateWishlistCount();
-                    }, 300);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                        wishlistCard.style.animation = 'fadeOut 0.3s ease-out';
+                        setTimeout(() => {
+                            wishlistCard.remove();
+                            updateWishlistCount();
+                        }, 300);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
     });
 
@@ -150,13 +150,13 @@ document.addEventListener('DOMContentLoaded', function () {
 function getCurrentVariantId() {
     const selectedPlatform = document.querySelector('.platform-btn.active')?.dataset.platform;
     const selectedEdition = document.getElementById('editionSelect')?.value;
-    
+
     if (!selectedPlatform || !selectedEdition) return null;
-    
+
     // Find the variant that matches current selection
     const variantData = document.querySelectorAll('#variantData [data-variant-id]');
-    for (let variant of variantData) {
-        if (variant.dataset.platform === selectedPlatform && 
+    for (const variant of variantData) {
+        if (variant.dataset.platform === selectedPlatform &&
             variant.dataset.edition === selectedEdition) {
             return variant.dataset.variantId;
         }
@@ -167,7 +167,7 @@ function getCurrentVariantId() {
 // Load initial wishlist state for all buttons when page loads
 function loadWishlistState() {
     const wishlistToggles = document.querySelectorAll('[data-wishlist-toggle]');
-    
+
     wishlistToggles.forEach(function(toggle) {
         // If not authenticated, ensure icon shows as not active and skip fetch
         if (toggle.dataset.auth !== 'true') {
@@ -183,44 +183,44 @@ function loadWishlistState() {
 
         const productId = toggle.dataset.productId;
         const variantId = toggle.dataset.variantId || getCurrentVariantId();
-        
+
         if (!productId) return;
-        
+
         // Build query string
         let url = `/accounts/wishlist/check/${productId}/`;
         if (variantId) {
             url += `?variant_id=${variantId}`;
         }
-        
+
         // Check if this product/variant is in the user's wishlist
         fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const icon = toggle.querySelector('i.fa-heart');
-                
-                if (data.in_wishlist) {
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const icon = toggle.querySelector('i.fa-heart');
+
+                    if (data.in_wishlist) {
                     // Product is in wishlist - show solid heart
-                    toggle.classList.add('active');
-                    icon.classList.remove('fa-regular');
-                    icon.classList.add('fa-solid');
-                    toggle.setAttribute('aria-pressed', 'true');
-                    toggle.setAttribute('title', 'Remove from wishlist');
-                    toggle.setAttribute('aria-label', 'Remove from wishlist');
-                } else {
+                        toggle.classList.add('active');
+                        icon.classList.remove('fa-regular');
+                        icon.classList.add('fa-solid');
+                        toggle.setAttribute('aria-pressed', 'true');
+                        toggle.setAttribute('title', 'Remove from wishlist');
+                        toggle.setAttribute('aria-label', 'Remove from wishlist');
+                    } else {
                     // Product not in wishlist - show regular heart
-                    toggle.classList.remove('active');
-                    icon.classList.remove('fa-solid');
-                    icon.classList.add('fa-regular');
-                    toggle.setAttribute('aria-pressed', 'false');
-                    toggle.setAttribute('title', 'Add to wishlist');
-                    toggle.setAttribute('aria-label', 'Add to wishlist');
+                        toggle.classList.remove('active');
+                        icon.classList.remove('fa-solid');
+                        icon.classList.add('fa-regular');
+                        toggle.setAttribute('aria-pressed', 'false');
+                        toggle.setAttribute('title', 'Add to wishlist');
+                        toggle.setAttribute('aria-label', 'Add to wishlist');
+                    }
                 }
-            }
-        })
-        .catch(error => {
-            console.error('Error checking wishlist state:', error);
-        });
+            })
+            .catch(error => {
+                console.error('Error checking wishlist state:', error);
+            });
     });
 }
 

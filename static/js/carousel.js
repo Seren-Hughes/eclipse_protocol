@@ -4,24 +4,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const carousel = document.getElementById('currency-carousel') || document.querySelector('.currency-carousel');
     const prevBtn = document.querySelector('.carousel-btn.carousel-prev');
     const nextBtn = document.querySelector('.carousel-btn.carousel-next');
-    
+
     // Exit if carousel elements not found
     if (!carousel || !prevBtn || !nextBtn) return;
-    
+
     // Get all currency pack items
     const items = carousel.querySelectorAll('.currency-pack-item');
     const totalItems = items.length;
-    
+
     // Track current scroll position
     let currentIndex = 0;
-    
+
     /**
      * Get current items per view based on viewport width
      */
     function getItemsPerView() {
         return window.innerWidth >= 992 ? 4 : window.innerWidth >= 768 ? 2 : 1;
     }
-    
+
     /**
      * Get maximum scroll index based on current viewport
      */
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const itemsPerView = getItemsPerView();
         return Math.max(0, totalItems - itemsPerView);
     }
-    
+
     /**
      * Get gap size between items
      */
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const parsed = parseFloat(gapVal);
         return Number.isFinite(parsed) ? parsed : 24;
     }
-    
+
     /**
      * Updates carousel position and button states
      */
@@ -54,15 +54,15 @@ document.addEventListener('DOMContentLoaded', function() {
             nextBtn.disabled = true;
             return;
         }
-        
+
         // Get current max index
         const maxIndex = getMaxIndex();
-        
+
         // Ensure currentIndex doesn't exceed new maxIndex after resize
         if (currentIndex > maxIndex) {
             currentIndex = maxIndex;
         }
-        
+
         // Handle case with no items
         if (items.length === 0) {
             carousel.style.transform = 'none';
@@ -70,20 +70,20 @@ document.addEventListener('DOMContentLoaded', function() {
             nextBtn.disabled = true;
             return;
         }
-        
+
         // Calculate offset based on item width + gap
         const itemWidth = items[0].offsetWidth || 0;
         const gap = getGap();
         const offset = currentIndex * (itemWidth + gap);
-        
+
         // Apply transform to slide carousel
         carousel.style.transform = `translateX(-${offset}px)`;
-        
+
         // Disable buttons at start/end positions
         prevBtn.disabled = currentIndex <= 0;
         nextBtn.disabled = currentIndex >= maxIndex;
     }
-    
+
     /**
      * Navigate to previous card
      */
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCarousel();
         }
     });
-    
+
     /**
      * Navigate to next card
      */
@@ -104,10 +104,10 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCarousel();
         }
     });
-    
+
     // Initialize carousel on page load
     updateCarousel();
-    
+
     /**
      * Reset carousel on window resize to prevent layout issues
      */

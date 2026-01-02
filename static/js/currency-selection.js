@@ -19,8 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedProductId = null;
 
     // cache elements for updating product info and image
-    const productImage = document.querySelector('.product-image img');
-    const fallbackImage = document.querySelector('.fallback-image');
     const productTitle = document.querySelector('.product-title');
     const productImageContainer = document.querySelector('.product-image');
 
@@ -44,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // update url for selected product without reload
             const newUrl = `/products/currency/${productSlug}/`;
             window.history.pushState({
-                productId: selectedProductId, 
+                productId: selectedProductId,
                 productSlug: productSlug,
                 credits: credits,
                 price: price
@@ -137,6 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
         buyNowBtn.disabled = true;
         buyNowBtn.textContent = 'BUY NOW';
         selectedProductId = null;
-    } 
+    }
 });
 // wishlist toggle handled by wishlist.js

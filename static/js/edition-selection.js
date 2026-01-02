@@ -17,16 +17,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const addToCartBtn = document.getElementById('addToCartBtn');
     const wishlistBtn = document.querySelector('.btn-wishlist');
     const priceDisplay = document.querySelector('.price-amount');
-    
+
     // cache image containers
     const productImageContainer = document.querySelector('.product-image');
     const mobileProductImageContainer = document.querySelector('.mobile-product-image');
-    
+
     // cache info containers
     const productSubtitle = document.querySelector('.product-subtitle');
     const mobileProductSubtitle = document.querySelector('.product-subtitle-mobile');
     const descriptionText = document.querySelectorAll('.description-text');
-    
+
     // get variant data from hidden div
     const variantDataElements = document.querySelectorAll('#variantData > div');
     const variantData = Array.from(variantDataElements).map(el => ({
@@ -68,10 +68,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // update images (desktop and mobile)
-        const imgHtml = variant.imageUrl 
+        const imgHtml = variant.imageUrl
             ? `<img src="${variant.imageUrl}" alt="Product" class="img-fluid">`
             : '<div class="fallback-image"><i class="fa-solid fa-gamepad"></i></div>';
-        
+
         if (productImageContainer) {
             productImageContainer.innerHTML = imgHtml;
         }
@@ -126,13 +126,13 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             // remove active from all buttons
             platformButtons.forEach(btn => btn.classList.remove('active'));
-            
+
             // add active to clicked button
             this.classList.add('active');
-            
+
             // update selected platform (will be undefined for PlayStation button)
             selectedPlatform = this.dataset.platform;
-            
+
             // find and display matching variant
             const variant = findVariant(selectedPlatform, selectedEdition);
             updateDisplay(variant);
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (editionSelect) {
         editionSelect.addEventListener('change', function() {
             selectedEdition = this.value;
-            
+
             // find and display matching variant
             const variant = findVariant(selectedPlatform, selectedEdition);
             updateDisplay(variant);
@@ -159,12 +159,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 platformButtons.forEach(btn => {
                     btn.classList.toggle('active', btn.dataset.platform === event.state.platform);
                 });
-                
+
                 // update dropdown
                 if (editionSelect) {
                     editionSelect.value = event.state.edition;
                 }
-                
+
                 // update display
                 selectedPlatform = event.state.platform;
                 selectedEdition = event.state.edition;
