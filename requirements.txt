@@ -17,6 +17,7 @@ djlint==1.36.4
 EditorConfig==0.17.1
 gunicorn==23.0.0
 idna==3.11
+isort==7.0.0
 jmespath==1.0.1
 jsbeautifier==1.15.4
 json5==0.12.1
