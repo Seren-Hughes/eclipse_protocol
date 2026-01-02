@@ -55,11 +55,13 @@ def currency_detail(request, product_slug=None):
 @ensure_csrf_cookie
 def edition_detail(request, product_slug, platform=None, edition=None):
     """
-    display base game edition selection page with platform and edition variants
+    display base game edition selection page
+    with platform and edition variants
 
     supports url patterns:
     - /products/base-game/eclipse-protocol/  (shows default variant)
-    - /products/base-game/eclipse-protocol/pc/standard/  (shows specific variant)
+    - /products/base-game/eclipse-protocol/pc/standard/
+    (shows specific variant)
     """
     # get the base game product
     base_product = get_object_or_404(
@@ -77,7 +79,7 @@ def edition_detail(request, product_slug, platform=None, edition=None):
         # specific variant requested via url
         try:
             selected_variant = variants.get(platform=platform, edition=edition)
-        except:
+        except variants.model.DoesNotExist:
             pass
 
     # if no variant selected or url variant not found, use first available
@@ -97,7 +99,7 @@ def edition_detail(request, product_slug, platform=None, edition=None):
         if variant.platform not in platforms:
             platforms.append(variant.platform)
 
-    # get unique editions preserving desired order (standard, premium, ultimate)
+    # get unique editions preserving desired order
     edition_order = ["standard", "premium", "ultimate"]
     editions = []
     for edition in edition_order:

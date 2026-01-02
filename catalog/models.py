@@ -10,15 +10,16 @@ from django.urls import reverse
 
 class Product(models.Model):
     """
-    Core product model representing all sellable items in the Eclipse Protocol store.
+    Core product model representing all sellable items in Eclipse Protocol.
 
     Acts as the base for all product types:
     - BASE_GAME: Games with platform/edition variants (uses DigitalVariant)
-    - DIGITAL: Simple digital products like DLC (uses DigitalProduct extension)
+    - DIGITAL: Simple digital products like DLC (uses DigitalProduct)
     - CURRENCY: In-game credit packs (uses CurrencyProduct extension)
 
-    Design pattern: This follows the "product with variants" e-commerce pattern
-    where the Product is the catalog item and variants are the purchasable options.
+    Design pattern: This follows the "product with variants" e-commerce
+    pattern where the Product is the catalog item and variants are the
+    purchasable options.
     """
 
     # Product type constants - defines how the product is structured
@@ -209,8 +210,8 @@ class DigitalVariant(models.Model):
     - Different pricing per combination
     - Platform-specific images and descriptions
 
-    This follows the standard e-commerce variant pattern where the parent Product
-    is the catalog item and variants are the actual purchasable SKUs.
+    This follows the standard e-commerce variant pattern where the parent
+    Product is the catalog item and variants are the actual purchasable SKUs.
 
     Example: "Eclipse Protocol" base game might have:
     - PC Standard (£19.99)
@@ -256,17 +257,17 @@ class DigitalVariant(models.Model):
         max_length=64,
         blank=True,
         null=True,
-        help_text="Unique identifier - auto-generated from base product SKU",
+        help_text="Unique identifier - auto-generated from base SKU",
     )
     description = models.TextField(
         blank=True,
-        help_text="Edition-specific features (e.g., 'Includes season pass, exclusive skins')",
+        help_text="Edition features (e.g., 'Includes season pass, skins')",
     )
     image = models.ImageField(
         upload_to="variants/",
         blank=True,
         null=True,
-        help_text="Edition-specific image (falls back to product image if empty)",
+        help_text="Edition-specific image (falls back to product image)",
     )
 
     class Meta:
@@ -279,18 +280,20 @@ class DigitalVariant(models.Model):
     def full_description(self):
         """
         Combine base product description with variant-specific details.
-        Used on product pages to show complete information for this variant.
+        Used on product pages to show complete information for variant.
         """
         base_desc = self.product.description
         if self.description:
             edition_name = self.get_edition_display().replace(" Edition", "")
-            return f"{base_desc}\n\n**{edition_name} Edition Includes:**\n{self.description}"
+            edition_header = f"**{edition_name} Edition Includes:**"
+            return f"{base_desc}\n\n{edition_header}\n{self.description}"
         return base_desc
 
     @property
     def effective_image(self):
         """
-        Return variant image if available, otherwise fall back to product image.
+        Return variant image if available,
+        otherwise fall back to product image.
         Ensures every variant has an image for display purposes.
         """
         return self.image if self.image else self.product.image
@@ -308,7 +311,9 @@ class DigitalVariant(models.Model):
         )
 
     def save(self, *args, **kwargs):
-        """Auto-generate variant SKU from base product SKU + platform + edition"""
+        """
+        Auto-generate variant SKU from base product SKU + platform + edition
+        """
         if not self.sku or not self.sku.strip():
             base = self.product.sku or f"EP-{self.product_id}"
             plat = self.platform.upper()
@@ -329,7 +334,9 @@ class DigitalVariant(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.product.name} / {self.get_platform_display()} / {self.get_edition_display()}"
+        platform = self.get_platform_display()
+        edition = self.get_edition_display()
+        return f"{self.product.name} / {platform} / {edition}"
 
 
 class Wishlist(models.Model):
@@ -364,12 +371,14 @@ class Wishlist(models.Model):
 
     class Meta:
         constraints = [
-            # Ensure unique wishlist entries per user/product/variant combination
+            # Ensure unique wishlist entries
+            # per user/product/variant combination
             models.UniqueConstraint(
                 fields=["user", "product", "variant"],
                 name="uniq_wishlist_user_product_variant",
             ),
-            # Ensure unique wishlist entries per user/product when variant is null
+            # Ensure unique wishlist entries per user/product when
+            # variant is null
             models.UniqueConstraint(
                 fields=["user", "product"],
                 condition=Q(variant__isnull=True),
@@ -380,7 +389,12 @@ class Wishlist(models.Model):
 
     def __str__(self):
         if self.variant:
-            return f"{self.user.username} - {self.product.name} ({self.variant.get_platform_display()} - {self.variant.get_edition_display()})"
+            platform = self.variant.get_platform_display()
+            edition = self.variant.get_edition_display()
+            variant_info = f"({platform} - {edition})"
+            username = self.user.username
+            product_name = self.product.name
+            return f"{username} - {product_name} {variant_info}"
         return f"{self.user.username} - {self.product.name}"
 
 
@@ -389,7 +403,8 @@ def create_product_extension(sender, instance, created, **kwargs):
     """
     Auto-create appropriate extension models when a Product is created.
 
-    - CURRENCY products get a CurrencyProduct extension (with 0 credits initially)
+    - CURRENCY products get a CurrencyProduct extension
+      (with 0 credits initially)
     - DIGITAL products get a DigitalProduct extension
     - BASE_GAME products use only DigitalVariant (no auto-created extension)
 

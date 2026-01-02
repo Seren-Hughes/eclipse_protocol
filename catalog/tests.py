@@ -6,7 +6,6 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from .models import (
-    CurrencyProduct,
     DigitalProduct,
     DigitalVariant,
     Product,
@@ -84,7 +83,8 @@ class DigitalVariantUnitTests(TestCase):
         """
         UNIT TEST: Test SKU generation for variants
 
-        Tests the save() method logic that combines base SKU + platform + edition.
+        Tests the save() method logic that combines base SKU + platform +
+        edition.
         """
         variant = DigitalVariant.objects.create(
             product=self.base_game,
@@ -99,7 +99,8 @@ class DigitalVariantUnitTests(TestCase):
         """
         UNIT TEST: Test effective_price property (no override)
 
-        Tests @property method when price_override is None - should return base price.
+        Tests @property method when price_override is None - should return
+        base price.
         """
         variant = DigitalVariant.objects.create(
             product=self.base_game,
@@ -113,7 +114,8 @@ class DigitalVariantUnitTests(TestCase):
         """
         UNIT TEST: Test effective_price property (with override)
 
-        Tests @property method when price_override is set - should return override.
+        Tests @property method when price_override is set - should return
+        override.
         """
         variant = DigitalVariant.objects.create(
             product=self.base_game,
@@ -128,7 +130,8 @@ class DigitalVariantUnitTests(TestCase):
         """
         UNIT TEST: Test full_description property
 
-        Tests the string manipulation logic that combines base + variant descriptions.
+        Tests the string manipulation logic that combines base + variant
+        descriptions.
         """
         variant = DigitalVariant.objects.create(
             product=self.base_game,
@@ -178,7 +181,8 @@ class ProductExtensionTests(TestCase):
         """
         INTEGRATION TEST: Signal creates DigitalProduct extension
 
-        Tests integration between Product creation and DigitalProduct auto-creation.
+        Tests integration between Product creation and DigitalProduct
+        auto-creation.
         """
         product = Product.objects.create(
             name="DLC Pack",
@@ -320,7 +324,8 @@ class ProductAdminTests(TestCase):
         FUNCTIONAL TEST: Admin pages load without crashing
 
         Tests that admin views render correctly - simulates real user clicking
-        through admin interface. Tests Django admin + your admin customizations.
+        through admin interface. Tests Django admin + your admin
+        customizations.
         """
         response = self.client.get("/admin/catalog/product/")
         self.assertEqual(response.status_code, 200)
@@ -401,7 +406,8 @@ class ProductTypeWorkflowTests(TestCase):
         Tests the workflow for creating credit packs - Product creation
         triggers signal, admin updates credit amount, system works end-to-end.
         """
-        # Step 1: Admin creates currency product (signal auto-creates extension)
+        # Step 1: Admin creates currency product
+        # (signal auto-creates extension)
         currency = Product.objects.create(
             name="500 Credits",
             slug="500-credits",
@@ -583,12 +589,12 @@ class CatalogViewTests(TestCase):
 
         # Check context data
         self.assertEqual(response.context["base_product"], self.base_game)
+        # First variant
         self.assertEqual(
             response.context["selected_variant"], self.pc_standard
-        )  # First variant
-        self.assertEqual(
-            len(response.context["variants"]), 3
-        )  # All active variants
+        )
+        # All active variants
+        self.assertEqual(len(response.context["variants"]), 3)
 
         # Check platform and edition organization
         self.assertIn("pc", response.context["variants_by_platform"])
@@ -620,7 +626,9 @@ class CatalogViewTests(TestCase):
         )
 
     def test_edition_detail_view_invalid_variant(self):
-        """Test edition_detail view with invalid platform/edition combination"""
+        """
+        Test edition_detail view with invalid platform/edition combination
+        """
         response = self.client.get(
             reverse(
                 "catalog:edition_detail_variant",
@@ -678,9 +686,8 @@ class CatalogViewTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["query"], "Eclipse")
-        self.assertEqual(
-            response.context["total_count"], 3
-        )  # base_game + 2 currency
+        # base_game + 2 currency
+        self.assertEqual(response.context["total_count"], 3)
 
         # Verify correct products returned
         products = list(response.context["products"])
@@ -801,7 +808,9 @@ class CatalogViewEdgeCaseTests(TestCase):
             default_storage.delete(currency_with_image.image.name)
 
     def test_edition_detail_view_variant_sorting(self):
-        """Test that edition_detail view properly sorts platforms and editions"""
+        """
+        Test that edition_detail view properly sorts platforms and editions
+        """
         base_game = Product.objects.create(
             name="Sort Test Game",
             slug="sort-test-game",
@@ -877,7 +886,8 @@ class ModelConstraintTests(TestCase):
         """
         INTEGRATION TEST: Product SKU uniqueness
 
-        Tests that the SKU generated for each product is unique across all products.
+        Tests that the SKU generated for each product is unique across all
+        products.
         """
         product1 = Product.objects.create(
             name="Game A",
@@ -967,9 +977,8 @@ class SearchEdgeCaseTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["query"], "")
-        self.assertEqual(
-            response.context["total_count"], 0
-        )  # No products match empty query
+        # No products match empty query
+        self.assertEqual(response.context["total_count"], 0)
 
     def test_search_special_characters(self):
         """Test search with special characters in query"""
@@ -1010,8 +1019,8 @@ class ExtensionModelTests(TestCase):
         """
         INTEGRATION TEST: Digital product platform display
 
-        Tests that the platform for a DigitalProduct is correctly set and displayed,
-        especially after being saved with different casing.
+        Tests that the platform for a DigitalProduct is correctly set and
+        displayed, especially after being saved with different casing.
         """
         product = Product.objects.create(
             name="Digital Game",
@@ -1030,9 +1039,8 @@ class ExtensionModelTests(TestCase):
 
         # Refresh from database
         variant.refresh_from_db()
-        self.assertEqual(
-            variant.platform, "pC"
-        )  # Platform stays as entered, no normalization
+        # Platform stays as entered, no normalization
+        self.assertEqual(variant.platform, "pC")
 
     def test_digital_product_display_with_platform_set(self):
         """Test digital product display with platform set"""
@@ -1097,7 +1105,7 @@ class ViewContextTests(TestCase):
         self.assertIn("editions", response.context)
 
     def test_currency_detail_first_product_image_fallback(self):
-        """Test currency_detail view falls back to first product image if no specific image set"""
+        """Test currency_detail view falls back to first product image"""
         from django.core.files.uploadedfile import SimpleUploadedFile
 
         # Create first currency product with an image (will be first by price)
@@ -1114,8 +1122,8 @@ class ViewContextTests(TestCase):
             image=image_file,
         )
 
-        # Create second currency product without image (higher price, so second)
-        currency_without_image = Product.objects.create(
+        # Create second currency product without image
+        Product.objects.create(
             name="500 Credits",
             slug="500-credits-no-image",
             description="Large credit pack without image",

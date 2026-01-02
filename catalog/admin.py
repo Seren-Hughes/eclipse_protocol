@@ -89,7 +89,8 @@ class ProductAdminForm(forms.ModelForm):
 
         if product_type == Product.BASE_GAME and (not price or price <= 0):
             raise forms.ValidationError(
-                "Base game products must have a valid base price for variant pricing calculations."
+                "Base game products must have a valid base price "
+                "for variant pricing calculations."
             )
         return price
 
@@ -232,13 +233,15 @@ class ProductAdmin(admin.ModelAdmin):
             if currency.credit_amount == 0:
                 self.message_user(
                     request,
-                    f"Set credit amount for '{obj.name}' in Currency Product section.",
+                    f"Set credit amount for '{obj.name}' "
+                    f"in Currency Product section.",
                     level=messages.WARNING,
                 )
         except CurrencyProduct.DoesNotExist:
             self.message_user(
                 request,
-                f"Currency extension missing for '{obj.name}'. Check the signal is working.",
+                f"Currency extension missing for '{obj.name}'. "
+                f"Check the signal is working.",
                 level=messages.ERROR,
             )
 
@@ -248,7 +251,8 @@ class ProductAdmin(admin.ModelAdmin):
         if variant_count == 0:
             self.message_user(
                 request,
-                f"Add platform/edition variants for '{obj.name}' in Base Game Variants section.",
+                f"Add platform/edition variants for '{obj.name}' "
+                f"in Base Game Variants section.",
                 level=messages.WARNING,
             )
         else:
@@ -258,7 +262,8 @@ class ProductAdmin(admin.ModelAdmin):
             if active_variants == 0:
                 self.message_user(
                     request,
-                    f"No active variants for '{obj.name}'. Enable at least one variant to sell this product.",
+                    f"No active variants for '{obj.name}'. "
+                    f" Enable at least one variant to sell this product.",
                     level=messages.WARNING,
                 )
 
@@ -277,7 +282,8 @@ class ProductAdmin(admin.ModelAdmin):
         if not digital.platform or not digital.edition:
             self.message_user(
                 request,
-                f"Set platform and edition for '{obj.name}' in Digital Product section.",
+                f"Set platform and edition for '{obj.name}' "
+                f" in Digital Product section.",
                 level=messages.WARNING,
             )
 
@@ -472,7 +478,8 @@ class CurrencyProductAdmin(admin.ModelAdmin):
     )
     search_fields = ("product__name",)
 
-    # Prevent creating products from Currency product panel - use main Product admin instead
+    # Prevent creating products from Currency product panel
+    # - use main Product admin instead
     def has_add_permission(self, request):
         return False
 
