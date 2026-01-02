@@ -27,3 +27,18 @@ skip_glob = ["*/migrations/*", "*/__pycache__/*", ".venv/*"]
 known_django = "django"
 known_first_party = ["eclipse_protocol", "accounts", "cart", "catalog", "checkout", "core"]
 sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+
+[tool.flake8]
+max-line-length = 79
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+    "migrations",
+    ".pytest_cache",
+    "node_modules"
+]
+ignore = [
+    "W503",  # Line break before binary operator (conflicts with Black)
+    "E203",  # Whitespace before ':' (conflicts with Black)
+]
