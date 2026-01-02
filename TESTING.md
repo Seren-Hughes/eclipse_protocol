@@ -1,23 +1,22 @@
 Contents
 
 1. [HTML Validation](#1-html-validation)
-2. CSS Validation
-3. JavaScript Validation
-4. Python Code Quality
+2. [CSS Validation](#2-css-validation)
+3. [JavaScript Validation](#3-javascript-validation)
+4. [Python Code Quality](#4-python-code-quality)
 5. Lighthouse Performance Testing
-6. WAVE Accessibility Testing
-7. Responsiveness Design Testing
-8. User Story Testing
-9. Automated Testing
-10. Manual Testing
+6. Responsiveness Design Testing
+7. User Story Testing
+8. Automated Testing
+9. Manual Testing
 - Navigation Testing
 - Form Testing
 - Defensive Programming Testing
 - Authentication Security Testing
 - Input Validation
-11. AWS S3 Storage Testing
-12. Fixed Issues
-13. Bug Reporting
+10. AWS S3 Storage Testing
+11. Fixed Issues
+12. Bug Reporting
 
 ## 1. HTML Validation
 
@@ -124,4 +123,48 @@ No errors found. Minor warnings for intentionally unused variables that serve sp
 | `wishlist.js` | ✅ | ![wishlist eslint screenshot](docs/images/test-screenshots/eslint-wishlist.png) |  
 
 
+## 4. Python Code Quality
 
+## Python Code Quality
+
+All Python files tested using **Flake8** with configuration defined in `.flake8` file.
+
+### Flake8 Configuration
+- Configuration file: [`.flake8`](.flake8)
+- Line length: 79 characters
+- Excluded directories: migrations, __pycache__, .venv
+- Key rules enforced: PEP 8 compliance, unused imports, line length, indentation
+
+### Code Formatting
+- **Black**: Automatic code formatting with 79-character line length
+- **isort**: Import statement organisation and sorting
+- Configuration: [`pyproject.toml`](pyproject.toml)
+
+Commands used:
+```bash
+# Format all Python files
+black .
+
+# Format individual file
+black path/to/file.py
+
+# Sort imports
+isort .
+
+# Check formatting without changes
+black --check .
+isort --check-only .
+
+# Run Flake8 for code quality checks
+flake8 .
+```
+
+| File | Status | Flake8 Screenshot |
+|------|--------|-------------------|
+| `accounts` | ✅ | ![accounts flake8 screenshot](docs/images/test-screenshots/flake8-accounts.png) |  
+| `cart` | ✅ | ![cart flake8 screenshot](docs/images/test-screenshots/flake8-cart.png) |  
+| `catalog` | ✅ | ![catalog flake8 screenshot](docs/images/test-screenshots/flake8-catalog.png) | |  
+| `checkout` | ✅ | ![checkout flake8 screenshot](docs/images/test-screenshots/flake8-checkout.png) |  
+| `core` | ✅ | ![core flake8 screenshot](docs/images/test-screenshots/flake8-core.png) | 
+| `eclipse_protocol` | ✅ | ![eclipse_protocol flake8 screenshot](docs/images/test-screenshots/flake8-eclipse-protocol.png) |
+| `support` | ✅ | ![support flake8 screenshot](docs/images/test-screenshots/flake8-support.png) |
