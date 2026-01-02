@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 from django.contrib.admin.views.decorators import staff_member_required
-from django.db.models import Avg, Count, Sum
+from django.db.models import Avg, Sum
 from django.shortcuts import render
 
 from catalog.models import Product
