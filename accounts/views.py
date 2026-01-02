@@ -4,12 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
 from django.views.decorators.http import require_POST
 
 from cart.utils import migrate_session_cart_to_user
 from catalog.models import DigitalVariant, Product, Wishlist
-from checkout.models import LicenseKey, Order
+from checkout.models import Order
 
 from .forms import (
     AddressForm,
@@ -177,7 +176,10 @@ def user_login(request):
                 if migration_result["migrated"] > 0:
                     messages.success(
                         request,
-                        f'Welcome back, {user.username}! {migration_result["migrated"]} items from your session have been added to your cart.',
+                        f"Welcome back, {user.username}! "
+                        f'{migration_result["migrated"]} '
+                        f"items from your session "
+                        f"have been added to your cart.",
                     )
                 else:
                     messages.success(
@@ -220,7 +222,9 @@ def signup(request):
             if migration_result["migrated"] > 0:
                 messages.success(
                     request,
-                    f'Welcome to Eclipse Protocol, {user.username}! {migration_result["migrated"]} items have been added to your cart.',
+                    f"Welcome to Eclipse Protocol, {user.username}! "
+                    f'{migration_result["migrated"]} '
+                    f"items have been added to your cart.",
                 )
             else:
                 messages.success(
@@ -243,7 +247,8 @@ def user_logout(request):
         logout(request)
         messages.success(
             request,
-            f"You have been successfully logged out. See you next time, {username}!",
+            f"You have been successfully logged out. "
+            f"See you next time, {username}!",
         )
     return redirect("home")
 
@@ -293,7 +298,9 @@ def toggle_wishlist(request, product_id):
         in_wishlist = False
         message = f"Removed {product.name}"
         if variant:
-            message += f" ({variant.get_platform_display()} - {variant.get_edition_display()})"
+            platform = variant.get_platform_display()
+            edition = variant.get_edition_display()
+            message += f" ({platform} - {edition})"
         message += " from wishlist"
     else:
         # Add to wishlist
@@ -303,7 +310,9 @@ def toggle_wishlist(request, product_id):
         in_wishlist = True
         message = f"Added {product.name}"
         if variant:
-            message += f" ({variant.get_platform_display()} - {variant.get_edition_display()})"
+            platform = variant.get_platform_display()
+            edition = variant.get_edition_display()
+            message += f" ({platform} - {edition})"
         message += " to wishlist"
 
     return JsonResponse(
@@ -331,56 +340,3 @@ def check_wishlist(request, product_id):
     ).exists()
 
     return JsonResponse({"success": True, "in_wishlist": in_wishlist})
-
-
-def signup(request):
-    """Handle user registration with smart redirects."""
-    # Get the next parameter for redirect after signup
-    next_url = request.GET.get("next")
-
-    # Redirect if user is already logged in
-    if request.user.is_authenticated:
-        redirect_url = next_url if next_url else "home"
-        messages.info(request, "You already have an account!")
-        return redirect(redirect_url)
-
-    if request.method == "POST":
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(
-                request,
-                user,
-                backend="accounts.backends.EmailOrUsernameBackend",
-            )
-
-            # Migrate session cart to new user cart
-            migration_result = migrate_session_cart_to_user(request, user)
-            if migration_result["migrated"] > 0:
-                messages.success(
-                    request,
-                    f'Welcome to Eclipse Protocol, {user.username}! {migration_result["migrated"]} items have been added to your cart.',
-                )
-            else:
-                messages.success(
-                    request, f"Welcome to Eclipse Protocol, {user.username}!"
-                )
-
-            redirect_url = next_url if next_url else "home"
-            return redirect(redirect_url)
-    else:
-        form = CustomUserCreationForm()
-
-    return render(request, "accounts/signup.html", {"form": form})
-
-
-def user_logout(request):
-    """Handle user logout with confirmation message."""
-    if request.user.is_authenticated:
-        username = request.user.username
-        logout(request)
-        messages.success(
-            request,
-            f"You have been successfully logged out. See you next time, {username}!",
-        )
-    return redirect("home")

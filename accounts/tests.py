@@ -45,7 +45,8 @@ class AccountViewsTestCase(TestCase):
         Ensure the dashboard/order history redirects anonymous users.
 
         Reminder: use `reverse('accounts:dashboard')` to resolve the URL name.
-        Result should be a 302 redirect to the login page for unauthenticated requests.
+        Result should be a 302 redirect to the login page
+        for unauthenticated requests.
         """
         response = self.client.get(reverse("accounts:dashboard"))
         self.assertEqual(response.status_code, 302)
@@ -107,7 +108,8 @@ class AccountViewsTestCase(TestCase):
         """
         POST valid credentials should authenticate and redirect.
 
-        Reminder: check `response.wsgi_request.user.is_authenticated` for login state.
+        Reminder: check `response.wsgi_request.user.is_authenticated`
+        for login state.
         """
         response = self.client.post(
             reverse("accounts:login"),
@@ -120,7 +122,8 @@ class AccountViewsTestCase(TestCase):
         """
         Invalid credentials should re-render the login form with an error.
 
-        Note: the exact message can change if you customise auth; assert a substring.
+        Note: the exact message can change if you
+        customise auth; assert a substring.
         """
         response = self.client.post(
             reverse("accounts:login"),
@@ -136,7 +139,8 @@ class AccountViewsTestCase(TestCase):
         """
         POSTing the signup form should create a new user and redirect.
 
-        Reminder: use unique usernames/emails to avoid collisions (duplicates of SKUs/Keys) in tests.
+        Reminder: use unique usernames/emails to avoid
+        collisions (duplicates of SKUs/Keys) in tests.
         """
         response = self.client.post(
             reverse("accounts:signup"),
@@ -152,7 +156,8 @@ class AccountViewsTestCase(TestCase):
 
     def test_logout(self):
         """
-        Logout should redirect and subsequent protected pages should require login.
+        Logout should redirect and subsequent protected pages
+        should require login.
         """
         self.client.login(username="testuser", password="testpass123")
         response = self.client.get(reverse("accounts:logout"))
@@ -167,7 +172,8 @@ class AddressManagementTestCase(TestCase):
     """
     Tests for address add/delete flows.
 
-    Reminder: when posting forms, provide all required fields matching your `AddressForm`.
+    Reminder: when posting forms, provide all required
+    fields matching your `AddressForm`.
     """
 
     def setUp(self):
@@ -181,9 +187,11 @@ class AddressManagementTestCase(TestCase):
 
     def test_add_address(self):
         """
-        Posting the add address form should redirect on success and create the Address.
+        Posting the add address form should redirect on success
+        and create the Address.
 
-        If this fails (status 200), inspect `response.context['form'].errors` to see missing fields.
+        If this fails (status 200), inspect
+        `response.context['form'].errors` to see missing fields.
         """
         response = self.client.post(
             reverse("accounts:add_address"),
@@ -289,7 +297,8 @@ class WishlistTestCase(TestCase):
 
     def test_wishlist_page_shows_items(self):
         """
-        Wishlist page should render and include product names for items in the wishlist.
+        Wishlist page should render and include product names
+        for items in the wishlist.
         """
         Wishlist.objects.create(user=self.user, product=self.product)
 
@@ -357,7 +366,9 @@ class OrderDetailTestCase(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_order_detail_view(self):
-        """Order detail returns 200 for owner (render is faked with a real HttpResponse)."""
+        """Order detail returns 200 for owner
+        (render is faked with a real HttpResponse).
+        """
         from unittest.mock import patch
 
         from django.http import HttpResponse
@@ -548,7 +559,9 @@ class AuthenticationEdgeCaseTests(TestCase):
         self.assertEqual(response.url, "/")
 
     def test_signup_with_next_parameter(self):
-        """Test signup redirects to next parameter after successful registration"""
+        """
+        Test signup redirects to next parameter after successful registration
+        """
         response = self.client.post(
             reverse("accounts:signup") + "?next=/checkout/",
             {
@@ -678,7 +691,7 @@ class SavedAddressesTestCase(TestCase):
 
     def test_saved_addresses_with_data(self):
         """Test saved addresses page with addresses"""
-        address1 = Address.objects.create(
+        Address.objects.create(
             user=self.user,
             full_name="Home Address",
             address_line_1="123 Home St",
@@ -688,7 +701,7 @@ class SavedAddressesTestCase(TestCase):
             address_type="billing",
         )
 
-        address2 = Address.objects.create(
+        Address.objects.create(
             user=self.user,
             full_name="Work Address",
             address_line_1="456 Work Ave",
