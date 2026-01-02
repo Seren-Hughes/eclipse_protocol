@@ -3,10 +3,7 @@ import json
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
-from django.utils import timezone
 from django.utils.timezone import now
 
 import stripe
@@ -31,7 +28,8 @@ def checkout(request):
     Payment processing moved to separate step.
     """
 
-    # Get cart contents - handle both authenticated (database) and session carts
+    # Get cart contents -
+    # handle both authenticated (database) and session carts
     if request.user.is_authenticated:
         try:
             db_cart = Cart.objects.get(user=request.user)
@@ -59,9 +57,10 @@ def checkout(request):
 
                 # Add variant info to display name if present
                 if db_item.variant:
-                    item_data[
-                        "display_name"
-                    ] += f" - {db_item.variant.get_platform_display()} {db_item.variant.get_edition_display()}"
+                    item_data["display_name"] += (
+                        f" - {db_item.variant.get_platform_display()} "
+                        f"{db_item.variant.get_edition_display()}"
+                    )
 
                 formatted_cart_items.append(item_data)
                 total += db_item.line_total
@@ -131,7 +130,8 @@ def checkout(request):
         else:
             messages.error(
                 request,
-                "There was an error with your form. Please double check your information.",
+                "There was an error with your form. "
+                "Please double check your information.",
             )
     else:
         # GET request: Show form
@@ -148,8 +148,11 @@ def checkout(request):
             }
         else:
             initial_data = {
-                "full_name": request.user.get_full_name()
-                or f"{request.user.first_name} {request.user.last_name}".strip(),
+                "full_name": (
+                    request.user.get_full_name()
+                    or f"{request.user.first_name} "
+                    f"{request.user.last_name}".strip()
+                ),
                 "email": request.user.email,
             }
         form = OrderForm(initial=initial_data)
@@ -210,9 +213,10 @@ def review_order(request):
                 }
 
                 if db_item.variant:
-                    item_data[
-                        "display_name"
-                    ] += f" - {db_item.variant.get_platform_display()} {db_item.variant.get_edition_display()}"
+                    item_data["display_name"] += (
+                        f" - {db_item.variant.get_platform_display()} "
+                        f"{db_item.variant.get_edition_display()}"
+                    )
 
                 formatted_cart_items.append(item_data)
                 total += db_item.line_total
@@ -290,9 +294,10 @@ def payment(request):
                 }
 
                 if db_item.variant:
-                    item_data[
-                        "display_name"
-                    ] += f" - {db_item.variant.get_platform_display()} {db_item.variant.get_edition_display()}"
+                    item_data["display_name"] += (
+                        f" - {db_item.variant.get_platform_display()} "
+                        f"{db_item.variant.get_edition_display()}"
+                    )
 
                 formatted_cart_items.append(item_data)
                 total += db_item.line_total
@@ -456,8 +461,10 @@ def process_payment(request):
                 0
             ],
             original_cart=json.dumps(cart_snapshot),
-            payment_status=Order.PAYMENT_PAID,  # Set as paid Stripe confirmed payment
-            delivery_status=Order.DELIVERY_SENT,  # digital products instantly delivered
+            # Set as paid Stripe confirmed payment
+            payment_status=Order.PAYMENT_PAID,
+            # digital products instantly delivered
+            delivery_status=Order.DELIVERY_SENT,
         )
 
         # Create order items
@@ -499,7 +506,8 @@ def process_payment(request):
         traceback.print_exc()
         messages.error(
             request,
-            "There was an error processing your order. Please contact support.",
+            "There was an error processing your order. "
+            "Please contact support.",
         )
         return redirect("checkout:payment")
 
@@ -517,7 +525,8 @@ def checkout_success(request, order_number):
 
         messages.success(
             request,
-            f"Order processed successfully! Order number: {order.order_number}. "
+            f"Order processed successfully! "
+            f"Order number: {order.order_number}. "
             f"A confirmation email will be sent to {order.email}.",
         )
 
@@ -536,8 +545,9 @@ def _create_order_items(order, cart_items):
     """
     Create OrderItem records from cart data with product snapshots.
 
-    Preserves product information at time of purchase for order history integrity.
-    This ensures order data remains intact even if products are modified later.
+    Preserves product information at time of purchase
+    for order history integrity.
+    This ensures order data remains intact even if products are modified later
     """
     for cart_item in cart_items:
         product = cart_item["product"]
@@ -546,7 +556,8 @@ def _create_order_items(order, cart_items):
         # Build variant description for order records
         variant_details = ""
         if variant:
-            variant_details = f"{variant.get_platform_display()} {variant.get_edition_display()}"
+            variant_details = f"{variant.get_platform_display()} "
+            f"{variant.get_edition_display()}"
 
         # Capture platform from cart for license key generation
         platform = cart_item.get("platform", "PC")

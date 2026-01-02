@@ -14,7 +14,8 @@ def webhook(request):
     """
     Listen for webhooks from Stripe.
 
-    Verifies webhook signature for security and routes events to appropriate handlers.
+    Verifies webhook signature for security
+    and routes events to appropriate handlers.
     Handles payment confirmations and failures for reliable order processing.
     """
     # Setup Stripe configuration
@@ -36,7 +37,9 @@ def webhook(request):
     handler = StripeWH_Handler(request)
     event_map = {
         "payment_intent.succeeded": handler.handle_payment_intent_succeeded,
-        "payment_intent.payment_failed": handler.handle_payment_intent_payment_failed,
+        "payment_intent.payment_failed": (
+            handler.handle_payment_intent_payment_failed
+        ),
     }
 
     # Execute appropriate handler or use generic fallback

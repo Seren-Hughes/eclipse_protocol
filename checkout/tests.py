@@ -3,8 +3,6 @@ from decimal import Decimal
 from unittest.mock import Mock, patch
 
 from django.contrib.auth.models import User
-from django.contrib.messages.middleware import MessageMiddleware
-from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import Client, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -145,7 +143,10 @@ class CheckoutModelTests(TestCase):
         self.assertTrue(payment.is_successful)
 
         # Test string representation
-        expected_str = f"Payment {payment.transaction_id} - {payment.get_status_display()}"
+        expected_str = (
+            f"Payment {payment.transaction_id} - "
+            f"{payment.get_status_display()}"
+        )
         self.assertEqual(str(payment), expected_str)
 
         # Test order relationship
@@ -337,7 +338,7 @@ class CheckoutViewTests(TestCase):
     def test_checkout_redirects_empty_cart(self):
         """Test checkout redirects when cart is empty."""
         # Create user with empty cart
-        empty_user = User.objects.create_user(
+        User.objects.create_user(
             username="emptyuser",
             email="empty@example.com",
             password="testpass123",
@@ -481,7 +482,7 @@ class CheckoutPaymentTests(TestCase):
         }
         session.save()
 
-        response = self.client.get(reverse("checkout:payment"))
+        self.client.get(reverse("checkout:payment"))
 
         # Verify PaymentIntent was created with correct amount
         mock_payment_intent.assert_called_once()
@@ -491,7 +492,9 @@ class CheckoutPaymentTests(TestCase):
         self.assertIn("user_id", call_kwargs["metadata"])
 
     def test_payment_page_requires_billing_address(self):
-        """Test payment page redirects if no billing address data in session."""
+        """
+        Test payment page redirects if no billing address data in session.
+        """
         self.client.login(username="testuser", password="testpass123")
 
         response = self.client.get(reverse("checkout:payment"))
@@ -652,7 +655,9 @@ class CheckoutFunctionalTests(TestCase):
         self.assertEqual(session["billing_address"]["full_name"], "Test User")
 
     def test_checkout_saves_billing_address_when_requested(self):
-        """Test checkout saves billing address to user account when requested."""
+        """
+        Test checkout saves billing address to user account when requested.
+        """
         self.client.login(username="testuser", password="testpass123")
 
         form_data = {
@@ -665,9 +670,7 @@ class CheckoutFunctionalTests(TestCase):
             "save_address": "on",  # Request to save address
         }
 
-        response = self.client.post(
-            reverse("checkout:checkout"), data=form_data
-        )
+        self.client.post(reverse("checkout:checkout"), data=form_data)
 
         # Verify address was saved
         saved_address = Address.objects.filter(
@@ -880,7 +883,7 @@ class CheckoutStripeIntegrationTests(TestCase):
         }
         session.save()
 
-        response = self.client.get(reverse("checkout:payment"))
+        self.client.get(reverse("checkout:payment"))
 
         # Verify PaymentIntent created with correct settings
         mock_create.assert_called_once()

@@ -1,22 +1,19 @@
-import json
 import time
 
 from django.conf import settings
-from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 
-from catalog.models import Product
-
-from .models import LicenseKey, Order, OrderItem
+from .models import LicenseKey, Order
 
 
 class StripeWH_Handler:
     """
     Handle Stripe webhooks for payment processing and digital fulfillment.
 
-    Provides reliable order processing even if user closes browser during checkout.
-    Handles license key generation and email confirmations automatically.
+    Provides reliable order processing even if user closes browser during
+    checkout. Handles license key generation and email confirmations
+    automatically.
     """
 
     def __init__(self, request):
@@ -26,7 +23,6 @@ class StripeWH_Handler:
         """Send order confirmation email with product-specific messaging."""
         try:
             from django.core.mail import EmailMultiAlternatives
-            from django.utils.html import strip_tags
 
             # Build email context with product type flags
             context = {
@@ -82,7 +78,8 @@ class StripeWH_Handler:
         """
         Handle successful payment webhook from Stripe.
 
-        Locates the order by PaymentIntent ID and processes digital fulfillment.
+        Locates the order by PaymentIntent ID
+        and processes digital fulfillment.
         Includes retry logic for cases where order creation is delayed.
         """
         intent = event.data.object
@@ -107,7 +104,8 @@ class StripeWH_Handler:
         self._send_confirmation_email(order)
 
         return HttpResponse(
-            content=f"Webhook processed successfully for order {order.order_number}",
+            content=f"Webhook processed successfully for order "
+            f"{order.order_number}",
             status=200,
         )
 
@@ -123,7 +121,8 @@ class StripeWH_Handler:
         Process digital product fulfillment based on product types.
 
         - Base games: Generate license keys for platform redemption
-        - Currency: Log credit application (would integrate with game API in production)
+        - Currency: Log credit application (would integrate with game API
+        in production)
         """
         for item in order.items.all():
             if item.product.product_type == "currency":
@@ -135,26 +134,32 @@ class StripeWH_Handler:
         """
         Process in-game currency purchase.
 
-        Portfolio note: In production, this would call the game API to credit
-        the user's account. For demonstration, the transaction is logged.
+        Portfolio note: In production, this would call the game API to
+        credit the user's account. For demonstration, the transaction
+        is logged.
         """
         try:
             currency_product = item.product.currency_details
             credit_amount = currency_product.credit_amount
             print(
-                f"CURRENCY: {credit_amount} credits applied to {order.user.username}'s account"
+                f"CURRENCY: {credit_amount} credits applied to "
+                f"{order.user.username}'s account"
             )
 
             # Production implementation would be:
-            # game_api.add_credits(user_id=order.user.id, amount=credit_amount)
+            # game_api.add_credits(user_id=order.user.id,
+            # amount=credit_amount)
 
-        except Exception as e:
-            print(f"ERROR: Currency processing failed: {e}")
+        except Exception:
+            print("ERROR: Currency processing failed")
 
     def _generate_license_key(self, order, item):
-        """Generate platform-specific license key for base game products."""
+        """
+        Generate platform-specific license key for base game products.
+        """
         try:
-            # Use the platform from the variant if available, otherwise default to PC
+            # Use the platform from the variant if available, otherwise
+            # default to PC
             platform = "PC"  # Default fallback
 
             if item.variant:
@@ -186,7 +191,7 @@ class StripeWH_Handler:
 
             return license_key
 
-        except Exception as e:
+        except Exception:
             return None
 
     def _generate_key_code(self, product, platform):

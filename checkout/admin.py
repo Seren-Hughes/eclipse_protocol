@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import LicenseKey, Order, OrderItem, Payment
+from .models import Order, OrderItem
 
 # Register your models here.
 

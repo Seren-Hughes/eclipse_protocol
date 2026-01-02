@@ -1,5 +1,4 @@
 import uuid
-from decimal import Decimal
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -144,7 +143,10 @@ class OrderItem(models.Model):
 
     def __str__(self):
         if self.variant_details:
-            return f"{self.product_name} - {self.variant_details} x{self.quantity}"
+            return (
+                f"{self.product_name} - {self.variant_details} "
+                f"x{self.quantity}"
+            )
         return f"{self.product_name} x{self.quantity}"
 
     def save(self, *args, **kwargs):
@@ -173,7 +175,8 @@ class Payment(models.Model):
     payment_date = models.DateTimeField(auto_now_add=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 
-    # Stripe payment status tracking (maps directly to Stripe's PaymentIntent status)
+    # Stripe payment status tracking
+    # (maps directly to Stripe's PaymentIntent status)
     REQUIRES_PAYMENT_METHOD = "requires_payment_method"
     REQUIRES_CONFIRMATION = "requires_confirmation"
     REQUIRES_ACTION = "requires_action"
