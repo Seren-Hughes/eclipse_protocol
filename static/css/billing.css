@@ -592,7 +592,7 @@ img[src*="flag"] {
 }
 
 .btn-pay {
-    background-color: var(--color-accent);
+    background-color: #2C7BAF;
     border: none;
     border-radius: 6px;
     color: #ffffff;
@@ -842,7 +842,7 @@ img[src*="flag"] {
 
 .support-link {
     color: var(--color-accent);
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 .support-link:hover {
