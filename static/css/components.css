@@ -39,19 +39,22 @@
 
 /* Add to cart button */
 .btn-add-to-cart {
-    background-color: var(--color-accent);
+    /* slightly darker blue than --color-accent for contrast accessibility */
+    background-color: #2C7BAF;
     border: none;
-    color: #ffffff;
+    color: var(--color-text);
     padding: 1rem;
     font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
     border-radius: 8px;
+    box-shadow: var(--shadow-md);
     transition: background-color 0.2s ease;
 }
 
 .btn-add-to-cart:hover:not(:disabled) {
-    background-color: #6ba3cc;
+    background-color: var(--color-accent);
+    border: none;
 }
 
 .btn-add-to-cart:disabled {

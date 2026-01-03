@@ -364,7 +364,8 @@ img[src*="flag"] {
 
 .platform-badge,
 .edition-badge {
-    background-color: var(--color-accent);
+    /* slightly darker blue than --color-accent for contrast accessibility */
+    background-color: #2C7BAF;
     color: #ffffff;
     padding: 0.1rem 0.4rem;
     border-radius: 10px;
