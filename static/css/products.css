@@ -272,6 +272,7 @@
   border-radius: 8px;
   padding: 2rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
 }
 
 .product-title-main {
@@ -356,8 +357,8 @@
 
 .platform-btn.active {
   border-color: var(--color-accent);
-  background-color: rgba(83, 159, 210, 0.15);
-  color: var(--color-accent);
+  background-color: rgba(83, 159, 210, 0.25);
+  color: var(--color-text);
 }
 
 .platform-btn-external {
@@ -384,7 +385,7 @@
 
 .platform-badge {
   background-color: rgba(83, 159, 210, 0.2);
-  color: var(--color-accent);
+  color: var(--color-text);
 }
 
 .edition-badge {
