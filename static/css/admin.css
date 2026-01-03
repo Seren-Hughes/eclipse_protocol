@@ -31,6 +31,11 @@
     margin-bottom: var(--spacing-sm);
 }
 
+/* Dashboard card small text styling */
+.dashboard-card small {
+    color: var(--color-text) !important;
+}
+
 .metric-value {
     font-size: 2rem;
     font-weight: bold;
@@ -65,23 +70,23 @@
 }
 
 .admin-card .admin-table td {
-    color: var(--color-text);
+    color: var(--color-text) !important;
     border-color: var(--color-background-grey-light);
 }
 
 .admin-card .admin-table-striped tbody tr:nth-of-type(odd) td {
     background-color: #303233;
-    color: var(--color-text);
+    color: var(--color-text) !important;
 }
 
 .admin-card .admin-table-striped tbody tr:nth-of-type(even) td {
     background-color: var(--color-background-grey-dark);
-    color: var(--color-text);
+    color: var(--color-text) !important;
 }
 
 /* Small text in tables */
 .admin-card .admin-table small {
-    color: var(--color-background-grey-light);
+    color: var(--color-text) !important;
 }
 
 /* Badge styling with higher specificity */
@@ -106,20 +111,25 @@
     color: white;
 }
 
-/* Links */
+/* Links with better contrast */
 .admin-link {
-    color: var(--color-accent);
+    color: #87CEEB !important; /* Light sky blue for better contrast */
     text-decoration: none;
 }
 
 .admin-link:hover {
-    color: var(--color-text);
+    color: #ADD8E6 !important; /* Lighter blue on hover */
     text-decoration: underline;
+}
+
+/* Fix text-muted contrast */
+.text-muted {
+    color: #C0C0C0 !important; /* Silver instead of default muted */
 }
 
 /* Amount styling */
 .admin-amount {
-    color: var(--color-accent);
+    color: #87CEEB !important; /* Better contrast blue */
     font-weight: bold;
 }
 
@@ -129,12 +139,13 @@
 
 /* Admin-specific button styles */
 .btn-outline-admin-primary {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
+    background-color: #2C7BAF;
+    border-color: #2C7BAF;
+    color: var(--color-text);
 }
 
 .btn-outline-admin-primary:hover {
-    background-color: var(--color-accent);
-    border-color: var(--color-accent);
-    color: var(--color-background);
+    background-color: #87CEEB; /* Better contrast blue */
+    border-color: #87CEEB;
+    color: #000000; /* Black text on light background */
 }
