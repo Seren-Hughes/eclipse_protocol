@@ -17,8 +17,6 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    /* Reduced opacity for inactive steps */
-    opacity: 0.4;
     transition: opacity 0.3s ease;
     position: relative;
 }
@@ -39,7 +37,7 @@
     font-weight: 700;
     font-size: 1.1rem;
     /* Gray text for inactive */
-    color: #666666;
+    color: #717070;
     margin-bottom: 0.75rem;
     transition: all 0.3s ease;
     position: relative;
@@ -236,7 +234,7 @@ img[src*="flag"] {
 }
 
 .btn-continue {
-    background-color: var(--color-accent);
+    background-color: #2C7BAF;
     border: none;
     border-radius: 6px;
     color: #ffffff;
@@ -379,7 +377,7 @@ img[src*="flag"] {
 }
 
 .credit-badge {
-    background-color: var(--color-accent);
+    background-color: #2C7BAF;
     color: #ffffff;
     padding: 0.1rem 0.4rem;
     border-radius: 10px;

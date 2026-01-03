@@ -695,8 +695,9 @@
 }
 
 .btn-checkout {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
+  /* slightly darker blue than --color-accent for contrast accessibility */
+  background-color: #2C7BAF;
+  border-color: #2C7BAF;
   font-weight: 600;
   padding: 0.75rem;
   text-transform: uppercase;
