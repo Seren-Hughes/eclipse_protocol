@@ -215,8 +215,8 @@
 }
 
 .modal-footer .btn-primary {
-    background-color: var(--color-accent);
-    border-color: var(--color-accent);
+    background-color: #2C7BAF;
+    border-color: #2C7BAF;
 }
 
 .modal-footer .btn-primary:hover {

@@ -104,7 +104,9 @@
                         <button id="addToCartBtn"
                                 class="btn btn-primary btn-add-to-cart w-100 mb-3"
                                 data-product-id="{{ base_product.id }}"
-                                disabled><strong>add to cart</strong></button>
+                                disabled>
+                            <strong>add to cart</strong>
+                        </button>
                         <button type="button"
                                 class="btn btn-outline-secondary btn-wishlist w-100"
                                 data-wishlist-toggle
@@ -162,8 +164,13 @@
                                 aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Get Eclipse Protocol for PlayStation now!</p>
-                        <p>You will be redirected to the PlayStation Store to complete your purchase.</p>
+                        <p>
+                            <strong>Ready to play Eclipse Protocol on PlayStation?</strong>
+                        </p>
+                        <p>
+                            Due to Sony's policies, we cannot sell Playstation licenses directly.
+                            We'll redirect you to the official PlayStation Store to complete your purchase securely.
+                        </p>
                     </div>
                     <div class="modal-footer border-top-0 justify-content-center gap-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -171,7 +178,10 @@
                            href="{{ playstation_store_url }}"
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="btn btn-primary">Buy now</a>
+                           class="btn btn-primary">Buy on PlayStation<i class="fa-solid fa-arrow-up-right-from-square"
+   style="font-size: 0.60rem;
+          margin-left: 0.3rem;
+          vertical-align: top"></i></a>
                     </div>
                 </div>
             </div>
