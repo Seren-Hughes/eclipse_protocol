@@ -37,9 +37,9 @@
 }
 
 .account-nav .nav-link.active {
-    background: var(--color-accent);
+    background: #2C7BAF;
     color: white;
-    border-color: var(--color-accent);
+    border-color: #2C7BAF;
 }
 
 /* Page Title */
@@ -416,8 +416,8 @@
 }
 
 .pagination .page-item.active .page-link {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
+    background: #2C7BAF;
+    border-color: #2C7BAF;
     color: white;
 }
 
@@ -460,7 +460,7 @@
 }
 
 .type-badge.type-billing {
-    background: var(--color-accent);
+    background: #2C7BAF;
     color: white;
 }
 
@@ -487,6 +487,18 @@
 .address-footer {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 1rem;
+}
+
+/* Style for the "Back to Addresses" button in section-header */
+.section-header .btn-outline-secondary {
+    color: white !important;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.section-header .btn-outline-secondary:hover {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* ====================================*/
