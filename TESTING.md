@@ -6,7 +6,7 @@ Contents
 4. [Python Code Quality](#4-python-code-quality)
 5. [Lighthouse Performance Testing](#5-lighthouse-performance-testing)
 6. [Responsiveness Design Testing](#6-responsiveness-design-testing)
-7. User Story Testing
+7. [User Story Testing](#7-user-story-testing)
 8. Automated Testing
 9. Manual Testing
 - Navigation Testing
@@ -333,4 +333,169 @@ All pages tested across various screen sizes and devices to ensure responsive de
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
 | ![404 error page desktop screenshot](docs/images/responsiveness-screenshots/desktop-404-chrome.png) | ![404 error page tablet screenshot](docs/images/responsiveness-screenshots/tablet-404.png) | ![404 error page tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-404.png) | ![404 error page mobile screenshot](docs/images/responsiveness-screenshots/mobile-404.png) | ![404 error page mobile landscape screenshot](docs/images/responsiveness-screenshots/mobile-landscape-404.png) |
+
+## 7. User Story Testing
+
+User story testing conducted to ensure all features meet specified requirements and function as intended. Each user story tested individually with documented results according to acceptance criteria from [GitHub Project Board](https://github.com/users/Seren-Hughes/projects/9).
+
+### Theme 1: Digital Storefront
+
+#### Epic 1.1: Browse & Discover Digital Products
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 1.1.1 | As a customer, I want to browse all available digital products (base game, DLC, credits etc.) so I can see what's available for my platform. | 1. Navigate to home page<br>2. View product listings<br>3. Check all product types are displayed | All digital products visible with clear categorisation | ✅ Products displayed correctly by type | ✅ PASS | Site shows currency packs and game editions |
+| 1.1.2 | As a customer, I want to filter digital items by platform (Steam, Xbox, Nintendo, PlayStation) so I only see compatible content. | 1. Access product filtering<br>2. Select platform filter<br>3. Verify results match platform | Only platform-compatible products shown | ⏸️ Not implemented in MVP | ⏸️ Deferred | _Should have_ priority for phase 2 development |
+| 1.1.3 | As a customer, I want to sort or filter by relevance or price so I can easily find what I want. | 1. Access sorting options<br>2. Sort by price<br>3. Verify correct order | Products sorted according to selected criteria | ⏸️ Not implemented in MVP | ⏸️ Deferred | _Should have_ priority for phase 2 development |
+
+#### Epic 1.2: Product Details
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 1.2.1 | As a customer, I want to view detailed product pages with descriptions, editions, prices, and platform options so I can make informed decisions. | 1. Click on product<br>2. Review product detail page<br>3. Check all information present | Complete product information displayed | ✅ All details shown clearly | ✅ PASS | Detailed product pages include descriptions, pricing, and platform options |
+| 1.2.2 | As a customer, I want to see information on delivery method (redeemable key or automatic activation) before purchase. | 1. View product details<br>2. Check delivery method information<br>3. Verify clarity before purchase | Delivery method clearly indicated | ✅ Delivery method specified | ✅ PASS | License key delivery method clearly stated |
+
+#### Epic 1.3: Product Management (Admin)
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 1.3.1 | As a site admin, I want to create, edit, and delete product listings so I can manage the catalogue easily. | 1. Log in as admin<br>2. Access Django admin<br>3. Create/edit/delete products<br>4. Verify changes reflect on site | Product CRUD operations work correctly | ✅ Admin management functional | ✅ PASS | Full CRUD functionality available in Django admin |
+
+### Theme 2: Digital Checkout & Delivery
+
+#### Epic 2.1: Purchase & Payment
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 2.1.1 | As a customer, I want to add digital items to my basket and securely purchase them so I can access them in my account. | 1. Add items to cart<br>2. Proceed to checkout<br>3. Complete payment<br>4. Check account for items | Items successfully added to cart and purchased | ✅ Cart and checkout functionality works | ✅ PASS | Full shopping cart and secure checkout implemented |
+| 2.1.2 | As a customer, I want to view an order summary and confirm before paying. | 1. Add items to cart<br>2. Proceed to checkout<br>3. Review order summary<br>4. Confirm before payment | Clear order summary with confirmation step | ✅ Order review step present | ✅ PASS | Order review page implemented before payment |
+
+#### Epic 2.2: Delivery & Key Management
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 2.2.1 | As a customer, I want my digital key or credits to be automatically applied to my account and emailed after purchase. | 1. Complete purchase<br>2. Check email for confirmation<br>3. Check account dashboard<br>4. Verify keys/credits delivered | Digital items delivered automatically with email confirmation | ✅ Automatic delivery works | ✅ PASS | License keys generated and emailed automatically |
+
+#### Epic 2.3: Order History
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 2.3.1 | As a customer, I want to view my order history with product names, dates, and total amounts so I can track past purchases. | 1. Log into account<br>2. Navigate to order history<br>3. Review past orders<br>4. Verify details are complete | Complete order history with all relevant details | ✅ Order history page functional | ✅ PASS | Comprehensive order history in account dashboard |
+
+#### Epic 2.4: License Management (Admin)
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 2.4.1 | As a site admin, I want to manage license key generation and mark keys as redeemed so availability stays accurate. | 1. Log in as admin<br>2. Access license key management<br>3. View key generation<br>4. Check redemption tracking | License keys managed effectively by admin | ✅ Admin license management works | ✅ PASS | License key management available in Django admin |
+
+### Theme 3: Merchandise Store
+
+#### Epic 3.1: Browse & Purchase Merchandise
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 3.1.1 | As a customer, I want to browse official merchandise (t-shirts, hoodies, mugs) so I can support the brand I enjoy. | 1. Navigate to merchandise section<br>2. Browse available items<br>3. View product details | Merchandise products clearly displayed | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Could Have_ priority - planned for Phase 3 |
+
+#### Epic 3.2: Checkout & Delivery
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 3.2.1 | As a customer, I want to add items to my basket, enter my shipping details, and select delivery options so I can receive my order. | 1. Add merchandise to cart<br>2. Enter shipping details<br>3. Select delivery options<br>4. Complete order | Physical goods checkout process works | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Could Have_ priority - planned for Phase 3 |
+| 3.2.2 | As a customer, I want to choose between standard and express shipping to control delivery time and cost. | 1. Add physical items to cart<br>2. View shipping options<br>3. Select preferred shipping<br>4. Verify cost calculation | Multiple shipping options available with pricing | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Could Have_ priority - planned for Phase 3 |
+
+#### Epic 3.3: Admin Fulfilment
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 3.3.1 | As a site admin, I want to update stock levels and mark orders as shipped so customers stay informed. | 1. Log in as admin<br>2. Access order management<br>3. Update order status<br>4. Verify customer notification | Stock and shipping management functional | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Could Have_ priority - planned for Phase 3 |
+| 3.3.2 | As a customer, I want to choose between standard and express shipping to control delivery time and cost. | 1. Add physical items to cart<br>2. View shipping options<br>3. Select preferred shipping<br>4. Verify cost calculation | Multiple shipping options available with pricing | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Could Have_ priority - planned for Phase 3 |
+
+### Theme 4: Accounts & Authentication
+
+#### Epic 4.1: Player Accounts
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 4.1.1 | As a customer, I want to register and log in with my email so I can access purchases and manage my account. | 1. Register new account<br>2. Verify email login<br>3. Access account dashboard<br>4. Manage account settings | User registration and login functional | ✅ Authentication system works | ✅ PASS | Full user authentication with Django Allauth |
+| 4.1.2 | As a customer, I want to save my billing and shipping addresses for faster future checkouts. | 1. Add address to account<br>2. Save address<br>3. Use saved address in checkout<br>4. Verify faster checkout | Saved addresses work for faster checkout | ✅ Address management functional | ✅ PASS | Saved address functionality implemented |
+
+#### Epic 4.2: Admin User Management
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 4.2.1 | As a site admin, I want to view registered users and manage roles so I can maintain store security. | 1. Log in as admin<br>2. Access user management<br>3. View user list<br>4. Manage user roles | Admin user management functional | ✅ User management works | ✅ PASS | Full user management in Django admin |
+
+### Theme 5: Checkout & Payment
+
+#### Epic 5.1: Secure Payments
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 5.1.1 | As a customer, I want to securely pay for items using Stripe so my payment details are protected. | 1. Add items to cart<br>2. Proceed to payment<br>3. Enter payment details<br>4. Complete secure payment | Stripe payment processing works securely | ✅ Stripe integration functional | ✅ PASS | Secure Stripe payment processing implemented |
+| 5.1.2 | As a customer, I want to review my order summary and total cost before finalising payment so I can confirm my purchase. | 1. Add items to cart<br>2. Proceed to checkout<br>3. Review order summary<br>4. Confirm totals before payment | Order review with accurate totals | ✅ Order review works correctly | ✅ PASS | Comprehensive order review before payment |
+
+#### Epic 5.2: Admin Order Oversight
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 5.2.1 | As a site admin, I want to see all orders and their payment statuses so I can troubleshoot and manage sales. | 1. Log in as admin<br>2. Access order management<br>3. View all orders<br>4. Check payment statuses | Complete order oversight for admin | ✅ Admin order management works | ✅ PASS | Full order management in Django admin |
+| 5.2.2 | As a site admin, I want to process refunds for orders directly from the admin panel so I can resolve customer issues efficiently. | 1. Log in as admin<br>2. Access order<br>3. Process refund<br>4. Verify refund completion | Refund processing from admin panel | ⏸️ Basic functionality implemented | ⏸️ DEFERRED | _Should Have priority_ - basic tracking available. Foundation ready to implement full refund processing in Phase 2.  |
+
+### Theme 6: Subscriptions
+
+#### Epic 6.1: Player Subscription Management
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 6.1.1 | As a customer, I want to subscribe to Eclipse+ for monthly credits, DLC access, and perks so I can get ongoing benefits. | 1. Navigate to subscription page<br>2. Select subscription plan<br>3. Complete subscription signup<br>4. Verify benefits access | Subscription system functional with benefits | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Should Have_ priority - planned for Phase 2 |
+| 6.1.2 | As a customer, I want to manage or cancel my subscription from my account dashboard so I remain in control. | 1. Log into account<br>2. Access subscription management<br>3. Modify or cancel subscription<br>4. Verify changes applied | Subscription self-management available | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Should Have_ priority - planned for Phase 2 |
+
+#### Epic 6.2: Admin Subscription Oversight
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 6.2.1 | As a site admin, I want to view current subscribers and renewal statuses so I can manage billing effectively. | 1. Log in as admin<br>2. Access subscription management<br>3. View subscriber list<br>4. Check renewal statuses | Admin subscription oversight functional | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Should Have_ priority - planned for Phase 2 |
+
+### Theme 7: Admin Analytics
+
+#### Epic 7.1: Sales & Performance Insights
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 7.1.1 | As the business owner, I want to see total revenue and best-selling products so I can track performance. | 1. Log in as admin<br>2. Access analytics dashboard<br>3. View revenue metrics<br>4. Check best-selling products | Analytics dashboard with sales insights | ⏸️ Not implemented | ⏸️ DEFERRED | _Won't Have_ priority - future consideration |
+| 7.1.2 | As the business owner, I want to view sales data by platform (Steam, Xbox, PlayStation) so I can adjust marketing strategies. | 1. Access analytics<br>2. Filter by platform<br>3. View platform-specific data<br>4. Analyse marketing insights | Platform-specific analytics available | ⏸️ Not implemented | ⏸️ DEFERRED | _Won't Have_ priority - future consideration |
+
+### Theme 8: Reviews & Community
+
+#### Epic 8.1: Product Reviews
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 8.1.1 | As a customer, I want to leave a rating and review on products I've purchased so I can share my opinion. | 1. Purchase product<br>2. Navigate to product page<br>3. Leave review and rating<br>4. Verify review appears | Review system functional for purchased products | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Could Have_ priority - planned for Phase 3 |
+| 8.1.2 | As a customer, I want to read reviews from other players before purchasing. | 1. Navigate to product page<br>2. View existing reviews<br>3. Read ratings and comments<br>4. Make informed decision | Product reviews visible to all customers | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Could Have_ priority - planned for Phase 3 |
+
+#### Epic 8.2: Admin Review Moderation
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 8.2.1 | As a site admin, I want to moderate or remove inappropriate reviews. | 1. Log in as admin<br>2. Access review management<br>3. Moderate reviews<br>4. Remove inappropriate content | Review moderation tools available | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Could Have_ priority - planned for Phase 3 |
+
+### Theme 9: Newsletter & Marketing
+
+#### Epic 9.1: Newsletter Subscriptions
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 9.1.1 | As a customer, I want to subscribe to a newsletter for exclusive offers and updates. | 1. Find newsletter signup<br>2. Enter email address<br>3. Confirm subscription<br>4. Verify signup confirmation | Newsletter subscription system functional | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Should Have_ priority for Phase 2 |
+
+#### Epic 9.2: Admin Newsletter Management
+
+| Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
+|-----------|------------|------------|-----------------|---------------|--------|-------|
+| 9.2.1 | As a site admin, I want to manage active subscribers so I can send targeted promotions. | 1. Log in as admin<br>2. Access subscriber management<br>3. View subscriber list<br>4. Manage subscriber data | Newsletter management tools available | ⏸️ Not implemented in MVP | ⏸️ DEFERRED | _Should Have_ priority for Phase 2 |
+
+### Summary of Testing Results
+
+Following the comprehensive user story testing, the majority of core functionalities have been successfully implemented and verified. Key features such as product browsing, secure checkout, digital delivery, and user account management have passed all acceptance criteria. Following MoSCoW prioritisation, several 'Should Have' and 'Could Have' features have been deferred to future development phases to ensure timely delivery of the MVP. Overall, the testing phase has confirmed that the digital storefront meets the essential requirements for a functional and user-friendly experience.
+
 

@@ -203,7 +203,7 @@ The epic-based structure allows for flexible expansion as the business evolves. 
 #### Epic 1.1: Browse & Discover Digital Products
 |Story No. |User Story |Story Points |Priority |
 |-------------------|------------------------|----|--------------|
-| 1.1.1	 | As a customer, I want to browse all available digital products (base game, DLC, credits) so I can see what's available for my platform. |	5 |	Must Have |
+| 1.1.1	 | As a customer, I want to browse all available digital products (base game, DLC, credits etc.) so I can see what's available for my platform. |	5 |	Must Have |
 | 1.1.2	 | As a customer, I want to filter digital items by platform (Steam, Xbox, Nintendo, PlayStation) so I only see compatible content. |	3 |	Should Have |
 | 1.1.3	 | As a customer, I want to sort or filter by relevance or price so I can easily find what I want. |	3 |	Should Have |
 
@@ -238,7 +238,7 @@ The epic-based structure allows for flexible expansion as the business evolves. 
 #### Epic 2.4: License Management (Admin)
 | Story No. |	User Story |	Story Points |    Priority |
 |-----------|-------------|---------------|--------------|
-| 2.4.1	 | As a site admin, I want to manage license key generation and mark keys as redeemed so availability stays accurate. |	5 |	Could Have |
+| 2.4.1	 | As a site admin, I want to manage license key generation and mark keys as redeemed so availability stays accurate. |	5 |	Must Have |
 
 ### Theme 3: Merchandise Store
 #### Epic 3.1: Browse & Purchase Merchandise
