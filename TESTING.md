@@ -722,11 +722,7 @@ Manual testing conducted to verify user interactions, edge cases, and functional
 | **Email Validation** | | | | |
 | Enter invalid email format | Show format error | ✅ Format validation | ✅ PASS | All | Real-time validation |
 | Enter very long email address | Enforce maximum length | ✅ Length validation | ✅ PASS | All | |
-| **Phone Number Validation** | | | | |
-| Enter invalid phone format | Show format error | ✅ Format validation | ✅ PASS | All | International format supported |
-| Enter phone with letters | Show numeric error | ✅ Numeric validation | ✅ PASS | All | |
 | **Address Validation** | | | | |
-| Enter postcode in wrong format | Show format error | ✅ Postcode validation | ✅ PASS | All | Country-specific validation |
 | Leave required address fields empty | Show required field errors | ✅ Required validation | ✅ PASS | All | |
 
 
