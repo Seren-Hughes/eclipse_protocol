@@ -225,116 +225,116 @@ All pages tested across various screen sizes and devices to ensure responsive de
 
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![home desktop screenshot](docs/images/responsiveness-screenshots/desktop-home-firefox.png) |  |  |  |
+| ![home desktop screenshot](docs/images/responsiveness-screenshots/desktop-home-firefox.png) | ![Home tablet screenshot](docs/images/responsiveness-screenshots/tablet-home.png) | ![Home tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-home-landscape.png) |  |  |
 
 ## Signup Page Responsiveness Screenshots
 
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![signup desktop screenshot](docs/images/responsiveness-screenshots/desktop-signup-edge.png) |  |  |  |
+| ![signup desktop screenshot](docs/images/responsiveness-screenshots/desktop-signup-edge.png) | ![Signup tablet screenshot](docs/images/responsiveness-screenshots/tablet-signup.png) | ![Signup tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-signup.png) |  |  |
 
 ## Login Page Responsiveness Screenshots
 
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![login desktop screenshot](docs/images/responsiveness-screenshots/desktop-signin-edge.png) |  |  |  |
+| ![login desktop screenshot](docs/images/responsiveness-screenshots/desktop-signin-edge.png) | ![Login tablet screenshot](docs/images/responsiveness-screenshots/tablet-signin.png) | ![Login tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-signin.png) |  |  |
 
 ## Order History Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![order history desktop screenshot](docs/images/responsiveness-screenshots/desktop-order-history-chrome.png) |  |  |  |
+| ![order history desktop screenshot](docs/images/responsiveness-screenshots/desktop-order-history-chrome.png) | ![Order history tablet screenshot](docs/images/responsiveness-screenshots/tablet-order-history.png) | ![Order history tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-order-history.png) |  |  |
 
 ## Saved Addresses Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![saved addresses desktop screenshot](docs/images/responsiveness-screenshots/desktop-saved-addresses-chrome.png) |  |  |  |
+| ![saved addresses desktop screenshot](docs/images/responsiveness-screenshots/desktop-saved-addresses-chrome.png) | ![Saved addresses tablet screenshot](docs/images/responsiveness-screenshots/tablet-saved-addresses.png) | ![Saved addresses tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-saved-addresses.png) |  |  |
 
 ## Add/Edit Address Form Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![add/edit address form desktop screenshot](docs/images/responsiveness-screenshots/desktop-add-edit-saved-address-chrome.png) |  |  |  |
+| ![add/edit address form desktop screenshot](docs/images/responsiveness-screenshots/desktop-add-edit-saved-address-chrome.png) | ![Add/Edit address form tablet screenshot](docs/images/responsiveness-screenshots/tablet-add-edit-saved-address.png) | ![Add/Edit address form tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-add-edit-saved-address.png) |  |  |
 
 ## Wishlist Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![wishlist desktop screenshot](docs/images/responsiveness-screenshots/desktop-wishlist-chrome.png) |  |  |  |
+| ![wishlist desktop screenshot](docs/images/responsiveness-screenshots/desktop-wishlist-chrome.png) | ![Wishlist tablet screenshot](docs/images/responsiveness-screenshots/tablet-wishlist.png) | ![Wishlist tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-wishlist.png) |  |  |
 
 ## Search Results Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![search results desktop screenshot](docs/images/responsiveness-screenshots/desktop-search-results-safari.png) |  |  |  |
+| ![search results desktop screenshot](docs/images/responsiveness-screenshots/desktop-search-results-safari.png) | ![Search results tablet screenshot](docs/images/responsiveness-screenshots/tablet-search-results.png) | ![Search results tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-search-results.png) |  |  |
 
 ## Currency Detail Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![currency detail desktop screenshot](docs/images/responsiveness-screenshots/desktop-credit-page-firefox.png) |  |  |  |
+| ![currency detail desktop screenshot](docs/images/responsiveness-screenshots/desktop-credit-page-firefox.png) | ![Currency detail tablet screenshot](docs/images/responsiveness-screenshots/tablet-currency-detail.png) | ![Currency detail tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-currency-detail.png) |  |  |
 
 ## Game Edition Detail Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![game edition detail desktop screenshot](docs/images/responsiveness-screenshots/desktop-game-editions-chrome.png) |  |  |  |
+| ![game edition detail desktop screenshot](docs/images/responsiveness-screenshots/desktop-game-editions-chrome.png) | ![Game edition detail tablet screenshot](docs/images/responsiveness-screenshots/tablet-game-edition.png) | ![Game edition detail tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-game-edition.png) |  |  |
 
 ## Cart Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![cart desktop screenshot](docs/images/responsiveness-screenshots/desktop-basket-opera.png) |  |  |  |
+| ![cart desktop screenshot](docs/images/responsiveness-screenshots/desktop-basket-opera.png) | ![Cart tablet screenshot](docs/images/responsiveness-screenshots/tablet-cart.png) | ![Cart tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-cart.png) |  |  |
 
 ## Checkout Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![checkout desktop screenshot](docs/images/responsiveness-screenshots/desktop-checkout-opera.png) |  |  |  |
+| ![checkout desktop screenshot](docs/images/responsiveness-screenshots/desktop-checkout-opera.png) | ![Checkout tablet screenshot](docs/images/responsiveness-screenshots/tablet-checkout.png) | ![Checkout tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-checkout.png) |  |  |
 
 ## Review Order Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![review order desktop screenshot](docs/images/responsiveness-screenshots/desktop-checkout-review-firefox.png) |  |  |  |
+| ![review order desktop screenshot](docs/images/responsiveness-screenshots/desktop-checkout-review-firefox.png) | ![Review order tablet screenshot](docs/images/responsiveness-screenshots/tablet-checkout-review.png) | ![Review order tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-checkout-review.png) |  |  |
 
 ## Payment Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![payment page desktop screenshot](docs/images/responsiveness-screenshots/desktop-payment-safari.png) |  |  |  |
+| ![payment page desktop screenshot](docs/images/responsiveness-screenshots/desktop-payment-safari.png) | ![Payment page tablet screenshot](docs/images/responsiveness-screenshots/tablet-payment.png) | ![Payment page tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-payment.png) |  |  |
 
 ## Order Confirmation Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![order confirmation desktop screenshot](docs/images/responsiveness-screenshots/desktop-order-success-firefox.png) |  |  |  |
+| ![order confirmation desktop screenshot](docs/images/responsiveness-screenshots/desktop-order-success-firefox.png) | ![Order confirmation tablet screenshot](docs/images/responsiveness-screenshots/tablet-order-confirmation.png) | ![Order confirmation tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-order-confirmation.png) |  |  |
 
 ## About Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![about page desktop screenshot](docs/images/responsiveness-screenshots/desktop-about-firefox.png) |  |  |  |
+| ![about page desktop screenshot](docs/images/responsiveness-screenshots/desktop-about-firefox.png) | ![About page tablet screenshot](docs/images/responsiveness-screenshots/tablet-about.png) | ![About page tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-about.png) |  |  |
 
 ## FAQs Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![faqs page desktop screenshot](docs/images/responsiveness-screenshots/desktop-faq-safari.png) |  |  |  |
+| ![faqs page desktop screenshot](docs/images/responsiveness-screenshots/desktop-faq-safari.png) | ![FAQs page tablet screenshot](docs/images/responsiveness-screenshots/tablet-faqs.png) | ![FAQs page tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-faqs.png) |  |  |
 
 ## Contact Support Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![contact support page desktop screenshot](docs/images/responsiveness-screenshots/desktop-contact-support-firefox.png) |  |  |  |
+| ![contact support page desktop screenshot](docs/images/responsiveness-screenshots/desktop-contact-support-firefox.png) | ![Contact support tablet screenshot](docs/images/responsiveness-screenshots/tablet-contact-support.png) | ![Contact support tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-contact-support.png) |  |  |
 
 ## Contact Confirmation Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![contact confirmation page desktop screenshot](docs/images/responsiveness-screenshots/desktop-contact-confirmation-edge.png) |  |  |  |
+| ![contact confirmation page desktop screenshot](docs/images/responsiveness-screenshots/desktop-contact-confirmation-edge.png) | ![Contact confirmation tablet screenshot](docs/images/responsiveness-screenshots/tablet-contact-confirmation.png) | ![Contact confirmation tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-contact-confirmation.png) |  |  |
 
 ## Privacy Policy Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![privacy policy page desktop screenshot](docs/images/responsiveness-screenshots/desktop-privacy-policy-chrome.png) |  |  |  |
+| ![privacy policy page desktop screenshot](docs/images/responsiveness-screenshots/desktop-privacy-policy-chrome.png) | ![Privacy policy tablet screenshot](docs/images/responsiveness-screenshots/tablet-privacy-policy.png) | ![Privacy policy tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-privacy-policy.png) |  |  |
 
 ## Terms and Conditions Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape | 
 |---------|--------|------------------|--------|------------------|
-| ![terms and conditions page desktop screenshot](docs/images/responsiveness-screenshots/desktop-terms-chrome.png) |  |  |  |
+| ![terms and conditions page desktop screenshot](docs/images/responsiveness-screenshots/desktop-terms-chrome.png) | ![Terms and conditions tablet screenshot](docs/images/responsiveness-screenshots/tablet-terms.png) | ![Terms and conditions tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-terms.png) |  |  |
 
 ## 404 Error Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![404 error page desktop screenshot](docs/images/responsiveness-screenshots/desktop-404-chrome.png) |  |  |  |
+| ![404 error page desktop screenshot](docs/images/responsiveness-screenshots/desktop-404-chrome.png) | ![404 error page tablet screenshot](docs/images/responsiveness-screenshots/tablet-404.png) | ![404 error page tablet landscape screenshot](docs/images/responsiveness-screenshots/tablet-landscape-404.png) |  |  |
 
 ## 500 Error Page Responsiveness Screenshots
 | Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
 |---------|--------|------------------|--------|------------------|
-| ![500 error page desktop screenshot](docs/images/responsiveness-screenshots/desktop-500-chrome.png) |  |  |  |
+| ![500 error page desktop screenshot](docs/images/responsiveness-screenshots/desktop-500-chrome.png) | n/a | n/a | n/a | n/a |
