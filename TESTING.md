@@ -499,3 +499,87 @@ User story testing conducted to ensure all features meet specified requirements 
 Following the comprehensive user story testing, the majority of core functionalities have been successfully implemented and verified. Key features such as product browsing, secure checkout, digital delivery, and user account management have passed all acceptance criteria. Following MoSCoW prioritisation, several 'Should Have' and 'Could Have' features have been deferred to future development phases to ensure timely delivery of the MVP. Overall, the testing phase has confirmed that the digital storefront meets the essential requirements for a functional and user-friendly experience.
 
 
+
+## 8. Automated Testing
+
+Automated tests have been implemented using Django's built-in testing framework. These tests cover models, views, and forms to ensure core functionalities work as expected.
+
+### Test Commands
+```bash
+# Run all tests
+python manage.py test
+
+# Run tests for a specific app
+python manage.py test <app_name>
+
+# Run tests with verbose output (description of each test)
+python manage.py test --verbosity=2
+
+# Run specific test class or method
+python manage.py test accounts.tests.TestUserRegistration
+python manage.py test accounts.tests.TestUserRegistration.test_valid_registration
+```
+
+### Coverage Analysis & Reporting
+
+Coverage reports can be generated using the `coverage` package to ensure sufficient test coverage across the codebase. Coverage reports can be generated with:
+
+```bash
+# Run all tests with coverage tracking
+coverage run --source='.' manage.py test
+
+# Generate coverage report in terminal
+coverage report
+
+# Generate detailed coverage report showing missing lines
+coverage report --show-missing
+
+# Generate HTML coverage report with visual line-by-line analysis
+coverage html
+
+# View coverage for specific app
+coverage report --include="accounts/*"
+```
+
+### Coverage Report:
+
+![Coverage Report](docs/images/test-screenshots/eclipse-protocol-coverage-report-040126-13-05-screenshot.png)
+
+### HTML Coverage Report Benefits
+The HTML coverage report (generated with `coverage html`) provides invaluable visual analysis:
+
+- **Line-by-Line Coverage:** Each source file shows exactly which lines are tested (green) and which are missing coverage (red highlighting)
+- **Missing Line Numbers:** Precisely identifies lines needing test coverage (e.g., "Missing: 15, 18, 23-24, 38-39")
+- **Targeted Testing:** Red highlighting makes it immediately clear where to focus testing efforts
+
+Example of missing lines highlighted in red:
+
+![HTML Coverage Report Missing Lines](docs/images/test-screenshots/eclipse-protocol-html-coverage-missing-lines-screenshot.png)
+
+Missing coverage can also be viewed conveniently in the terminal output of `coverage report --show-missing`
+
+### Test Structure Overview
+Tests are organised by Django app following Django best practices:
+
+**Test Organisation:**
+- **Unit Tests:** Model validation, form processing, utility functions
+- **Integration Tests:** View responses, user workflows, payment processing  
+- **Functional Tests:** End-to-end user journeys (cart to checkout completion)
+- **API Tests:** Webhook handling, external service integration
+
+
+### Coverage by Application
+| App | Coverage | Key Areas Tested |
+|-----|----------|------------------|
+| `accounts` | 94% | User registration, profile management, address handling |
+| `cart` | 89% | Cart operations, session management, quantity updates |
+| `catalog` | 91% | Product display, search functionality, filtering |
+| `checkout` | 83% | Payment processing, order creation, Stripe integration |
+| `core` | 88% | Base functionality, utilities, middleware |
+| `support` | 92% | Contact forms, email handling |
+
+
+## Summary of Automated Testing
+
+The coverage of the codebase is currently at 86%, with plans to increase this further in future development phases, prioritising the most critical areas of the application. Tests are run regularly during development to ensure new features and bug fixes do not introduce regressions (_something I learned the hard way_). Future plans include creating a CI/CD pipeline to automate testing on each commit and automated Heroku deployment upon passing tests.
+
