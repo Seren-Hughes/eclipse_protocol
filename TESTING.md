@@ -4,7 +4,7 @@ Contents
 2. [CSS Validation](#2-css-validation)
 3. [JavaScript Validation](#3-javascript-validation)
 4. [Python Code Quality](#4-python-code-quality)
-5. Lighthouse Performance Testing
+5. [Lighthouse Performance Testing](#5-lighthouse-performance-testing)
 6. Responsiveness Design Testing
 7. User Story Testing
 8. Automated Testing
@@ -201,3 +201,140 @@ All pages tested using Google Lighthouse for performance, accessibility, best pr
 | [Privacy Policy Page](https://eclipse-protocol-15d26c9e2a55.herokuapp.com/pages/privacy-policy/) | ![privacy policy page lighthouse desktop screenshot](docs/images/test-screenshots/lighthouse-privacy-policy-desktop.png) | ![privacy policy page lighthouse mobile screenshot](docs/images/test-screenshots/lighthouse-privacy-policy-mobile.png) |  |
 | [Terms and Conditions Page](https://eclipse-protocol-15d26c9e2a55.herokuapp.com/pages/terms-and-conditions/) | ![terms and conditions page lighthouse desktop screenshot](docs/images/test-screenshots/lighthouse-terms-desktop.png) | ![terms and conditions page lighthouse mobile screenshot](docs/images/test-screenshots/lighthouse-terms-mobile.png) |  |
 | [Admin Sales Dashboard](https://eclipse-protocol-15d26c9e2a55.herokuapp.com/admin-dashboard/) | ![admin sales dashboard lighthouse desktop screenshot](docs/images/test-screenshots/lighthouse-admin-dashboard-desktop.png) | ![admin sales dashboard lighthouse mobile screenshot](docs/images/test-screenshots/lighthouse-admin-dashboard-mobile.png) | Staff login required. |
+
+
+## 6. Responsiveness Design Testing
+## Responsiveness Design Testing
+
+All pages tested across various screen sizes and devices to ensure responsive design and optimal user experience. Testing conducted using browser developer tools and physical devices.
+
+**Browsers Tested:**
+- Google Chrome
+- Mozilla Firefox
+- Microsoft Edge
+- Safari
+- Opera
+
+**Devices Tested:**
+- Desktop (various resolutions)
+- Tablets
+- Mobile Phones iOS and Android
+- BrowserStack for cross-browser/device testing
+
+## Home Store Front Page Responsiveness Screenshots
+
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![home desktop screenshot](docs/images/responsiveness-screenshots/desktop-home-firefox.png) |  |  |  |
+
+## Signup Page Responsiveness Screenshots
+
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![signup desktop screenshot](docs/images/responsiveness-screenshots/desktop-signup-edge.png) |  |  |  |
+
+## Login Page Responsiveness Screenshots
+
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![login desktop screenshot](docs/images/responsiveness-screenshots/desktop-signin-edge.png) |  |  |  |
+
+## Order History Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![order history desktop screenshot](docs/images/responsiveness-screenshots/desktop-order-history-chrome.png) |  |  |  |
+
+## Saved Addresses Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![saved addresses desktop screenshot](docs/images/responsiveness-screenshots/desktop-saved-addresses-chrome.png) |  |  |  |
+
+## Add/Edit Address Form Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![add/edit address form desktop screenshot](docs/images/responsiveness-screenshots/desktop-add-edit-saved-address-chrome.png) |  |  |  |
+
+## Wishlist Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![wishlist desktop screenshot](docs/images/responsiveness-screenshots/desktop-wishlist-chrome.png) |  |  |  |
+
+## Search Results Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![search results desktop screenshot](docs/images/responsiveness-screenshots/desktop-search-results-safari.png) |  |  |  |
+
+## Currency Detail Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![currency detail desktop screenshot](docs/images/responsiveness-screenshots/desktop-credit-page-firefox.png) |  |  |  |
+
+## Game Edition Detail Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![game edition detail desktop screenshot](docs/images/responsiveness-screenshots/desktop-game-editions-chrome.png) |  |  |  |
+
+## Cart Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![cart desktop screenshot](docs/images/responsiveness-screenshots/desktop-basket-opera.png) |  |  |  |
+
+## Checkout Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![checkout desktop screenshot](docs/images/responsiveness-screenshots/desktop-checkout-opera.png) |  |  |  |
+
+## Review Order Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![review order desktop screenshot](docs/images/responsiveness-screenshots/desktop-checkout-review-firefox.png) |  |  |  |
+
+## Payment Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![payment page desktop screenshot](docs/images/responsiveness-screenshots/desktop-payment-safari.png) |  |  |  |
+
+## Order Confirmation Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![order confirmation desktop screenshot](docs/images/responsiveness-screenshots/desktop-order-success-firefox.png) |  |  |  |
+
+## About Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![about page desktop screenshot](docs/images/responsiveness-screenshots/desktop-about-firefox.png) |  |  |  |
+
+## FAQs Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![faqs page desktop screenshot](docs/images/responsiveness-screenshots/desktop-faq-safari.png) |  |  |  |
+
+## Contact Support Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![contact support page desktop screenshot](docs/images/responsiveness-screenshots/desktop-contact-support-firefox.png) |  |  |  |
+
+## Contact Confirmation Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![contact confirmation page desktop screenshot](docs/images/responsiveness-screenshots/desktop-contact-confirmation-edge.png) |  |  |  |
+
+## Privacy Policy Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![privacy policy page desktop screenshot](docs/images/responsiveness-screenshots/desktop-privacy-policy-chrome.png) |  |  |  |
+
+## Terms and Conditions Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape | 
+|---------|--------|------------------|--------|------------------|
+| ![terms and conditions page desktop screenshot](docs/images/responsiveness-screenshots/desktop-terms-chrome.png) |  |  |  |
+
+## 404 Error Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![404 error page desktop screenshot](docs/images/responsiveness-screenshots/desktop-404-chrome.png) |  |  |  |
+
+## 500 Error Page Responsiveness Screenshots
+| Desktop | Tablet | Tablet Landscape | Mobile | Mobile Landscape |
+|---------|--------|------------------|--------|------------------|
+| ![500 error page desktop screenshot](docs/images/responsiveness-screenshots/desktop-500-chrome.png) |  |  |  |
