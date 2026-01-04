@@ -9,19 +9,19 @@ Contents
 7. [User Story Testing](#7-user-story-testing)
 8. [Automated Testing](#8-automated-testing)
 9. [Manual Testing](#9-manual-testing)
-- [Navigation Testing](#navigation-testing)
-- [Form Testing](#form-testing)
-- [Session Management Testing](#session-management-testing)
-- [Authentication Security Testing](#authentication-security-testing)
-- [Defensive Programming Testing](#defensive-programming-testing)
-- [Input Validation](#input-validation)
-- [Cart and Checkout Testing](#cart-and-checkout-testing)
-- [Stripe Payment Integration Testing](#stripe-payment-integration-testing)
-- [Product Selection & Cart Validation Testing](#product-selection--cart-validation-testing)
-- [Address Management Testing](#address-management-testing)
-- [Browser Compatibility Testing](#browser-compatibility-testing)
-- [AWS S3 Storage Testing](#aws-s3-storage-testing)
-- [Error Scenario Testing](#error-scenario-testing)
+    - [Navigation Testing](#navigation-testing)
+    - [Form Testing](#form-testing)
+    - [Session Management Testing](#session-management-testing)
+    - [Authentication Security Testing](#authentication-security-testing)
+    - [Defensive Programming Testing](#defensive-programming-testing)
+    - [Input Validation](#input-validation)
+    - [Cart and Checkout Testing](#cart-and-checkout-testing)
+    - [Stripe Payment Integration Testing](#stripe-payment-integration-testing)
+    - [Product Selection & Cart Validation Testing](#product-selection--cart-validation-testing)
+    - [Address Management Testing](#address-management-testing)
+    - [Browser Compatibility Testing](#browser-compatibility-testing)
+    - [AWS S3 Storage Testing](#aws-s3-storage-testing)
+    - [Error Scenario Testing](#error-scenario-testing)
 10. [Known Issues](#10-known-issues)
 11. Fixed Issues
 12. Bug Reporting
@@ -883,6 +883,33 @@ Manual testing conducted to verify user interactions, edge cases, and functional
 | Responsive design | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | Mobile-first approach |
 | Grid layouts | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | Bootstrap grid system |
 | Custom animations | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | CSS transitions/animations |
+
+### AWS S3 Storage Testing
+
+| Test Case | Expected Result | Actual Result | Status | Browser | Notes |
+|-----------|----------------|---------------|--------|---------|-------|
+| **Admin Image Upload** | | | | |
+| Upload product image via Django admin | Image stored in S3 bucket | ✅ Image successfully uploaded to S3 | ✅ PASS | All | AWS credentials configured correctly |
+| **Image Display** | | | | |
+| View product with S3 images on site | Images load correctly from S3 | ✅ Images display correctly | ✅ PASS | All | Fast loading from S3 |
+| Check image URLs | URLs point to S3 bucket domain | ✅ S3 URLs generated correctly | ✅ PASS | All | Proper bucket configuration |
+| Test image accessibility | Images accessible without authentication | ✅ Public read access configured | ✅ PASS | All | Bucket permissions correct |
+| **Image Management** | | | | |
+| Replace existing product image | Old image replaced, new image stored | ✅ Image replacement successful | ✅ PASS | All | No orphaned files in S3 |
+| Delete product with images | Images remain in S3 for reference | ✅ Images preserved in S3 | ✅ PASS | All | Manual cleanup required |
+| **Performance & Reliability** | | | | |
+| Load product pages with S3 images | Fast loading times | ✅ Quick image loading | ✅ PASS | All | CDN benefits evident |
+| Test S3 connectivity during high traffic | Images continue to load | ✅ Reliable S3 performance | ✅ PASS | All | AWS infrastructure robust |
+| Check image caching | Browser caching working correctly | ✅ Images cached appropriately | ✅ PASS | All | Improved repeat load times |
+| **Security Testing** | | | | |
+| Direct S3 URL access | Images accessible via direct URL | ✅ Public read access working | ✅ PASS | All | Appropriate for product images |
+| Admin credentials security | AWS keys stored securely | ✅ Credentials in environment variables | ✅ PASS | All | Not exposed in code |
+| Bucket permissions | Read-only public access for images | ✅ Secure bucket configuration | ✅ PASS | All | Write access restricted to app |
+| **Error Handling** | | | | |
+| S3 service unavailable | Graceful fallback | ✅ Appropriate error handling. All | ✅ PASS | All | Admin notified of upload failures. Site images display fallback content (placeholder icons) |
+| Slow S3 response | Timeout handling | ✅ Reasonable timeout values | ✅ PASS | All | User experience maintained |
+| S3 bucket storage limit | Monitor storage usage | ✅ Storage monitoring active | ✅ PASS | All |  |
+
 
 ### Error Scenario Testing
 
