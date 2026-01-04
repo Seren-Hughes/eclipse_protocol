@@ -23,8 +23,7 @@ Contents
     - [AWS S3 Storage Testing](#aws-s3-storage-testing)
     - [Error Scenario Testing](#error-scenario-testing)
 10. [Known Issues](#10-known-issues)
-11. Fixed Issues
-12. Bug Reporting
+11. [Bug Reporting](#11-bug-reporting)
 
 ## 1. HTML Validation
 
@@ -952,4 +951,8 @@ Extensive manual testing has validated the core functionalities of the Eclipse P
 - ❌ Credit pack validation during wishlist-to-cart transfer
 
 
+## 11. Bug Reporting
 
+While every effort has been made to ensure a robust and error-free application, there may _(will probably)_ be bugs or issues missed - discovered during demonstration use. I welcome any feedback or issue reports to help improve my work and skills. Please report any bugs via the [GitHub Issues page for this repository](https://github.com/Seren-Hughes/eclipse_protocol/issues).
+
+Thank you for checking out my Eclipse Protocol e-commerce project. 🖖👩‍🚀🌒🌌
