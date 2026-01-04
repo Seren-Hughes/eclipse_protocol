@@ -7,14 +7,22 @@ Contents
 5. [Lighthouse Performance Testing](#5-lighthouse-performance-testing)
 6. [Responsiveness Design Testing](#6-responsiveness-design-testing)
 7. [User Story Testing](#7-user-story-testing)
-8. Automated Testing
-9. Manual Testing
-- Navigation Testing
-- Form Testing
-- Defensive Programming Testing
-- Authentication Security Testing
-- Input Validation
-10. AWS S3 Storage Testing
+8. [Automated Testing](#8-automated-testing)
+9. [Manual Testing](#9-manual-testing)
+- [Navigation Testing](#navigation-testing)
+- [Form Testing](#form-testing)
+- [Session Management Testing](#session-management-testing)
+- [Authentication Security Testing](#authentication-security-testing)
+- [Defensive Programming Testing](#defensive-programming-testing)
+- [Input Validation](#input-validation)
+- [Cart and Checkout Testing](#cart-and-checkout-testing)
+- [Stripe Payment Integration Testing](#stripe-payment-integration-testing)
+- [Product Selection & Cart Validation Testing](#product-selection--cart-validation-testing)
+- [Address Management Testing](#address-management-testing)
+- [Browser Compatibility Testing](#browser-compatibility-testing)
+- [AWS S3 Storage Testing](#aws-s3-storage-testing)
+- [Error Scenario Testing](#error-scenario-testing)
+10. [Known Issues](#10-known-issues)
 11. Fixed Issues
 12. Bug Reporting
 
@@ -353,7 +361,7 @@ User story testing conducted to ensure all features meet specified requirements 
 | Story No. | User Story | Test Steps | Expected Result | Actual Result | Status | Notes |
 |-----------|------------|------------|-----------------|---------------|--------|-------|
 | 1.2.1 | As a customer, I want to view detailed product pages with descriptions, editions, prices, and platform options so I can make informed decisions. | 1. Click on product<br>2. Review product detail page<br>3. Check all information present | Complete product information displayed | ✅ All details shown clearly | ✅ PASS | Detailed product pages include descriptions, pricing, and platform options |
-| 1.2.2 | As a customer, I want to see information on delivery method (redeemable key or automatic activation) before purchase. | 1. View product details<br>2. Check delivery method information<br>3. Verify clarity before purchase | Delivery method clearly indicated | ✅ Delivery method specified | ✅ PASS | License key delivery method clearly stated |
+| 1.2.2 | As a customer, I want to see information on delivery method (redeemable key or automatic activation) before purchase. | 1. View product details<br>2. Check delivery method information<br>3. Verify clarity before purchase | Delivery method clearly indicated | ✅ Delivery method specified | ✅ PASS | Licence key delivery method clearly stated |
 
 #### Epic 1.3: Product Management (Admin)
 
@@ -582,4 +590,343 @@ Tests are organised by Django app following Django best practices:
 ## Summary of Automated Testing
 
 The coverage of the codebase is currently at 86%, with plans to increase this further in future development phases, prioritising the most critical areas of the application. Tests are run regularly during development to ensure new features and bug fixes do not introduce regressions (_something I learned the hard way_). Future plans include creating a CI/CD pipeline to automate testing on each commit and automated Heroku deployment upon passing tests.
+
+## 9. Manual Testing
+
+Manual testing conducted to verify user interactions, edge cases, and functionality that requires human validation. Tests performed on multiple browsers and devices to ensure consistent user experience.
+
+### Navigation Testing
+
+| Test Case | Expected Result | Actual Result | Status | Browser | Notes |
+|-----------|----------------|---------------|--------|---------|-------|
+| **Header Navigation** | | | | |
+| Click logo/brand name | Navigate to home page | ✅ Redirects to home | ✅ PASS | All | Consistent across all pages |
+| Click 'Buy Game' | Navigate to game product page | ✅ Redirects to game edition page | ✅ PASS | All | Consistent across all pages |
+| Click 'Buy Credits' | Navigate to credits product page | ✅ Redirects to credits page | ✅ PASS | All | Consistent across all pages |
+| Click "Login" | Show login/signup options. "Account" link visible once logged in. "Login" link becomes "Logout" when logged in. | ✅ Login/signup links visible. Account link appears after login. Logout link replaces Login after login. | ✅ PASS | All |Consistent across all pages |
+| Click "Account" when logged in | Show user menu (Dashboard, Orders, addresses, wishlist) | ✅ User account appears with order history, addresses, wishlist | ✅ PASS | All | |
+| Click "Wishlist" when logged out | Redirect to login page | ✅ Redirects to login | ✅ PASS | All | |
+| Click "Wishlist" when logged in | Navigate to wishlist page | ✅ Wishlist page loads | ✅ PASS | All | Shows saved items |
+| Click "Basket" (shopping cart icon) | Navigate to cart page | ✅ Cart page loads | ✅ PASS | All | Shows item count badge |
+| Click on Search bar | Focus on search input | ✅ Search input focused | ✅ PASS | All | Ready for typing |
+| Enter empty search | Navigate to search results with validation message | ✅ "Please enter a search term" message shown | ✅ PASS | All | |
+| Enter valid search term | Navigate to search results page with relevant products | ✅ Relevant products displayed | ✅ PASS | All | |
+| Enter invalid search term | Navigate to search results with "no results" message | ✅ "No results found" message shown | ✅ PASS | All | |
+| **Footer Navigation** | | | | |
+| Click "About" link | Navigate to about page | ✅ About page loads | ✅ PASS | All | |
+| Click "FAQs" link | Navigate to FAQs page | ✅ FAQs page loads | ✅ PASS | All | |
+| Click "Contact" link | Navigate to contact page | ✅ Contact page loads | ✅ PASS | All | |
+| Click "Privacy Policy" link | Navigate to privacy page | ✅ Privacy page loads | ✅ PASS | All | |
+| Click "Terms & Conditions" link | Navigate to terms page | ✅ Terms page loads | ✅ PASS | All | |
+| Click "Account" link in footer when logged out | Redirect to login page | ✅ Redirects to login | ✅ PASS | All | |
+| Click "Account" link in footer when logged in | Navigate to account dashboard | ✅ Account dashboard loads | ✅ PASS | All | |
+| Click social media icons (Facebook, Instagram, Discord, YouTube) | Open respective social media pages in new tab | ✅ Opens correct social media page | ✅ PASS | All | Links open in new tab |
+| **Browser Navigation** | | | | |
+| Use browser back button from product detail page | Return to previous page (home/search results) | ✅ Returns to previous page | ✅ PASS | All | |
+| Use browser forward button | Navigate forward in history | ✅ Moves forward correctly | ✅ PASS | All | |
+| Use browser refresh on product page | Reload current product page | ✅ Page reloads correctly | ✅ PASS | All | |
+| Select different credit packs on credit page then use back button | Return to previous page (not previous credit selection) | ❌ Goes back through credit pack URLs | ❌ KNOWN ISSUE | All | Each credit selection creates new URL entry in browser history |
+| Select different game editions then use back button | Return to previous page (not previous edition selection) | ❌ Goes back through edition URLs | ❌ KNOWN ISSUE | All | Each edition selection creates new URL entry in browser history |
+| Use browser back button multiple times from credit/edition pages | Navigate through multiple credit/edition selections | ❌ User must click back multiple times | ❌ KNOWN ISSUE | All including mobile device browsers | Poor UX - user expects single back action |
+| Bookmark specific credit pack URL | Direct access to credit pack selection | ✅ Bookmark works correctly | ✅ PASS | All | URLs are functional for direct access |
+| Bookmark specific game edition URL | Direct access to game edition | ✅ Bookmark works correctly | ✅ PASS | All | URLs are functional for direct access |
+
+### Form Testing
+
+| Test Case | Expected Result | Actual Result | Status | Browser | Notes |
+|-----------|----------------|---------------|--------|---------|-------|
+| **User Registration Form** | | | | |
+| Submit with valid data | Account created, user logged in | ✅ Successful registration | ✅ PASS | All |  |
+| Submit with invalid email | Show email validation error | ✅ Error message displayed | ✅ PASS | All | "Enter a valid email address" |
+| Submit with mismatched passwords | Show password mismatch error | ✅ Error message displayed | ✅ PASS | All | Clear error indication |
+| Submit with existing username | Show username exists error | ✅ Error message displayed | ✅ PASS | All | |
+| Submit with empty required fields | Show required field errors | ✅ Multiple errors displayed | ✅ PASS | All | All required fields highlighted |
+| **Login Form** | | | | |
+| Login with valid credentials | User logged in successfully | ✅ Successful login | ✅ PASS | All | Welcome message shown |
+| Login with invalid password | Show invalid credentials error | ✅ Error message displayed | ✅ PASS | All | Generic error for security |
+| Login with email address | Accept email as username | ✅ Email login works | ✅ PASS | All | Custom authentication backend |
+| Login with username | Accept username | ✅ Username login works | ✅ PASS | All | |
+| Navigate to login when already authenticated | Redirect to home with message | ✅ Appropriate redirect | ✅ PASS | All | "You are already logged in!" |
+| Navigate to signup when already authenticated | Redirect to home with message | ✅ Appropriate redirect | ✅ PASS | All | "You already have an account!" |
+| **Contact Form** | | | | |
+| Submit valid support request | Show confirmation, send email | ✅ Confirmation page, email sent | ✅ PASS | All | Admin receives notification |
+| Submit with empty required fields | Show validation errors | ✅ Required field errors | ✅ PASS | All | Form retains entered data |
+| Submit with invalid email | Show email validation error | ✅ Email error displayed | ✅ PASS | All | |
+| **Address Forms** | | | | |
+| Save new address | Address added to account | ✅ Address saved successfully | ✅ PASS | All | Appears in address list |
+| Edit existing address | Changes saved correctly | ✅ Address updated | ✅ PASS | All | |
+| Delete address | Address removed from list | ✅ Address deleted | ✅ PASS | All | Confirmation dialog shown |
+| **Product Search** | | | | |
+| Search with valid terms | Show relevant results | ✅ Accurate search results | ✅ PASS | All | Results sorted by relevance |
+| Search with no results | Show "no results" message | ✅ Appropriate message | ✅ PASS | All | Search suggestions provided |
+| Empty search | Show validation or all products | ✅ Validation message | ✅ PASS | All | |
+
+### Session Management Testing
+
+| Test Case | Expected Result | Actual Result | Status | Browser | Notes |
+|-----------|----------------|---------------|--------|---------|-------|
+| **Guest Cart Persistence** | | | | |
+| Add items to cart (guest), close Eclipse Protocol tab | Cart retains items when returning to site | ✅ Items persist across tab closure | ✅ PASS | All | Proper session cookie management |
+| Add items to cart (guest), refresh/reload page | Cart retains all items after refresh | ✅ Items persist after reload | ✅ PASS | All | Session data maintained in browser |
+| Add items to cart (guest), close browser completely, reopen, return to site | Cart retains items across browser restart | ✅ Items persist across browser sessions | ✅ PASS | All | Session cookies have appropriate expiry |
+| Add items to cart (guest), wait extended period, return | Cart items eventually expire after session timeout | To be tested | PENDING | All |  |
+| **Logged-in vs Guest Cart Behaviour** | | | | |
+| Add items as guest, then log in | Items transfer to user account or merge appropriately (no duplicates!) | ✅ Cart items handled correctly | ✅ PASS | All | Seamless guest-to-user transition |
+| Add items while logged in, log out | Cart behaviour changes to guest session | ✅ Appropriate cart handling | ✅ PASS | All | User-to-guest transition |
+
+### Authentication Security Testing
+
+| Test Case | Expected Result | Actual Result | Status | Browser | Notes |
+|-----------|----------------|---------------|--------|---------|-------|
+| **Access Control** | | | | |
+| Access account dashboard without login | Redirect to login page | ✅ Login redirect | ✅ PASS | All | `?next=` parameter preserved |
+| Access checkout without login | Redirect to login page | ✅ Login redirect | ✅ PASS | All | `?next=` parameter preserved (return to checkout after login) |
+| Access admin areas as regular user | Show Django admin login with authorisation message | ✅ Django admin auth page shown | ✅ PASS | All | "You are authenticated as [username], but are not authorised to access this page" |
+| Access other user's order details | Deny access or show 404 | ✅ Access denied | ✅ PASS | All | |
+| **Session Management** | | | | |
+| Login from multiple tabs | All tabs reflect login state | ✅ Consistent state | ✅ PASS | All | |
+| Logout from one tab | All tabs reflect logout | ✅ Consistent logout | ✅ PASS | All | Session properly cleared |
+| Session timeout (after inactivity) | Require re-authentication | ✅ Session expired | ✅ PASS | All | Django session settings |
+| **Password Security** | | | | |
+| Use weak password during registration | Show password strength error | ✅ Password validation | ✅ PASS | All | Django validators active |
+| Attempt password brute force | Rate limiting or account lockout | ✅ Protection active | ✅ PASS | All | Built-in Django protection |
+
+### Defensive Programming Testing
+
+| Test Case | Expected Result | Actual Result | Status | Browser | Notes |
+|-----------|----------------|---------------|--------|---------|-------|
+| **URL Manipulation** | | | | |
+| Access non-existent product ID | Show 404 page | ✅ Custom 404 page | ✅ PASS | All | User-friendly error page |
+| Access invalid URL paths | Show 404 page | ✅ 404 page displayed | ✅ PASS | All | |
+| Modify cart item ID in URL | Ignore invalid ID or show error | ✅ Invalid ID handled | ✅ PASS | All | |
+| **CSRF Protection** | | | | |
+| Submit form without CSRF token | Show CSRF error | ✅ CSRF validation active | ✅ PASS | All | Django middleware protection |
+| Submit form with invalid CSRF token | Reject form submission | ✅ Submission rejected | ✅ PASS | All | |
+| **Data Validation** | | | | |
+| Submit negative quantity in cart | Reject or set to minimum | ✅ Validation prevents negative | ✅ PASS | All | Minimum quantity enforced |
+| Submit extremely large quantities | Limit to maximum allowed | ✅ Maximum quantity enforced | ✅ PASS | All | |
+| Input script tags in text fields | Sanitise input | ✅ XSS protection active | ✅ PASS | All | Django template escaping |
+| **Error Handling** | | | | |
+| Trigger 500 error (server error) | Show custom 500 page | ✅ Custom error page | ✅ PASS | All | User-friendly message |
+| Database connection error | Graceful degradation | ✅ Error handled gracefully | ✅ PASS | All | Admin notified |
+| **Cart Validation** | | | | |
+| Access checkout page with empty cart | Redirect to home page with "Your cart is empty" message | ✅ Redirects to home with toast message | ✅ PASS | All | Prevents empty checkout attempts |
+| Access checkout review page with empty cart | Redirect to home page with "Your cart is empty" message | ✅ Redirects to home with toast message | ✅ PASS | All | Proper cart validation |
+| Access payment page with empty cart | Redirect to home page with "Your cart is empty" message | ✅ Redirects to home with toast message | ✅ PASS | All | Secure payment protection |
+| Navigate directly to checkout URLs when cart is empty | Prevent access to checkout flow | ✅ Consistent redirection behaviour | ✅ PASS | All | User-friendly error handling |
+
+### Input Validation Testing
+
+| Test Case | Expected Result | Actual Result | Status | Browser | Notes |
+|-----------|----------------|---------------|--------|---------|-------|
+| **Email Validation** | | | | |
+| Enter invalid email format | Show format error | ✅ Format validation | ✅ PASS | All | Real-time validation |
+| Enter very long email address | Enforce maximum length | ✅ Length validation | ✅ PASS | All | |
+| **Phone Number Validation** | | | | |
+| Enter invalid phone format | Show format error | ✅ Format validation | ✅ PASS | All | International format supported |
+| Enter phone with letters | Show numeric error | ✅ Numeric validation | ✅ PASS | All | |
+| **Address Validation** | | | | |
+| Enter postcode in wrong format | Show format error | ✅ Postcode validation | ✅ PASS | All | Country-specific validation |
+| Leave required address fields empty | Show required field errors | ✅ Required validation | ✅ PASS | All | |
+
+
+### Cart & Checkout Testing
+
+| Test Case | Expected Result | Actual Result | Status | Browser | Notes |
+|-----------|----------------|---------------|--------|---------|-------|
+| **Cart Functionality** | | | | |
+| Add product to cart | Product appears in cart | ✅ Product added successfully | ✅ PASS | All | Quantity and variant displayed |
+| Update product quantity | Cart total updates | ✅ Total recalculated | ✅ PASS | All | AJAX update works |
+| Remove product from cart | Product removed, total updates | ✅ Removal successful | ✅ PASS | All | |
+| Add same product multiple times | Quantity increases correctly | ✅ Quantity consolidated | ✅ PASS | All | |
+| **Guest vs Authenticated Cart** | | | | |
+| Add items as guest, then login | Items persist after login | ✅ Cart migration works | ✅ PASS | All | Session cart merged |
+| Add items while logged in | Items persist across sessions | ✅ Cart persistence | ✅ PASS | All | |
+| **Checkout Process** | | | | |
+| Complete checkout with valid data | Order created successfully | ✅ Order completion | ✅ PASS | All | Email confirmation sent |
+| Leave required checkout fields empty | Show validation errors | ✅ Form validation | ✅ PASS | All | |
+| Use saved address in checkout | Address pre-filled correctly | ✅ Address selection works | ✅ PASS | All | |
+| **Payment Integration** | | | | |
+| Enter valid test card details | Payment processed successfully | ✅ Stripe payment works | ✅ PASS | All | Using Stripe test mode |
+| Enter invalid card details | Show payment error | ✅ Error handling works | ✅ PASS | All | User-friendly error messages |
+| Payment network timeout | Graceful error handling | ✅ Timeout handled | ✅ PASS | All | |
+
+### Stripe Payment Integration Testing
+
+| Test Case | Expected Result | Actual Result | Status | Browser | Notes |
+|-----------|----------------|---------------|--------|---------|-------|
+| **Stripe Elements Integration** | | | | |
+| Load payment page | Stripe Elements form loads correctly | ✅ Stripe form displays properly | ✅ PASS | All | Secure iframe integration working |
+| Enter valid test card (4000 0082 6000 0000) | Card accepted, payment processed | ✅ Payment successful | ✅ PASS | All | Test card processes correctly |
+| Enter invalid card number (4000 0000 0000 0002) | Show card declined error | ✅ "Your card was declined" error shown | ✅ PASS | All | Proper error handling |
+| Enter expired card details | Show card expired error | ✅ "Your card has expired" error displayed | ✅ PASS | All | Expiry validation working |
+| Enter insufficient funds card (4000 0000 0000 9995) | Show insufficient funds error | ✅ "Your card has insufficient funds" error | ✅ PASS | All | Fund validation working |
+| **Payment Form Validation** | | | | |
+| Submit payment with empty card number | Show required field error | ✅ "Your card number is incomplete" | ✅ PASS | All | Client-side validation active |
+| Submit with invalid expiry date | Show expiry validation error | ✅ "Your card's expiration date is invalid" | ✅ PASS | All | Date validation working |
+| Submit with invalid CVC | Show CVC validation error | ✅ "Your card's security code is invalid" | ✅ PASS | All | CVC validation active |
+| Enter card number with incorrect format | Auto-format or show error | ✅ Card number auto-formatted correctly | ✅ PASS | All | Input formatting working |
+| **3D Secure Testing** | | | | |
+| Use 3D Secure test card (4000 0027 6000 3184) | Trigger 3D Secure authentication flow | ✅ 3D Secure modal appears | ✅ PASS | All | 3DS integration working. Modal appears correctly (test version) |
+| Complete 3D Secure authentication | Payment processed after authentication | ✅ Payment successful after 3DS | ✅ PASS | All | Full 3DS flow working |
+| Fail 3D Secure authentication | Payment fails gracefully | ✅ Payment declined with clear error | ✅ PASS | All | 3DS failure handling |
+| **Payment Intent Flow** | | | | |
+| Complete successful payment | Payment Intent confirmed, order created | ✅ Order created with payment confirmation | ✅ PASS | All | Full payment flow working |
+| Payment requires additional authentication | Handle SCA (Strong Customer Authentication) | ✅ SCA flow handled correctly | ✅ PASS | All | European SCA compliance |
+| Payment processing timeout | Show appropriate timeout error | ✅ Timeout handled gracefully | ✅ PASS | All | Network timeout protection |
+| **Webhook Integration** | | | | |
+| Successful payment completion | Webhook received and processed | ✅ Order status updated via webhook | ✅ PASS | All | Webhook endpoint working |
+| Payment failure webhook | Failed payment handled correctly | ✅ Order marked as failed | ✅ PASS | All | Failure webhook processing |
+| Webhook signature validation | Only valid webhooks processed | ✅ Invalid webhooks rejected | ✅ PASS | All | Security validation active |
+| **International Cards** | | | | |
+| UK issued card | Payment processed correctly | ✅ UK cards work correctly | ✅ PASS | All | Domestic card support |
+| EU issued card | Payment processed with SCA | ✅ EU cards processed with SCA | ✅ PASS | All | European compliance |
+| US issued card | Payment processed correctly | ✅ US cards work correctly | ✅ PASS | All | International card support |
+| **Currency & Amounts** | | | | |
+| Currency formatting | Amounts displayed correctly as GBP | ✅ Currency formatting correct | ✅ PASS | All | £ symbol and pence display |
+
+### Product Selection & Cart Validation Testing
+
+| Test Case | Expected Result | Actual Result | Status | Browser | Notes |
+|-----------|----------------|---------------|--------|---------|-------|
+| **Game Edition Cart Validation** | | | | |
+| Add Xbox Standard Edition to cart | Item successfully added to cart | ✅ Item added successfully | ✅ PASS | All | Initial addition works correctly |
+| Attempt to add same Xbox Standard Edition again | Show error message and prevent duplicate | ✅ Error button state, toast: "You already have 'Xbox Standard Edition' in your cart" | ✅ PASS | All | Duplicate prevention working |
+| Add different edition (e.g., PlayStation Standard) of same game | Allow addition of different platform/edition | ✅ Different editions can be added | ✅ PASS | All | Platform-specific validation |
+| **Credit Pack Cart Validation** | | | | |
+| Add credit pack to cart | Item successfully added to cart | ✅ Item added successfully | ✅ PASS | All | Initial addition works correctly |
+| Attempt to add same credit pack again | Show error message and prevent duplicate | ❌ Multiple credit packs can be added | ❌ BUG | All | **BUG: Credit packs allow duplicates in cart** |
+| **Wishlist Functionality** | | | | |
+| Add game edition to wishlist | Item successfully added to wishlist | ✅ Item added to wishlist | ✅ PASS | All | Wishlist addition works |
+| Attempt to add same game edition to wishlist again | Show error message and prevent duplicate | ✅ Error state, appropriate toast message | ✅ PASS | All | Wishlist duplicate prevention working |
+| Add credit pack to wishlist | Item successfully added to wishlist | ✅ Item added to wishlist | ✅ PASS | All | Credit pack wishlist addition works |
+| Attempt to add same credit pack to wishlist again | Show error message and prevent duplicate | ✅ Error state, appropriate toast message | ✅ PASS | All | Credit pack wishlist duplicates prevented |
+| **Wishlist to Cart Transfer** | | | | |
+| Move game edition from wishlist to cart | Item removed from wishlist, added to cart | ✅ Transfer successful, item removed from wishlist | ✅ PASS | All | AJAX removal working |
+| Attempt to move game edition to cart when already in cart | Show error message, keep in wishlist | ✅ Error message shown, item remains in wishlist | ✅ PASS | All | Cart validation during transfer |
+| Move credit pack from wishlist to cart | Item removed from wishlist, added to cart | ✅ Transfer successful, item removed from wishlist | ✅ PASS | All | Credit transfer works |
+| Attempt to move credit pack to cart when already in cart | Show error message, keep in wishlist | ❌ Multiple credit packs added to cart | ❌ BUG | All | **BUG: Credit pack cart validation missing** |
+| **Wishlist Management** | | | | |
+| Remove item from wishlist using remove button | Item removed from wishlist | ✅ Item successfully removed | ✅ PASS | All | Direct wishlist removal works |
+| Toggle wishlist button on product pages | Visual state updates correctly | ✅ Button states update properly | ✅ PASS | All | UI feedback working |
+| AJAX wishlist operations | No page refresh required | ✅ All operations use AJAX | ✅ PASS | All | Smooth user experience |
+| **PlayStation Platform Validation** | | | | |
+| Select PlayStation edition on game product page | Add to Cart and Add to Wishlist buttons become inactive | ✅ Buttons disabled when PlayStation selected | ✅ PASS | All | Proper Sony policy compliance |
+| Attempt to click inactive Add to Cart button (PlayStation) | Modal opens explaining PlayStation Store redirection | ✅ Modal displays PlayStation Store information | ✅ PASS | All | Clear user communication |
+| Attempt to click inactive Add to Wishlist button (PlayStation) | Modal opens explaining PlayStation Store redirection | ✅ Modal displays PlayStation Store information | ✅ PASS | All | Consistent behaviour across buttons |
+| **PlayStation Store Modal Functionality** | | | | |
+| Click "Go to PlayStation Store" button in modal | Redirect to PlayStation Store in new tab/window | ✅ Redirect to PlayStation Store works | ✅ PASS | All | External link opens correctly |
+| Click "Cancel" button in modal | Close modal, buttons remain inactive | ✅ Modal closes, buttons stay inactive | ✅ PASS | All | State preserved correctly |
+| Close modal using X button | Close modal, buttons remain inactive | ✅ Modal closes, buttons stay inactive | ✅ PASS | All | Consistent modal behaviour |
+| **PlayStation State Persistence** | | | | |
+| Navigate away from PlayStation edition then return | Buttons return to active state for other platforms | ✅ Button state updates correctly | ✅ PASS | All | Platform-specific state management |
+| Select PlayStation, then switch to Xbox edition | Buttons become active again | ✅ Buttons reactivate for Xbox | ✅ PASS | All | Dynamic state switching works |
+| Select PlayStation, navigate to different page, return | PlayStation still selected, buttons remain inactive | ✅ Selection state preserved | ✅ PASS | All | Proper state management |
+| **Business Logic Compliance** | | | | |
+| Verify PlayStation products not addable to Eclipse Protocol cart | No PlayStation products in cart system | ✅ PlayStation items excluded from cart | ✅ PASS | All | Sony policy compliance |
+| Verify PlayStation products not addable to wishlist | No PlayStation products in wishlist system | ✅ PlayStation items excluded from wishlist | ✅ PASS | All |  |
+| Modal content accuracy | Clear explanation of PlayStation Store requirement | ✅ Modal explains Sony policy clearly | ✅ PASS | All | User-friendly messaging |
+
+
+### Address Management Testing
+
+| Test Case | Expected Result | Actual Result | Status | Browser | Notes |
+|-----------|----------------|---------------|--------|---------|-------|
+| **Address Saving During Checkout** | | | | |
+| New user checks "Save address for faster checkout" during purchase | Address saved to user account | ✅ Address successfully saved | ✅ PASS | All | Address appears in saved addresses list |
+| Access saved addresses after initial purchase | Saved address visible in account dashboard | ✅ Address accessible in accounts/addresses | ✅ PASS | All | Full address details preserved |
+| **Saved Address Auto-population** | | | | |
+| User with saved addresses enters checkout | Most recently saved address auto-populated in form | ✅ Last saved address pre-filled | ✅ PASS | All | Streamlined checkout experience |
+| User with multiple saved addresses enters checkout | Most recent address used as default | ✅ Latest address auto-populated | ✅ PASS | All | Logical address selection |
+| **Address Editing During Checkout** | | | | |
+| User modifies pre-populated address during checkout | Changes accepted and processed for current order | ✅ Address modifications work correctly | ✅ PASS | All | Flexible address editing |
+| Complete checkout with modified address | Order processes with updated address information | ✅ Modified address used for order | ✅ PASS | All | Current order uses edited details |
+| **Address Management Workflow** | | | | |
+| Complete multiple purchases with address saving | Each address saved independently | ✅ Multiple addresses accumulate | ✅ PASS | All | Address history maintained |
+| Return to checkout after multiple saved addresses | System selects appropriate default address | ✅ Consistent address selection logic | ✅ PASS | All | Last saved address prioritised |
+
+### Address Management Testing Notes
+
+**Current Implementation:**
+- ✅ Address saving during checkout works correctly
+- ✅ Last saved address auto-populates in future checkouts  
+- ✅ Address editing during checkout is functional
+- ✅ Multiple addresses can be saved, edited and deleted from user account
+
+**Future Development Planned:**
+- **Default Address Selection**: Allow users to mark a preferred default address
+- **Address Selection Dropdown**: Let users choose from saved addresses during checkout
+- **Address Validation**: Enhanced address verification and formatting
+- **Quick Address Management**: Add/edit addresses directly from checkout page
+
+**User Experience Benefits:**
+- **First-time Users**: Optional address saving reduces friction for repeat purchases
+- **Returning Customers**: Automatic address population speeds up checkout
+- **Flexibility**: Users can still modify addresses as needed per order
+- **Data Persistence**: Address history maintained for account management
+
+### Browser Compatibility Testing
+
+| Feature | Chrome | Firefox | Safari | Edge | Notes |
+|---------|--------|---------|--------|------|-------|
+| **Core Functionality** | | | | | |
+| User registration/login | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | All authentication flows work |
+| Product browsing | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | |
+| Cart operations | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | AJAX updates work |
+| Checkout process | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | |
+| **JavaScript Features** | | | | | |
+| Dynamic cart updates | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | |
+| Form validation | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | |
+| Modal dialogs | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | Bootstrap modals |
+| Stripe payment forms | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | Stripe Elements compatible |
+| **CSS Layout** | | | | | |
+| Responsive design | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | Mobile-first approach |
+| Grid layouts | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | Bootstrap grid system |
+| Custom animations | ✅ PASS | ✅ PASS | ✅ PASS | ✅ PASS | CSS transitions/animations |
+
+### Error Scenario Testing
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| **Network Issues** | | | | |
+| Slow network connection (throttled) | Graceful loading states | ✅ Loading indicators shown | ✅ PASS | Spinner/progress indicators |
+| **Data Issues** | | | | |
+| Deleted product in cart | Remove from cart gracefully | ✅ Item removed automatically | ✅ PASS | User notified |
+| **Session Issues** | | | | |
+| Session expires during checkout | Redirect to login, preserve cart | ✅ Session handling correct | ✅ PASS | Cart items preserved |
+| Multiple tabs with different states | Consistent state management | ✅ State synchronised | ✅ PASS | |
+
+
+### Summary of Manual Testing
+
+Extensive manual testing has validated the core functionalities of the Eclipse Protocol digital storefront across various user scenarios, browsers, and devices. Key features such as navigation, form handling, session management, authentication security, cart and checkout processes, and address management have all passed acceptance criteria. Defensive programming measures have been verified to ensure robust error handling and data validation. Known issues related to browser back button behaviour with dynamic content have been documented for future improvement. Overall, the manual testing phase confirms that the application provides a reliable and user-friendly experience for customers.
+
+
+## 10. Known Issues
+
+#### Browser Back Button with Dynamic Content
+- **Issue**: Using the browser back button after selecting different credit packs or game editions navigates through each selection instead of returning to the previous page
+- **Impact**: Poor user experience as users expect a single back action to return to the previous page
+- **Scope**: Affects both credit pack and game edition selection pages
+
+- **Expected Behaviour**: Back button should return to the last non-selection page (e.g., search results or home)
+- **Priority**: Medium - affects navigation flow but does not break functionality   
+- **Workaround**: Users can use site navigation links instead of the back button
+- **Status**: Identified, requires further investigation for a solution
+
+#### Credit Pack Cart Validation Bug
+- **Issue**: Credit packs do not have duplicate prevention when adding to cart
+- **Impact**: Users can add multiple identical credit packs, leading to poor UX and potential business issues
+- **Scope**: Affects both direct "Add to Cart" and "Wishlist to Cart" transfers
+- **Expected Behaviour**: Should prevent duplicates like game editions do
+- **Priority**: High - affects business logic and user experience
+- **Workaround**: None currently - users must manually manage cart contents by removing item duplicates
+- **Status**: Identified, requires development fix
+
+
+**Requires Fix:**
+- ❌ Credit pack cart duplicate prevention
+- ❌ Credit pack validation during wishlist-to-cart transfer
+
+
 
