@@ -138,10 +138,7 @@
                     <div class="order-summary-container">
                         <h4 class="sidebar-summary-title">ORDER SUMMARY</h4>
                         <div class="sidebar-summary-row">
-                            <span>Subtotal ({{ cart.product_count }} item
-                                {% if cart.product_count != 1 %}s{% endif %}
-                            )</span>
-                            <span>£{{ cart.total }}</span>
+                            <span>Subtotal ({{ cart.product_count }} item{% if cart.product_count != 1 %}s{% endif %})</span>
                         </div>
                         {% if cart.delivery > 0 %}
                             <div class="sidebar-summary-row">
