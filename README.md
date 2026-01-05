@@ -727,3 +727,89 @@ If there's time after the MVP is complete:
 | License-Key Generation + Email Delivery | Required to show purchase confirmation and digital fulfilment |
 
 **Total MVP Products: ~14 SKUs** (5 credit packs + 9 platform editions)
+
+
+## Technologies Used:
+
+### Languages & Frameworks
+**HTML5** - Semantic structure and content for e-commerce pages  
+**CSS3** - Styling and responsive layouts
+**JavaScript (ES6+)** - Client-side interactivity, AJAX cart operations, and dynamic functionality  
+**Python 3.12** - Backend application logic and e-commerce business rules  
+**Django 5.2.7** - Full-stack web framework with ORM, templating, and admin interface  
+
+### Frontend Technologies & UI
+**Bootstrap 5** - Responsive CSS framework and component library  
+**Google Fonts** - Typography (Arimo, Oswald)  
+**Font Awesome** - Iconography for UI elements and navigation  
+**CSS Custom Properties** - Design system variables for consistent theme across the site  
+
+### JavaScript APIs & Browser Features
+**Fetch API** - Modern AJAX for cart updates and wishlist management  
+**Stripe Elements** - Secure payment form integration  
+**Bootstrap Modal & Toast API** - Enhanced UI feedback and confirmation dialogs  
+
+### Backend & Database
+**PostgreSQL** - Primary relational database for e-commerce data (via psycopg2 2.9.11)  
+**Django ORM** - Object-relational mapping for product variants and order management  
+**Django Signals** - Automated license key generation and order processing  
+**dj-database-url 3.0.1** - Database configuration management  
+
+### Authentication & Security
+**Django Authentication** - Custom user model with email-based login  
+**Custom Form Validation** - Multi-layered security for checkout and user data  
+**CSRF Protection** - Built-in Django security for form submissions  
+**Stripe Webhooks** - Secure payment confirmation and order processing  
+
+### E-Commerce & Payment Processing
+**Stripe 14.0.1** - Payment processing, webhook handling, and transaction management  
+**Django Countries 8.2.0** - Country field support for billing addresses  
+**UUID Generation** - Secure license key creation for digital products  
+
+### Cloud Services & Storage
+**AWS S3** - Cloud storage for product images and static files  
+**Boto3 1.41.5** - AWS SDK for Python file management  
+**Django Storages 1.14.6** - Custom storage backends for S3 integration  
+
+### File Processing & Media
+**Pillow 12.0.0** - Image processing and validation for product images       
+**cwebp** - Command-line WebP encoder for optimising image file sizes and web performance
+
+### Development & Deployment
+**GitHub** - Version control and repository management  
+**VSCode** - Code editing and development environment  
+**Heroku** - Application hosting and deployment  
+**Gunicorn 23.0.0** - WSGI HTTP server for production  
+**Whitenoise 6.11.0** - Static file serving in production  
+
+### Code Quality Tools
+**Black 25.12.0** - Python code formatter  
+**Flake8 7.3.0** - Python linting and style guide enforcement  
+**isort 7.0.0** - Python import statement sorting  
+**djlint 1.36.4** - Django template linting and formatting  
+**Coverage 7.13.1** - Test coverage analysis  
+
+### Testing & Quality Assurance
+**Django TestCase** - Unit and integration testing framework  
+**Coverage.py** - Code coverage measurement and reporting  
+**Manual Testing** - Cross-browser compatibility and user experience validation  
+**Google Lighthouse** - Performance, accessibility, and SEO auditing       
+**BrowserStack** - Cross-browser testing and compatibility checks
+
+### Project Management & Design Tools
+**GitHub Projects** - Agile project management with MoSCoW prioritisation  
+**Miro** - Brainstorming, user story mapping and effort-risk matrix creation  
+**Balsamiq** - UI/UX wireframing and design                     
+**WebAIM Contrast Checker** - Accessibility compliance testing  
+**Colorblindly** - Colour vision difference simulation  
+
+### Additional Development Tools
+**ChatGPT** - Used alongside traditional documentation and for assisting written content to improve clarity   
+**[drawdb](https://www.drawdb.app/)** - Database design and ERD documentation  
+**Coolors** - Colour palette generation and design harmony                
+**Adobe Photoshop** - Image editing and optimisation for web assets           
+
+
+### Email Services
+**[Catchmail](https://catchmail.io/)** - Temporary email service for testing email functionality without using real addresses 
+**Gmail SMTP** - Transactional email delivery for order confirmations, license key distribution, and customer communications
