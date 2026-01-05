@@ -824,6 +824,58 @@ If there's time after the MVP is complete:
 
 ## Site Features
 
+## Testing
+
+Eclipse Protocol has undergone testing to ensure security, performance, coding best practices, and user experience quality.
+
+### Testing Overview
+
+**Code Quality & Validation:**
+- ✅ HTML5 validation (W3C Markup Validator) - all pages pass
+- ✅ CSS3 validation (W3C CSS Validator) - all stylesheets pass  
+- ✅ JavaScript validation (ESLint) - ES2024+ standards compliance
+- ✅ Python code quality (Flake8, Black, isort) - PEP 8 compliance
+
+**Performance & Accessibility:**
+- ✅ Lighthouse testing (Performance, Accessibility, Best Practices, SEO)
+- ✅ Responsive design across desktop, tablet, and mobile devices
+- ✅ Cross-browser compatibility (Chrome, Firefox, Edge, Safari, Opera)
+- ✅ WCAG 2.1 AA accessibility compliance
+
+**Functional Testing:**
+- ✅ User authentication and account management
+- ✅ Product catalogue browsing and search functionality
+- ✅ Shopping cart and wishlist operations
+- ✅ Complete checkout flow with Stripe payment integration
+- ✅ Digital product delivery (license keys and credits)
+- ✅ Admin dashboard and product management tools
+- ✅ Email notifications and customer support system
+
+**Security & Payment Processing:**
+- ✅ Stripe webhook validation and payment confirmation
+- ✅ CSRF protection and form validation
+- ✅ Secure handling of sensitive customer data
+- ✅ Error handling and graceful failure scenarios
+
+### Automated Testing
+- **Django TestCase**: Unit and integration tests for models, views, and forms
+- **Coverage.py**: Code coverage analysis with detailed reporting. _(currently at 86% coverage)_
+- **Continuous Integration**: Code quality checks integrated into development workflow (manual for now, automated CI/CD planned for future)
+
+### UK Stripe Test Cards for Development
+For testing payment functionality during development, use these UK-specific test cards:
+
+| Card Type | Number | Description |
+|-----------|---------|-------------|
+| UK Visa | `4000 0082 6000 0000` | UK Visa card for successful payments |
+| UK Mastercard | `5555 5582 6555 4449` | UK Mastercard for successful payments |
+| UK Debit Card | `4000 0582 6000 0005` | UK Debit card for successful payments |
+| Declined Card | `4000 0000 0000 9995` | Simulates a declined payment |
+| Insufficient Funds | `4000 0000 0000 9995` | Simulates insufficient funds scenario |
+
+**Complete Testing Documentation:** [TESTING.md](TESTING.md)
+
+The testing documentation includes detailed screenshots, validation results, manual test scenarios, automated test coverage reports, and browser/device compatibility testing. Known issues and limitations are also documented for transparency.
 
 ## Deployment
 
