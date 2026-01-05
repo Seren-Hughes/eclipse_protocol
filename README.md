@@ -1745,6 +1745,8 @@ All product images sourced from Adobe Stock with appropriate licenses for use in
 
 - [Landscape image of Llyn Idwal and Twll Du in Eryri - Snowdonia](https://stock.adobe.com/uk/images/digital-composite-milky-way-image-of-beautiful-landscape-image-of-llyn-idwal-and-devil-s-kitchen-in-snowdoina/244159042?prev_url=detail) - Used for About Us Page Background 
 
+- [Responsive display banner](https://ui.dev/amiresponsive) - Used for the banner image in README.md
+
 ### Icons
 
 - [Font Awesome](https://fontawesome.com/) - All icons used throughout the site including the astronaut used in brand logo and favicon.
@@ -1757,3 +1759,66 @@ Fonts sourced from Google Fonts:
 
 - Oswald - designed by Vernon Adams, Kalapi Gajjar, Cyreal
 
+### References
+
+**Documentation & Official Resources:**
+- [Django 5.2 Documentation](https://docs.djangoproject.com/en/5.2/) - Framework implementation, models, views, forms, and authentication
+- [Stripe Developer Documentation](https://docs.stripe.com/) - Payment processing, webhooks, and testing
+- [Stripe Testing Guide (UK locale)](https://docs.stripe.com/testing?locale=en-GB) - Payment testing and card numbers
+- [Stripe Declined Payments Testing](https://docs.stripe.com/testing?locale=en-GB&testing-method=card-numbers#declined-payments) - Error handling scenarios
+- [AWS S3 Documentation](https://docs.aws.amazon.com/s3/) - Cloud storage setup and configuration
+- [Heroku Dev Center](https://devcenter.heroku.com/) - Deployment and configuration guides
+- [Bootstrap 5 Documentation](https://getbootstrap.com/docs/5.3/getting-started/contents/) - Responsive design and components
+
+
+**Code Quality & Testing Resources:**
+- [Django Testing Documentation](https://docs.djangoproject.com/en/5.2/topics/testing/) - Unit testing and test coverage
+- [Black Code Formatter](https://black.readthedocs.io/) - Python code formatting standards
+- [Flake8 Documentation](https://flake8.pycqa.org/) - Python linting and style guide enforcement
+- [Coverage.py Documentation](https://coverage.readthedocs.io/) - Code coverage analysis and reporting
+
+**Technical Implementation Guides:**
+- [Django Context Processors Documentation](https://docs.djangoproject.com/en/5.2/ref/templates/api/#writing-your-own-context-processors) - Custom template context implementation
+- [Django Signals Documentation](https://docs.djangoproject.com/en/5.2/topics/signals/) - Automated license key generation
+- [Writing Custom Django Admin](https://docs.djangoproject.com/en/5.2/ref/contrib/admin/) - Admin interface customization
+- [Django Email Backend Configuration](https://docs.djangoproject.com/en/5.2/topics/email/) - SMTP setup and email delivery
+- [Django Static Files in Production](https://docs.djangoproject.com/en/5.2/howto/static-files/deployment/) - AWS S3 integration
+
+**E-commerce & Payment Processing:**
+- [Wise - Stripe Test Cards Guide](https://wise.com/gb/blog/stripe-payments-test-cards) - UK-specific payment testing
+- [Code Institute Boutique Ado Project](https://github.com/Code-Institute-Solutions/boutique_ado_v1) - E-commerce functionality reference and Django implementation patterns
+- [MailerLite Responsive Email Design Guide](https://www.mailerlite.com/blog/guide-to-responsive-email-design) - Transactional email templates and formatting
+
+**Web Standards & Accessibility:**
+- [MDN Web Docs](https://developer.mozilla.org/) - HTML5, CSS3, and JavaScript implementation
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/) - Accessibility compliance and testing
+- [W3C HTML Validator](https://validator.w3.org/) - Markup validation
+- [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) - Stylesheet validation
+
+**Design & UX Resources:**
+- [Google Fonts](https://fonts.google.com/) - Typography selection (Arimo, Oswald)
+- [Font Awesome](https://fontawesome.com/) - Icon library and implementation
+- [Coolors](https://coolors.co/) - Colour palette generation and accessibility testing
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) - Colour accessibility validation
+- [Shields.io](https://shields.io/) - README badge generation
+
+**Development Tools & Workflow:**
+- [GitHub Projects Documentation](https://docs.github.com/en/issues/planning-and-tracking-with-projects) - Agile project management and issue tracking
+- [Git Documentation](https://git-scm.com/doc) - Version control workflows and best practices
+- [VS Code Documentation](https://code.visualstudio.com/docs) - Development environment setup and extensions
+
+**Community Resources & Problem Solving:**
+- [Stack Overflow](https://stackoverflow.com/) - Technical problem solving and Django community support
+- [Django Community Forums](https://forum.djangoproject.com/) - Framework-specific discussions and troubleshooting
+- [Code Institute Community](https://codeinstitute.net/) - Peer support  throughout development
+- [MDN Learning Area](https://developer.mozilla.org/en-US/docs/Learn) - Web development fundamentals and best practices
+
+**Legal & Compliance:**
+- [TermsFeed Privacy Policy Generator](https://www.termsfeed.com/privacy-policy-generator/) - Privacy policy creation
+- [TermsFeed Terms & Conditions Generator](https://app.termsfeed.com/wizard/terms-conditions) - Terms of service creation
+
+
+**Acknowledgements:**
+- Code Institute mentors and tutors for guidance throughout the development process
+- Code Institute Community for peer support and collaborative problem-solving
+- Django and open-source communities for comprehensive documentation and examples
