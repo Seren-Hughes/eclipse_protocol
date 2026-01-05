@@ -1726,3 +1726,34 @@ heroku run python manage.py migrate app_name migration_name -a your-app-name
 **Live Application**: [Eclipse Protocol E-Commerce Store](https://eclipse-protocol-15d26c9e2a55.herokuapp.com/)
 
 *Note: Heroku eco dynos may require 10-15 seconds to wake up after periods of inactivity.*
+
+## Credits & References
+
+### Images 
+
+All product images sourced from Adobe Stock with appropriate licenses for use in this project.
+
+- [Illustration of an astronaut in space battlefield](https://stock.adobe.com/uk/images/illustration-of-an-astronaut-in-space-battlefield-idea-for-sci-fi-and-space-punk-background-wallpaper-generative-ai/572940289?prev_url=detail) - Used for Store Hero Banner
+
+- [Illustration of an astronaut in space battlefield](https://stock.adobe.com/uk/images/illustration-of-an-astronaut-in-space-battlefield-idea-for-sci-fi-and-space-punk-background-wallpaper-generative-ai/573799817?prev_url=detail) - Used for Base Game Product Standard Edition
+
+- [Game characters action scene](https://stock.adobe.com/uk/images/game-characters-action-scene-with-soldiers-in-armor-at-war-against-invading-monsters-and-aliens-science-fiction-epic-battle-high-tech-ai-generated-image/607116700?prev_url=detail) - Used for Game Product Ultimate Edition
+
+- [Colorful glowing cards with space themes](https://stock.adobe.com/uk/images/colorful-glowing-cards-with-space-themes-stacked-on-a-wooden-surface-showcasing-vibrant-cosmic-designs-and-swirling-patterns-during-a-dimly-lit-evening/1084682717?prev_url=detail) - Used for Currency Pack Product Images
+
+- [Neon lit futuristic playing cards on reflective surface](https://stock.adobe.com/uk/images/neon-lit-futuristic-playing-cards-on-reflective-surface/1313932597?prev_url=detail) - Used for Currency Pack Product Images
+
+- [Landscape image of Llyn Idwal and Twll Du in Eryri - Snowdonia](https://stock.adobe.com/uk/images/digital-composite-milky-way-image-of-beautiful-landscape-image-of-llyn-idwal-and-devil-s-kitchen-in-snowdoina/244159042?prev_url=detail) - Used for About Us Page Background 
+
+### Icons
+
+- [Font Awesome](https://fontawesome.com/) - All icons used throughout the site including the astronaut used in brand logo and favicon.
+
+### Fonts
+
+Fonts sourced from Google Fonts:
+
+- Arimo - designed by Steve Matteson
+
+- Oswald - designed by Vernon Adams, Kalapi Gajjar, Cyreal
+
