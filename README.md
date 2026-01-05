@@ -1,8 +1,25 @@
-![Eclipse Protocol E-Commerce Banner](docs/images/design/eclipse-protocol-banner.jpg)
-
 # Eclipse Protocol E-Commerce 
 
-A fictional e-commerce platform for a speculative video game company, Dark Sky Games, selling digital products and physical merchandise on a dedicated store for their game - Eclipse Protocol. 
+![Eclipse Protocol E-Commerce Banner](docs/images/screenshots/eclipse-protocol-presentation-screenshot.png)
+
+### Tech Stack:
+
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-5.2.7-092E20?style=flat&logo=django&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white)
+![Stripe](https://img.shields.io/badge/Stripe-626CD9?style=flat&logo=stripe&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-S3-FF9900?style=flat&logo=amazon-aws&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=flat&logo=bootstrap&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat&logo=javascript&logoColor=white)
+![Heroku](https://img.shields.io/badge/Heroku-430098?style=flat&logo=heroku&logoColor=white)
+
+A fictional e-commerce platform for a speculative video game company, Dark Sky Games, selling digital products on a dedicated store for their game - Eclipse Protocol. 
+
+[**Link to Eclipse Protocol E-Commerce Store**](https://eclipse-protocol-15d26c9e2a55.herokuapp.com/)
+
+Hosted on Heroku with eco dynos - initial load may take 10-15 seconds as dynos require wake-up time after periods of inactivity
 
 ## Project Purpose & Value Proposition
 
@@ -10,27 +27,26 @@ The in-game currency system for Eclipse Protocol is inspired by established mode
 Virtual currencies have become a standard part of modern game economies, offering a consistent way to handle microtransactions, cosmetic content, and bundled purchases across platforms and regions.
 Adopting a credit-based system in this project helps to replicate a realistic e-commerce flow while reflecting common monetisation structures found in contemporary digital game stores.
 
-**Purpose:** To create a secure, user-friendly e-commerce platform that enables customers to purchase digital game content (license keys, in-game currency, DLC) and physical merchandise, while providing administrators with comprehensive tools to manage products, orders, and customer relationships.
+**Purpose:** To create a secure, user-friendly e-commerce platform that enables customers to purchase digital game content (license keys, in-game currency) while providing administrators with tools to manage products, orders, and customer relationships.
 
 **Value to Users:**
 - **Customers** can conveniently purchase and instantly access digital game content through a single platform, with their purchase history and license keys stored securely in their account dashboard
 - **Site Administrators** gain management tools through Django's admin interface to handle product catalogues, process orders, manage license key inventory, and moderate user-generated content
 - **Business Owner** benefits from a scalable platform that can grow from digital-only sales to include subscriptions, physical merchandise, and community features
 
-**Technical Implementation:** This project showcases full-stack development skills including Django backend architecture, PostgreSQL relational database design, Stripe payment integration, responsive frontend design with Bootstrap, and deployment to a production environment. The MVP focuses on core e-commerce functionality with digital product delivery, while the modular structure allows for future expansion into subscriptions, physical goods fulfillment, and advanced analytics.
-
+**Technical Implementation:** This project demonstrates Django backend architecture, PostgreSQL relational database design, Stripe payment integration, AWS S3 storage, responsive frontend design with Bootstrap, and deployment to a production environment. The MVP focuses on core e-commerce functionality with digital product delivery, while the modular structure allows for future expansion into subscriptions, physical goods fulfilment, and advanced analytics.
 
 # Contents:
-- [Wireframes](#wireframes)
-- [Colour Palette](#colour-palette)
-- [Project Management & Planning](#project-management--planning)
-- [User Stories by Theme and Epic](#user-stories-by-theme-and-epic)
-- [Effort Risk Fibonacci Matrix](#effort-risk-fibonacci-matrix)
-- [ERD Diagram](#erd-diagram)
-- [Site Map](#site-map)
-- [User Flow Diagrams](#user-flow-diagrams)
-- [Products & Catalogue Structure](#products--catalogue-structure)
-- [JavaScript Enhancements](#javascript-enhancements)
+1. [Wireframes](#wireframes)
+2. [Colour Palette](#colour-palette)
+3. [Project Management & Planning](#project-management--planning)
+4. [User Stories by Theme and Epic](#user-stories-by-theme-and-epic)
+5. [Effort Risk Fibonacci Matrix](#effort-risk-fibonacci-matrix)
+6. [ERD Diagram](#erd-diagram)
+7. [Site Map](#site-map)
+8. [User Flow Diagrams](#user-flow-diagrams)
+9. [Products & Catalogue Structure](#products--catalogue-structure)
+
 
 # Wireframes:
 
@@ -162,40 +178,92 @@ These designs ensure customers purchasing digital products (game keys, DLC, cred
 
 #### Contrast & Accessibility:
 
-## Project management & Planning:
+## GitHub Projects & Agile Implementation
 
-This project was planned and managed using agile methodology, utilising GitHub projects and Miro whiteboards.  
+### Project Management Methodology
+This project utilised GitHub Projects with an agile approach, implementing MoSCoW prioritisation (Must Have, Should Have, Could Have, Won't Have) combined with iterative development cycles focused on delivering a functional e-commerce platform.
 
-### Agile Approach & Story Points
+[Link to the Eclipse Protocol Project Board](https://github.com/users/Seren-Hughes/projects/9) 
 
-User stories are estimated using **Fibonacci sequence story points** (1, 2, 3, 5, 8, 13) to reflect the relative effort, complexity, and uncertainty of each task. Story points consider:
-- Development time
-- Technical complexity
-- Dependencies on other features
-- Testing requirements
+### GitHub Projects Kanban Board
+<details>
+<summary><em>Click to expand</em><br>
+MoSCoW prioritised user stories for digital e-commerce platform tracked through GitHub Projects with clear priority labels and epic organisation
+</summary>
 
-**Total Project Scope:** 31 user stories across 9 themes and 15 epics, totaling **145 story points**.
+![GitHub Projects Kanban Board](docs/images/screenshots/moscow-kanban-board.png)
+</details>
 
-**MVP Scope:** Focus on **Must Have** features to deliver a functional e-commerce platform:
-- **16 Must Have stories = 85 points**
-- Core digital storefront functionality
-- Secure checkout and payment processing
-- User authentication and account management
-- Admin product and order management
+### GitHub Issues & Milestones
+<details>
+<summary><em>Click to expand</em><br>
+User stories broken down into manageable issues with story points, linked to milestones for sprint planning and progress tracking. Labels used for priority and epic categorisation.
+</summary>
 
-**MoSCoW Prioritization Breakdown:**
-- **Must Have:** 16 stories (85 points) - MVP core functionality
-- **Should Have:** 9 stories (44 points) - Phase 2 enhancements
-- **Could Have:** 8 stories (31 points) - Phase 3 value-adding features
-- **Won't Have:** 2 stories (10 points) - Future consideration
+![GitHub Issues & Milestones](docs/images/screenshots/issue-labelling.png)
+</details>
 
-### Scalability & Future Iterations
+### Sprint Planning & Management
 
-The epic-based structure allows for flexible expansion as the business evolves. After MVP delivery, subsequent sprints can address Should Have and Could Have features based on:
-- **Customer feedback** - Prioritize features users request most
-- **Business metrics** - Add functionality that drives conversions
-- **Technical capacity** - Balance new features with technical debt
-- **Market changes** - Adapt to emerging e-commerce trends
+**Sprint 1-2: Foundation & Authentication** *(Milestone: User Management)*
+- Django project setup and PostgreSQL configuration
+- User registration, login, and logout functionality
+- User profile model with address management
+- Custom authentication forms and validation
+
+**Sprint 3-4: Product Catalogue & Variants** *(Milestone: Digital Storefront)*
+- Product model with type-based extensions
+- Digital variant system for platform/edition combinations
+- Currency product management for credit packs
+- Admin interface for product creation and management
+
+**Sprint 5-6: Shopping Cart & Checkout** *(Milestone: E-Commerce Core)*
+- Shopping cart with session persistence and user migration
+- Wishlist functionality with AJAX toggles
+- Checkout flow with address handling and validation
+- Order confirmation system with email notifications
+
+**Sprint 7-8: Payment Processing & Digital Delivery** *(Milestone: Secure Transactions)*
+- Stripe payment integration with webhook handling
+- Secure payment forms with client-side validation
+- License key generation system with UUID implementation
+- Order status tracking and automated digital delivery
+
+**Sprint 9-10: Admin Tools & Support** *(Milestone: Management System)*
+- Django admin customisation for product and order management
+- Custom sales dashboard with revenue analytics
+- Customer support contact system with categorisation
+- License key tracking and delivery status monitoring
+
+**Sprint 11-12: Testing & Production Deployment** *(Milestone: Release 1 MVP)*
+- Comprehensive unit and integration testing
+- AWS S3 integration for static and media files
+- Heroku production deployment and environment configuration
+- Final bug fixes and performance optimisations
+
+**Deferred Features: Advanced E-Commerce** *(Planned for Release 2)*
+- Eclipse+ subscription billing with Stripe recurring payments
+- Physical merchandise support with inventory management
+- Shipping calculation and fulfilment workflow
+- Newsletter subscription management
+- Advanced analytics dashboard with customer behaviour tracking
+- Product review and rating system
+
+### Development Reality vs Planning
+
+While the sprint structure above represents the planned development sequence, actual implementation followed a more iterative approach typical of agile development. Features were developed incrementally with some parallel work on foundational elements (authentication, models) and integration components (Stripe, AWS) happening across multiple sprints as dependencies were discovered and technical requirements evolved.
+
+This iterative approach allowed for:
+- Early testing of payment integration
+- Continuous refinement of the product model architecture
+- Responsive adjustment to technical challenges
+- Better integration between frontend and backend components
+
+### Agile Development Impact
+
+The agile approach enabled rapid iteration and continuous delivery of e-commerce functionality. Regular sprint retrospectives allowed for strategic feature prioritisation, leading to the deferral of subscription billing and physical merchandise to future releases. This ensured that core digital commerce functionality was delivered within the MVP timeline.
+
+The MoSCoW framework proved particularly effective for e-commerce development, allowing clear distinction between essential payment processing features (Must Have) and enhancement features like reviews and analytics (Could Have).
 
 ## User Stories by Theme and Epic:
 
@@ -335,180 +403,117 @@ The epic-based structure allows for flexible expansion as the business evolves. 
 
 ### Database Design (ERD Overview)
 
-The database for Eclipse Protocol is designed around a digital-first e-commerce flow, with support for user accounts, digital products, credit packs, orders, and future extensions such as subscriptions and physical merchandise.
+The Eclipse Protocol database is designed around a digital e-commerce platform with support for user accounts, product variants, orders, and customer support. The current implementation focuses on digital product sales with a flexible architecture that can accommodate future physical merchandise and subscription services.
 
-#### Users & Profiles
+#### Current MVP Implementation
 
-`users`
-Stores core authentication details (email, password, username, flags for staff/superuser, timestamps).
-This is aligned with Django’s built-in user model and is responsible for login, registration, and access control.
+**User Management:**
+- `users` - Django's built-in authentication (email, username, password, permissions)
+- `user_profiles` - Extended user data (names, phone, default address reference)
+- `addresses` - User billing/shipping addresses with type designation and address snapshots for order history preservation
 
-`user_profiles`
-Extends the user model with additional information such as first name, last name, phone number, and a reference to the user’s default address.
-This keeps authentication concerns separate from profile data.
+**Product Catalog:**
+- `products` - Base catalogue entries for all sellable items (name, price, product_type, SKU, images)
+- `digital_variants` - Platform/edition combinations for base games (PC/Xbox/Nintendo × Standard/Premium/Ultimate editions with individual pricing and descriptions)
+- `currency_products` - Credit pack configurations (100-10,000 credits with pricing tiers)
+- `digital_products` - Simple digital items for future DLC/expansion content
 
-`addresses`
-Holds billing and shipping addresses linked to a user.
-Each address has fields such as full name, street, city, postcode, country, and an address_type (e.g. billing or shipping).
-At checkout, a snapshot of the chosen address is copied onto the orders table so that order history remains accurate even if the user later updates their profile.
+**Shopping & Orders:**
+- `cart_items` - Shopping cart with support for product variants and quantity management
+- `wishlists` - User product favorites for future purchase
+- `orders` - Complete order records with billing/shipping snapshots and Stripe payment integration
+- `order_items` - Individual line items preserving product/variant details and historical pricing
+- `license_keys` - Digital delivery system with platform-specific key generation and user account integration
 
-#### Products & Catalogue
+**Customer Support:**
+- `contact_messages` - Support ticket system with categorisation, status tracking, and admin workflow management
 
-`products`
-Central catalogue table for all products sold in the store (base game editions, credit packs, physical items, and future subscriptions).
-Includes fields such as name, slug, description, price, product_type (e.g. base_game, currency, physical, subscription), SKU, image, active flag, and timestamps.
-The product_type field is used to drive filtering and UI behaviour (e.g. separating digital products from merchandise).
+**Key Implementation Details:**
 
-`digital_products`
-Stores additional details for digital game products.
-Each row is linked to a product and includes platform (PC, Xbox, Nintendo, etc.), edition (Standard, Premium, Ultimate), and flags indicating whether the product is a base game edition and whether it requires a licence key.
-This allows the store to treat platform/edition combinations as distinct SKUs while still sharing core product information.
+*License Key Generation:* Keys are generated on-demand via UUID when payment succeeds rather than managing a pre-generated inventory pool. This approach keeps the implementation simple while simulating realistic digital delivery without the complexity of stock management.
 
-`currency_products`
-Represents in-game currency packs (e.g. 100, 500, 1,200 credits).
-Each currency product is linked to a product row and includes a credit_amount.
-The e-commerce system records the purchase of these packs; in a real game integration the actual in-game balance would be managed by the game backend.
+*Address Snapshots:* Order records preserve billing/shipping information at time of purchase to maintain historical accuracy even when users update their saved addresses. This prevents order history from changing retroactively while still allowing convenient navigation to current user addresses.
 
-`physical_products` (future / Could Have)
-Stores extra metadata for physical merchandise items such as weight, size options, colour options, and stock levels.
-Note: for apparel (e.g. hoodies in sizes XS–XL), a real production system would typically introduce a separate product_variants table with variant-level SKUs for each size/colour combination (e.g. one SKU per size and colour). This level of complexity is outside the scope of the MVP but is acknowledged as a necessary extension for a full merchandise implementation.
+*Product-Variant Architecture:* The system uses a flexible base Product model with specialised variants for base games (DigitalVariant) and extensions for other types (CurrencyProduct, DigitalProduct). This allows complex platform/edition combinations while maintaining clean separation of concerns.
 
-#### Cart, Wishlist & Checkout
+#### Future Development Phases
 
-`cart_items`
-Stores items that a user has added to their shopping cart.
-Each row links a user (or optional session ID), product, quantity, and timestamps.
-A uniqueness constraint on (user_id, product_id) ensures each product appears only once per user’s cart.
+**Newsletter & Marketing** - Newsletter subscription management with guest email support and targeted communication capabilities for promotional campaigns and game updates.
 
-`wishlists`
-Allows logged-in users to save products for later.
-Each row connects a user to a product, with a unique pair per user/product combination.
+**Subscription Services** - Eclipse+ membership plans with recurring billing, exclusive content access, monthly credit allocation, and subscriber perk management through Stripe's subscription billing system.
 
-#### Orders, Order Items & Payments
+**Physical Merchandise** - Apparel and collectibles with size/colour variant management, inventory tracking, shipping calculations, and fulfilment workflow integration for branded products.
 
-`orders`
-Represents a completed or in-progress order.
-Stores an order_number, reference to the user, a snapshot of billing/shipping details (name, address, email), pricing fields (order_total, delivery_cost, grand_total), Stripe PaymentIntent ID, and a consolidated status (e.g. pending, paid, refunded).
-
-_**Note on Address Snapshots:**_ At checkout, a snapshot of the chosen address is copied onto the orders table so that order history remains accurate even if the user later updates their profile. Orders also keep nullable pointers to the user’s saved addresses for convenience in the UI. If a user edits or deletes a saved address later, the order snapshot remains unchanged. If a saved address is deleted, the order’s address pointer is set to NULL; the snapshot fields still display correctly.
-
-Why:
-- Prevents historical drift (old orders “changing” when a user updates addresses)
-- Keeps invoices and email receipts consistent over time
-- Still allows quick navigation from an order to the user’s current saved address when it exists
-
-`order_items`
-Stores individual line items within an order.
-Each item is linked to an order and a product and records the product name, optional SKU, quantity, unit price at the time of purchase, and line total.
-This ensures order histories remain accurate even if product data changes later.
-
-`payments`  
-Tracks payment transactions associated with an order.
-Includes Stripe PaymentIntent ID, amount, currency, status (e.g. succeeded, pending, failed), and optional refund details.
-This table provides a clear audit trail for payment flows.
-
-#### Digital Delivery (Licence Keys)
-
-`license_keys`
-Handles digital delivery for base game editions that require a key.
-Each row links to a product, an order_item, and a user, and stores a unique key_code (generated via UUID/ULID when the order is paid), the target platform, and timestamps.
-Keys are generated on demand for each purchase and are shown in the user’s account and sent via email, simulating a realistic digital redemption flow without the complexity of managing a pre-generated key inventory pool.
-
-#### Marketing & Subscriptions
-
-`newsletter_subscriptions`
-Stores newsletter sign-ups, with support for both registered users and guest emails.
-Tracks whether the subscription is active and the timestamps for subscribe/unsubscribe events.
-
-`subscription_plans` (future / Phase 2)
-Defines potential Eclipse+ subscription plans (e.g. monthly or annual), linked back to the products table.
-For the MVP, subscriptions are treated as a planned enhancement rather than fully implemented functionality.
+**Advanced Analytics** - Revenue reporting, platform performance tracking, customer behaviour analysis, and sales optimisation tools for business intelligence and marketing strategy development.
 
 ## Site Map:
 
 ```
-Home Page
+Home Page (/)
 │
-├── Products
-│   ├── All Products
-│   ├── Search Results
-│   ├── Digital Products
-│   │   ├── Base Game
-│   │   │   └── Edition Details
-│   │   ├── DLC
-│   │   └── Game Currency
-│   └── Merchandise
-│       └── Merchandise Detail
+├── Products (/products/)
+│   ├── Search Results (/products/search/)
+│   ├── Base Game (/products/base-game/eclipse-protocol/)
+│   │   └── Platform/Edition Variants (/products/base-game/eclipse-protocol/{platform}/{edition}/)
+│   └── Credits (/products/currency/)
+│       └── Specific Credit Pack (/products/currency/{product-slug}/)
 │
-├── Eclipse+ Subscription (Public view, purchase requires login)
-│    └── Subscription Payment Page
-│      └── Subscription Confirmation
+├── Shopping Cart (/cart/)
 │
-├── Shopping Cart (Public - view only)
-│
-├── Authentication
-│   ├── Login
-│   └── Sign-up
+├── Authentication (/accounts/)
+│   ├── Login (/accounts/login/)
+│   ├── Logout (/accounts/logout/)
+│   ├── Sign-up (/accounts/signup/)
+│   │
+│   └── (After login) →
 │       │
-│       └── (After login) →
-│           │
-│           ├── Account Dashboard
-│           │   ├── Profile Details
-│           │   ├── Order History
-│           │   ├── Saved Addresses
-│           │   ├── Manage Subscription
-│           │   └── Account Settings
-│           │
-│           ├── Wishlist (Login Required)
-│           │
-│           └── Checkout (Login Required)
-│               ├── Billing Details
-│               ├── Shipping Method (if physical items)
-│               ├── Review Order
-│               ├── Payment Method
-│               └── Order Confirmation
+│       ├── Account Dashboard (/accounts/) - Order History
+│       ├── Order Details (/accounts/orders/{order-number}/)
+│       ├── Saved Addresses (/accounts/addresses/)
+│       │   ├── Add Address (/accounts/addresses/add/)
+│       │   ├── Edit Address (/accounts/addresses/{id}/edit/)
+│       │   └── Delete Address (/accounts/addresses/{id}/delete/)
+│       │
+│       └── Checkout (Login Required) (/checkout/)
+│           ├── Review Order (/checkout/review/)
+│           ├── Payment (/checkout/payment/)
+│           ├── Process Payment (/checkout/process-payment/)
+│           ├── Success (/checkout/success/{order-number}/)
+│           └── Stripe Webhook (/checkout/webhook/)
 │
-├── Support/Help Center (Public)
-│   ├── Contact/Support Form
-│   └── Submission Confirmation
-│   
+├── Wishlist (/wishlist/) - Login Required
 │
-├── Information Pages (Public)
-│   └── Single page with accordion/expandable sections:
-│       ├── About Us
-│       ├── FAQs
-│       ├── Terms & Conditions
-│       ├── Privacy Policy
-│       ├── Returns & Refunds
-│       └── Shipping Information
+├── Support Pages (/pages/)
+│   ├── Contact Form (/pages/contact/)
+│   ├── Contact Confirmation (/pages/contact-confirmation/)
+│   ├── About Us (/pages/about/)
+│   ├── FAQs (/pages/faqs/)
+│   ├── Privacy Policy (/pages/privacy-policy/)
+│   └── Terms & Conditions (/pages/terms-and-conditions/)
 │
-├── Django Admin Panel (Staff Only)
-│   ├── User Management
-│   ├── Refund Management
-│   ├── Product Management
-│   ├── Order Management
-│   ├── Review Moderation
-│   ├── Newsletter Subscribers
-│   └── License Key Management*
-│`
-└── Footer
-    ├── Social Media Links
-    ├── About Us (quick link)
-    ├── Newsletter Signup
-    ├── FAQs (quick link)
-    ├── Terms & Conditions (quick link)
-    ├── Privacy Policy (quick link)
-    ├── My Account (quick link)
-    └── Contact Us
-
-
+├── Django Admin Panel (/admin/) - Staff Only
+├── Admin Sales Dashboard (/admin-dashboard/) - Staff Only
+│
+└── Error Pages
+    └── 404 Page Not Found
 ```
-**Authentication Notes:**
-- Product browsing is public to encourage discovery
-- Cart viewing is public, but checkout requires login
-- Digital content purchases require logged-in account (must match game platform credentials for in-game currency/credit/dlc delivery)
-- Wishlist access requires login - guests redirected to sign-in page with return URL
-- Account dashboard and order history are only accessible to logged-in users
+
+**Key Implementation Notes:**
+- **No "All Products" listing** - Users browse via specific product types (base game vs currency)
+- **No DLC or Merchandise** - MVP focuses on base game variants and credit packs
+- **No Eclipse+ Subscription** - Planned for future development 
+- **Simplified Product Structure** - Two main product types: base game with variants, currency packs
+- **Streamlined Navigation** - Header focuses on "Buy Game" and "Buy Credits" direct links
+- **Support Integration** - All support/information pages under `/pages/` URL namespace
+- **Admin Dashboard** - Custom sales analytics separate from Django admin
+- **Wishlist** - Both standalone page and AJAX toggle functionality
+- **Address Management** - Full CRUD operations for user addresses
+
+**Authentication Flow:**
+- Product browsing is public for discovery
+- Cart viewing is public, checkout requires login
+- Wishlist requires login - guests redirected with return URL
+- Account features only accessible to authenticated users
 
 ## Site Map Diagram:
 
@@ -559,8 +564,8 @@ Sold in platform-specific editions, each with its own license key.
 | Edition | Price | Platforms |
 |---------|-------|-----------|
 | Standard | £49.99 | PC (Steam), Xbox, Nintendo |
-| Premium | £69.99 | PC (Steam), Xbox, Nintendo |
-| Ultimate | £89.99 | PC (Steam), Xbox, Nintendo |
+| Premium | £59.99 | PC (Steam), Xbox, Nintendo |
+| Ultimate | £69.99 | PC (Steam), Xbox, Nintendo |
 
 **PlayStation:** _Links externally to the official PlayStation Store for realism as PlayStation does not support third-party license key sales._
 
@@ -604,34 +609,8 @@ If there's time after the MVP is complete:
 
 | Included in MVP | Reason |
 |----------------|--------|
-| 6 × Credit Packs | Simple to implement, instant digital delivery |
-| 3 × Standard Edition Platforms (PC, Xbox, Nintendo) | Demonstrates license-key purchase and platform variation |
+| 5 × Credit Packs | Simple to implement, instant digital delivery  with email and account confirmation |
+| 9 × Game Edition/Platform combinations - Standard, Premium, Ultimate for PC, Xbox, Nintendo | Demonstrates license-key purchase and platform variation |
 | License-Key Generation + Email Delivery | Required to show purchase confirmation and digital fulfilment |
 
-**Total MVP Products: ~9 SKUs** (6 credit packs + 3 platform editions)
-
-The MVP includes a total of 9 distinct digital products (6 currency packs and 3 platform editions of the base game). This demonstrates the full range of product catalogue, filtering, checkout, and digital delivery features.
-
----
-
-### Later Phases
-
-| Phase | Additions |
-|-------|-----------|
-| Phase 2 (Should Have) | Premium & Ultimate Editions, Eclipse+ Subscriptions, Refund system |
-| Phase 3 (Could Have) | Physical merch, DLC packs |
-
-
-### JavaScript Enhancements
-
-To enhance user experience, custom JavaScript will be implemented for:
-
-- **Dynamic Cart Management:** Add/remove items and update quantities without page reload (using AJAX)
-- **Platform Filtering:** Real-time product filtering by platform compatibility
-- **Form Validation:** Client-side validation with visual feedback before submission
-- **Wishlist Toggle:** Instant wishlist add/remove with visual confirmation
-- **Accordion Interactions:** Smooth expand/collapse for information sections
-- **Quantity Selectors:** Interactive +/- buttons for product quantities
-- **Toast Notifications:** Non-intrusive success/error messages for user actions
-
-These features improve responsiveness and reduce page reloads, creating a more fluid shopping experience.
+**Total MVP Products: ~14 SKUs** (5 credit packs + 9 platform editions)
