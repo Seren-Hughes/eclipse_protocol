@@ -824,6 +824,158 @@ If there's time after the MVP is complete:
 
 ## Site Features
 
+### Homepage & Navigation
+- Hero section with product carousel
+- Responsive navigation with search functionality
+- Featured products display
+- Footer with quick links and social media icons
+
+**Homepage Storefront Screenshot:**                                     
+_featured products selected by admin are displayed prominently for user engagement._
+
+![Home Page Storefront](docs/images/screenshots/desktop-home-page.png)
+
+
+### Product Catalogue & Discovery
+- Game editions with platform variants (PC, Xbox, Nintendo)
+- Currency packs with instant delivery
+- Basic search functionality
+
+**Product Display with Image Fallbacks:**
+- Dynamic product cards with responsive layouts
+- **Fallback system for missing images**: Font Awesome icons automatically display when product images fail to load
+  - Coins icon for currency products
+  - Game controller icon for game products
+- Platform-specific variants (PC, Xbox, Nintendo) with individual pricing
+- PlayStation edition links externally to official store with a modal asking users to confirm redirection
+
+**Credit Pack Product Page:**
+
+![Credits Products Page](docs/images/screenshots/desktop-credits-product-page.png)
+
+**Game Product Page with Variants:**
+
+![Game Product Page](docs/images/screenshots/desktop-game-edition-page.png)
+
+**PlayStation Edition External Link Modal:**
+![PlayStation External Link Modal](docs/images/screenshots/playstation-modal.png)
+
+**Search Results Pages:**
+
+![Search Results Pages](docs/images/screenshots/desktop-search-results.png)
+
+**Empty Search Results State:**
+![Search Results Empty](docs/images/screenshots/desktop-search-empty.png)
+
+**No Results Found State:**
+![Search Results - No results](docs/images/screenshots/desktop-search-no-results.png)
+
+<details>
+<summary><strong>View Fallback Product Image Screenshots</strong></summary>
+
+- Missing image fallback: Currency product with coin icon
+![Currency Product without image fallback](docs/images/screenshots/credit-pack-without-image.png)
+
+- Missing image fallback: Game product with controller icon
+![Game Product without image fallback](docs/images/screenshots/game-without-image.png)
+</details>
+
+
+
+### Shopping Experience
+- Dynamic shopping cart with AJAX updates
+- Wishlist functionality with heart toggles
+- Guest users prompted to log in for wishlist access
+- Wishlist items removable via AJAX
+- Wishlist items added to cart directly from wishlist page and removed automatically
+- Persistent cart across sessions
+- Guest session cart merging on login with notification of merged items and no duplicates
+
+**Wishlist Page Screenshot:**
+_wishlist count displayed in header_
+
+![Wishlist Page](docs/images/screenshots/desktop-wishlist.png)
+
+**Wishlist Heart Toggle Functionality:**
+- Heart icon toggles filled/outlined state based on wishlist status
+![Wishlist Heart Toggle](docs/images/screenshots/wishlist-heart-toggle.gif)
+
+**Shopping Basket Page Screenshot:**
+
+![Cart Page with Product](docs/images/screenshots/desktop-cart.png)
+
+**Empty Shopping Basket State:**                                       
+_When the cart is empty, a friendly message encourages users to continue shopping._
+
+![Empty Basket State](docs/images/screenshots/desktop-empty-basket.png)
+
+
+
+### Checkout & Payment Integration
+- Secure Stripe payment processing
+- Order review and confirmation
+- Real-time form validation
+
+### Digital Product Delivery
+- Automatic license key generation (UUID-based)
+- Keys formatted to match platform conventions (Steam, Xbox, Nintendo)
+- Instant delivery via email and account dashboard with platform-specific instructions how to redeem
+
+### Digital License Key Delivery
+**Platform-Specific Key Generation:**
+- **PC/Steam Format**: `XXXXX-XXXXX-XXXXX-XXXXX` (20 characters)
+- **Xbox Format**: `XXXXX-XXXXX-XXXXX-XXXXX-XXXXX` (25 characters)
+- **Nintendo Format**: `AAAA-BBBB-CCCC-DDDD` (16 characters)
+
+Generated via [`_generate_key_code()`](checkout/webhook_handler.py#L197) with collision detection for uniqueness.
+
+**License Key Display in User Account:**
+_License keys are shown in the user's order history with copy-to-clipboard functionality for convenience._
+
+![User Order History License key](docs/images/screenshots/desktop-orders-and-license-keys.png)
+
+**License Key Delivery Email:**
+_Confirmation email includes license key and platform-specific redemption instructions with consistent styling to match the website and branding._
+
+![Email Order Confirmation Licence key](docs/images/screenshots/email-order.png)
+
+**Order Success Page:**
+_After successful payment, users see a summary of their order, including information to check emails and spam for digital product delivery and can also be found in the user account order history dashboard_
+
+![Order Success Page](docs/images/screenshots/desktop-order-success.png)
+
+### User Account Management
+- Order history
+- Saved addresses for faster checkout
+- License key library with copy functionality
+
+### Email Communications
+- Order confirmation with license keys
+- Contact form submissions
+- Professional email formatting
+
+### Informational Pages
+- About Us
+- FAQs
+- Privacy Policy
+- Terms & Conditions
+
+### Customer Support
+- Contact form with categorisation
+
+### Admin Features
+- Custom sales dashboard with analytics
+- Product management interface in Django admin
+- Order tracking and basic customer support tools
+
+**Staff Only Admin Sales Analytics Dashboard:**
+
+![Custom Admin Only Sales Analytics Dashboard](docs/images/screenshots/desktop-admin-sales-dashboard.png)
+
+## Interactive Features
+
+
+
 ## Testing
 
 Eclipse Protocol has undergone testing to ensure security, performance, coding best practices, and user experience quality.
