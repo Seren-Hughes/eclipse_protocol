@@ -41,6 +41,7 @@
                                         {% elif item.product.currency %}
                                             <div class="cart-item-credits">
                                                 <span class="credit-badge">{{ item.product.currency.credit_amount }} credits</span>
+                                                <div class="item-quantity">Qty: {{ item.quantity }}</div>
                                             </div>
                                         {% endif %}
                                     </div>
