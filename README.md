@@ -819,7 +819,7 @@ If there's time after the MVP is complete:
 
 
 ### Email Services
-**[Catchmail](https://catchmail.io/)** - Temporary email service for testing email functionality without using real addresses 
+**[Catchmail](https://catchmail.io/)** - Temporary email service for testing email functionality without using real addresses                                                  
 **Gmail SMTP** - Transactional email delivery for order confirmations, license key distribution, and customer communications
 
 ## Site Features
@@ -835,6 +835,10 @@ _featured products selected by admin are displayed prominently for user engageme
 
 ![Home Page Storefront](docs/images/screenshots/desktop-home-page.png)
 
+**Responsive Navigation Bar Screenshot:**
+_navigation adapts for mobile and desktop with collapsible menu._
+
+![Responsive Navigation Bar](docs/images/screenshots/responsive-navigation.png)
 
 ### Product Catalogue & Discovery
 - Game editions with platform variants (PC, Xbox, Nintendo)
@@ -858,6 +862,7 @@ _featured products selected by admin are displayed prominently for user engageme
 ![Game Product Page](docs/images/screenshots/desktop-game-edition-page.png)
 
 **PlayStation Edition External Link Modal:**
+
 ![PlayStation External Link Modal](docs/images/screenshots/playstation-modal.png)
 
 **Search Results Pages:**
@@ -879,7 +884,6 @@ _featured products selected by admin are displayed prominently for user engageme
 - Missing image fallback: Game product with controller icon
 ![Game Product without image fallback](docs/images/screenshots/game-without-image.png)
 </details>
-
 
 
 ### Shopping Experience
@@ -916,6 +920,18 @@ _When the cart is empty, a friendly message encourages users to continue shoppin
 - Order review and confirmation
 - Real-time form validation
 
+**Billing Form Page:**
+
+![Checkout Page](docs/images/screenshots/desktop-checkout-form.png)
+
+**Review Order Page:**
+
+![Review Order Page](docs/images/screenshots/desktop-review-order.png)
+
+**Payment Page with Stripe:**
+
+![Payment Page](docs/images/screenshots/desktop-payment.png)
+
 ### Digital Product Delivery
 - Automatic license key generation (UUID-based)
 - Keys formatted to match platform conventions (Steam, Xbox, Nintendo)
@@ -937,7 +953,7 @@ _License keys are shown in the user's order history with copy-to-clipboard funct
 **License Key Delivery Email:**
 _Confirmation email includes license key and platform-specific redemption instructions with consistent styling to match the website and branding._
 
-![Email Order Confirmation Licence key](docs/images/screenshots/email-order.png)
+<img src="docs/images/screenshots/email-order.png" alt="Email Order Confirmation Licence key" width="350"/>
 
 **Order Success Page:**
 _After successful payment, users see a summary of their order, including information to check emails and spam for digital product delivery and can also be found in the user account order history dashboard_
@@ -949,10 +965,52 @@ _After successful payment, users see a summary of their order, including informa
 - Saved addresses for faster checkout
 - License key library with copy functionality
 
+**Order History Page Screenshot:**
+
+![User Order History Page](docs/images/screenshots/desktop-order-history.png)
+
+<details><summary>Click to View Order History Page with no orders</summary>
+
+_Call to action for first purchase when no orders exist_
+
+![Order History Empty State](docs/images/screenshots/desktop-account-no-orders-yet.png)
+
+</details>                                                                                    
+
+---
+
+**Saved Addresses Management Page Screenshot:**
+
+![User Saved Addresses Page](docs/images/screenshots/desktop-account-saved-address.png)
+
+<details><summary>Click to View Account Empty Saved Addresses State</summary>
+
+![Empty Saved Addresses State](docs/images/screenshots/desktop-account-no-saved-address.png)
+</details>
+
+<details><summary>Click to View Account 'Add/Edit' Address Form</summary>
+
+![Edit Address Form](docs/images/screenshots/desktop-add-edit-address.png)
+
+</details>
+
 ### Email Communications
 - Order confirmation with license keys
 - Contact form submissions
 - Professional email formatting
+
+## User Accounts And Authentication
+- email or username login
+
+**Login Page Screenshot:**
+![Login Page](docs/images/screenshots/desktop-signin.png)
+
+**Sign-up Page Screenshot:**
+![Sign-up Page](docs/images/screenshots/desktop-signup.png)
+
+**Contact Form Submission Confirmation Email:**
+
+<img src="docs/images/screenshots/email-support.png" width="350"/>
 
 ### Informational Pages
 - About Us
@@ -960,8 +1018,25 @@ _After successful payment, users see a summary of their order, including informa
 - Privacy Policy
 - Terms & Conditions
 
+**FAQS Page with Accordion Style Layout:**
+
+![FAQS Page](docs/images/screenshots/desktop-faqs.png)
+
+<details><summary><strong>View Privacy Policy and Terms & Conditions Screenshots</strong></summary>
+
+**Privacy Policy Page:**
+![Privacy Policy Page](docs/images/screenshots/desktop-privacy-policy.png)
+
+**Terms & Conditions Page:**
+![Terms and Conditions Page](docs/images/screenshots/desktop-terms.png)
+</details>
+
 ### Customer Support
-- Contact form with categorisation
+- Contact form with categorisation (dropdown options)
+
+**Support Contact Form Screenshot:**
+
+![Support Contact Form](docs/images/screenshots/desktop-contact-support.png)
 
 ### Admin Features
 - Custom sales dashboard with analytics
@@ -974,6 +1049,21 @@ _After successful payment, users see a summary of their order, including informa
 
 ## Interactive Features
 
+**Parallex Scrolling Effect:**
+_Subtle parallax effect on about us page background image for visual engagement_
+
+![Parallax Scrolling Effect](docs/images/screenshots/desktop-about.gif)
+
+## Error Pages
+
+**Custom 404 Page Screenshot:**
+_Friendly message with navigation options to return to the homepage._
+![404 Page Not Found](docs/images/screenshots/desktop-404.png)
+
+**500 Server Error Page Screenshot:**
+_Simple message indicating a server error occurred._
+
+<img src="docs/images/responsiveness-screenshots/desktop-500-chrome.png" alt="500 Server Error Page" width="500"/>
 
 
 ## Testing
