@@ -397,6 +397,10 @@ The MoSCoW framework proved particularly effective for e-commerce development, a
 
 ![Eclipse Protocol E-Commerce Effort Risk Fibonacci Matrix](docs/images/diagrams/effort-risk-matrix.png)
 
+The Effort Risk Fibonacci Matrix was created in Miro using digital post-it notes, with user stories colour-coded according to MoSCoW prioritisation. This visual planning tool helped map story points against implementation risk, allowing for informed iteration planning. The digital format made it easy to adjust and reorganise stories as project requirements evolved during development.
+
+High-effort, low-risk stories were prioritised for early sprints to establish core functionality, while high-risk items were tackled incrementally with sufficient time allocated for problem-solving and testing.
+
 ## ERD Diagram:
 
 ![Eclipse Protocol E-Commerce ERD](docs/images/diagrams/eclipse-protocol-erd.png)
