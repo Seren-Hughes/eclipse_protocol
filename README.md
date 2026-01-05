@@ -399,11 +399,13 @@ The MoSCoW framework proved particularly effective for e-commerce development, a
 
 The Effort Risk Fibonacci Matrix was created in Miro using digital post-it notes, with user stories colour-coded according to MoSCoW prioritisation. This visual planning tool helped map story points against implementation risk, allowing for informed iteration planning. The digital format made it easy to adjust and reorganise stories as project requirements evolved during development.
 
-High-effort, low-risk stories were prioritised for early sprints to establish core functionality, while high-risk items were tackled incrementally with sufficient time allocated for problem-solving and testing.
+Low-risk stories were prioritised for early sprints to establish core functionality, while high-risk items were tackled incrementally with sufficient time allocated for problem-solving and testing.
 
 ## ERD Diagram:
 
 ![Eclipse Protocol E-Commerce ERD](docs/images/diagrams/eclipse-protocol-erd.png)
+
+_(Zoomable version available at: docs/images/diagrams/eclipse-protocol-erd.png or right-click image and open in new tab)_
 
 ### Database Design (ERD Overview)
 
@@ -557,9 +559,12 @@ Cross-platform credits that apply to the player's account when purchased.
 | 1,200 | £14.99 |
 | 2,500 | £24.99 |
 | 5,000 | £39.99 |
-| 10,000 | £69.99 |
 
-For this portfolio project, this is simulated - the credits are "delivered" instantly and visible in order history. (Balance managed in‑game - no API integration implemented).
+For this portfolio project, the credit delivery simulates how modern games like Roblox, Fortnite, and Apex Legends handle cross-platform virtual currency. In these systems, credits purchased through web stores are automatically applied to the player's account and synced across all platforms where they play.
+
+The system demonstrates instant credit allocation to the customer's account upon successful payment, with email confirmation and purchase records stored for transaction history and customer support purposes. While no actual game API integration exists, this replicates the experience players expect when purchasing virtual currency - immediate availability across platforms without manual redemption steps.
+
+_**Note:** In a production environment, this would require integration with the game's backend API to update player account balances and sync data across gaming platforms._
 
 #### 2. Base Game (License Keys)
 
@@ -573,15 +578,19 @@ Sold in platform-specific editions, each with its own license key.
 
 **PlayStation:** _Links externally to the official PlayStation Store for realism as PlayStation does not support third-party license key sales._
 
-**MVP Approach:** Only the Standard Edition will be included for MVP - each platform version is stored as a separate product (unique SKU and license key).
+Each platform version and edition is stored as a separate product with a unique SKU and license key.
 
 **License Delivery:** The license key is shown in the user dashboard and emailed after checkout.
 
-**Base Game Licence Keys** Implementation Details:
-When a player purchases a game edition, the system generates a unique licence key using either a UUID/ULID pattern.
-The key is stored in the license_keys table, linked to the specific order item and user, and is displayed in the user’s account as well as included in the confirmation email.
+**Base Game Licence Keys Implementation Details:**
 
-_**Note:** For this project, keys are generated on demand rather than managed as a pre-generated inventory pool, which keeps the implementation simple while still simulating a realistic digital delivery flow._
+In real-world game distribution, platform licence keys are allocated by the platforms themselves (Steam, Xbox Live, Nintendo eShop) to authorised retailers and developers. The game company receives batches of pre-generated keys from each platform which are then distributed through their store or retail partners.
+
+For this portfolio project, the system simulates this process by generating unique licence keys on-demand using UUID patterns when payment succeeds. While this differs from the industry practice of managing pre-allocated key inventories from major platforms, it demonstrates the core e-commerce workflow: secure payment processing, key assignment to customer accounts, and automated digital delivery via email and account dashboard.
+
+Keys are stored in the license_keys table, linked to the specific order item and user, and displayed in the user's account as well as included in confirmation emails. This approach keeps the implementation focused on demonstrating e-commerce fundamentals while acknowledging the more complex inventory management that would be required in a production environment.
+
+_**Note:** In a live system, integration with platform APIs (Steam Partner API, Xbox Live, etc.) would be required to manage actual key inventories and validate key redemption status._
 
 #### 3. DLC Packs (Could Have)
 
