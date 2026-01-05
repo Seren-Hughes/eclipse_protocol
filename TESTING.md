@@ -790,7 +790,7 @@ Manual testing conducted to verify user interactions, edge cases, and functional
 | Add different edition (e.g., PlayStation Standard) of same game | Allow addition of different platform/edition | ✅ Different editions can be added | ✅ PASS | All | Platform-specific validation |
 | **Credit Pack Cart Validation** | | | | |
 | Add credit pack to cart | Item successfully added to cart | ✅ Item added successfully | ✅ PASS | All | Initial addition works correctly |
-| Attempt to add same credit pack again | Show error message and prevent duplicate | ❌ Multiple credit packs can be added | ❌ BUG | All | **BUG: Credit packs allow duplicates in cart** |
+| Attempt to move credit pack from credit page to cart when already in cart | Credit pack quantity incremented, clear quantity display shown | ✅ Quantity increased and displayed clearly | ✅ PASS | All | **Credit pack quantities work as expected - multiple purchases allowed** |
 | **Wishlist Functionality** | | | | |
 | Add game edition to wishlist | Item successfully added to wishlist | ✅ Item added to wishlist | ✅ PASS | All | Wishlist addition works |
 | Attempt to add same game edition to wishlist again | Show error message and prevent duplicate | ✅ Error state, appropriate toast message | ✅ PASS | All | Wishlist duplicate prevention working |
@@ -800,7 +800,7 @@ Manual testing conducted to verify user interactions, edge cases, and functional
 | Move game edition from wishlist to cart | Item removed from wishlist, added to cart | ✅ Transfer successful, item removed from wishlist | ✅ PASS | All | AJAX removal working |
 | Attempt to move game edition to cart when already in cart | Show error message, keep in wishlist | ✅ Error message shown, item remains in wishlist | ✅ PASS | All | Cart validation during transfer |
 | Move credit pack from wishlist to cart | Item removed from wishlist, added to cart | ✅ Transfer successful, item removed from wishlist | ✅ PASS | All | Credit transfer works |
-| Attempt to move credit pack to cart when already in cart | Show error message, keep in wishlist | ❌ Multiple credit packs added to cart | ❌ BUG | All | **BUG: Credit pack cart validation missing** |
+| Attempt to move credit pack from wishlist to cart when already in cart | Credit pack quantity incremented, clear quantity display shown | ✅ Quantity increased and displayed clearly | ✅ PASS | All | **Credit pack quantities work as expected - multiple purchases allowed** |
 | **Wishlist Management** | | | | |
 | Remove item from wishlist using remove button | Item removed from wishlist | ✅ Item successfully removed | ✅ PASS | All | Direct wishlist removal works |
 | Toggle wishlist button on product pages | Visual state updates correctly | ✅ Button states update properly | ✅ PASS | All | UI feedback working |
@@ -934,22 +934,20 @@ Extensive manual testing has validated the core functionalities of the Eclipse P
 - **Expected Behaviour**: Back button should return to the last non-selection page (e.g., search results or home)
 - **Priority**: Medium - affects navigation flow but does not break functionality   
 - **Workaround**: Users can use site navigation links instead of the back button
-- **Status**: Identified, requires further investigation for a solution
+- **Potential Solution**: Use `history.replaceState()` for dynamic content changes (suggested by my mentor) - [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState) | [Implementation Guide and Comparison](https://thatware.co/pushstate-vs-replacestate/) on `pushState()` vs `replaceState()`
+- **Status**: Identified, potential solution researched but not implemented due to submission deadline and risk of introducing new issues
 
-#### Credit Pack Cart Validation Bug
-- **Issue**: Credit packs do not have duplicate prevention when adding to cart
-- **Impact**: Users can add multiple identical credit packs, leading to poor UX and potential business issues
-- **Scope**: Affects both direct "Add to Cart" and "Wishlist to Cart" transfers
-- **Expected Behaviour**: Should prevent duplicates like game editions do
-- **Priority**: High - affects business logic and user experience
-- **Workaround**: None currently - users must manually manage cart contents by removing item duplicates
-- **Status**: Identified, requires development fix
+#### Credit Pack Cart Validation - Resolved
+- **Initial Issue**: Credit packs appeared to allow duplicate additions to cart without validation
+- **Root Cause**: Misunderstanding of expected behaviour - the system was correctly incrementing quantities but not displaying them clearly to users
+- **Impact**: Poor UX due to unclear quantity display, leading to confusion about cart contents
+- **Scope**: Affected cart display for credit pack products
+- **Simple Solution**: Display quantity information for credit packs (suggested by mentor) - users reasonably expect to purchase multiple credit packs
+- **Resolution**: Added quantity display `<div class="item-quantity">Qty: {{ item.quantity }}</div>` to cart template
+- **Result**: Cart now clearly shows quantities, making the behaviour intuitive and expected
+- **Status**: ✅ **RESOLVED** - One line template addition resolved the UX confusion
 
-
-**Requires Fix:**
-- ❌ Credit pack cart duplicate prevention
-- ❌ Credit pack validation during wishlist-to-cart transfer
-
+**Key Insight:** Sometimes what appears to be a complex validation bug is actually a simple UI/UX clarity issue. The underlying cart logic was working correctly; users just needed to see what was happening.
 
 ## 11. Bug Reporting
 
