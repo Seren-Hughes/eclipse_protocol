@@ -48,6 +48,14 @@ Adopting a credit-based system in this project helps to replicate a realistic e-
 9. [Site Map](#site-map)
 10. [User Flow Diagrams](#user-flow-diagrams)
 11. [Products & Catalogue Structure](#products--catalogue-structure)
+12. [Technologies Used](#technologies-used)
+13. [Site Features](#site-features)
+14. [Testing](#testing)
+15. [Deployment](#deployment)
+16. [Future Enhancements](#future-enhancements)
+17. [Credits & References](#credits--references)
+18. [Acknowledgements](#acknowledgements)
+
 
 
 # Wireframes:
@@ -813,3 +821,614 @@ If there's time after the MVP is complete:
 ### Email Services
 **[Catchmail](https://catchmail.io/)** - Temporary email service for testing email functionality without using real addresses 
 **Gmail SMTP** - Transactional email delivery for order confirmations, license key distribution, and customer communications
+
+## Site Features
+
+
+## Deployment
+
+### Prerequisites
+- Python 3.12
+- Git
+- GitHub account
+- Heroku account
+- AWS account
+- Gmail account (for email functionality)
+
+### 1. Repository Setup
+
+#### Option A: Fork an Existing Repository
+1. Navigate to the [Eclipse Protocol repository](https://github.com/Seren-Hughes/eclipse_protocol) on GitHub
+2. Click the "Fork" button in the top-right corner
+3. Select your account as the destination for the fork
+4. Choose fork settings:
+   - Keep the same repository name or change it
+   - Add a description (optional)
+   - Choose to copy only the main branch or all branches
+5. Click "Create fork"
+
+#### Option B: Clone Repository to Local Machine
+
+**Method 1: Using VS Code (Recommended for Beginners)**
+1. Open VS Code
+2. Install GitHub extension if not already installed
+3. Connect GitHub account:
+   - Click Accounts icon (bottom-left)
+   - Sign in to GitHub and authorise VS Code
+4. Clone repository:
+   - Press `Ctrl+Shift+P` (Windows) or `Cmd+Shift+P` (Mac)
+   - Type "Git: Clone" and select it
+   - Choose "Clone from GitHub"
+   - Search and select your repository
+   - Choose local folder where you want to store the project
+   - Click "Open in VS Code" when cloning completes
+
+**Method 2: Command Line (Terminal/Git Bash)**
+```bash
+# Navigate to where you want to store the project
+cd /path/to/your/projects
+
+# Clone the repository (replace with your actual repository URL)
+git clone https://github.com/YOUR-USERNAME/eclipse-protocol-ecommerce.git
+
+# Navigate into the project folder
+cd eclipse-protocol-ecommerce
+
+# Open in VS Code (optional)
+code .
+```
+
+**Setting Up Git Configuration (First Time Only)**
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# Verify configuration
+git config --list
+```
+
+**Basic Git Workflow for Development**
+```bash
+# Check current status
+git status
+
+# Add changes to staging area
+git add .                    # Add all changes
+git add filename.py          # Add specific file
+
+# Commit changes with descriptive message
+git commit -m "Add user authentication system"
+
+# Push changes to GitHub
+git push origin main        # Push to main branch
+
+# Pull latest changes from GitHub (before starting work)
+git pull origin main
+```
+
+### 2. Local Development Setup
+
+#### 2.1 Virtual Environment
+```bash
+python -m venv venv
+
+# Activate
+# Windows:
+venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
+
+pip install -r requirements.txt
+```
+
+#### 2.2 Environment Variables
+1. Create your own `env.py` file (never commit to version control)
+2. Ensure `env.py` is in your `.gitignore` (it should be already)
+3. Copy the template from [env_example.py](env_example.py) and fill in your actual values - **Never commit `env.py` to version control**
+
+**Quick Setup:**
+```bash
+# Copy the example file and edit with your values
+cp env_example.py env.py
+# Then edit env.py with your actual credentials
+```
+
+See [env_example.py](env_example.py) for the complete template with all required environment variables.
+
+```python
+import os
+
+# Core Django
+os.environ.setdefault("SECRET_KEY", "your-actual-secret-key")
+os.environ.setdefault("DEBUG", "True")  # False for production
+
+# PostgreSQL Database
+os.environ.setdefault("DATABASE_URL", "your-database-url")
+
+# Stripe Payment Processing
+os.environ.setdefault("STRIPE_PUBLIC_KEY", "pk_test_your_key")
+os.environ.setdefault("STRIPE_SECRET_KEY", "sk_test_your_key")
+os.environ.setdefault("STRIPE_WH_SECRET", "whsec_your_webhook_secret")
+
+# Gmail SMTP
+os.environ.setdefault("EMAIL_HOST_USER", "your-store@gmail.com")
+os.environ.setdefault("EMAIL_HOST_PASSWORD", "your-gmail-app-password")
+
+# AWS S3 Storage
+os.environ.setdefault("AWS_ACCESS_KEY_ID", "your-aws-access-key")
+os.environ.setdefault("AWS_SECRET_ACCESS_KEY", "your-aws-secret-key")
+os.environ.setdefault("AWS_STORAGE_BUCKET_NAME", "your-bucket-name")
+
+# Production Settings
+os.environ.setdefault("ALLOWED_HOSTS", "localhost,127.0.0.1,your-app.herokuapp.com")
+```
+
+#### 2.3 Database Setup & Local Server
+```bash
+python manage.py migrate
+python manage.py createsuperuser   # Create admin account
+python manage.py runserver
+```
+
+#### 2.4 Code Quality & Testing Commands
+
+**Code Formatting & Linting**
+```bash
+# Format Python code with Black
+black .
+
+# Sort imports with isort
+isort .
+
+# Python linting with Flake8
+flake8
+
+# Django template linting with djlint (template linting gem!)
+djlint --reformat templates/
+djlint --check templates/
+
+# JavaScript linting with ESLint
+npx eslint static/js/
+```
+
+**Testing & Coverage**
+```bash
+# Run Django tests
+python manage.py test
+
+# Run tests with coverage
+coverage run --source='.' manage.py test
+coverage report
+coverage html  # Generates HTML coverage report in htmlcov/
+
+# Run specific test modules
+python manage.py test accounts.tests
+python manage.py test cart.tests.test_views
+```
+
+**Database Management**
+```bash
+# Create migrations
+python manage.py makemigrations
+
+# Apply migrations
+python manage.py migrate
+
+# Show migration status
+python manage.py showmigrations
+
+# Reset database (careful!)
+python manage.py flush
+
+# Load fixture data
+python manage.py loaddata fixtures/sample_data.json
+```
+
+**Static Files & Media**
+```bash
+# Collect static files
+python manage.py collectstatic
+
+# Clear collected static files
+python manage.py collectstatic --clear --noinput
+```
+
+### 3. Third-Party Services Configuration
+
+#### 3.1 PostgreSQL Database Setup
+
+**Getting Your Database Connection String:**
+Most PostgreSQL hosting services provide a connection string in this format:
+```
+postgresql://username:password@host:port/database_name
+```
+
+**Common Sources:**
+Neon.tech, Supabase, Heroku Postgres and DataGrip are popular options.
+
+This project uses Neon.tech for PostgreSQL hosting (provided by Code Institute).
+
+**Security Setup:**
+1. **Never commit database URLs to version control**
+2. Store in `env.py` for local development:
+   ```python
+   os.environ.setdefault("DATABASE_URL", "postgresql://your-connection-string-here")
+   ```
+3. Add to Heroku Config Vars for production deployment
+
+**Verify Connection:**
+```bash
+# Test local connection
+python manage.py migrate
+python manage.py dbshell  # Opens database shell if connection works
+```
+
+**Important:** Your database URL contains sensitive credentials. Always store it as an environment variable, never in your code.
+
+#### 3.2 AWS S3 Setup for Media Storage
+
+**3.2.1 Create S3 Bucket**
+1. AWS Console → S3 → Create bucket
+2. Enter unique bucket name (e.g., `your-project-name-media`)
+3. **Select region** (choose closest to your target users - e.g., `US East (N. Virginia) us-east-1` for general use, `EU West (London) eu-west-2` for UK/EU) _This project uses eu-west-2_.
+4. Configure settings as needed → Create bucket
+
+**3.2.2 Configure Bucket Permissions**
+
+**Bucket Policy** (replace `YOUR-BUCKET-NAME`):
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::YOUR-BUCKET-NAME/*"
+    }
+  ]
+}
+```
+
+**CORS Configuration:**
+For this Django + S3 setup, CORS configuration is not currently required since static files are served directly by the browser. If the site loads images and static files correctly, the CORS configuration can be left empty.
+
+*CORS is only needed if JavaScript AJAX requests directly to the S3 bucket from the frontend.*
+
+**3.2.3 Create IAM User**
+1. IAM → Users → Create user (e.g., `eclipse-protocol-s3-user`) → Select "Programmatic access"
+2. Attach policies: `AmazonS3FullAccess`
+3. **Important**: Save Access Key ID and Secret Access Key securely
+
+#### 3.3 Stripe Payment Integration
+
+**3.3.1 Get API Keys**
+1. Create Stripe account and access Dashboard
+2. Navigate to "Developers" → "API keys"
+3. Obtain your keys:
+   - **Publishable key** (`pk_test_` for development, `pk_live_` for production)
+   - **Secret key** (`sk_test_` for development, `sk_live_` for production)
+
+**3.3.2 Configure Webhook Endpoint**
+1. In Stripe Dashboard, go to "Developers" → "Webhooks"
+2. Click "Add endpoint"
+3. Enter endpoint URL: `https://your-app-name.herokuapp.com/checkout/webhook/`
+4. Select events to listen for:
+   - `payment_intent.succeeded` - When payment completes successfully
+   - `payment_intent.payment_failed` - When payment fails or is declined
+5. Click "Add endpoint"
+6. Copy the **Webhook signing secret** (`whsec_...`) - this verifies webhook authenticity
+
+**Why Webhooks Matter:**
+Webhooks ensure your application receives reliable payment confirmation even if the customer closes their browser or loses internet connection during checkout. The webhook handling creates orders, generates license keys, and sends confirmation emails.
+
+**Testing Webhooks Locally:**
+For local development, use Stripe CLI to forward webhooks:
+```bash
+# Install Stripe CLI, then:
+stripe login
+stripe listen --forward-to localhost:8000/checkout/webhook/
+```
+
+#### 3.4 Gmail SMTP Configuration
+1. Create dedicated Gmail account for transactional emails
+2. Enable 2-factor authentication
+3. Generate App Password (Google Account Settings → Security → App passwords)
+4. Use 16-character app password for `EMAIL_HOST_PASSWORD`
+
+**Email Customisation:**
+This project automatically configures emails to display as "Eclipse Protocol" instead of just the plain email address. This is handled in `settings.py`:
+```python
+DEFAULT_FROM_EMAIL = f"Eclipse Protocol <{EMAIL_HOST_USER}>"
+```
+No additional environment variables needed - this uses the existing `EMAIL_HOST_USER`.
+
+### 4. Heroku Deployment & Hosting
+
+**Important**: Heroku Eco dynos "sleep" after 30 minutes of inactivity and require 10-15 seconds to "wake up" on first access. This is normal behaviour for free/low-cost hosting tiers and does not reflect the application's actual performance once active.
+
+#### 4.1 Required Files
+Ensure these files exist in your project root:
+- **requirements.txt** - Python dependencies (already included)
+- **Procfile** containing:
+  ```
+  web: gunicorn eclipse_protocol.wsgi
+  ```
+- **runtime.txt** containing:
+  ```
+  python-3.12
+  ```
+
+#### 4.2 Heroku Account Setup
+1. Create account at [heroku.com](https://heroku.com)
+2. Verify email address
+3. Complete account setup
+
+#### 4.3 Deploy via Heroku Dashboard (Recommended)
+
+**Create Heroku App:**
+1. Log into [Heroku Dashboard](https://dashboard.heroku.com)
+2. Click "New" → "Create new app"
+3. Enter app details:
+   - App name: Must be unique (e.g., `eclipse-protocol-your-name`)
+   - Region: Choose closest to your users (US/Europe)
+4. Click "Create app"
+
+**Connect GitHub Repository:**
+1. Go to "Deploy" tab in your Heroku app dashboard
+2. Deployment method section: Click "GitHub"
+3. Connect to GitHub:
+   - Click "Connect to GitHub"
+   - Authorise Heroku to access your GitHub account
+4. Search for repository:
+   - Enter your repository name
+   - Click "Search"
+   - Click "Connect" next to your repository
+
+**Configure Automatic Deployments (Optional but Recommended):**
+1. In "Automatic deploys" section:
+   - Select branch: Usually `main`
+   - Check "Wait for CI to pass before deploy" (if using CI)
+   - Click "Enable Automatic Deploys"
+
+*What this means: Every time you push to GitHub, Heroku automatically updates your live site*
+
+**Important Considerations:**
+- Testing recommended: Set up automated tests to ensure code quality before automatic deployment
+- Security: Always use environment variables for sensitive data
+- Branch protection: Consider enabling branch protection rules on GitHub for additional safety
+
+**Set Environment Variables via Heroku Dashboard:**
+1. Go to "Settings" tab in your Heroku app
+2. Click "Reveal Config Vars"
+3. Add each environment variable as key-value pairs:
+
+| Key | Value Example | Notes |
+|-----|---------------|-------|
+| `SECRET_KEY` | `your-django-secret-key` | Generate new for production |
+| `DEBUG` | `False` | **Always False in production!** |
+| `DATABASE_URL` | `postgresql://...` | From Code Institute (Neon database) |
+| `AWS_ACCESS_KEY_ID` | `AKIA...` | From IAM user creation |
+| `AWS_SECRET_ACCESS_KEY` | `your-secret-key` | From IAM user creation |
+| `AWS_STORAGE_BUCKET_NAME` | `your-bucket-name` | Your S3 bucket name |
+| `AWS_REGION` | `eu-west-2` | Your S3 bucket region |
+| `STRIPE_PUBLIC_KEY` | `pk_test_...` or `pk_live_...` | From Stripe dashboard |
+| `STRIPE_SECRET_KEY` | `sk_test_...` or `sk_live_...` | From Stripe dashboard |
+| `STRIPE_WH_SECRET` | `whsec_...` | Webhook signing secret |
+| `EMAIL_HOST_USER` | `your-store@gmail.com` | Gmail account |
+| `EMAIL_HOST_PASSWORD` | `16-char-app-password` | Gmail app password |
+| `SITE_URL` | `https://your-app-name.herokuapp.com/` | Your live site URL (include trailing slash)  |
+| `ALLOWED_HOSTS` | `your-app-name.herokuapp.com` | Your Heroku domain |
+
+4. Click "Add" after entering each key-value pair
+
+**Manual Deploy:**
+1. In "Manual deploy" section:
+   - Select branch to deploy (usually `main`)
+   - Click "Deploy Branch"
+   - Wait for build to complete (you'll see build logs)
+   - Click "View" to see your live app
+
+#### 4.4 Deploy via Heroku CLI (Alternative Method)
+
+**Create and Deploy:**
+```bash
+heroku login
+heroku create your-app-name
+```
+
+**Set Config Vars:**
+```bash
+# Django
+heroku config:set SECRET_KEY="your-secret-key"
+heroku config:set DEBUG=False
+heroku config:set DATABASE_URL="your-database-url"
+
+# AWS
+heroku config:set AWS_ACCESS_KEY_ID="your-aws-access-key"
+heroku config:set AWS_SECRET_ACCESS_KEY="your-aws-secret-key"
+heroku config:set AWS_STORAGE_BUCKET_NAME="your-bucket-name"
+heroku config:set AWS_REGION="your-bucket-region"
+
+# Stripe
+heroku config:set STRIPE_PUBLIC_KEY="pk_test_your_key"
+heroku config:set STRIPE_SECRET_KEY="sk_test_your_key"
+heroku config:set STRIPE_WH_SECRET="whsec_your_secret"
+
+# Email
+heroku config:set EMAIL_HOST_USER="your-gmail-address"
+heroku config:set EMAIL_HOST_PASSWORD="your-gmail-app-password"
+
+# Site Configuration
+heroku config:set SITE_URL="https://your-app-name.herokuapp.com/"
+
+# Security
+heroku config:set ALLOWED_HOSTS="your-app-name.herokuapp.com"
+```
+
+**Release & Setup:**
+```bash
+git push heroku main
+
+# Via Heroku CLI
+heroku run python manage.py migrate
+heroku run python manage.py collectstatic --noinput
+heroku run python manage.py createsuperuser
+```
+
+#### 4.5 Post-Deployment Setup
+Run these commands via Heroku CLI or Dashboard Console:
+
+**Via Heroku Dashboard Console:**
+1. Go to "More" → "Run console"
+2. Enter each command:
+   ```bash
+   python manage.py migrate
+   python manage.py collectstatic --noinput
+   python manage.py createsuperuser
+   ```
+
+### 5. Post-Deployment Verification
+
+#### 5.1 Test Core Functionality Checklist
+- [ ] Site loads without errors
+- [ ] User registration and login
+- [ ] Product browsing and details
+- [ ] Add to cart functionality
+- [ ] Checkout process (use Stripe test cards)
+- [ ] Order confirmation emails
+- [ ] Admin panel access
+- [ ] Static files and images display correctly
+
+#### 5.2 Stripe Test Cards
+Use these test cards for payment testing:
+
+| Card Number | Description | Region |
+|-------------|-------------|---------|
+| `4242424242424242` | Successful payment | International |
+| `4000000000000002` | Declined payment | International |
+| `4000000000009995` | Insufficient funds | International |
+| `4000008260000000` | UK Visa | United Kingdom |
+| `4000058260000005` | UK Visa (debit) | United Kingdom |
+| `5555558265554449` | UK Mastercard | United Kingdom |
+
+Use any future expiry date and any 3-digit CVC.
+
+### 6. Ongoing Development Workflow
+
+1. **Make changes locally**
+2. **Test thoroughly** with `python manage.py runserver`
+3. **Run code quality checks:**
+   ```bash
+   black .
+   isort .
+   flake8
+   djlint --check templates/
+   python manage.py test
+   ```
+4. **Commit and push to GitHub:**
+   ```bash
+   git add .
+   git commit -m "Description of changes"
+   git push origin main
+   ```
+5. **Deploy to Heroku:**
+   - If automatic deploys enabled: Heroku automatically updates
+   - If manual deploy needed: Go to Heroku dashboard → Deploy tab → "Deploy Branch"
+
+### 7. Useful Development Commands
+
+#### 7.1 Code Quality & Testing
+```bash
+# Complete code quality check
+black . && isort . && flake8 && djlint --check templates/
+
+# Run tests with coverage report
+coverage run --source='.' manage.py test && coverage report
+
+# Generate HTML coverage report
+coverage html
+
+# Check template formatting
+djlint templates/ --profile=django
+
+# Reformat templates
+djlint templates/ --reformat --profile=django
+```
+
+#### 7.2 Heroku CLI Commands
+```bash
+# View recent logs
+heroku logs --tail -a your-app-name
+
+# Run Django management commands
+heroku run python manage.py migrate -a your-app-name
+heroku run python manage.py createsuperuser -a your-app-name
+
+# Access Django shell
+heroku run python manage.py shell -a your-app-name
+
+# View config variables
+heroku config -a your-app-name
+
+# Restart application
+heroku restart -a your-app-name
+```
+
+### 8. Troubleshooting
+
+#### Common Issues
+
+**Application Won't Start:**
+```bash
+# View logs to identify the issue
+heroku logs --tail -a your-app-name
+
+# Check configuration
+heroku config -a your-app-name
+```
+
+**Static Files Not Loading:**
+- Verify AWS S3 bucket policy allows public read access
+- Check AWS credentials in Heroku config vars
+- Run `python manage.py collectstatic` after deployment
+
+**Payment Issues:**
+- Verify Stripe keys are correctly set in Heroku config vars
+- Check webhook endpoint URL matches your live domain
+- Ensure webhook signing secret is correct
+
+**Email Not Sending:**
+- Verify Gmail app password is correct (not your regular password)
+- Check Gmail account has 2FA enabled
+- Confirm `EMAIL_HOST_USER` and `EMAIL_HOST_PASSWORD` in config vars
+
+#### Database Issues
+```bash
+# Reset database (careful!)
+heroku run python manage.py flush -a your-app-name
+
+# Check migration status
+heroku run python manage.py showmigrations -a your-app-name
+
+# Apply specific migration
+heroku run python manage.py migrate app_name migration_name -a your-app-name
+```
+
+### 9. Security Checklist
+
+- [ ] `DEBUG = False` in production
+- [ ] All sensitive keys stored in Heroku Config Vars
+- [ ] `env.py` listed in `.gitignore` and never committed
+- [ ] Strong, unique `SECRET_KEY` for production
+- [ ] HTTPS enforced (automatic on Heroku)
+- [ ] Stripe webhook endpoints secured with signing secret
+- [ ] Database credentials managed securely
+- [ ] AWS S3 bucket properly configured with public read access only
+
+---
+
+**Live Application**: [Eclipse Protocol E-Commerce Store](https://eclipse-protocol-15d26c9e2a55.herokuapp.com/)
+
+*Note: Heroku eco dynos may require 10-15 seconds to wake up after periods of inactivity.*
