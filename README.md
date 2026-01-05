@@ -39,13 +39,15 @@ Adopting a credit-based system in this project helps to replicate a realistic e-
 # Contents:
 1. [Wireframes](#wireframes)
 2. [Colour Palette](#colour-palette)
-3. [Project Management & Planning](#project-management--planning)
-4. [User Stories by Theme and Epic](#user-stories-by-theme-and-epic)
-5. [Effort Risk Fibonacci Matrix](#effort-risk-fibonacci-matrix)
-6. [ERD Diagram](#erd-diagram)
-7. [Site Map](#site-map)
-8. [User Flow Diagrams](#user-flow-diagrams)
-9. [Products & Catalogue Structure](#products--catalogue-structure)
+3. [Accessibility & Contrast Testing](#contrast--accessibility)
+4. [Typography](#typography)
+5. [Project Management & Planning](#project-management--planning)
+6. [User Stories by Theme and Epic](#user-stories-by-theme-and-epic)
+7. [Effort Risk Fibonacci Matrix](#effort-risk-fibonacci-matrix)
+8. [ERD Diagram](#erd-diagram)
+9. [Site Map](#site-map)
+10. [User Flow Diagrams](#user-flow-diagrams)
+11. [Products & Catalogue Structure](#products--catalogue-structure)
 
 
 # Wireframes:
@@ -177,6 +179,101 @@ These designs ensure customers purchasing digital products (game keys, DLC, cred
 ![Eclipse Protocol E-Commerce Colour Palette](docs/images/design/eclipse-protocol-colour-pallette.png)
 
 #### Contrast & Accessibility:
+
+The Eclipse Protocol colour palette has been designed with accessibility in mind, ensuring sufficient contrast ratios for users with visual impairments and colour vision differences. The site employs a dark theme with generous use of clean negative space, creating a visually striking but uncluttered interface that prioritises readability and user focus.
+
+**Contrast Testing:**
+- All text/background combinations tested using [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
+- Meets WCAG 2.1 AA compliance standards for normal and large text
+- Primary white text (`#ffffff`) tested against all dark background variations
+
+<details>
+<summary><em>Click to expand</em><br>
+WebAIM contrast ratio verification screenshots for primary text combinations
+</summary>
+
+**Primary Text (#ffffff) vs Background Variations:**
+- Against main background (`#0b0c0e`): [19.56:1]
+- Against charcoal (`#202122`): [16.12.1]  
+- Against dark grey (`#45464a`): [9.42:1]
+
+![WebAIM contrast test - main background](docs/images/design/contrast-test-main-bg.png)
+![WebAIM contrast test - charcoal background](docs/images/design/contrast-test-charcoal.png)
+![WebAIM contrast test - dark grey background](docs/images/design/contrast-test-dark-grey.png)
+</details>
+<br>
+
+**Colour Vision Support:**
+- Site tested with Colorblindly browser extension to verify usability for users with colour vision differences
+- Information conveyed through colour is supplemented with text labels and [Font Awesome](https://fontawesome.com/) iconography
+- Interactive elements maintain clear visual distinction across all colour vision types
+
+**Monochrome Testing:**
+![Eclipse Protocol site in monochrome view](docs/images/design/monochrome-eclipse-protocol-screenshot.png)
+_Site tested in monochrome to verify information hierarchy and usability without colour dependency._
+
+**Design Philosophy & Accessibility:**
+The dark theme incorporates extensive clean negative space, creating visual breathing room that enhances readability and reduces cognitive load. This minimalist approach ensures content hierarchy remains clear while maintaining the futuristic aesthetic appropriate for a space-themed gaming platform.
+
+**Additional Accessibility Features:**
+- Semantic HTML structure with proper heading hierarchy
+- Alt text provided for all informational images
+- Focus indicators maintained for keyboard navigation
+- Form labels properly associated with input elements
+
+_Full accessibility testing results documented in [TESTING.md](TESTING.md#5-lighthouse-performance-testing)._
+
+## Typography:
+
+Eclipse Protocol utilises carefully selected Google Fonts to maintain readability while reinforcing the futuristic gaming aesthetic.
+
+**Primary Font: [Arimo](https://fonts.google.com/specimen/Arimo)**
+- Used for body text, navigation, and general content
+- Sans-serif design optimised for screen readability
+- Weight range: 400-700 (regular to bold) with italic variants
+- Fallback: Arial, sans-serif for maximum compatibility
+
+**Secondary Font: [Oswald](https://fonts.google.com/specimen/Oswald)**
+- Used for headings, product titles, and emphasis text
+- Condensed sans-serif with strong visual impact
+- Weight range: 200-700 (light to bold)
+- Fallback: Verdana, sans-serif for reliable display
+
+<details>
+<summary><em>Click to expand</em><br>
+Google Fonts selection and preview screenshots
+</summary>
+
+**Arimo Font Preview:**
+![Arimo font preview from Google Fonts](docs/images/design/arimo-font-preview.png)
+**Oswald Font Preview:**
+![Oswald font preview from Google Fonts](docs/images/design/oswald-font-preview.png)
+</details>
+<br>
+
+**Font Loading & Performance:**
+- Google Fonts loaded via CSS `@import` with `display=swap` parameter
+- Font-display: swap ensures faster initial page render with fallback fonts
+- Weight ranges optimised to load only required font variations
+- Fallback fonts ensure content remains accessible if web fonts fail to load
+
+**Implementation:**
+Included in [variables.css](static/css/variables.css) for consistent use across the application:
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Oswald:wght@200..700&display=swap');
+```
+
+**Design Rationale:**
+- Arimo's clean geometry supports the futuristic aesthetic while maintaining excellent readability
+- Oswald's condensed form is ideal for alternate headings and product titles and complements Arimo without visual clash 
+- Both fonts maintain legibility across devices and screen sizes
+
+**Accessibility Considerations:**
+- Both fonts tested for legibility at various sizes
+- Sufficient x-height and character spacing for dyslexic users
+- Clean letterforms reduce cognitive load for extended reading
+- CSS variables enable consistent typography throughout the application
 
 ## GitHub Projects & Agile Implementation
 
@@ -405,7 +502,7 @@ Low-risk stories were prioritised for early sprints to establish core functional
 
 ![Eclipse Protocol E-Commerce ERD](docs/images/diagrams/eclipse-protocol-erd.png)
 
-_(Zoomable version available at: docs/images/diagrams/eclipse-protocol-erd.png or right-click image and open in new tab)_
+_(Zoomable version available at: docs/images/diagrams/eclipse-protocol-erd.png or open image in new tab for larger view)_
 
 ### Database Design (ERD Overview)
 
