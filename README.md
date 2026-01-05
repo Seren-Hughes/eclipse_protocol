@@ -212,6 +212,9 @@ WebAIM contrast ratio verification screenshots for primary text combinations
 ![Eclipse Protocol site in monochrome view](docs/images/design/monochrome-eclipse-protocol-screenshot.png)
 _Site tested in monochrome to verify information hierarchy and usability without colour dependency._
 
+![Eclipse Protocol Game selection screen in monochrome view](docs/images/design/monochrome-game-product-page-screenshot.png)
+_Selection screen tested in monochrome to ensure product differentiation remains clear._
+
 **Design Philosophy & Accessibility:**
 The dark theme incorporates extensive clean negative space, creating visual breathing room that enhances readability and reduces cognitive load. This minimalist approach ensures content hierarchy remains clear while maintaining the futuristic aesthetic appropriate for a space-themed gaming platform.
 
