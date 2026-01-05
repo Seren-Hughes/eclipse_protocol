@@ -52,9 +52,8 @@ Adopting a credit-based system in this project helps to replicate a realistic e-
 13. [Site Features](#site-features)
 14. [Testing](#testing)
 15. [Deployment](#deployment)
-16. [Future Enhancements](#future-enhancements)
-17. [Credits & References](#credits--references)
-18. [Acknowledgements](#acknowledgements)
+16. [Credits & References](#credits--references)
+17. [Acknowledgements](#acknowledgements)
 
 
 
