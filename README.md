@@ -1826,8 +1826,8 @@ Special thanks to Daniel for his exceptional guidance throughout the Full Stack 
 **Marko Tot - Code Institute Facilitator** 
 I'm grateful to Marko for his dedicated support throughout the course. The resources he shared with our cohort and the collaborative learning environment he fostered significantly enhanced my learning experience and enjoyment of the programme.
 
-**My Family & Husband**
-Thank you to my family and my husband Peter, for their unwavering patience and encouragement during the intensive final stages of this project. Their understanding during countless evenings of debugging and development work made all the difference. Special appreciation to my dad for his valuable time testing the checkout process and providing thoughtful usability feedback that helped improve the user experience.
+**My Family & Husband**                                                   
+Thank you to my family and my husband, Peter, for their unwavering patience and encouragement during the intensive final stages of this project. Their understanding during countless evenings of debugging and development work made all the difference. Special appreciation to my dad for his valuable time testing the checkout process and providing thoughtful usability feedback that helped improve the user experience.
 
 **Code Institute Community**                                               
 Thanks to my fellow students and the wider Code Institute community for the shared learning, discussions, and problem-solving along the way.
