@@ -1827,7 +1827,17 @@ Special thanks to Daniel for his exceptional guidance throughout the Full Stack 
 I'm grateful to Marko for his dedicated support throughout the course. The resources he shared with our cohort and the collaborative learning environment he fostered significantly enhanced my learning experience and enjoyment of the programme.
 
 **My Family & Husband**
-Thank you to my family and my husband for their unwavering patience and encouragement during the intensive final stages of this project. Their understanding during countless evenings of debugging and development work made all the difference. Special appreciation to my dad for his valuable time testing the checkout process and providing thoughtful usability feedback that helped improve the user experience.
+Thank you to my family and my husband Peter, for their unwavering patience and encouragement during the intensive final stages of this project. Their understanding during countless evenings of debugging and development work made all the difference. Special appreciation to my dad for his valuable time testing the checkout process and providing thoughtful usability feedback that helped improve the user experience.
 
 **Code Institute Community**
 Thanks to my fellow students and the wider Code Institute community for the shared learning, discussions, and problem-solving along the way.
+
+**Leeloo:**
+
+Last but not least, a big thank you to Leeloo, for her assistance and supervision during long coding sessions. 
+
+<details><summary><strong>Photo of Leeloo supervising this project</strong></summary>
+
+<img src="docs/images/screenshots/leeloo-coding.jpg" alt="Leeloo Assistant Screenshot" width="300"/> 
+
+</details>
