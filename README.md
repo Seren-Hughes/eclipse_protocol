@@ -1817,7 +1817,17 @@ Fonts sourced from Google Fonts:
 - [TermsFeed Terms & Conditions Generator](https://app.termsfeed.com/wizard/terms-conditions) - Terms of service creation
 
 
-**Acknowledgements:**
-- Code Institute mentors and tutors for guidance throughout the development process
-- Code Institute Community for peer support and collaborative problem-solving
-- Django and open-source communities for comprehensive documentation and examples
+## Acknowledgements:
+
+**Daniel Hamilton - Code Institute Mentor**
+
+Special thanks to Daniel for his exceptional guidance throughout the Full Stack Web Development Diploma. His insightful feedback, practical advice, and clear explanations across all projects have been invaluable to my development as a programmer and the successful completion of this final project.
+
+**Marko Tot - Code Institute Facilitator** 
+I'm grateful to Marko for his dedicated support throughout the course. The resources he shared with our cohort and the collaborative learning environment he fostered significantly enhanced my learning experience and enjoyment of the programme.
+
+**My Family & Husband**
+Thank you to my family and my husband for their unwavering patience and encouragement during the intensive final stages of this project. Their understanding during countless evenings of debugging and development work made all the difference. Special appreciation to my dad for his valuable time testing the checkout process and providing thoughtful usability feedback that helped improve the user experience.
+
+**Code Institute Community**
+Thanks to my fellow students and the wider Code Institute community for the shared learning, discussions, and problem-solving along the way.
