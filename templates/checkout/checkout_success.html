@@ -73,7 +73,7 @@
                                 <div class="digital-items">
                                     {% for item in order.items.all %}
                                         <div class="digital-item-card">
-                                            <h3>{{ item.product_name }}</h3>
+                                            <h3>{{ item.product_name }}<span class="item-quantity"> x {{ item.quantity }}</span></h3>
                                             {% if item.product.product_type == 'base_game' %}
                                                 <p class="digital-type">
                                                     <i class="fa-solid fa-key me-2"></i>License Key Generated
@@ -83,7 +83,7 @@
                                                 (please check your spam/junk folder if you don't see it)</small>
                                             {% elif item.product.product_type == 'currency' %}
                                                 <p class="digital-type">
-                                                    <i class="fa-solid fa-coins me-2"></i>Credits Applied to Account
+                                                    <i class="fa-solid fa-coins me-2"></i>{{ item.quantity }} Credit Pack{% if item.quantity != 1 %}s{% endif %} Applied to Account
                                                 </p>
                                                 <small>Credits are now available in your Eclipse Protocol account</small>
                                             {% endif %}

@@ -119,9 +119,7 @@
                         </div>
                         <div class="sidebar-summary mt-3">
                             <div class="sidebar-summary-row">
-                                <span>Subtotal ({{ cart.product_count }} item
-                                    {% if cart.product_count != 1 %}s{% endif %}
-                                )</span>
+                                <span>Subtotal ({{ cart.product_count }} item{% if cart.product_count != 1 %}s{% endif %})</span>
                                 <span>£{{ cart.total }}</span>
                             </div>
                             {% if cart.delivery > 0 %}

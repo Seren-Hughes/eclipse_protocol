@@ -82,9 +82,7 @@
                             <h3 class="review-section-title">ORDER SUMMARY</h3>
                             <div class="order-summary-review">
                                 <div class="summary-row">
-                                    <span>Subtotal ({{ cart.product_count }} item
-                                        {% if cart.product_count != 1 %}s{% endif %}
-                                    )</span>
+                                    <span>Subtotal ({{ cart.product_count }} item{% if cart.product_count != 1 %}s{% endif %})</span>
                                     <span>£{{ cart.total }}</span>
                                 </div>
                                 {% if cart.delivery > 0 %}
@@ -164,9 +162,7 @@
                     <div class="order-summary-container">
                         <h4 class="sidebar-summary-title">ORDER SUMMARY</h4>
                         <div class="sidebar-summary-row">
-                            <span>Subtotal ({{ cart.product_count }} item
-                                {% if cart.product_count != 1 %}s{% endif %}
-                            )</span>
+                            <span>Subtotal ({{ cart.product_count }} item{% if cart.product_count != 1 %}s{% endif %})</span>
                             <span>£{{ cart.total }}</span>
                         </div>
                         {% if cart.delivery > 0 %}
