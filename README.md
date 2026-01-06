@@ -41,7 +41,7 @@ Adopting a credit-based system in this project helps to replicate a realistic e-
 2. [Colour Palette](#colour-palette)
 3. [Accessibility & Contrast Testing](#contrast--accessibility)
 4. [Typography](#typography)
-5. [Project Management & Planning](#project-management--planning)
+5. [GitHub Projects & Agile Implementation](#github-projects--agile-implementation)
 6. [User Stories by Theme and Epic](#user-stories-by-theme-and-epic)
 7. [Effort Risk Fibonacci Matrix](#effort-risk-fibonacci-matrix)
 8. [ERD Diagram](#erd-diagram)
@@ -1829,10 +1829,10 @@ I'm grateful to Marko for his dedicated support throughout the course. The resou
 **My Family & Husband**
 Thank you to my family and my husband Peter, for their unwavering patience and encouragement during the intensive final stages of this project. Their understanding during countless evenings of debugging and development work made all the difference. Special appreciation to my dad for his valuable time testing the checkout process and providing thoughtful usability feedback that helped improve the user experience.
 
-**Code Institute Community**
+**Code Institute Community**                                               
 Thanks to my fellow students and the wider Code Institute community for the shared learning, discussions, and problem-solving along the way.
 
-**Leeloo:**
+**Leeloo**
 
 Last but not least, a big thank you to Leeloo, for her assistance and supervision during long coding sessions. 
 
