@@ -139,7 +139,7 @@ class StripeWH_Handler:
         is logged.
         """
         try:
-            currency_product = item.product.currency_details
+            currency_product = item.product.currency
             credit_amount = currency_product.credit_amount
             print(
                 f"CURRENCY: {credit_amount} credits applied to "
